@@ -1,0 +1,35 @@
+:root {
+  --primary: #4b5563;
+  --error: #db1717;
+
+  /* Black Shades */
+  --black: #000000;
+  --black-1: #374151;
+
+  /* White Shades */
+  --white: #ffffff;
+  --white-1: #f8fafc;
+  --white-2: #e2e8f0;
+
+  /* Blue Shades */
+  --blue: #007fff;
+  --blue-1: #0d9488;
+  --blue-light: #bfdbfe;
+
+  /* Purple Shades */
+  --purple: #9333ea;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    90deg,
+    var(--blue) 0%,
+    var(--blue-1) 100%
+  );
+
+  /* Misc */
+  --border: #e0e0e0;
+  --border-1: #002850;
+  --placeholder: #4b5563;
+  --text: #222;
+  --label: #4b5563;
+}

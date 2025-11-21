@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.label {
+  color: var(--black);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.inputClass {
+  height: 40px;
+  padding-inline: 16px;
+  width: 100%;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 400;
+  border-radius: 6px;
+}
+
+.inputClass:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.inputClass::placeholder {
+  color: var(--gray-v2);
+  font-family: var(--inter);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.inputClass:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
+
+.withLeftIcon {
+  padding-left: 48px;
+}
+
+.withRightIcon {
+  padding-right: 48px;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  position: relative;
+  background-color: var(--white);
+  border-radius: 6px;
+}
+
+.error {
+  margin-top: 5px;
+  width: max-content;
+  color: var(--red-color);
+  font-size: 14px;
+}
+
+.leftIconBox,
+.rightIconBox {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: max-content;
+  z-index: 1;
+}
+
+.leftIconBox {
+  left: 20px;
+}
+
+.rightIconBox {
+  right: 10px;
+}
+
+@media (max-width: 991px) {
+  .label {
+    font-size: 17px;
+  }
+  .inputClass {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .label {
+    font-size: 16px;
+  }
+  .inputClass {
+    font-size: 14px;
+    padding: 15px 10px;
+  }
+}

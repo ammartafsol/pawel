@@ -1,0 +1,36 @@
+/* DropDown Component Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.label {
+  color: var(--label, #333);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.error {
+  color: var(--error, #e74c3c);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.dropdownHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #666);
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdownHandleIcon {
+  transition: all 0.2s ease-in-out;
+}
