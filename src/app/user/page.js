@@ -2,7 +2,6 @@ import DashboardTemplate from "@/components/Template/User/DashboardTemplate/Dash
 
 export default function HomePage() {
   return <>
-  {/* <DashboardTemplate /> */}
-  <div>dsadas</div>
+  <DashboardTemplate />
   </>;
 }

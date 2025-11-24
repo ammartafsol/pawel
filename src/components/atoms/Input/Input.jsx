@@ -92,7 +92,7 @@ export default function Input({
               classes.inputClassName,
               noBorder && classes.noBorder
             )}
-            style={{ ...inputStyle, ...(leftIcon && { paddingLeft: 50 }) }}
+            style={{ ...inputStyle, ...(leftIcon && { paddingLeft: 40 }) }}
             onKeyDownCapture={(e) => {
               ["Enter", "NumpadEnter"].includes(e.code) &&
                 onEnterClick &&

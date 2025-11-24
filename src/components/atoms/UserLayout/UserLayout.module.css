@@ -1,0 +1,14 @@
+
+.userLayout{
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+    background:url("/app-images/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.contentContainer{
+    padding: 20px 0px;
+}

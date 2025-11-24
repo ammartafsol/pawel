@@ -1,11 +1,12 @@
-import Header from '@/components/molecules/Header/Header'
+import UserLayout from '@/components/atoms/UserLayout/UserLayout'
 import React from 'react'
 
 const layout = ({children}) => {
   return (
     <>
-        <Header />
-        {children}
+    <UserLayout>
+      {children}
+    </UserLayout>
     </>
   )
 }
