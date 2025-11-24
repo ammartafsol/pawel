@@ -74,6 +74,24 @@
     font-weight: 400 !important;
 }
 
+/* Selected option color when label is present */
+[data-has-label="true"] .react-dropdown-select {
+    color: var(--steel-mist) !important;
+}
+
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-input {
+    color: var(--steel-mist) !important;
+}
+
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content {
+    color: var(--steel-mist) !important;
+}
+
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content span,
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content div {
+    color: var(--steel-mist) !important;
+}
+
 /* Multi-value Tags */
 .react-dropdown-select .react-dropdown-select-option {
     background-color: var(--sky-glow, #62c1f8) !important;

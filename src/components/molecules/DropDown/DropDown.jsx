@@ -68,7 +68,10 @@ const DropDown = ({
   };
 
   return (
-    <div className={`${classes.container} ${centeredLabel ? classes.containerWithCenteredLabel : ""} ${containerClassName || ""}`}>
+    <div 
+      className={`${classes.container} ${centeredLabel ? classes.containerWithCenteredLabel : ""} ${containerClassName || ""}`}
+      data-has-label={label || centeredLabel ? "true" : undefined}
+    >
       {centeredLabel && (
         <label className={`${classes.centeredLabel} ${labelClassName || ""}`}>
           {centeredLabel}
