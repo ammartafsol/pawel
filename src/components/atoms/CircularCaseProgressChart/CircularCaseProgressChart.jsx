@@ -140,7 +140,7 @@ export default function CircularCaseProgressChart({
           <div key={item.label} className={classes.legendItem}>
             <div 
               className={classes.legendDot}
-              style={{ backgroundColor: item.color }}
+              style={{ borderColor: item.color }}
             />
             <span className={classes.legendText}>{item.label}</span>
           </div>

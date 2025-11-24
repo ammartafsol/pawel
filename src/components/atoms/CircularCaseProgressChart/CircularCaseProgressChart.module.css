@@ -55,6 +55,8 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  border: 2px solid;
+  background-color: transparent;
   flex-shrink: 0;
 }
 
