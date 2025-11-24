@@ -21,7 +21,7 @@ const DropDown = ({
   loading = false,
 
   // Additional essential props
-  color = "#0074D9",
+  color = "#62c1f8",
   direction = "ltr",
   dropdownHeight = "300px",
   dropdownPosition = "bottom",
@@ -45,6 +45,7 @@ const DropDown = ({
 
   // Custom props for our component
   label,
+  centeredLabel,
   error,
   labelClassName,
   errorClassName,
@@ -58,7 +59,7 @@ const DropDown = ({
       <div className={classes.dropdownHandle}>
         <IoChevronDown
           className={classes.dropdownHandleIcon}
-          color={state.dropdown ? "#0074D9" : "var(--text-muted)"}
+          color={state.dropdown ? "#62c1f8" : "var(--text-muted)"}
           style={state.dropdown ? { transform: "rotate(180deg)" } : {}}
           size={24}
         />
@@ -67,14 +68,23 @@ const DropDown = ({
   };
 
   return (
-    <div className={`${classes.container} ${containerClassName || ""}`}>
-      {label && (
+    <div 
+      className={`${classes.container} ${centeredLabel ? classes.containerWithCenteredLabel : ""} ${containerClassName || ""}`}
+      data-has-label={label || centeredLabel ? "true" : undefined}
+    >
+      {centeredLabel && (
+        <label className={`${classes.centeredLabel} ${labelClassName || ""}`}>
+          {centeredLabel}
+        </label>
+      )}
+      {label && !centeredLabel && (
         <label className={`${classes.label} ${labelClassName || ""}`}>
           {label}
         </label>
       )}
 
-      <Select
+      <div className={centeredLabel ? classes.selectWrapper : ""}>
+        <Select
         values={values}
         options={options}
         onChange={onChange}
@@ -110,6 +120,7 @@ const DropDown = ({
         dropdownHandleRenderer={dropdownHandleRenderer}
         {...props}
       />
+      </div>
 
       {error && (
         <p className={`${classes.error} ${errorClassName || ""}`}>{error}</p>
