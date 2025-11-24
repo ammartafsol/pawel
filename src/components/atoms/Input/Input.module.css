@@ -5,8 +5,7 @@
 }
 
 .labelText {
-  color: var(--label);
-  font-family: var(--font-inter) !important;
+  color: var(--slate-shadow);
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 8px;
@@ -21,7 +20,7 @@
   height: 100%;
   display: flex;
   position: relative;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
 .inputClassName {
@@ -30,14 +29,13 @@
   align-items: center;
   padding-inline: 16px;
   width: 100%;
-  height: 40px;
+  height: 48px;
   border-radius: inherit;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   background-color: var(--white);
   font-size: 14px;
   font-weight: 500;
-  color: var(--black);
-  font-family: var(--font-inter);
+  color: var(--steel-mist);
 }
 
 .inputClassName:disabled {
@@ -47,11 +45,10 @@
 }
 
 .inputClassName::placeholder {
-  color: var(--gray-v1);
-  font-size: 14px;
+  color: var(--placeholder-color);
+  font-size: 16px;
   text-transform: capitalize;
-  font-family: var(--font-inter);
-  font-weight: 500;
+  font-weight: 400 !important; ;
 }
 
 .inputContainer .passwordIcon {
@@ -60,12 +57,11 @@
   top: 50%;
   bottom: 50%;
   transform: translateY(-50%);
-  color: var(--gray-v1);
+  color: var(--steel-mist);
   cursor: pointer;
 }
 
 .error {
-  font-family: var(--font-inter);
   font-size: 14px;
   font-weight: 400;
   color: var(--error);

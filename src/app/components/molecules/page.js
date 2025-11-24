@@ -17,7 +17,7 @@ export default function MoleculesPage() {
         <DropDown
           label={"DropDown"}
           placeholder={"Select an option"}
-          multi={true}
+          // multi={true}
           options={[
             {
               label: "Option 1",

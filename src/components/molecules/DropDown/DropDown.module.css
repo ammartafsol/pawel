@@ -3,12 +3,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 8px;
+  gap: 10px;
 }
 
 .label {
-  color: var(--label, #333);
-  font-family: var(--font-inter, 'Inter', sans-serif);
+  color: var(--slate-shadow);
   font-size: 14px;
   font-weight: 500;
   margin: 0;
@@ -16,7 +15,7 @@
 }
 
 .error {
-  color: var(--error, #e74c3c);
+  color: var(--error);
   font-size: 14px;
   font-weight: 400;
   margin: 0;
@@ -27,7 +26,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted, #666);
+  color: var(--midnight-blue);
   transition: all 0.2s ease-in-out;
 }
 
