@@ -18,7 +18,7 @@
   --steel-mist: #808897;
   --frost-whisper: #e4e5e7;
   --border-color:#E5E5E9;
-  --placeholder-color:#A4ABB8;
+  --placeholder-color:#2e4d87;
   --slate-shadow: #666d80;
   --storm-grey: #87878e;
   --misty-slate: #acacb2;
@@ -65,5 +65,15 @@
   --ocean-blue: #3DA4F4;
   --royal-blue: #1F71D6;
   --marine-blue: #1F5CAE;
+  --midnight-blue: #151529;
+  --light-gray: #eaeaea;
+  --charcoal-gray: #262626;
+  --graphite: #808080;
+  --moonstone-gray: #5d5d6e;
+  --sage-gray: #708078;
+  --mint-breeze: #e3fcef;
+  --jade-shadow: #006644;
+  --sky-blue: #0d93ff;
+  --shadow-moss: #030f0b;
 
 }
