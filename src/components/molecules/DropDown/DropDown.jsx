@@ -45,6 +45,7 @@ const DropDown = ({
 
   // Custom props for our component
   label,
+  centeredLabel,
   error,
   labelClassName,
   errorClassName,
@@ -67,14 +68,20 @@ const DropDown = ({
   };
 
   return (
-    <div className={`${classes.container} ${containerClassName || ""}`}>
-      {label && (
+    <div className={`${classes.container} ${centeredLabel ? classes.containerWithCenteredLabel : ""} ${containerClassName || ""}`}>
+      {centeredLabel && (
+        <label className={`${classes.centeredLabel} ${labelClassName || ""}`}>
+          {centeredLabel}
+        </label>
+      )}
+      {label && !centeredLabel && (
         <label className={`${classes.label} ${labelClassName || ""}`}>
           {label}
         </label>
       )}
 
-      <Select
+      <div className={centeredLabel ? classes.selectWrapper : ""}>
+        <Select
         values={values}
         options={options}
         onChange={onChange}
@@ -110,6 +117,7 @@ const DropDown = ({
         dropdownHandleRenderer={dropdownHandleRenderer}
         {...props}
       />
+      </div>
 
       {error && (
         <p className={`${classes.error} ${errorClassName || ""}`}>{error}</p>

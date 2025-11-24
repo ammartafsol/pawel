@@ -34,6 +34,28 @@ export default function MoleculesPage() {
           ]}
         />
       </div>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>DropDown2</h3>
+        <DropDown
+          centeredLabel={"DropDown"}
+          placeholder={"Select an option"}
+          // multi={true}
+          options={[
+            {
+              label: "Option 1",
+              value: "option1",
+            },
+            {
+              label: "Option 2",
+              value: "option2",
+            },
+            {
+              label: "Option 3",
+              value: "option3",
+            },
+          ]}
+        />
+      </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Pagination</h3>
         <Pagination

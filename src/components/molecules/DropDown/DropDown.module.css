@@ -6,12 +6,37 @@
   gap: 10px;
 }
 
+.containerWithCenteredLabel {
+  position: relative;
+}
+
 .label {
   color: var(--slate-shadow);
   font-size: 14px;
   font-weight: 500;
   margin: 0;
   line-height: 1.4;
+}
+
+.centeredLabel {
+  color: var(--storm-grey);
+  text-align: left;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background-color: var(--white, #ffffff);
+  padding: 0 8px;
+  z-index: 1;
+}
+
+.selectWrapper {
+  position: relative;
+  z-index: 0;
 }
 
 .error {
