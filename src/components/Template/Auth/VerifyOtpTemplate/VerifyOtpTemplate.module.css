@@ -1,0 +1,179 @@
+.verifyOtpForm {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.otpContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.timerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+}
+
+.timerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--slate-shadow);
+  font-size: var(--fs14);
+  font-weight: 400;
+}
+
+.timerIcon {
+  font-size: var(--fs18);
+}
+
+.timerText {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.timerNumber {
+  font-weight: 500;
+  color: var(--electric-azure);
+  font-size: var(--fs16);
+}
+
+.timerSec {
+  font-size: var(--fs14);
+  color: var(--slate-shadow);
+}
+
+.resendContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.resendPrompt {
+  color: var(--slate-shadow);
+  font-size: var(--fs14);
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.resendLink {
+  color: var(--electric-azure);
+  font-size: var(--fs14);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: underline;
+}
+
+.resendLinkActive {
+  color: var(--electric-azure);
+  cursor: pointer;
+}
+
+.resendLinkActive:hover {
+  color: var(--deep-cerulean);
+  text-decoration: none;
+}
+
+.resendLinkDisabled {
+  color: var(--steel-mist);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.sendingAnim {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.dot {
+  animation: dotPulse 1.4s infinite;
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+.dot:nth-child(1) {
+  --i: 0;
+}
+
+.dot:nth-child(2) {
+  --i: 1;
+}
+
+.dot:nth-child(3) {
+  --i: 2;
+}
+
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.errorMessage {
+  font-size: var(--fs12);
+  font-weight: 400;
+  color: var(--error);
+  text-align: center;
+  margin: 0;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.verifyButton {
+  width: 100% !important;
+}
+
+@media screen and (max-width: 991px) {
+  .verifyOtpForm {
+    gap: 20px;
+  }
+
+  .resendPrompt {
+    font-size: var(--fs14);
+  }
+
+  .resendLink {
+    font-size: var(--fs14);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .verifyOtpForm {
+    gap: 16px;
+  }
+
+  .resendPrompt {
+    font-size: var(--fs12);
+  }
+
+  .resendLink {
+    font-size: var(--fs12);
+  }
+
+  .timerWrapper {
+    font-size: var(--fs12);
+  }
+
+  .timerNumber {
+    font-size: var(--fs14);
+  }
+}
+

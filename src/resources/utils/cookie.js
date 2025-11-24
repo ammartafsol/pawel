@@ -9,6 +9,7 @@ export const TOKEN_COOKIE_NAME = `_xpdx_${PROJECT_NAME}`;
 export const REFRESH_TOKEN_COOKIE_NAME = `_xpdx_rf_${PROJECT_NAME}`;
 export const USER_METADATA_COOKIE_NAME = `_xpdx_m_${PROJECT_NAME}`;
 export const EMAIL_COOKIE_NAME = `_xpdx_e_${PROJECT_NAME}`;
+export const CODE_COOKIE_NAME = `_xpdx_c_${PROJECT_NAME}`;
 
 export const setTokenCookie = (token) => {
   Cookies.set(TOKEN_COOKIE_NAME, handleEncrypt(token), { expires: 90 });
@@ -63,9 +64,23 @@ export const removeEmailCookie = () => {
   Cookies.remove(EMAIL_COOKIE_NAME);
 };
 
+export const setCodeCookie = (code) => {
+  Cookies.set(CODE_COOKIE_NAME, handleEncrypt(code), { expires: 1 });
+};
+
+export const getCodeCookie = () => {
+  const code = Cookies.get(CODE_COOKIE_NAME);
+  return code ? handleDecrypt(code) : null;
+};
+
+export const removeCodeCookie = () => {
+  Cookies.remove(CODE_COOKIE_NAME);
+};
+
 export const clearAllCookies = () => {
   Cookies.remove(TOKEN_COOKIE_NAME);
   Cookies.remove(USER_METADATA_COOKIE_NAME);
   Cookies.remove(REFRESH_TOKEN_COOKIE_NAME);
   Cookies.remove(EMAIL_COOKIE_NAME);
+  Cookies.remove(CODE_COOKIE_NAME);
 };

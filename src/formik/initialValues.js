@@ -20,3 +20,8 @@ export const updatePasswordValues = {
 export const forgotPasswordValues = {
   email: "",
 };
+
+export const resetPasswordValues = {
+  password: "",
+  confirmPassword: "",
+};
