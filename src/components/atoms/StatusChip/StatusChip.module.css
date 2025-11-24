@@ -1,0 +1,22 @@
+.chip {
+  display: flex;
+  padding: 0 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: var(--Success-40, #9bb167);
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  color: var(--light-purple);
+}
+

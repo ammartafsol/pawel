@@ -14,7 +14,6 @@ export default function MoleculesPage() {
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Molecules Page</h1>
        <div className={classes.content}>
-        <h3 className={classes.subtitle}>CaseProgressCard</h3>
         <CaseProgressCard/>  
       </div>
       <div className={classes.content}>

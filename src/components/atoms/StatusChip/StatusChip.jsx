@@ -1,10 +1,11 @@
 import React from 'react'
-import classes from './StatusChip.module.scss'
+import classes from './StatusChip.module.css'
 
-export default function StatusChip() {
+export default function StatusChip({ children, icon }) {
   return (
-    <div>
-      
+    <div className={classes.chip}>
+      {icon && <span className={classes.icon}>{icon}</span>}
+      <span className={classes.text}>{children}</span>
     </div>
   )
 }

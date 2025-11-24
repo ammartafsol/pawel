@@ -1,0 +1,121 @@
+.wrapper {
+  position: relative;
+}
+
+.card {
+  background: var(--ghost-white);
+  border-radius: 0px 12px 12px 12px;
+  overflow: visible;
+  box-shadow: 0 1px 2px 0 rgba(13, 13, 18, 0.06);
+  border: 1px solid var(--snowfall);
+  position: relative;
+}
+
+.activeTab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  display: flex;
+  padding: 5px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px 16px 0 0;
+  border-top: 1px solid var(--snowfall);
+  border-right: 1px solid var(--snowfall);
+  border-left: 1px solid var(--snowfall);
+  background: var(--white);
+  color: var(--sea-green);
+  font-size: 12px;
+  font-weight: 500;
+  width: max-content;
+  z-index: 1;
+}
+
+.cardContent {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userIcon {
+  font-size: 26px;
+  color: var(--light-purple);
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--charcoal-night);
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusIcon {
+  font-size: 18px;
+  color: var(--light-purple);
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.infoIcon {
+  font-size: 18px;
+  color: var(--light-purple);
+  flex-shrink: 0;
+}
+
+.infoLabel {
+  font-size: 16px;
+  color: var(--storm-grey);
+  font-weight: 500;
+}
+
+.infoLabel strong {
+  font-weight: 500;
+  color: var(--charcoal-night);
+}
+
+.referenceLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  color: var(--moonstone-gray);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: 700;
+}
+
+.referenceLink:hover {
+  color: var(--light-purple);
+}
+
+.externalIcon {
+  font-size: 14px;
+  color: var(--light-purple);
+}
+
