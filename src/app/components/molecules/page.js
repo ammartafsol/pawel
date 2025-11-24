@@ -6,12 +6,17 @@ import Link from "next/link";
 import classes from "./styles.module.css";
 import UploadFiles from "@/components/molecules/UploadFiles/UploadFiles";
 import Tabs from "@/components/molecules/Tabs/Tabs";
+import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 
 export default function MoleculesPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Molecules Page</h1>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>CaseProgressCard</h3>
+        <CaseProgressCard/>  
+      </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>DropDown</h3>
         <DropDown
