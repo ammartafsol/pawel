@@ -1,0 +1,44 @@
+
+.authWrapper{
+    box-shadow: 0 16px 32px -12px rgba(88, 92, 95, 0.10);
+    padding: 32px;
+    background-color: var(--white);
+    width: 500px;
+    border-radius: 20px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+
+}
+.logoContainer{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+.logoContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.authHeader h4{
+    color: var(--midnight-ink);
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+letter-spacing: -0.48px;
+text-align: center;
+}
+
+.authHeader p{
+    color: var(--slate-shadow);
+font-size: 16px;
+font-weight: 400;
+line-height: 150%; 
+letter-spacing: 0.32px;
+text-align: center;
+}

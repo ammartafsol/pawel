@@ -1,0 +1,77 @@
+.otpContainer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.otpInput {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-align: center;
+  font-size: var(--fs20);
+  font-weight: 500;
+  font-family: var(--font-helvetica-neue);
+  color: var(--midnight-ink);
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  background: var(--white);
+}
+
+.otpInput:focus {
+  border: 2px solid var(--electric-azure);
+  background: var(--ghost-white);
+  box-shadow: 0 0 0 3px rgba(56, 97, 251, 0.1);
+}
+
+.otpInput:disabled {
+  background: var(--mist-gray);
+  color: var(--steel-mist);
+  border: 1px solid var(--frost-whisper);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.otpInput::placeholder {
+  color: var(--placeholder-color);
+}
+
+@media screen and (max-width: 991px) {
+  .otpInput {
+    width: 46px;
+    height: 46px;
+    font-size: var(--fs18);
+  }
+  
+  .otpContainer {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .otpInput {
+    width: 40px;
+    height: 40px;
+    font-size: var(--fs16);
+  }
+  
+  .otpContainer {
+    gap: 8px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .otpInput {
+    width: 34px;
+    height: 34px;
+    font-size: var(--fs14);
+  }
+  
+  .otpContainer {
+    gap: 6px;
+  }
+}
+

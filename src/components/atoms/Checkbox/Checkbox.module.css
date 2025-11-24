@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--white);
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkbox:checked {
+  background-color: var(--electric-azure);
+  border-color: var(--electric-azure);
+}
+
+.checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+}
+
+.checkbox:hover:not(:disabled) {
+  border-color: var(--electric-azure);
+}
+
+.checkbox:focus {
+  outline: 2px solid var(--electric-azure);
+  outline-offset: 2px;
+}
+
+.checkbox:disabled {
+  cursor: not-allowed;
+  background-color: var(--mist-gray);
+  border-color: var(--frost-whisper);
+  opacity: 0.6;
+}
+
+.checkbox:disabled:checked {
+  background-color: var(--steel-mist);
+  border-color: var(--steel-mist);
+}
+
+.label {
+  color: var(--midnight-ink);
+  font-size: var(--fs14);
+  font-weight: 400;
+  line-height: 150%;
+  cursor: pointer;
+  user-select: none;
+  flex: 1;
+}
+
+.labelClass{
+  color: var(--midnight-ink);
+font-size: 14px;
+font-weight: 400;
+line-height: 150%; /* 21px */
+letter-spacing: 0.28px;
+}
+
+.labelDisabled {
+  color: var(--steel-mist);
+  cursor: not-allowed;
+}
+
+.error {
+  font-size: var(--fs12);
+  font-weight: 400;
+  color: var(--error);
+  margin-top: 4px;
+}
+
+@media (max-width: 991px) {
+  .label {
+    font-size: var(--fs14);
+  }
+}
+
+@media (max-width: 576px) {
+  .label {
+    font-size: var(--fs12);
+  }
+
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+  }
+}
+

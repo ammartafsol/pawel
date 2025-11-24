@@ -92,7 +92,7 @@ export default function Input({
               classes.inputClassName,
               noBorder && classes.noBorder
             )}
-            style={{ ...inputStyle, ...(leftIcon && { paddingLeft: 50 }) }}
+            style={{ ...inputStyle, ...(leftIcon && { paddingLeft: 40 }) }}
             onKeyDownCapture={(e) => {
               ["Enter", "NumpadEnter"].includes(e.code) &&
                 onEnterClick &&
@@ -127,7 +127,7 @@ export default function Input({
               color="var(--steel-mist)"
             />
           )}
-          {type == "password" && show && (
+          {type == "password"  && (
             <FaRegEye
               className={mergeClass(classes.passwordIcon, "pointer")}
               onClick={() => setShow(!show)}

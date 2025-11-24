@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./Header.module.css";
 import Image from "next/image";
@@ -5,8 +6,18 @@ import { Container } from "react-bootstrap";
 import Link from "next/link";
 import Button from "@/components/atoms/Button";
 import { BiMenu, BiOutline } from "react-icons/bi";
+import { HeaderData } from "@/developementContent/Data/HeaderData/HeaderData";
+import { usePathname } from "next/navigation";
+import Input from "@/components/atoms/Input/Input";
+import { IoSearchSharp } from "react-icons/io5";
+import { MdNotifications } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+
+
+
 
 const Header = () => {
+  const pathname = usePathname();
   return (
     <header className={styles.header}>
       <Container className="container-fluid">
@@ -18,26 +29,41 @@ const Header = () => {
 
           {/* Navigation Menu */}
           <nav className={styles.nav}>
-            <Link href="#features" className={styles.navLink}>
-              Features
-            </Link>
-            <Link href="#learning" className={styles.navLink}>
-              Learning Hub
-            </Link>
-            <Link href="#leaderboard" className={styles.navLink}>
-              Leaderboard
-            </Link>
+            {HeaderData.map((item) => {
+              const isActive = pathname === item.href;
+              return(
+                (
+                  <Link href={item.href} className={`${styles.navLink} ${isActive && styles.active}`} key={item.id}>
+                    {item.name}
+                  </Link>
+                  
+                 )
+              )
+            })}
+            {/* //// search */}
+          <div className={styles.search}>
+            <Input type="search" inputClass={styles.inputClass} leftIcon={<IoSearchSharp size={20} />} placeholder="Search" />
+          </div>
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
-              <Button label="Sign In" variant="outlined" />
-              <Button label="Start Free Trial" variant="primary" />
+              {/* message  */}
+              <div className={styles.message}>
+                <div className={styles.messageIcon}>
+                  <Image src={"/app-images/messageIcon.png"} alt="message" fill />
+                </div>
+                <h4>We're here to help</h4>
+              </div>
+            </div>
+            <div className={styles.mainIcon}>
+              <div className={styles?.icon}>
+              <MdNotifications  size={22} color="var(--white)" />
+              </div>
+              <div className={styles?.icon}>
+                <CgProfile size={22} color="var(--white)" />
+              </div>
             </div>
           </nav>
-
-          {/* Mobile menu button */}
-          <button type="button" className={styles.mobileMenuButton}>
-            <BiMenu size={30} />
-          </button>
+        
         </div>
       </Container>
     </header>

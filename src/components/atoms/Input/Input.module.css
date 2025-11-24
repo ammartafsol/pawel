@@ -76,11 +76,11 @@
 }
 
 .leftIconBox {
-  left: 20px;
+  left: 10px;
 }
 
 .rightIconBox {
-  right: 10px;
+  right: 0px;
 }
 
 .inputClassName ::-webkit-outer-spin-button,
