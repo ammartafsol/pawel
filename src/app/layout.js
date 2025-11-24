@@ -1,14 +1,98 @@
 import { CustomProvider } from "@/store/customProvider";
 import "aos/dist/aos.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/globals.css";
+import "./styles/typography.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+
+const helveticaNeue = localFont({
+  src: [
+    {
+      path: "../../public/fonts/HelveticaNeueThin.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueThinItalic.otf",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueUltraLight.otf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueUltraLightItalic.otf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueLight.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueLightItalic.otf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueRoman.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueItalic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueMedium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueMediumItalic.otf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueBold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueBoldItalic.otf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueHeavy.otf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueHeavyItalic.otf",
+      weight: "800",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueBlack.otf",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/HelveticaNeueBlackItalic.otf",
+      weight: "900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-helvetica-neue",
+  display: "swap",
 });
 
 export const metadata = {
@@ -19,7 +103,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable}`} suppressHydrationWarning>
+      <body className={`${helveticaNeue.variable}`} suppressHydrationWarning>
         <ToastContainer />
         <CustomProvider>
           {/* <SocketProvider> */}
