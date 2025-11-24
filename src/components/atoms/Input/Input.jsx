@@ -124,7 +124,7 @@ export default function Input({
               className={mergeClass(classes.passwordIcon)}
               onClick={() => setShow(!show)}
               size={24}
-              color="var(--black)"
+              color="var(--steel-mist)"
             />
           )}
           {type == "password" && show && (
@@ -132,7 +132,7 @@ export default function Input({
               className={mergeClass(classes.passwordIcon, "pointer")}
               onClick={() => setShow(!show)}
               size={24}
-              color="var(--black)"
+              color="var(--steel-mist)"
             />
           )}
         </div>

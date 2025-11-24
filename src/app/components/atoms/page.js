@@ -29,7 +29,7 @@ export default function AtomsPage() {
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Input</h3>
-        <Input leftIcon={<BiPen />} placeholder="Type here..." />
+        <Input leftIcon={<BiPen color="var(--steel-mist)"/>} value={'123'} type="password" placeholder="Type here..." label="Email"/>
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>TextArea</h3>
