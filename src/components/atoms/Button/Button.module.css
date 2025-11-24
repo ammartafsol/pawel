@@ -15,7 +15,7 @@
 
 .btn,
 .btn label {
-  font-family: var(--font-inter);
+  /* font-family: var(--font-inter); */
   font-size: 16px;
   line-height: normal;
   font-weight: 500;

@@ -29,7 +29,7 @@ export default function AtomsPage() {
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Button2</h3>
-        <Button label="Sign In" variant="outlined" rightIcon={<BiPen color="var(--midnight-black)"/>}/>
+        <Button label="Edit" variant="outlined" rightIcon={<BiPen color="var(--midnight-black)"/>}/>
       </div>
        <div className={classes.content}>
         <h3 className={classes.subtitle}>Button3</h3>
