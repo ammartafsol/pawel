@@ -1,9 +1,9 @@
 "use client";
 
-import Breadcrumbs from "@/components/atoms/Breadcrumbs/Breadcrumbs";
+// import Breadcrumbs from "@/components/atoms/Breadcrumbs/Breadcrumbs";
 import Button from "@/components/atoms/Button";
 import DatePicker from "@/components/atoms/DatePicker/DatePicker";
-import DynamicImage from "@/components/atoms/DynamicImage/DynamicImage";
+// import DynamicImage from "@/components/atoms/DynamicImage/DynamicImage";
 import ImageUpload from "@/components/atoms/ImageUpload";
 import Input from "@/components/atoms/Input/Input";
 import { Loader } from "@/components/atoms/Loader";
@@ -35,18 +35,18 @@ export default function AtomsPage() {
         <h3 className={classes.subtitle}>TextArea</h3>
         <TextArea placeholder="Type here..." />
       </div>
-      <div className={classes.content}>
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>Loader</h3>
         <Loader />
-      </div>
-      <div className={classes.content}>
+      </div> */}
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>Spinner</h3>
         <SpinnerLoading />
-      </div>
-      <div className={classes.content}>
+      </div> */}
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>Loading Skeleton</h3>
         <LoadingSkeleton />
-      </div>
+      </div> */}
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Phone Input</h3>
         <PhoneInput />
@@ -67,7 +67,7 @@ export default function AtomsPage() {
         <h3 className={classes.subtitle}>Image Upload</h3>
         <ImageUpload />
       </div>
-      <div className={classes.content}>
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>Dynamic Image</h3>
         <DynamicImage
           src="/app-images/image-placeholder.png"
@@ -77,11 +77,11 @@ export default function AtomsPage() {
             width: "100px",
           }}
         />
-      </div>
-      <div className={classes.content}>
+      </div> */}
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>BreadCrumbs</h3>
         <Breadcrumbs />
-      </div>
+      </div> */}
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Date Picker</h3>
         <DatePicker />
