@@ -25,7 +25,15 @@ export default function AtomsPage() {
       <h1 className={classes.title}>Atoms Page</h1>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Button</h3>
-        <Button label="Click Me" variant="primary" />
+        <Button label="Sign In" variant="primary" rightIcon={<BiPen color="var(--white)"/>}/>
+      </div>
+      <div className={classes.content}>
+        <h3 className={classes.subtitle}>Button2</h3>
+        <Button label="Sign In" variant="outlined" rightIcon={<BiPen color="var(--midnight-black)"/>}/>
+      </div>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>Button3</h3>
+        <Button label="Sign In" variant="outlined-dark" rightIcon={<BiPen color="var(--midnight-black)"/>}/>
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Input</h3>

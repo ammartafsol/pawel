@@ -3,21 +3,22 @@
   justify-content: center;
   align-items: center;
   width: max-content;
-  height: 40px;
+  height: 48px;
   gap: 8px;
-  border-radius: 6px;
-  padding-inline: 16px;
+  border-radius: 12px;
+  padding: 8px 16px;
   border: none;
   outline: none !important;
   transition: 0.5s all;
+  box-shadow: 0 1px 2px 0 rgba(13, 13, 18, 0.06);
 }
 
 .btn,
 .btn label {
   font-family: var(--font-inter);
-  font-size: 14px;
+  font-size: 16px;
   line-height: normal;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
   cursor: pointer;
 }
@@ -34,14 +35,21 @@
 }
 
 .btn[color-variant="primary"] {
-  color: var(--white-1);
-  background: var(--gradient-primary);
+  color: var(--white);
+  background: var(--midnight-steel);
 }
 
 .btn[color-variant="outlined"] {
-  border: 1px solid var(--blue-1) !important;
-  color: var(--blue);
+  border: 1px solid var(--silver-gray) !important;
+  color: var(--midnight-black);
   background-color: var(--white);
+}
+
+.btn[color-variant="outlined-dark"] {
+  border: 1px solid var(--outlined-dark) !important;
+  color: var(--midnight-black);
+  background-color: var(--white);
+  box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 @media screen and (max-width: 1024px) {
