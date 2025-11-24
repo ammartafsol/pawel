@@ -3,9 +3,10 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 0.667px solid var(--white-2);
-  background: #ffffffcc;
+  background: var(--white);
   backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--light-gray);
+  padding: 4px 0px;
 }
 
 .headerContent {
@@ -18,8 +19,8 @@
 
 .logo {
   position: relative;
-  width: 123px;
-  height: 45px;
+  width: 30px;
+  height: 60px;
 }
 
 .nav {
@@ -29,21 +30,29 @@
 }
 
 .navLink {
-  color: var(--black-1);
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
+  color: var(--charcoal-night);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   transition: color 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .navLink:hover {
-  color: var(--purple);
+  color: var(--deep-cerulean);
 }
 
 .actionButtons {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.active{
+  color: var(--deep-cerulean);
+  font-weight: 500;
 }
 
 .mobileMenuButton {

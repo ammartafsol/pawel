@@ -1,14 +1,12 @@
-import AuthLayout from '@/components/atoms/AuthLayout/AuthLayout'
-import React from 'react'
+import AuthLayout from "@/components/atoms/AuthLayout/AuthLayout";
+import React from "react";
 
-const layout = ({children}) => {
+const layout = ({ children }) => {
   return (
     <>
-    <AuthLayout>
-        {children}
-    </AuthLayout>
+      <AuthLayout>{children}</AuthLayout>
     </>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;

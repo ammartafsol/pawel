@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./Header.module.css";
 import Image from "next/image";
@@ -5,8 +6,11 @@ import { Container } from "react-bootstrap";
 import Link from "next/link";
 import Button from "@/components/atoms/Button";
 import { BiMenu, BiOutline } from "react-icons/bi";
+import { HeaderData } from "@/developementContent/Data/HeaderData/HeaderData";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathname = usePathname();
   return (
     <header className={styles.header}>
       <Container className="container-fluid">
@@ -18,15 +22,17 @@ const Header = () => {
 
           {/* Navigation Menu */}
           <nav className={styles.nav}>
-            <Link href="#features" className={styles.navLink}>
-              Features
-            </Link>
-            <Link href="#learning" className={styles.navLink}>
-              Learning Hub
-            </Link>
-            <Link href="#leaderboard" className={styles.navLink}>
-              Leaderboard
-            </Link>
+            {HeaderData.map((item) => {
+              const isActive = pathname === item.href;
+              return(
+                (
+                  <Link href={item.href} className={`${styles.navLink} ${isActive && styles.active}`} key={item.id}>
+                    {item.name}
+                  </Link>
+                  
+                 )
+              )
+            })}
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               <Button label="Sign In" variant="outlined" />
