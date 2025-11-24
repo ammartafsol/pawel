@@ -15,20 +15,48 @@ export default function CircularCaseProgressChart({
   const total = data.reduce((sum, item) => sum + item.value, 0)
   const radius = (size - strokeWidth) / 2
   const center = size / 2
-  const circumference = 2 * Math.PI * radius
 
-  let cumulativeOffset = 0
+  let currentAngle = -90 // Start from top
   const segments = []
+
+  // Helper function to create arc path
+  const createArcPath = (startAngle, endAngle, innerRadius, outerRadius) => {
+    const startAngleRad = (startAngle * Math.PI) / 180
+    const endAngleRad = (endAngle * Math.PI) / 180
+    
+    const x1 = center + innerRadius * Math.cos(startAngleRad)
+    const y1 = center + innerRadius * Math.sin(startAngleRad)
+    const x2 = center + outerRadius * Math.cos(startAngleRad)
+    const y2 = center + outerRadius * Math.sin(startAngleRad)
+    const x3 = center + outerRadius * Math.cos(endAngleRad)
+    const y3 = center + outerRadius * Math.sin(endAngleRad)
+    const x4 = center + innerRadius * Math.cos(endAngleRad)
+    const y4 = center + innerRadius * Math.sin(endAngleRad)
+    
+    const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0
+    
+    return [
+      `M ${x1} ${y1}`,
+      `L ${x2} ${y2}`,
+      `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${x3} ${y3}`,
+      `L ${x4} ${y4}`,
+      `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${x1} ${y1}`,
+      'Z'
+    ].join(' ')
+  }
 
   for (const item of data) {
     const percentage = item.value / total
-    const segmentLength = percentage * circumference
-    const dashArray = `${segmentLength} ${circumference}`
-    const dashOffset = circumference - cumulativeOffset
+    const segmentAngle = percentage * 360
+    const startAngle = currentAngle
+    const endAngle = currentAngle + segmentAngle
+
+    // Create path for the segment (donut slice)
+    const innerRadius = radius - strokeWidth / 2
+    const outerRadius = radius + strokeWidth / 2
+    const pathData = createArcPath(startAngle, endAngle, innerRadius, outerRadius)
 
     // Calculate position for value text (center of segment arc)
-    const segmentAngle = (item.value / total) * 360
-    const startAngle = (cumulativeOffset / circumference) * 360 - 90
     const midAngle = startAngle + segmentAngle / 2
     const midAngleRad = (midAngle * Math.PI) / 180
     const textRadius = radius // Center of the stroke width
@@ -36,8 +64,7 @@ export default function CircularCaseProgressChart({
     const textY = center + textRadius * Math.sin(midAngleRad)
 
     segments.push({
-      dashArray,
-      dashOffset,
+      pathData,
       color: item.color,
       value: item.value,
       label: item.label,
@@ -45,38 +72,41 @@ export default function CircularCaseProgressChart({
       textY
     })
 
-    cumulativeOffset += segmentLength
+    currentAngle = endAngle
   }
 
   return (
     <div className={classes.container}>
       <div className={classes.chartWrapper}>
         <svg width={size} height={size} className={classes.chart}>
-          {/* Background circle */}
+          {/* Background circle - outer edge */}
           <circle
             cx={center}
             cy={center}
-            r={radius}
+            r={radius + strokeWidth / 2}
             fill="none"
             stroke="#D9D9D9"
-            strokeWidth={strokeWidth}
+            strokeWidth="1"
+            className={classes.backgroundCircle}
+          />
+          {/* Background circle - inner edge */}
+          <circle
+            cx={center}
+            cy={center}
+            r={radius - strokeWidth / 2}
+            fill="none"
+            stroke="#D9D9D9"
+            strokeWidth="1"
             className={classes.backgroundCircle}
           />
           
           {/* Segments */}
           {segments.map((segment) => (
             <g key={segment.label}>
-              <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                fill="none"
-                stroke={segment.color}
-                strokeWidth={strokeWidth}
-                strokeDasharray={segment.dashArray}
-                strokeDashoffset={segment.dashOffset}
+              <path
+                d={segment.pathData}
+                fill={segment.color}
                 className={classes.segment}
-                transform={`rotate(-90 ${center} ${center})`}
               />
               {/* Value text on segment */}
               <text
