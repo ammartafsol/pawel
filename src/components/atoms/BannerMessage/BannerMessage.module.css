@@ -1,0 +1,97 @@
+.banner {
+  border-radius: 12px;
+  border: 1px solid var(--Brand-20, #D9C7AF);
+  background: var(--electric-violet);
+  display: flex;
+  width: 785px;
+  padding: 12px;
+  align-items: center;
+  gap: 12px;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  color: var(--white);
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.title {
+  color: var(--white);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.112px;
+  margin: 0;
+}
+
+.message {
+  color: var(--white);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.112px;
+  margin: 0;
+  padding-left: 32px; /* icon width (24px) + gap (8px) */
+}
+
+.viewDetailsBtn {
+  border-radius: var(--border-radius-radius-full, 9999px);
+  border: 1px solid var(--Gray-30, #D6D3D1);
+  display: flex;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.viewDetailsBtn:hover {
+  opacity: 0.9;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.closeBtn:hover {
+  opacity: 0.8;
+}
+
+.closeIcon {
+  color: var(--white);
+  font-size: 20px;
+}
+
