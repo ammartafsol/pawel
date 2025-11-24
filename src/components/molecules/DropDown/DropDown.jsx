@@ -21,7 +21,7 @@ const DropDown = ({
   loading = false,
 
   // Additional essential props
-  color = "#0074D9",
+  color = "#62c1f8",
   direction = "ltr",
   dropdownHeight = "300px",
   dropdownPosition = "bottom",
@@ -59,7 +59,7 @@ const DropDown = ({
       <div className={classes.dropdownHandle}>
         <IoChevronDown
           className={classes.dropdownHandleIcon}
-          color={state.dropdown ? "#0074D9" : "var(--text-muted)"}
+          color={state.dropdown ? "#62c1f8" : "var(--text-muted)"}
           style={state.dropdown ? { transform: "rotate(180deg)" } : {}}
           size={24}
         />

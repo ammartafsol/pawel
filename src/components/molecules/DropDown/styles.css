@@ -70,7 +70,7 @@
 }
 
 .react-dropdown-select .react-dropdown-select-input::placeholder {
-    color: var(--placeholder-color, #999) !important;
+    color: var(--placeholder-color) !important;
     font-weight: 400 !important;
 }
 
