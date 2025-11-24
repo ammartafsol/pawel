@@ -1,6 +1,7 @@
 export const loginFormValues = {
   email: "",
   password: "",
+  checkbox: false,
 };
 
 export const signUpFormValues = {

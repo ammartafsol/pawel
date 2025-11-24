@@ -127,7 +127,7 @@ export default function Input({
               color="var(--steel-mist)"
             />
           )}
-          {type == "password" && show && (
+          {type == "password"  && (
             <FaRegEye
               className={mergeClass(classes.passwordIcon, "pointer")}
               onClick={() => setShow(!show)}
