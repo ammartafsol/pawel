@@ -13,6 +13,7 @@
 }
 
 .logo{
+    cursor: pointer;
     width: 31px;
     height: 60px;
     position: relative;

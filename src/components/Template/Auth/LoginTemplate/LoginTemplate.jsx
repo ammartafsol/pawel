@@ -57,7 +57,7 @@ const LoginTemplate = () => {
         <div className={classes.buttonContainer}> 
           <div className={classes.forgotPasswordContainer}>
             <Checkbox checked={formik.values.checkbox} error={formik.touched.checkbox && formik.errors.checkbox} onChange={(e)=>{formik.setFieldValue("checkbox", e)}} label="Keep me logged in" />
-            <div className={classes.forgotPassword}>Forgot password?</div>
+            <div onClick={()=>{router.push("/forgot-password")}} className={classes.forgotPassword}>Forgot password?</div>
           </div>
           <Button
             variant="primary"

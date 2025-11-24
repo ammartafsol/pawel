@@ -8,6 +8,7 @@ export const PROJECT_NAME = "proj";
 export const TOKEN_COOKIE_NAME = `_xpdx_${PROJECT_NAME}`;
 export const REFRESH_TOKEN_COOKIE_NAME = `_xpdx_rf_${PROJECT_NAME}`;
 export const USER_METADATA_COOKIE_NAME = `_xpdx_m_${PROJECT_NAME}`;
+export const EMAIL_COOKIE_NAME = `_xpdx_e_${PROJECT_NAME}`;
 
 export const setTokenCookie = (token) => {
   Cookies.set(TOKEN_COOKIE_NAME, handleEncrypt(token), { expires: 90 });
@@ -49,8 +50,22 @@ export const removeUserMetadataCookie = () => {
   Cookies.remove(USER_METADATA_COOKIE_NAME);
 };
 
+export const setEmailCookie = (email) => {
+  Cookies.set(EMAIL_COOKIE_NAME, handleEncrypt(email), { expires: 1 });
+};
+
+export const getEmailCookie = () => {
+  const email = Cookies.get(EMAIL_COOKIE_NAME);
+  return email ? handleDecrypt(email) : null;
+};
+
+export const removeEmailCookie = () => {
+  Cookies.remove(EMAIL_COOKIE_NAME);
+};
+
 export const clearAllCookies = () => {
   Cookies.remove(TOKEN_COOKIE_NAME);
   Cookies.remove(USER_METADATA_COOKIE_NAME);
   Cookies.remove(REFRESH_TOKEN_COOKIE_NAME);
+  Cookies.remove(EMAIL_COOKIE_NAME);
 };

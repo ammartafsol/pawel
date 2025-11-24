@@ -16,3 +16,7 @@ export const updatePasswordValues = {
   password: "",
   confirmPassword: "",
 };
+
+export const forgotPasswordValues = {
+  email: "",
+};
