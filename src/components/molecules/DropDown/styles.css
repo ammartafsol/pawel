@@ -1,38 +1,37 @@
 /* React Dropdown Select Global Styles */
 .react-dropdown-select {
-    border: 1px solid var(--border-color, #e2e5e8) !important;
+    border: 1px solid var(--outlined-dark) !important;
     border-radius: 8px !important;
     background-color: var(--white, #ffffff) !important;
-    font-family: var(--font-inter, 'Inter', sans-serif) !important;
     font-size: 14px !important;
     min-height: 48px !important;
-    padding: 8px 12px !important;
+    padding: 5px 10px !important;
     transition: all 0.2s ease !important;
 }
 
 .react-dropdown-select:hover {
-    border-color: var(--border-hover, #0074d9) !important;
+    border-color: var(--outlined-dark) !important;
 }
 
 .react-dropdown-select:focus-within {
-    border-color: var(--primary, #0074d9) !important;
+    border-color: var(--outlined-dark) !important;
     box-shadow: 0 0 0 3px rgba(0, 116, 217, 0.1) !important;
     outline: none !important;
 }
 
 .react-dropdown-select:disabled {
-    background-color: var(--disabled-bg, #f5f5f5) !important;
-    color: var(--disabled-text, #999) !important;
+    background-color: #f5f5f5 !important;
+    color:  #999 !important;
     cursor: not-allowed !important;
     opacity: 0.6 !important;
 }
 
 /* Dropdown Menu */
 .react-dropdown-select .react-dropdown-select-dropdown {
-    border: 1px solid var(--border-color, #e2e5e8) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    background-color: var(--white, #ffffff) !important;
+    background-color: var(--white) !important;
     margin-top: 4px !important;
     max-height: 300px !important;
     overflow-y: auto !important;
@@ -42,7 +41,6 @@
 /* Dropdown Items */
 .react-dropdown-select .react-dropdown-select-item {
     padding: 12px 16px !important;
-    font-family: var(--font-inter, 'Inter', sans-serif) !important;
     font-size: 14px !important;
     font-weight: 400 !important;
     color: var(--text-color, #333) !important;
@@ -52,19 +50,18 @@
 }
 
 .react-dropdown-select .react-dropdown-select-item:hover {
-    background-color: var(--primary, #0074d9) !important;
+    background-color: var(--sky-glow, #62c1f8) !important;
     color: var(--white, #ffffff) !important;
 }
 
 .react-dropdown-select .react-dropdown-select-item.react-dropdown-select-item-selected {
-    background-color: var(--primary, #0074d9) !important;
+    background-color: var(--sky-glow, #62c1f8) !important;
     color: var(--white, #ffffff) !important;
     font-weight: 500 !important;
 }
 
 /* Input Field */
 .react-dropdown-select .react-dropdown-select-input {
-    font-family: var(--font-inter, 'Inter', sans-serif) !important;
     font-size: 14px !important;
     color: var(--text-color, #333) !important;
     background: transparent !important;
@@ -79,7 +76,7 @@
 
 /* Multi-value Tags */
 .react-dropdown-select .react-dropdown-select-option {
-    background-color: var(--primary, #0074d9) !important;
+    background-color: var(--sky-glow, #62c1f8) !important;
     color: var(--white, #ffffff) !important;
     border-radius: 16px !important;
     padding: 4px 8px !important;
@@ -104,7 +101,7 @@
 }
 
 .react-dropdown-select .react-dropdown-select-option-remove:hover {
-    color: var(--error, #e74c3c) !important;
+    color: var(--error) !important;
 }
 
 /* Dropdown Handle */
@@ -122,7 +119,7 @@
 
 /* Loading State */
 .react-dropdown-select .react-dropdown-select-loading {
-    color: var(--primary, #0074d9) !important;
+    color: var(--sky-glow, #62c1f8) !important;
 }
 
 /* Clear Button */
@@ -133,7 +130,7 @@
 }
 
 .react-dropdown-select .react-dropdown-select-clear:hover {
-    color: var(--error, #e74c3c) !important;
+    color: var(--error) !important;
 }
 
 /* Scrollbar Styling */
@@ -147,12 +144,12 @@
 }
 
 .react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar-thumb {
-    background-color: var(--primary, #0074d9);
+    background-color: var(--sky-glow, #62c1f8);
     border-radius: 3px;
 }
 
 .react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar-thumb:hover {
-    background-color: var(--primary-dark, #0056b3);
+    background-color: var(--sky-glow, #62c1f8);
 }
 
 /* RTL Support */
