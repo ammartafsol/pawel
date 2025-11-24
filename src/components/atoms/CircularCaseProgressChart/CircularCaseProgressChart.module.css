@@ -61,8 +61,7 @@
 }
 
 .legendText {
-  color: var(--grey-500, #63636C);
-  font-family: "Helvetica Neue", sans-serif;
+  color: var(--smoky-slate, #63636C);
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
