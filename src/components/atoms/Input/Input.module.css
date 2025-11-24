@@ -35,7 +35,7 @@
   background-color: var(--white);
   font-size: 14px;
   font-weight: 500;
-  color: var(--black);
+  color: var(--steel-mist);
 }
 
 .inputClassName:disabled {
