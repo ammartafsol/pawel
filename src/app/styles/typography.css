@@ -1,42 +1,118 @@
 :root {
-  --fs12: 12px; /* Extra Small */
-  --fs13: 13px; /* Small */
-  --fs14: 14px; /* Base */
-  --fs15: 15px; /* Medium */
-  --fs16: 16px; /* Medium */
-  --fs17: 17px; /* Large */
-  --fs18: 18px; /* Extra Large */
-  --fs20: 20px; /* 2XL */
-  --fs22: 22px; /* 3XL */
-  --fs24: 24px; /* 4XL */
-  --fs28: 28px; /* 5XL */
-  --fs30: 30px; /* 6XL */
-  --fs32: 32px; /* 7XL */
-  --fs34: 34px; /* 8XL */
-  --fs36: 36px; /* 8XL */
-  --fs40: 40px; /* 9XL */
-  --fs41: 41px; /* 10XL */
-  --fs44: 44.3px; /* 10XL */
-  --fs45: 45px; /* 11XL */
-  --fs48: 48px; /* 12XL */
-  --fs54: 54px; /* 13XL */
-  --fs56: 54px; /* 13XL */
-  --fs64: 64px; /* 14XL */
-  --fs96: 96px; /* 15XL */
+  --fs96: 96px;
+  --fs60: 60px;
+  --fs58: 58px;
+  --fs56: 56px;
+  --fs52: 52px;
+  --fs48: 48px;
+  --fs42: 42px;
+  --fs38: 38px;
+  --fs32: 32px;
+  --fs28: 28px;
+  --fs24: 24px;
+  --fs20: 20px;
+  --fs18: 18px;
+  --fs16: 16px;
+  --fs14: 14px;
+  --fs12: 12px;
+
+  /* for all other than font size margin, padding, border-radius, etc. */
+  --s4: 4px;
+  --s6: 6px;
+  --s8: 8px;
+  --s10: 10px;
+  --s12: 12px; /* Extra Small */
+  --s13: 13px; /* Small */
+  --s14: 14px; /* Base */
+  --s15: 15px; /* Medium */
+  --s16: 16px; /* Medium */
+  --s17: 17px; /* Large */
+  --s18: 18px; /* Extra Large */
+  --s20: 20px; /* 2XL */
+  --s22: 22px; /* 3XL */
+  --s24: 24px; /* 4XL */
+  --s26: 26px; /* 4XL */
+  --s28: 28px; /* 5XL */
+  --s25: 25px; /* 5XL */
+  --s30: 30px; /* 6XL */
+  --s31: 31px; /* 6XL */
+  --s32: 32px; /* 7XL */
+  --s34: 34px; /* 8XL */
+  --s36: 36px; /* 8XL */
+  --s37: 37px; /* 8XL */
+  --s40: 40px; /* 9XL */
+  --s41: 41px; /* 10XL */
+  --s44: 44.3px; /* 10XL */
+  --s45: 45px; /* 11XL */
+  --s48: 48px; /* 12XL */
+  --s50: 50px; /* 12XL */
+  --s52: 52px; /* 12XL */
+  --s54: 54px; /* 13XL */
+  --s56: 56px; /* 13XL */
+  --s64: 64px; /* 14XL */
+  --s96: 96px; /* 15XL */
 }
 
+
+
 body {
-  font-family: var(--font-inter);
+  font-family: var(--font-helvetica-neue);
   font-size: var(--fs14);
 }
 
 p,
 span {
   font-size: var(--fs14);
-  font-family: var(--font-inter);
+  font-family: var(--font-helvetica-neue);
   font-weight: 400;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+
+
+@media (max-width: 1400px) {
+  :root {
+    --fs48: 43px;
+    --fs16: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --fs48: 40px;
+    --fs24: 20px;
+    --fs20: 18px;
+  }
+}
+@media (max-width: 991px) {
+  :root {
+    --fs48: 36px;
+    --fs14: 12px;
+    --fs16: 14px;
+    --fs18: 16px;
+    --fs20: 16px;
+    --fs24: 18px;
+
+    --s44: 34.3px;
+    --s32: 26px;
+  }
+}
+@media (max-width: 575px) {
+  :root {
+    --fs48: 32px;
+    --fs24: 16px;
+    --fs20: 14px;
+    --fs18: 14px;
+    --fs16: 13px;
+    --fs14: 12px;
+    --fs12: 11px;
+  }
+}
+@media (max-width: 375px) {
+  :root {
+    --fs48: 28px;
+  }
 }
