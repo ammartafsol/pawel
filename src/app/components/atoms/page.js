@@ -17,12 +17,17 @@ import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import Link from "next/link";
 import { BiPen } from "react-icons/bi";
 import classes from "./styles.module.css";
+import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 
 export default function AtomsPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Atoms Page</h1>
+        <div className={classes.content}>
+        <h3 className={classes.subtitle}>CircularCaseProgressChart</h3>
+        <CircularCaseProgressChart/>
+      </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>Button</h3>
         <Button label="Sign In" variant="primary" rightIcon={<BiPen color="var(--white)"/>}/>
