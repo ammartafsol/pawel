@@ -20,12 +20,17 @@ import classes from "./styles.module.css";
 import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 import BannerMessage from "@/components/atoms/BannerMessage/BannerMessage";
 import Status from "@/components/atoms/Status/Status";
+import DocCard from "@/components/atoms/DocCard/DocCard";
 
 export default function AtomsPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Atoms Page</h1>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>DocCard</h3>
+        <DocCard/>
+      </div>
        <div className={classes.content}>
         <h3 className={classes.subtitle}>Status</h3>
         <Status label={'File observations'}/>
@@ -40,8 +45,6 @@ export default function AtomsPage() {
         <Status label={'client confirmation'}/>
         <Status label={'submit'}/>
         <Status label={'track'}/>
-
-
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>BannerMessage</h3>
