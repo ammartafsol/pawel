@@ -34,6 +34,7 @@ const DashboardTemplate = () => {
       <Wrapper title="Recent Case Statuses">
         {/* ////calender     */}
         <Calender events={myEventsList} />
+      </Wrapper>
         <ResponsiveTable 
         tableHeader={[{
           title: "Case ID",
@@ -49,8 +50,8 @@ const DashboardTemplate = () => {
           caseId: "123456",
           caseStatus: "Open",
         }]}
+
         />
-      </Wrapper>
     </div>
   );
 };
