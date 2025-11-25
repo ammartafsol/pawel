@@ -3,7 +3,7 @@
   border: 1px solid var(--Brand-20, #D9C7AF);
   background: var(--electric-violet);
   display: flex;
-  width: 785px;
+  width: 100%;
   padding: 12px;
   align-items: center;
   gap: 12px;

@@ -1,0 +1,19 @@
+
+.mainHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 44px;
+}
+
+.mainHeader h4{
+    color: var(--charcoal-night);
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+.viewAllBtn{
+    height: 40px !important;
+    background-color: var(--deep-cerulean) !important;
+}
