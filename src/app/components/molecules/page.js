@@ -8,12 +8,17 @@ import UploadFiles from "@/components/molecules/UploadFiles/UploadFiles";
 import Tabs from "@/components/molecules/Tabs/Tabs";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
+import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 
 export default function MoleculesPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Molecules Page</h1>
+      <div className={classes.content}>
+        <h3 className={classes.subtitle}>ActivityLog</h3>
+      <ActivityLog/>
+      </div>
        <div className={classes.content}>
         <CaseProgressCard/>  
       </div>
