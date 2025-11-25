@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import classes from "./DashboardTemplate.module.css";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import Calender from "@/components/molecules/Calender/Calender";
@@ -7,8 +7,10 @@ import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTa
 import ModalSkeleton from "@/components/organisms/Modals/ModalSkeleton/ModalSkeleton";
 import Button from "@/components/atoms/Button";
 import { Col, Row } from "react-bootstrap";
+import BannerMessage from "@/components/atoms/BannerMessage/BannerMessage";
 
 const DashboardTemplate = () => {
+  const [showBannerMessage, setShowBannerMessage] = useState(true);
   // Sample events data - events shown in time slots
   const myEventsList = [
     {
@@ -48,6 +50,7 @@ const DashboardTemplate = () => {
           </div>
           <h4>Good evening, Joe.</h4>
         </div>
+          <BannerMessage  show={showBannerMessage} setShow={setShowBannerMessage} />
         </Col>
         <Col className="col-12 col-md-4">
         2

@@ -5,12 +5,15 @@ import { PiTagSimple } from "react-icons/pi";
 import { IoCloseOutline } from "react-icons/io5";
 
 export default function BannerMessage({ 
+  show = true,
+  setShow,
   title = "Case Progress",
   message = "Your TM Cancellation has been proceeded from Defense to Second Observation",
   onViewDetails,
-  onClose
+  onClose,
 }) {
   return (
+    show && ( 
     <div className={classes.banner}>
       <div className={classes.leftSection}>
         <div className={classes.titleRow}>
@@ -27,12 +30,13 @@ export default function BannerMessage({
       </button>
       <button 
         className={classes.closeBtn}
-        onClick={onClose}
-        aria-label="Close"
+          onClick={() => setShow(false)}
+          aria-label="Close"
       >
-        <IoCloseOutline className={classes.closeIcon} />
-      </button>
-    </div>
+          <IoCloseOutline className={classes.closeIcon} />
+        </button>
+      </div>
+    )
   )
 }
 
