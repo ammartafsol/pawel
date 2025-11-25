@@ -1,0 +1,58 @@
+.activityContainer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.iconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 16px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+  color: var(--check-icon, #006644);
+}
+
+.verticalLine {
+  width: 0;
+  flex-grow: 1;
+  min-height: 24px;
+  align-self: center;
+  border-left: 1px solid var(--silver-gray, #E0E0E1);
+  margin-top: 8px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 2px;
+  flex: 1;
+}
+
+.text {
+  color: var(--midnight-black, #111216);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.date {
+  color: var(--midnight-black, #111216);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+}
