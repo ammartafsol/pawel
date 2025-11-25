@@ -1,0 +1,19 @@
+
+.dateText{
+    color: var(--sage-gray);
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 30px */
+letter-spacing: -0.44px;
+}
+
+.leftTop h4{
+    color: var(--shadow-moss);
+font-size: 28px;
+font-style: normal;
+font-weight: 700;
+line-height: 150%; /* 42px */
+margin-top: 6px;
+margin-bottom: 20px;
+}
