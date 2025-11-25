@@ -35,6 +35,8 @@ Wrapper.propTypes = {
   searchPlaceholder: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
+  searchValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  setValue: PropTypes.func,
 };
 
 export default Wrapper;

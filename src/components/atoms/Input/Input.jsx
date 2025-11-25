@@ -81,6 +81,7 @@ export default function Input({
           <input
             value={value}
             onChange={(e) => {
+              console.log("test",e.target.value);
               setValue(e.target.value);
             }}
             disabled={disabled}

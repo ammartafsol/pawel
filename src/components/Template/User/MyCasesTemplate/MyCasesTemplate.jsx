@@ -25,7 +25,7 @@ const MyCasesTemplate = () => {
       {
         activeGridFilter.value === "table" ? (
           <div>
-            <Wrapper title="My Cases" value={searchValue} setValue={setSearchValue} searchPlaceholder="Search">
+            <Wrapper title="My Cases" searchValue={searchValue} setValue={setSearchValue} searchPlaceholder="Search">
 
             </Wrapper>
           </div>
