@@ -41,7 +41,6 @@
 
 .text {
   color: var(--midnight-black, #111216);
-  font-family: "Rethink Sans", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -51,7 +50,6 @@
 
 .date {
   color: var(--midnight-black, #111216);
-  font-family: "Rethink Sans", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
