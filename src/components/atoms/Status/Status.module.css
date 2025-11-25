@@ -1,0 +1,77 @@
+.status {
+  display: flex;
+  height: 28px;
+  padding: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: max-content;
+  border-radius: 4px;
+  border: 1.5px solid var(--tertiary-100, #E3E3ED);
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Column 1 variants */
+.primary {
+  background-color: var(--status-primary);
+}
+
+.danger {
+  background-color: var(--status-danger);
+}
+
+.teal {
+  background-color: var(--status-teal);
+}
+
+.turquoise {
+  background-color: var(--status-turquoise);
+}
+
+.orange {
+  background-color: var(--status-orange);
+}
+
+.lime {
+  background-color: var(--status-lime);
+}
+
+/* Column 2 variants */
+.lightBlue1 {
+  background-color: var(--status-light-blue-1);
+  color: var(--status-primary);
+}
+
+.lightBlue2 {
+  background-color: var(--status-light-blue-2);
+  color: var(--status-danger);
+}
+
+.lightBlue3 {
+  background-color: var(--status-light-blue-3);
+  color: var(--status-teal);
+}
+
+.lightBlue4 {
+  background-color: var(--status-light-blue-4);
+  color: var(--status-turquoise);
+}
+
+.blue1 {
+  background-color: var(--status-blue-1);
+  color: var(--status-orange);
+}
+
+.blue2 {
+  background-color: var(--status-blue-2);
+  color: var(--status-lime);
+}

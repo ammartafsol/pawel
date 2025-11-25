@@ -82,4 +82,23 @@
   --light-purple: #8484AE;
   --divider: #EDEDED;
   --off-white: #f8f9fb;
+
+  /* Status Colors - Column 1 */
+  --status-primary: #4A90E2;
+  --status-danger: #8B0000;
+  --status-teal: #00796B;
+  --status-turquoise: #50E3C2;
+  --status-orange: #F5A623;
+  --status-lime: #7ED321;
+
+  /* Status Colors - Column 2 */
+  --status-light-blue-1: #EFF9FF;
+  --status-light-blue-2: #C0E6FD;
+  --status-light-blue-3: #62C1F8;
+  --status-light-blue-4: #3DA4F4;
+  --status-blue-1: #1F71D6;
+  --status-blue-2: #1F5CAE;
+
+  /* Status Border */
+  --tertiary-100: #E3E3ED;
 }
