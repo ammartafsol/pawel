@@ -10,35 +10,14 @@ import { Col, Row } from "react-bootstrap";
 import BannerMessage from "@/components/atoms/BannerMessage/BannerMessage";
 import MainHeader from "@/components/atoms/MainHeader/MainHeader";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
-import { caseProgressCardsData, circularCaseProgressChartData } from "@/developementContent/Data/dummtData/dummyData";
+import { caseProgressCardsData, circularCaseProgressChartData, myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 import Breadcrumbs from "@/components/molecules/Breadcrumbs/Breadcrumbs";
 
 const DashboardTemplate = () => {
   const [showBannerMessage, setShowBannerMessage] = useState(true);
   // Sample events data - events shown in time slots
-  const myEventsList = [
-    {
-      start: new Date(2025, 10, 28, 10, 0),
-      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
-      title: "Event 1",
-    },
-    {
-      start: new Date(2025, 10, 28, 12, 0),
-      end: new Date(2025, 10, 28, 13, 0),
-      title: "Event 2",
-    },
-    {
-      start: new Date(2025, 10, 28, 10, 0),
-      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
-      title: "Event 1",
-    },
-    {
-      start: new Date(2025, 10, 28, 12, 0),
-      end: new Date(2025, 10, 28, 13, 0),
-      title: "Event 2",
-    },
-  ];
+ 
 
   return (
     <div>

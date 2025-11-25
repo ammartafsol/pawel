@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import classes from "./MyCasesTemplate.module.css";
-import Breadcrumbs from "@/components/molecules/Breadcrumbs/Breadcrumbs";
 import BreadComTop from "@/components/atoms/BreadComTop/BreadComTop";
 import {
   caseProgressCardsData,
@@ -13,10 +12,14 @@ import { Col, Row } from "react-bootstrap";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
+import { myCasesTableHeader } from "@/developementContent/TableHeader/MyCasesTableHeader";
+import { myCasesTableBody } from "@/developementContent/TableBody/MyCasesTableBody";
+import { useRouter } from "next/navigation";
 
 const MyCasesTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
   const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
   return (
     <>
       <BreadComTop statesCaseData={statesCaseData} />
@@ -33,8 +36,13 @@ const MyCasesTemplate = () => {
             searchValue={searchValue}
             setValue={setSearchValue}
             searchPlaceholder="Search"
+            className={classes.wrapper}
+            contentClassName={classes.contentClassName}
           >
-            <ResponsiveTable />
+            <ResponsiveTable
+              tableHeader={myCasesTableHeader}
+              data={myCasesTableBody}
+            />
           </Wrapper>
         </div>
       ) : (
@@ -42,6 +50,7 @@ const MyCasesTemplate = () => {
           {caseProgressCardsData.map((item) => (
             <Col className="col-12 col-md-4" key={item.id}>
               <CaseProgressCard
+              routePath={`/user/my-cases/${item.id}`}
                 data={{
                   tabLabel: item.tabLabel,
                   userName: item.userName,
@@ -51,7 +60,8 @@ const MyCasesTemplate = () => {
                   trademarkNo: item.trademarkNo,
                   referenceLink: item.referenceLink,
                 }}
-              />
+               
+                />
             </Col>
           ))}
         </Row>

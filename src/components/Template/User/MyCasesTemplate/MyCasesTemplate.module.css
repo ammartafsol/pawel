@@ -6,3 +6,6 @@
     gap: 20px;
     margin-bottom: 40px;
 }
+.contentClassName {
+    padding: 0px !important;
+}

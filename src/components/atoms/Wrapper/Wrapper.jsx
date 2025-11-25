@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import classes from "./Wrapper.module.css";
 import Input from "../Input/Input";
 import { IoSearchSharp } from "react-icons/io5";
+import StatusChip from "../StatusChip/StatusChip";
+import Status from "../Status/Status";
 
-const Wrapper = ({ children,setValue=()=>{},searchValue ,searchPlaceholder="",title = "", className = "" }) => {
+const Wrapper = ({ children,status,setValue=()=>{},searchValue,contentClassName ,searchPlaceholder="",title = "", className = "" }) => {
   return (
     <div className={classes.wrapperContainer}>
     <div className={`${classes.wrapper} ${className}`}>
@@ -22,9 +24,16 @@ const Wrapper = ({ children,setValue=()=>{},searchValue ,searchPlaceholder="",ti
             />
           )
         }
+        {
+          status && (
+            <div>
+              <Status status={status} />
+            </div>
+          )
+        }
       </div>
 
-      <div className={classes.content}>{children}</div>
+      <div className={`${classes.content} ${contentClassName}`}>{children}</div>
     </div>
     </div>
   );
