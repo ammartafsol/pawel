@@ -29,6 +29,7 @@ export default function AtomsPage() {
        <div className={classes.content}>
         <h3 className={classes.subtitle}>Status</h3>
         <Status label={'File Invalidation'}/>
+        <Status label={'defense'}/>
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>BannerMessage</h3>
