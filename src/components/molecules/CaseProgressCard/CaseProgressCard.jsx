@@ -9,18 +9,20 @@ import ProgressBarCircular from '@/components/atoms/ProgressBarCircular/Progress
 import StatusChip from '@/components/atoms/StatusChip/StatusChip'
 
 export default function CaseProgressCard({
-  tabLabel = "EU TM OPPO",
-  userName = "Darlene Steuber",
-  progress = 80,
-  status = "Decision",
-  trademarkName = "Crist and Sons",
-  trademarkNo = "R-3526",
-  referenceLink = "#"
+  data={
+    tabLabel: "",
+    userName: "",
+    progress: 0,
+    status: "",
+    trademarkName: "",
+    trademarkNo: "",
+    referenceLink: ""
+  }
 }) {
   return (
     <div className={classes.wrapper}>
       {/* Tab Section - Outside the card */}
-      <div className={classes.activeTab}>{tabLabel}</div>
+      <div className={classes.activeTab}>{data.tabLabel}</div>
       
       {/* Card */}
       <div className={classes.card}>
@@ -30,33 +32,33 @@ export default function CaseProgressCard({
         <div className={classes.userRow}>
           <div className={classes.userInfo}>
             <PiUserCircleFill className={classes.userIcon} />
-            <div className={classes.userName}>{userName}</div>
+            <div className={classes.userName}>{data.userName}</div>
           </div>
-          <ProgressBarCircular percentage={progress} size={80} />
+          <ProgressBarCircular percentage={data.progress} size={80} />
         </div>
 
         {/* Status Row */}
         <div className={classes.statusRow}>
           <MdOutlineChecklistRtl className={classes.statusIcon} />
-          <StatusChip>{status}</StatusChip>
-        </div>
+          <StatusChip>{data.status}</StatusChip>
+        </div>  
 
         {/* Trademark Name */}
         <div className={classes.infoRow}>
           <BsPatchCheck className={classes.infoIcon} />
-          <span className={classes.infoLabel}>Trademark Name - <strong>{trademarkName}</strong></span>
+          <span className={classes.infoLabel}>Trademark Name - <strong>{data.trademarkName}</strong></span>
         </div>
 
         {/* Trademark Number */}
         <div className={classes.infoRow}>
           <BsPatchCheck className={classes.infoIcon} />
-          <span className={classes.infoLabel}>Trademark No. - <strong>{trademarkNo}</strong></span>
+          <span className={classes.infoLabel}>Trademark No. - <strong>{data.trademarkNo}</strong></span>
         </div>
 
         {/* Reference Link */}
         <div className={classes.infoRow}>
           <RiKeyFill className={classes.infoIcon} />
-          <a href={referenceLink} className={classes.referenceLink} target="_blank" rel="noopener noreferrer">
+          <a href={data.referenceLink} className={classes.referenceLink} target="_blank" rel="noopener noreferrer">
             Reference
             <LuExternalLink className={classes.externalIcon} />
           </a>

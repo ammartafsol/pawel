@@ -3,13 +3,9 @@ import PropTypes from 'prop-types'
 import classes from './CircularCaseProgressChart.module.css'
 
 export default function CircularCaseProgressChart({ 
-  data = [
-    { label: 'In progress', value: 2, color: '#8E5AFD' },
-    { label: 'Completed', value: 1, color: '#33C8C2' },
-    { label: 'Not Started', value: 0.5, color: '#B7EAE8' }
-  ],
+  data = [],
   centerText = '0-2',
-  size = 200,
+  size = 250,
   strokeWidth = 40
 }) {
   const total = data.reduce((sum, item) => sum + item.value, 0)
