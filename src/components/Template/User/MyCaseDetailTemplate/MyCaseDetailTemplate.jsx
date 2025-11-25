@@ -13,7 +13,21 @@ const MyCaseDetailTemplate = ({ slug }) => {
       <BreadComTop />
       <Row>
         <Col md={4}>
-          <CaseProgressCard />
+          <CaseProgressCard
+            data={{
+              tabLabel: "EU TM OPPO",
+              userName: "Assigned Staff",
+              progress: 80,
+              status: "Decision",
+              trademarkName: "A and Sons",
+              trademarkNo: "R-3526",
+              referenceLink: "#",
+              primaryStaff: "Roxanne Gleichner",
+              secondaryStaff: "Roxanne Gleichner",
+              jurisdiction: "EUIPO",
+            }}
+            isAssignedStaffVariant={true}
+          />
         </Col>
         <Col md={8}>
           <Wrapper
