@@ -8,9 +8,11 @@ import { gridFilter } from "@/developementContent/Enums/enum";
 import GridFilter from "@/components/molecules/GridFilter/GridFilter";
 import { Col, Row } from "react-bootstrap";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
+import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 
 const MyCasesTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
+  const [searchValue, setSearchValue] = useState("");
   return (
     <>
       <BreadComTop statesCaseData={statesCaseData} />
@@ -23,7 +25,9 @@ const MyCasesTemplate = () => {
       {
         activeGridFilter.value === "table" ? (
           <div>
-            <h1>Table</h1>
+            <Wrapper title="My Cases" value={searchValue} setValue={setSearchValue} searchPlaceholder="Search">
+
+            </Wrapper>
           </div>
         ) : (
           <Row className="g-4">
