@@ -1,0 +1,32 @@
+.tabFilter {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.tab {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: var(--charcoal-night);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--deep-cerulean);
+  background-color: rgba(1, 76, 133, 0.05);
+}
+
+.tab.active {
+  color: var(--deep-cerulean);
+  font-weight: 600;
+  border-bottom-color: var(--deep-cerulean);
+}
+

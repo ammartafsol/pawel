@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import classes from "./MyCaseDetailTemplate.module.css";
 import BreadComTop from "@/components/atoms/BreadComTop/BreadComTop";
 import { Col, Row } from "react-bootstrap";
@@ -6,8 +8,46 @@ import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgre
 import Calender from "@/components/molecules/Calender/Calender";
 import { myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
+import TabFilter from "@/components/molecules/TabFilter/TabFilter";
+import { caseDetailTabs } from "@/developementContent/Enums/enum";
 
 const MyCaseDetailTemplate = ({ slug }) => {
+  const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "notes":
+        return (
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Deadline</h4>
+            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
+              Figma ipsum component variant main layer. Boolean plugin project comment su frame team.
+            </p>
+          </div>
+        );
+      case "activityLog":
+        return (
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Activity Log</h4>
+            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
+              Activity log content will be displayed here.
+            </p>
+          </div>
+        );
+      case "documents":
+        return (
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Documents</h4>
+            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
+              Documents content will be displayed here.
+            </p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <BreadComTop />
@@ -22,10 +62,25 @@ const MyCaseDetailTemplate = ({ slug }) => {
           >
             <Calender events={myEventsList} className={classes.calender} />
           </Wrapper>
+          <Wrapper
+            headerComponent={
+              <TabFilter
+                tabs={caseDetailTabs}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+            }
+          >
+            {renderTabContent()}
+          </Wrapper>
         </Col>
       </Row>
     </div>
   );
+};
+
+MyCaseDetailTemplate.propTypes = {
+  slug: PropTypes.string,
 };
 
 export default MyCaseDetailTemplate;

@@ -9,6 +9,11 @@
 }
 .header {
   border-bottom: 1px solid var(--light-gray);
+  display: flex;
+  flex-direction: column;
+}
+
+.headerTop {
   padding: 12px 16px;
   display: flex;
   align-items: center;
@@ -29,6 +34,11 @@
   height: 43px !important;
   background-color: var(--ghost-white) !important;
   width: 300px !important;
+}
+
+.headerComponent {
+  width: 100%;
+  border-top: 1px solid var(--light-gray);
 }
 
 .content {

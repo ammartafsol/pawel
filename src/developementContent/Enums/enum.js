@@ -25,3 +25,18 @@ export const gridFilter = [
     icon: <MdGridView />,
   },
 ];
+
+export const caseDetailTabs = [
+  {
+    value: "notes",
+    label: "Notes",
+  },
+  {
+    value: "activityLog",
+    label: "Activity Log",
+  },
+  {
+    value: "documents",
+    label: "Documents",
+  },
+];
