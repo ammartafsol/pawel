@@ -19,7 +19,10 @@ export default function MoleculesPage() {
       </div>
        <div className={classes.content}>
         <h3 className={classes.subtitle}>ActionCard</h3>
-      <ActionCard/>
+      <ActionCard label={'create new case'} />
+      <ActionCard label={'add a document'}/>
+      <ActionCard label={'export audit logs'}/>
+      <ActionCard label={'export data'}/>
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>DropDown</h3>
