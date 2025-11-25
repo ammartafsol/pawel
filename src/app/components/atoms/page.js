@@ -19,12 +19,30 @@ import { BiPen } from "react-icons/bi";
 import classes from "./styles.module.css";
 import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 import BannerMessage from "@/components/atoms/BannerMessage/BannerMessage";
+import Status from "@/components/atoms/Status/Status";
 
 export default function AtomsPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Atoms Page</h1>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>Status</h3>
+        <Status label={'File observations'}/>
+        <Status label={'File Invalidation'}/>
+        <Status label={'defense'}/>
+        <Status label={'second observations'}/>
+        <Status label={'cooling-off period'}/>
+        <Status label={'negotiations'}/>
+        <Status label={'prepare draft'}/>
+        <Status label={'prepare evidence'}/>
+        <Status label={'check evidence'}/>
+        <Status label={'client confirmation'}/>
+        <Status label={'submit'}/>
+        <Status label={'track'}/>
+
+
+      </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>BannerMessage</h3>
         <BannerMessage/>

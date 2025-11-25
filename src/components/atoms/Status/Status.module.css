@@ -1,0 +1,80 @@
+.status {
+  display: flex;
+  height: 28px;
+  padding: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 180px;
+  border-radius: 4px;
+  border: 1.5px solid var(--tertiary-100, #E3E3ED);
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Column 1 variants */
+.primary {
+  background-color: var(--status-primary);
+}
+
+.danger {
+  background-color: var(--status-danger);
+}
+
+.teal {
+  background-color: var(--status-teal);
+}
+
+.turquoise {
+  background-color: var(--status-turquoise);
+  color: var(--black);
+}
+
+.orange {
+  background-color: var(--status-orange);
+  color: var(--black);
+}
+
+.lime {
+  background-color: var(--status-lime);
+  color: var(--black);
+}
+
+/* Column 2 variants */
+.lightBlue1 {
+  background-color: var(--status-light-blue-1);
+  color: var(--status-blue-1);
+}
+
+.lightBlue2 {
+  background-color: var(--status-light-blue-2);
+  color: var(--status-blue-1);
+}
+
+.lightBlue3 {
+  background-color: var(--status-light-blue-3);
+  color: var(--white);
+}
+
+.lightBlue4 {
+  background-color: var(--status-light-blue-4);
+  color: var(--white);
+}
+
+.blue1 {
+  background-color: var(--status-blue-1);
+  color: var(--white);
+}
+
+.blue2 {
+  background-color: var(--status-blue-2);
+  color: var(--white);
+}
