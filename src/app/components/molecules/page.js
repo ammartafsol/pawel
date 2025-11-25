@@ -7,6 +7,7 @@ import classes from "./styles.module.css";
 import UploadFiles from "@/components/molecules/UploadFiles/UploadFiles";
 import Tabs from "@/components/molecules/Tabs/Tabs";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
+import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 
 export default function MoleculesPage() {
   return (
@@ -15,6 +16,10 @@ export default function MoleculesPage() {
       <h1 className={classes.title}>Molecules Page</h1>
        <div className={classes.content}>
         <CaseProgressCard/>  
+      </div>
+       <div className={classes.content}>
+        <h3 className={classes.subtitle}>ActionCard</h3>
+      <ActionCard/>
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>DropDown</h3>
