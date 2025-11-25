@@ -61,3 +61,27 @@ export const circularCaseProgressChartData = [
         value: 10,
     }
   ]
+
+
+  export const myEventsList = [
+    {
+      start: new Date(2025, 10, 28, 10, 0),
+      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
+      title: "Event 1",
+    },
+    {
+      start: new Date(2025, 10, 28, 12, 0),
+      end: new Date(2025, 10, 28, 13, 0),
+      title: "Event 2",
+    },
+    {
+      start: new Date(2025, 10, 28, 10, 0),
+      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
+      title: "Event 1",
+    },
+    {
+      start: new Date(2025, 10, 28, 12, 0),
+      end: new Date(2025, 10, 28, 13, 0),
+      title: "Event 2",
+    },
+  ];

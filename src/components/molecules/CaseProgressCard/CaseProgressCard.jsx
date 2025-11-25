@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import classes from './CaseProgressCard.module.css'
 import { PiUserCircleFill } from "react-icons/pi";
@@ -7,8 +8,10 @@ import { RiKeyFill } from "react-icons/ri";
 import { LuExternalLink } from "react-icons/lu";
 import ProgressBarCircular from '@/components/atoms/ProgressBarCircular/ProgressBarCircular'
 import StatusChip from '@/components/atoms/StatusChip/StatusChip'
+import { useRouter } from 'next/navigation';
 
 export default function CaseProgressCard({
+  routePath,
   data={
     tabLabel: "",
     userName: "",
@@ -16,11 +19,12 @@ export default function CaseProgressCard({
     status: "",
     trademarkName: "",
     trademarkNo: "",
-    referenceLink: ""
+    referenceLink: "",
   }
 }) {
+  const router = useRouter();
   return (
-    <div className={classes.wrapper}>
+    <div  className={classes.wrapper} onClick={()=>{router.push(routePath)}}>
       {/* Tab Section - Outside the card */}
       <div className={classes.activeTab}>{data.tabLabel}</div>
       
