@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  transform: rotate(-90deg);
+}
+
+.circleBg {
+  stroke: var(--progress-bg);
+}
+
+.circleProgress {
+  stroke: var(--morning-sky);
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--charcoal-night);
+}
+

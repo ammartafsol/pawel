@@ -25,6 +25,7 @@
   --snowfall: #ebebeb;
   --lavender-gray: #D3D3E2;
   --mist-gray: rgba(240, 240, 245, 0.50);
+  --progress-bg: #D9D9D9;
 
 
   /* Blue Shades */
@@ -47,6 +48,7 @@
   --turquoise-wave: #33c8c2;
   --smoky-slate: #63636c;
   --sage-green: #9bb167;
+  --Success-40: #9bb167;
   --deep-teal-color: #024F69;
   --cool-blue-color: #024FE9;
   --charcoal-gray: #222227;
@@ -75,7 +77,9 @@
   --jade-shadow: #006644;
   --sky-blue: #0d93ff;
   --shadow-moss: #030f0b;
+  --outlined-dark: #9B9BBC;
+  --sea-green: #00847F;
+  --light-purple: #8484AE;
+  --divider: #EDEDED;
   --off-white: #f8f9fb;
-  --outlined-dark: #9B9BBC
-
 }
