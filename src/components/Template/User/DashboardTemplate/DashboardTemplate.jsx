@@ -3,6 +3,8 @@ import React from 'react';
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import Calender from '@/components/molecules/Calender/Calender';
 import ResponsiveTable from '@/components/organisms/ResponsiveTable/ResponsiveTable';
+import ModalSkeleton from '@/components/organisms/Modals/ModalSkeleton/ModalSkeleton';
+import Button from '@/components/atoms/Button';
 
 const DashboardTemplate = () => {
   // Sample events data - events shown in time slots
@@ -50,7 +52,6 @@ const DashboardTemplate = () => {
           caseId: "123456",
           caseStatus: "Open",
         }]}
-
         />
     </div>
   );

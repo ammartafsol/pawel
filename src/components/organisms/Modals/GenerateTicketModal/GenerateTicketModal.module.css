@@ -1,0 +1,47 @@
+
+.imageContainer{
+    width: 56px;
+    height: 56px;
+    position: relative;
+}
+
+.mainContainer{
+    padding: 24px 0 34px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.mainContainer h4{
+    color: var(--slate-gray);
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+.headingContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    width: 100%;
+    align-items: center;
+}
+
+.dropdownContainer{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footerContainer{
+    justify-content: center !important;
+}
+
+.sendMessageButton[color-variant="outlined"] {
+    color: var(--deep-cerulean) !important;
+    border: 1px solid var(--deep-cerulean) !important;
+    font-size: 14px !important;
+}

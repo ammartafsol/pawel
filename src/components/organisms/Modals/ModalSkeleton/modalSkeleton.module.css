@@ -1,0 +1,129 @@
+.modal {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.header {
+  padding: 15px;
+  position: static;
+  width: 100%;
+}
+
+.header h2 {
+  color: var(--heading-color);
+}
+
+.modalDialogSecondary {
+  width: 380px !important;
+  overflow-y: auto;
+}
+.modalSecondary :global(.modal-content)::-webkit-scrollbar {
+  display: none;
+}
+.body {
+  padding: 18px;
+  min-height: 200px;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modalSecondary :global(.modal-content) {
+  max-height: calc(100vh - 240px);
+  overflow: auto;
+}
+.body::-webkit-scrollbar {
+  display: none;
+}
+.iconBox svg {
+  color: var(--industrial-gray);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.headingBox {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  align-items: center;
+  padding: 16px 18px;
+  text-align: left;
+  border-bottom: 1.506px solid var(--silver-gray);
+}
+
+.heading {
+  color: var(--midnight-black);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0px;  
+}
+
+.subheading {
+  color: var(--industrial-gray);
+  margin-bottom: 1.5rem;
+}
+.modal :global(.modal-content) {
+  background: var(--white);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+
+  /* Shadow/xs */
+  box-shadow: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+}
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--white-1);
+  padding: var(--fs14);
+  border-top: 1px solid var(--silver-gray);
+}
+.footerSecondary {
+  justify-content: flex-start;
+}
+/* modalSkeleton.module.css */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.modalEnter {
+  animation: fadeInScale 0.3s ease forwards;
+}
+
+.modalExit {
+  animation: fadeOutScale 0.3s ease forwards;
+}
+
+.modalEnterSecondary {
+  animation: fadeInScale 0.3s ease forwards;
+}
+
+.modalExitSecondary {
+  animation: fadeOutScale 0.3s ease forwards;
+}
+
+.modalDialog {
+  margin: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100% - 1rem);
+}

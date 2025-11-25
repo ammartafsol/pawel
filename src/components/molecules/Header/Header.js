@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Header.module.css";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
@@ -12,11 +12,13 @@ import Input from "@/components/atoms/Input/Input";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
 
 
 
 
 const Header = () => {
+  const [showGenerateTicketModal, setShowGenerateTicketModal] = useState(false);
   const pathname = usePathname();
   return (
     <header className={styles.header}>
@@ -47,7 +49,7 @@ const Header = () => {
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               {/* message  */}
-              <div className={styles.message}>
+              <div onClick={() => setShowGenerateTicketModal(true)} className={styles.message}>
                 <div className={styles.messageIcon}>
                   <Image src={"/app-images/messageIcon.png"} alt="message" fill />
                 </div>
@@ -63,7 +65,7 @@ const Header = () => {
               </div>
             </div>
           </nav>
-        
+          <GenerateTicketModal show={showGenerateTicketModal} setShow={setShowGenerateTicketModal} />
         </div>
       </Container>
     </header>
