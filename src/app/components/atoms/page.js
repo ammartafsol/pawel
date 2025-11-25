@@ -28,8 +28,20 @@ export default function AtomsPage() {
       <h1 className={classes.title}>Atoms Page</h1>
        <div className={classes.content}>
         <h3 className={classes.subtitle}>Status</h3>
+        <Status label={'File observations'}/>
         <Status label={'File Invalidation'}/>
         <Status label={'defense'}/>
+        <Status label={'second observations'}/>
+        <Status label={'cooling-off period'}/>
+        <Status label={'negotiations'}/>
+        <Status label={'prepare draft'}/>
+        <Status label={'prepare evidence'}/>
+        <Status label={'check evidence'}/>
+        <Status label={'client confirmation'}/>
+        <Status label={'submit'}/>
+        <Status label={'track'}/>
+
+
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>BannerMessage</h3>
