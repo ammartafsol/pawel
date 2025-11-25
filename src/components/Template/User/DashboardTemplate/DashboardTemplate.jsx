@@ -2,6 +2,7 @@
 import React from 'react';
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import Calender from '@/components/molecules/Calender/Calender';
+import ResponsiveTable from '@/components/organisms/ResponsiveTable/ResponsiveTable';
 
 const DashboardTemplate = () => {
   // Sample events data - events shown in time slots
@@ -33,6 +34,22 @@ const DashboardTemplate = () => {
       <Wrapper title="Recent Case Statuses">
         {/* ////calender     */}
         <Calender events={myEventsList} />
+        <ResponsiveTable 
+        tableHeader={[{
+          title: "Case ID",
+          key: "caseId",
+        },{
+          title: "Case Status",
+          key: "caseStatus",
+        }]}
+        data={[{
+          caseId: "123456",
+          caseStatus: "Open",
+        },{
+          caseId: "123456",
+          caseStatus: "Open",
+        }]}
+        />
       </Wrapper>
     </div>
   );

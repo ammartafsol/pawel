@@ -1,0 +1,8 @@
+.tableSkeleton {
+    height: calc(100vh - 350px);
+    overflow: auto;
+  }
+  
+  .tableSkeleton table tr {
+    background-color: transparent !important;
+  }

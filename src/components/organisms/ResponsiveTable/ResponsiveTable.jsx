@@ -1,11 +1,11 @@
 "use client";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
-import Pagination from "@/components/molecules/Pagination";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
 import { imageUrl, mergeClass } from "@/resources/utils/helper";
 import Image from "next/image";
 import classes from "./ResponsiveTable.module.css";
+import Pagination from "@/components/molecules/Pagination/Pagination";
 
 export default function ResponsiveTable({
   onRowClick = () => {},
