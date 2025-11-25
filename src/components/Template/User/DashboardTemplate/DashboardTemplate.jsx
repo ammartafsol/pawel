@@ -1,10 +1,41 @@
+"use client";
 import React from 'react';
-import classes from "./DashboardTemplate.module.css"
+import Wrapper from '@/components/atoms/Wrapper/Wrapper';
+import Calender from '@/components/molecules/Calender/Calender';
 
 const DashboardTemplate = () => {
-  return (
-    <div>DashboardTemplate</div>
-  )
-}
+  // Sample events data - events shown in time slots
+  const myEventsList = [
+    {
+      start: new Date(2025, 10, 28, 10, 0),
+      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
+      title: "Event 1",
+    },
+    {
+      start: new Date(2025, 10, 28, 12, 0),
+      end: new Date(2025, 10, 28, 13, 0),
+      title: "Event 2",
+    },
+    {
+      start: new Date(2025, 10, 28, 10, 0),
+      end: new Date(2025, 10, 28, 11, 0), /// should be 2025, 10, 28, 11, 0
+      title: "Event 1",
+    },
+    {
+      start: new Date(2025, 10, 28, 12, 0),
+      end: new Date(2025, 10, 28, 13, 0),
+      title: "Event 2",
+    },
+  ];
 
-export default DashboardTemplate
+  return (
+    <div>
+      <Wrapper title="Recent Case Statuses">
+        {/* ////calender     */}
+        <Calender events={myEventsList} />
+      </Wrapper>
+    </div>
+  );
+};
+
+export default DashboardTemplate;

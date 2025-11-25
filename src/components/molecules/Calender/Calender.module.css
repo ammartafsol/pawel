@@ -1,0 +1,137 @@
+/* Container - only background color */
+.calenderContainer {
+  background: var(--white);
+}
+
+/* Toolbar buttons - colors only */
+.calenderContainer :global(.rbc-toolbar button) {
+  color: var(--slate-shadow);
+  background: var(--white);
+  border-color: var(--border-color);
+}
+
+.calenderContainer :global(.rbc-toolbar button:hover) {
+  background: var(--ghost-white);
+  border-color: var(--deep-cerulean);
+  color: var(--deep-cerulean);
+}
+
+.calenderContainer :global(.rbc-toolbar button:active),
+.calenderContainer :global(.rbc-toolbar button.rbc-active) {
+  background: var(--deep-cerulean);
+  color: var(--white);
+  border-color: var(--deep-cerulean);
+}
+
+.calenderContainer :global(.rbc-toolbar-label) {
+  color: var(--midnight-steel);
+}
+
+/* Headers - colors only */
+.calenderContainer :global(.rbc-header) {
+  color: var(--slate-shadow);
+  border-color: var(--border-color);
+  background: var(--ghost-white);
+}
+
+/* Today highlight - color only */
+.calenderContainer :global(.rbc-today) {
+  background-color: var(--ice-blue);
+}
+
+/* Date cells - colors only */
+.calenderContainer :global(.rbc-date-cell > a) {
+  color: var(--midnight-black);
+}
+
+.calenderContainer :global(.rbc-date-cell > a:hover) {
+  background: var(--deep-cerulean);
+  color: var(--white);
+}
+
+/* Off-range dates - colors only */
+.calenderContainer :global(.rbc-off-range-bg) {
+  background: var(--off-white);
+}
+
+.calenderContainer :global(.rbc-off-range) {
+  color: var(--misty-slate);
+}
+
+/* Events - colors only */
+.calenderContainer :global(.rbc-event) {
+  background-color: var(--deep-cerulean);
+  color: var(--white);
+}
+
+.calenderContainer :global(.rbc-event:hover) {
+  background-color: var(--royal-blue);
+}
+
+.calenderContainer :global(.rbc-event.rbc-selected) {
+  background-color: var(--deep-cerulean);
+}
+
+.calenderContainer :global(.rbc-event-content) {
+  color: var(--white);
+}
+
+.calenderContainer :global(.rbc-event-label) {
+  color: var(--white);
+}
+
+/* Show more link - colors only */
+.calenderContainer :global(.rbc-show-more) {
+  background-color: var(--ghost-white);
+  color: var(--deep-cerulean);
+}
+
+.calenderContainer :global(.rbc-show-more:hover) {
+  background-color: var(--deep-cerulean);
+  color: var(--white);
+}
+
+/* Time slots - border colors only */
+.calenderContainer :global(.rbc-time-slot) {
+  border-color: var(--border-color);
+}
+
+.calenderContainer :global(.rbc-time-header-content) {
+  border-color: var(--border-color);
+}
+
+.calenderContainer :global(.rbc-time-content) {
+  border-color: var(--border-color);
+}
+
+.calenderContainer :global(.rbc-day-slot .rbc-time-slot) {
+  border-color: var(--frost-whisper);
+}
+
+/* Time labels - colors only */
+.calenderContainer :global(.rbc-label) {
+  color: var(--steel-mist);
+}
+
+/* Selected slot - color only */
+.calenderContainer :global(.rbc-selected-cell) {
+  background-color: var(--mint-breeze);
+}
+
+/* Day cells - border colors only */
+.calenderContainer :global(.rbc-day-bg) {
+  border-color: var(--border-color);
+}
+
+.calenderContainer :global(.rbc-day-bg:hover) {
+  background-color: var(--ghost-white);
+}
+
+/* Current time indicator - color only */
+.calenderContainer :global(.rbc-current-time-indicator) {
+  background-color: var(--deep-cerulean);
+}
+
+.calenderContainer :global(.rbc-current-time-indicator::before) {
+  background-color: var(--deep-cerulean);
+}

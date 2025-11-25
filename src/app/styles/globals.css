@@ -1,5 +1,6 @@
 @import "./typography.css";
 @import "./color.css";
+@import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 :root {
   --background: #ffffff;
