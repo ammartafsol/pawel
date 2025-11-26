@@ -1,17 +1,50 @@
-
-
-.calender{
-    margin: 0px !important;
-    height: 50vh !important;
+.calender {
+  margin: 0px !important;
+  height: 50vh !important;
 }
-.breadComTop{
-    margin-bottom: 60px;
+.breadComTop {
+  margin-bottom: 60px;
 }
+.contentClassName {
+  padding: 0px !important;
+  overflow: hidden !important;
+}
+
+.notesContainer {
+  padding: 16px;
+}
+
+.activityLogContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.headingDiv {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+}
+
+.headingDiv h5 {
+  color: var(--charcoal-night, #414149);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0px;
+}
+
+.activityListContainer {
+  display: flex;
+  padding: 16px 8px 16px 16px;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-top: 1px solid var(--light-gray);
+}
+
 .contentClassName{
-    padding: 0px !important;
-    overflow: hidden !important;
-}
-
-.notesContainer{
-    padding: 16px;
+    padding: 0px;
 }

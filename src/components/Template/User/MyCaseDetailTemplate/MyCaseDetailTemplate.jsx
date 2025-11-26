@@ -11,6 +11,7 @@ import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import TabFilter from "@/components/molecules/TabFilter/TabFilter";
 import { caseDetailTabs } from "@/developementContent/Enums/enum";
 import Notes from "@/components/molecules/Notes/Notes";
+import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 
 const MyCaseDetailTemplate = ({ slug }) => {
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
@@ -25,11 +26,13 @@ const MyCaseDetailTemplate = ({ slug }) => {
         );
       case "activityLog":
         return (
-          <div>
-            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Activity Log</h4>
-            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
-              Activity log content will be displayed here.
-            </p>
+          <div className={classes.activityLogContainer}>
+           <div className={classes.headingDiv}>
+              <h5>Recent activities</h5>
+           </div>
+           <div className={classes.activityListContainer}>
+              <ActivityLog/>
+           </div>
           </div>
         );
       case "documents":
@@ -75,6 +78,7 @@ const MyCaseDetailTemplate = ({ slug }) => {
             <Calender events={myEventsList} className={classes.calender} />
           </Wrapper>
           <Wrapper
+            contentClassName={classes?.contentClassName}
             headerComponent={
               <TabFilter
                 tabs={caseDetailTabs}
