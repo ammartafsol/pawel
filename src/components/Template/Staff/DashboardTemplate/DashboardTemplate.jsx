@@ -12,10 +12,16 @@ import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTa
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
+import { reactActivities } from "@/developementContent/Enums/enum";
 
 const DashboardTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
-  
+  const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
+
+  const handleDropdownChange = (value) => {
+    setSelectedDropdownValue(value);
+  };
+
   return (
     <div>
       <div className={classes?.dashboardTemplateHeader}>
@@ -25,26 +31,42 @@ const DashboardTemplate = () => {
       <div className="p24">
         <Row>
           <Col md={8}>
-            <Wrapper contentClassName={classes?.calenderWrapper} headerComponent={<CalenderHeaderDrop />}>
+            <Wrapper
+              contentClassName={classes?.calenderWrapper}
+              headerComponent={<CalenderHeaderDrop />}
+            >
               <Calender className={classes?.calender} events={myEventsList} />
             </Wrapper>
           </Col>
           <Col md={4}>
-          <div className={classes?.newCases}>
-            <Row className="g-4">
-              {newCasesData.map((item) => (
-                <Col md={6} key={item.id}>
-                  <ActionCard {...item} title={item.title} image={item.image} />
-                </Col>
-              ))}
-            </Row>
-          </div>
+            <div className={classes?.newCases}>
+              <Row className="g-4">
+                {newCasesData.map((item) => (
+                  <Col md={6} key={item.id}>
+                    <ActionCard
+                      {...item}
+                      title={item.title}
+                      image={item.image}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </Col>
         </Row>
         <Row className="mt-4">
           <Col>
             <Wrapper
-             headerComponent={<TableHeader viewButtonText="View All" title="Recent Activities" />}
+              headerComponent={
+                <TableHeader
+                  viewButtonText="View All"
+                  title="Recent Activities"
+                  dropdownOptions={reactActivities}
+                  dropdownPlaceholder="Select Activity"
+                  selectedDropdownValue={selectedDropdownValue}
+                  setSelectedDropdownValue={setSelectedDropdownValue}
+                />
+              }
               className={classes.wrapper}
               contentClassName={classes.contentClassName}
             >
