@@ -11,6 +11,7 @@ import StatusChip from "@/components/atoms/StatusChip/StatusChip";
 import { useRouter } from "next/navigation";
 import { LuSquareUser } from "react-icons/lu";
 import { VscTypeHierarchySub } from "react-icons/vsc";
+import { mergeClass } from "@/resources/utils/helper";
 
 export default function CaseProgressCard({
   routePath,
@@ -38,10 +39,10 @@ export default function CaseProgressCard({
       }}
     >
       {/* Tab Section - Outside the card */}
-      <div className={classes.activeTab}>{data.tabLabel}</div>
+     {!isStatusVariant && <div className={classes.activeTab}>{data.tabLabel}</div>}
 
       {/* Card */}
-      <div className={classes.card}>
+      <div className={mergeClass(classes.card,isStatusVariant && classes.isStatusVariantClass )}>
         {/* Card Content */}
         <div className={classes.cardContent}>
           {/* User Info Row */}
@@ -60,6 +61,16 @@ export default function CaseProgressCard({
                   <span className={classes.keyLabel}>Secondary:</span>
                   <p className={classes.staffName}>{data?.secondaryStaff}</p>
                 </div>
+              </div>
+              <ProgressBarCircular percentage={data.progress} size={80} />
+            </div>
+          ) : isStatusVariant ? (
+             <div className={classes.userRowAssigned}>
+              <div className={classes.staffInfo}>
+                 <div className={classes.userInfo}>
+                <PiUserCircleFill className={classes.userIcon} />
+                <div className={classes.userName}>{data.userName}</div>
+              </div>
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>

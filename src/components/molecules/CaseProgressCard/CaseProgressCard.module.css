@@ -12,6 +12,10 @@
   position: relative;
 }
 
+.isStatusVariantClass{
+  border-radius: 12px;
+}
+
 .activeTab {
   position: absolute;
   top: 0;
