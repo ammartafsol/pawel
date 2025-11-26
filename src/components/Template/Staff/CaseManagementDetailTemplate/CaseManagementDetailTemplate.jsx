@@ -6,7 +6,10 @@ import { IoChevronBack } from "react-icons/io5";
 import classes from "./CaseManagementDetailTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
 import EvidenceTableTop from "@/components/molecules/EvidenceTableTop/EvidenceTableTop";
-import { auditTrackingOptions, caseDetailTabs } from "@/developementContent/Enums/enum";
+import {
+  auditTrackingOptions,
+  caseDetailTabs,
+} from "@/developementContent/Enums/enum";
 import Calender from "@/components/molecules/Calender/Calender";
 import { myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import TabFilter from "@/components/molecules/TabFilter/TabFilter";
@@ -15,6 +18,7 @@ import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import DocCard from "@/components/atoms/DocCard/DocCard";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { BiFilterAlt } from "react-icons/bi";
+import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
@@ -117,7 +121,24 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       >
         <div className={classes?.content}>
           <Row>
-            <Col md={3}></Col>
+            <Col md={3}>
+              <CaseProgressCard
+                data={{
+                  tabLabel: "EU TM OPPO",
+                  userName: "Assigned Staff",
+                  progress: 80,
+                  status: "Decision",
+                  trademarkName: "A and Sons",
+                  trademarkNo: "R-3526",
+                  referenceLink: "#",
+                  primaryStaff: "Roxanne Gleichner",
+                  secondaryStaff: "Roxanne Gleichner",
+                  jurisdiction: "EUIPO",
+                }}
+                // isAssignedStaffVariant
+                isCaseDetailVariant
+              />
+            </Col>
             <Col md={9}>
               <Wrapper
                 headerComponent={

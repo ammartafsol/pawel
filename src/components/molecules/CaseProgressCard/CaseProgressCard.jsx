@@ -20,6 +20,7 @@ export default function CaseProgressCard({
   routePath,
   isAssignedStaffVariant = false,
   isStatusVariant = false,
+  isCaseDetailVariant = false,
   data = {
     tabLabel: "",
     userName: "",
@@ -44,7 +45,7 @@ export default function CaseProgressCard({
       }}
     >
       {/* Tab Section - Outside the card */}
-      {!isStatusVariant && (
+      {(!isStatusVariant && !isCaseDetailVariant) && (
         <div className={classes.activeTab}>{data.tabLabel}</div>
       )}
 
@@ -52,7 +53,7 @@ export default function CaseProgressCard({
       <div
         className={mergeClass(
           classes.card,
-          isStatusVariant && classes.isStatusVariantClass
+          (isStatusVariant || isCaseDetailVariant) && classes.isStatusVariantClass
         )}
       >
         {/* Card Content */}
@@ -89,6 +90,29 @@ export default function CaseProgressCard({
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
+          ) : isCaseDetailVariant ? (
+             <div className={classes.userRowAssigned}>
+              <div className={classes.staffInfo}>
+                <div className={classes.statusVariantLabel}>
+                  <p>{data.tabLabel}</p>
+                </div>
+               <div className={classes.staffInfo}>
+                <div className={classes.userInfo}>
+                  <LuSquareUser className={classes.userIcon} />
+                  <div className={classes.assignedHeading}>Assigned Staff</div>
+                </div>
+                <div className={classes.keyValueDiv}>
+                  <span className={classes.keyLabel}>Primary:</span>
+                  <p className={classes.staffName}>{data?.primaryStaff}</p>
+                </div>
+                <div className={classes.keyValueDiv}>
+                  <span className={classes.keyLabel}>Secondary:</span>
+                  <p className={classes.staffName}>{data?.secondaryStaff}</p>
+                </div>
+              </div>
+              </div>
+              <ProgressBarCircular percentage={data.progress} size={80} />
+            </div>
           ) : (
             <div className={classes.userRow}>
               <div className={classes.userInfo}>
@@ -100,14 +124,14 @@ export default function CaseProgressCard({
           )}
 
           {/* Status Row */}
-          <div className={classes.statusRow}>
+        {!isCaseDetailVariant &&  <div className={classes.statusRow}>
             <MdOutlineChecklistRtl className={classes.statusIcon} />
             {isStatusVariant ? (
               <Status label={data.status} />
             ) : (
               <StatusChip>{data.status}</StatusChip>
             )}
-          </div>
+          </div>}
 
           {/* Trademark Name */}
           <div className={classes.infoRow}>
