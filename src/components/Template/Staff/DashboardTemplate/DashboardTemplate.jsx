@@ -12,6 +12,7 @@ import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTa
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
+import AppTable from "@/components/organisms/AppTable/AppTable";
 
 const DashboardTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -48,7 +49,7 @@ const DashboardTemplate = () => {
               className={classes.wrapper}
               contentClassName={classes.contentClassName}
             >
-              <ResponsiveTable
+              <AppTable
                 tableHeader={staffDashboardTableHeader}
                 data={staffDashboardTableBody}
               />
