@@ -136,7 +136,7 @@ export default function CaseProgressCard({
           </div>
 
           {/* Jurisdiction */}
-          {!isStatusVariant && (
+          {isAssignedStaffVariant && (
             <div className={classes.infoRow}>
               <VscTypeHierarchySub className={classes.infoIcon} />
               <span className={classes.infoLabel}>
