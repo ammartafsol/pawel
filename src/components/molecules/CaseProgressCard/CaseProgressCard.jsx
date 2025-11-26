@@ -15,6 +15,7 @@ import { VscTypeHierarchySub } from "react-icons/vsc";
 export default function CaseProgressCard({
   routePath,
   isAssignedStaffVariant = false,
+  isStatusVariant = false,
   data = {
     tabLabel: "",
     userName: "",

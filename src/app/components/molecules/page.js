@@ -16,13 +16,14 @@ export default function MoleculesPage() {
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Molecules Page</h1>
-      <div className={classes.content}>
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>ActivityLog</h3>
         <ActivityLog />
-      </div>
+      </div> */}
        <div className={classes.content}>
         <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-3</h3>
         <CaseProgressCard 
+        isStatusVariant
           data={{
               tabLabel: "EU TM OPPO",
               userName: "Assigned Staff",
@@ -52,6 +53,7 @@ export default function MoleculesPage() {
               secondaryStaff: "Roxanne Gleichner",
               jurisdiction: "EUIPO",
           }}
+          isAssignedStaffVariant
         />
       </div>
       <div className={classes.content}>
