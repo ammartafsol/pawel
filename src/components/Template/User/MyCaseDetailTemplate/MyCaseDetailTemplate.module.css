@@ -4,6 +4,9 @@
     margin: 0px !important;
     height: 50vh !important;
 }
+.breadComTop{
+    margin-bottom: 60px;
+}
 .contentClassName{
     padding: 0px !important;
     overflow: hidden !important;
