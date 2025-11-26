@@ -4,8 +4,30 @@
     height: 100%;
     padding: 24px;
     border-right: 2px solid var(--border-color-2);
+    position: relative;
+}
 
+.sidebarOpen{
+    width:80px !important;
+}
 
+.iconContainer{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: -17px;
+    top: 13px;
+    border-radius: 6px;
+    border: 2px solid var(--border-color-2);
+    background-color: var(--light-gray-2);
+}
+.forwardIcon{
+    position: relative;
+    width: 26px;
+    height: 26px;
 }
 .logo{
     width: 30px;
