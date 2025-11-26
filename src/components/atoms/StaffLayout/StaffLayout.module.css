@@ -1,0 +1,28 @@
+
+.staffLayout{
+    height: 100vh;
+    background-color: var(--light-gray-2);
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.rightSide{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    background-color: var(--white);
+}
+
+.rightSideHeader{
+    padding: 16px;
+    border-bottom: 2px solid var(--border-color-2);
+    height: 60px;
+
+}
+
+.rightSideContent{
+    flex: 1;
+    padding: 24px;
+}

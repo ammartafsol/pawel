@@ -18,6 +18,7 @@
   --steel-mist: #808897;
   --frost-whisper: #e4e5e7;
   --border-color:#E5E5E9;
+  --border-color-2: #EEE;
   --placeholder-color:#A4ABB8;
   --slate-shadow: #666d80;
   --storm-grey: #87878e;
@@ -69,6 +70,7 @@
   --marine-blue: #1F5CAE;
   --midnight-blue: #151529;
   --light-gray: #eaeaea;
+  --light-gray-2: #FAFAFA;
   --charcoal-gray: #262626;
   --graphite: #808080;
   --moonstone-gray: #5d5d6e;
@@ -100,6 +102,7 @@
   --status-light-blue-4: #3DA4F4;
   --status-blue-1: #1F71D6;
   --status-blue-2: #1F5CAE;
+  --light-orange:#D9C7AF;
 
   /* Status Border */
   --tertiary-100: #E3E3ED;

@@ -7,10 +7,34 @@ import { usePathname } from "next/navigation";
 const Breadcrumbs = () => {
   const pathname = usePathname();
 
-  const breadcrumbs = pathname
+  // Route label mapping
+  const routeLabels = {
+    "my-cases": "My Cases",
+    "support-center": "Support Center",
+  };
+
+  // Check if we're on a detail page (e.g., /user/my-cases/[slug])
+  const isDetailPage = pathname.match(/\/user\/my-cases\/[^/]+$/);
+
+  // Build breadcrumbs array
+  const pathSegments = pathname
     .split("/")
     .filter(Boolean)
     .filter((crumb) => crumb !== "user");
+
+  const breadcrumbs = [];
+
+  // Process each segment
+  pathSegments.forEach((segment, index) => {
+    // If we're on a detail page and this is the last segment (the slug), replace it with "Case Details"
+    if (isDetailPage && index === pathSegments.length - 1) {
+      breadcrumbs.push("Case Details");
+    } else {
+      // Use mapped label or capitalize the segment
+      const label = routeLabels[segment] || segment;
+      breadcrumbs.push(label);
+    }
+  });
 
   return (
     <div className={classes.breadcrumbs}>
@@ -24,7 +48,7 @@ const Breadcrumbs = () => {
             <span className={classes.slash}>/</span>
 
             <span className={isLast ? classes.activeCrumb : classes.crumb}>
-              {decodeURIComponent(crumb)}
+              {crumb}
             </span>
           </React.Fragment>
         );
