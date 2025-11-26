@@ -72,3 +72,14 @@ export const reactActivities = [
     value:"last90days"
   },
 ]
+
+export const auditTrackingOptions = [
+  {
+    label: "All",
+    value: "all"
+  },
+  {
+    label: "Audit Tracking",
+    value: "audit-tracking"
+  }
+]

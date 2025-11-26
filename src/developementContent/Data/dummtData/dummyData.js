@@ -111,3 +111,73 @@ export const newCasesData = [
     image: "/app-images/exportData.svg",
   },
 ];
+
+
+export const caseManagementCardsData = [
+  {
+    id: 1,
+    tabLabel: "EU TM OPPO",
+    userName: "Darlene Steuber",
+    progress: 100,
+    status: "File Observations",
+    trademarkName: "A and Sons",
+    trademarkNo: "R-3526",
+    deadline: "Nov 20, 24",
+    clientName: "Dana Auer"
+  },
+  {
+    id: 2,
+    tabLabel: "EU TM OPPO",
+    userName: "Kathleen Steuber",
+    progress: 85,
+    status: "File Opposition",
+    trademarkName: "Orn - Runolfsson",
+    trademarkNo: "R-3526",
+    deadline: "Nov 22, 24",
+    clientName: "Rafael Dietrich"
+  },
+  {
+    id: 3,
+    tabLabel: "Design invalidation",
+    userName: "Renee Harber",
+    progress: 75,
+    status: "File Invalidation",
+    trademarkName: "Cummings, Reic...",
+    trademarkNo: "R-3526",
+    deadline: "Nov 25, 24",
+    clientName: "Al Cassin"
+  },
+  {
+    id: 4,
+    tabLabel: "EU TM OPPO",
+    userName: "Alberta Herman",
+    progress: 90,
+    status: "Defense",
+    trademarkName: "Heller - Hoppe",
+    trademarkNo: "R-3526",
+    deadline: "Nov 28, 24",
+    clientName: "Pete Orn"
+  },
+  {
+    id: 5,
+    tabLabel: "Design invalidation",
+    userName: "Pete Orn",
+    progress: 65,
+    status: "Second Observations",
+    trademarkName: "Lueilwitz LLC",
+    trademarkNo: "R-3526",
+    deadline: "Dec 1, 24",
+    clientName: "Alberta Herman"
+  },
+  {
+    id: 6,
+    tabLabel: "EU TM OPPO",
+    userName: "Darlene Steuber",
+    progress: 95,
+    status: "Cooling-Off Period",
+    trademarkName: "Crist and Sons",
+    trademarkNo: "R-3526",
+    deadline: "Dec 5, 24",
+    clientName: "Kathleen Steuber"
+  }
+];

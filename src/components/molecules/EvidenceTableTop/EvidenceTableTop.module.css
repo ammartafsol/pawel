@@ -1,0 +1,24 @@
+
+.evidenceTableTop{
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.evidenceTableTop h4{
+    color: var(--charcoal-night);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;   
+    margin-bottom: 0px;
+}
+
+.dropdownContainer {
+    position: relative;
+}
+
+.dropdownContainer :global(.react-dropdown-select) {
+    width: 150px !important;
+}
