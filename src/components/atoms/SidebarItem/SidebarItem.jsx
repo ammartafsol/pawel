@@ -1,13 +1,21 @@
-import React from 'react';
-import classes from "./SidebarItem.module.css"
+"use client";
+import React from "react";
+import classes from "./SidebarItem.module.css";
+import { usePathname, useRouter } from "next/navigation";
 
-const SidebarItem = ({icon, title}) => {
+const SidebarItem = ({ icon, title, href }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  const router = useRouter();
   return (
-    <div className={classes?.sidebarItem}>
-          {icon}
-          <h5>{title}</h5>
-        </div>
-  )
-}
+    <div
+      onClick={() => router.push(href)}
+      className={`${classes?.sidebarItem} ${isActive && classes?.active}`}
+    >
+      <div>{icon}</div>
+      <h5>{title}</h5>
+    </div>
+  );
+};
 
-export default SidebarItem
+export default SidebarItem;

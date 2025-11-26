@@ -63,7 +63,7 @@ export const StaffToolsData = [
   {
     id: 3,
     name: "Support",
-    href: "/staff/notification-management",
+    href: "/staff/support",
     icon: <BsQuestionCircle size={24}  />,
   }
 ];

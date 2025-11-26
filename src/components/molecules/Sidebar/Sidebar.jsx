@@ -13,13 +13,13 @@ const Sidebar = () => {
       </div>
       <div className={classes?.sidebarItems}>
         {StaffHeaderData?.map((item) => {
-          return <SidebarItem icon={item?.icon} title={item?.name} />;
+          return <SidebarItem icon={item?.icon} href={item?.href} title={item?.name} />;
         })}
       </div>
       <h6>Tools</h6>
       <div className={classes?.sidebarItems}>
         {StaffToolsData?.map((item) => {
-          return <SidebarItem icon={item?.icon} title={item?.name} />;
+          return <SidebarItem icon={item?.icon} href={item?.href} title={item?.name} />;
         })}
       </div>
     </div>

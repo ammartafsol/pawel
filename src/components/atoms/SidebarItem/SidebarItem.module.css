@@ -14,3 +14,12 @@ line-height: 150%; /* 24px */
 letter-spacing: -0.352px;
 margin-top: 1px;
 }
+
+.sidebarItem.active h5{
+    color: #000100 !important;
+    font-weight: 500 !important;
+}
+
+.sidebarItem.active svg{
+    color: #1F5CAE !important;
+}
