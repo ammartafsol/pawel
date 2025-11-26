@@ -27,12 +27,23 @@ const MyCaseDetailTemplate = ({ slug }) => {
       case "activityLog":
         return (
           <div className={classes.activityLogContainer}>
-           <div className={classes.headingDiv}>
+            <div className={classes.headingDiv}>
               <h5>Recent activities</h5>
-           </div>
-           <div className={classes.activityListContainer}>
-              <ActivityLog/>
-           </div>
+            </div>
+            <div className={classes.activityListContainer}>
+              <ActivityLog
+                activities={[
+                  { text: "Status update to Defense", date: "May 1, 2025" },
+                  {
+                    text: "Status update to Evidence Round Opponent",
+                    date: "May 15, 2025",
+                  },
+                  { text: "Document Upload", date: "May 15, 2025" },
+                  { text: "Status update to Hearing", date: "May 17, 2025" },
+                  { text: "Document Upload", date: "May 18, 2025" },
+                ]}
+              />
+            </div>
           </div>
         );
       case "documents":
