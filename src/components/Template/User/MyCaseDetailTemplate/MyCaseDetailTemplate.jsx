@@ -13,6 +13,8 @@ import { caseDetailTabs } from "@/developementContent/Enums/enum";
 import Notes from "@/components/molecules/Notes/Notes";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import DocCard from "@/components/atoms/DocCard/DocCard";
+import SearchInput from "@/components/atoms/SearchInput/SearchInput";
+import { BiFilterAlt } from "react-icons/bi";
 
 const MyCaseDetailTemplate = ({ slug }) => {
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
@@ -70,8 +72,14 @@ const MyCaseDetailTemplate = ({ slug }) => {
       case "documents":
         return (
           <div className={classes.activityLogContainer}>
-            <div className={classes.headingDiv}>
+            <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
+              <div className={classes.docsHeaderRight}>
+                <SearchInput/>
+                <div className={classes.filterIcon}>
+                  <BiFilterAlt size={20} color="var(--black)"/>
+                </div>
+              </div>
             </div>
             <div className={classes.docListContainer}>
               {documents.map((doc) => (
