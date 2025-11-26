@@ -1,32 +1,32 @@
 .tabFilter {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 0;
   border-bottom: 1px solid var(--light-gray);
+  background-color: var(--ghost-white);
+  padding: 0;
 }
 
 .tab {
   padding: 12px 24px;
   border: none;
   background: transparent;
-  color: var(--charcoal-night);
-  font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-bottom: 2px solid transparent;
-  position: relative;
-  white-space: nowrap;
+  color: var(--midnight-blue);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.4px;
 }
 
-.tab:hover {
-  color: var(--deep-cerulean);
-  background-color: rgba(1, 76, 133, 0.05);
-}
+
 
 .tab.active {
-  color: var(--deep-cerulean);
-  font-weight: 600;
-  border-bottom-color: var(--deep-cerulean);
+  background-color: var(--white);
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 

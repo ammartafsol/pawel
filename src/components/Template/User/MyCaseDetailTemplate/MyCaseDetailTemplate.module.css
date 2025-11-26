@@ -6,4 +6,9 @@
 }
 .contentClassName{
     padding: 0px !important;
+    overflow: hidden !important;
+}
+
+.notesContainer{
+    padding: 16px;
 }

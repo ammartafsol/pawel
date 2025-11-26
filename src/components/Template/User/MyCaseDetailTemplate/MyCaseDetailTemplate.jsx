@@ -10,6 +10,7 @@ import { myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import TabFilter from "@/components/molecules/TabFilter/TabFilter";
 import { caseDetailTabs } from "@/developementContent/Enums/enum";
+import Notes from "@/components/molecules/Notes/Notes";
 
 const MyCaseDetailTemplate = ({ slug }) => {
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
@@ -18,11 +19,8 @@ const MyCaseDetailTemplate = ({ slug }) => {
     switch (activeTab) {
       case "notes":
         return (
-          <div>
-            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Deadline</h4>
-            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
-              Figma ipsum component variant main layer. Boolean plugin project comment su frame team.
-            </p>
+          <div className={classes.notesContainer}>
+            <Notes />
           </div>
         );
       case "activityLog":
