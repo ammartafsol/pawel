@@ -26,15 +26,17 @@ export default function MoleculesPage() {
         isStatusVariant
           data={{
               tabLabel: "EU TM OPPO",
-              userName: "Assigned Staff",
-              progress: 80,
-              status: "Decision",
+              userName: "Darlene Steuber",
+              progress: 100,
+              status: "File Observations",
               trademarkName: "A and Sons",
               trademarkNo: "R-3526",
               referenceLink: "#",
               primaryStaff: "Roxanne Gleichner",
               secondaryStaff: "Roxanne Gleichner",
               jurisdiction: "EUIPO",
+              deadline: "Nov 20, 24",
+              clientName: "Dana Auer"
           }}
         />
       </div>

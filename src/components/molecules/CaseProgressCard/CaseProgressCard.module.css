@@ -12,7 +12,7 @@
   position: relative;
 }
 
-.isStatusVariantClass{
+.isStatusVariantClass {
   border-radius: 12px;
 }
 
@@ -75,13 +75,13 @@
   gap: 2px;
 }
 
-.keyLabel{
-  color: var(--storm-grey, #87878E);
-font-size: 10px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-text-transform: uppercase;
+.keyLabel {
+  color: var(--storm-grey, #87878e);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
 .staffName {
@@ -98,6 +98,30 @@ text-transform: uppercase;
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
+}
+
+.statusVariantLabel {
+  display: flex;
+  padding: 4px 12px;
+  justify-content: center;
+  align-items: center ;
+  gap: 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--progress-bg);
+  background: var(--white);
+}
+
+.statusVariantLabel p{
+  color: var(--sea-green);
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-bottom: 0px;
+}
+
+.statusVariantUnderlined{
+  text-decoration: underline;
 }
 
 .userInfo {
