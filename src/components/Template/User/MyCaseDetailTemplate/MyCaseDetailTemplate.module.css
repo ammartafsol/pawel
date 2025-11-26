@@ -45,13 +45,13 @@
   border-top: 1px solid var(--light-gray);
 }
 
-.docListContainer{
-display: flex;
+.docListContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   padding: 16px;
-  align-items: flex-start;
-  gap: 24px;
-  flex: 1 0 0;
-  align-self: stretch;
+  align-items: start;
+  gap: 16px 24px;
+  width: 100%;
 }
 
 .contentClassName{

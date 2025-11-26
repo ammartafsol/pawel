@@ -12,9 +12,30 @@ import TabFilter from "@/components/molecules/TabFilter/TabFilter";
 import { caseDetailTabs } from "@/developementContent/Enums/enum";
 import Notes from "@/components/molecules/Notes/Notes";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
+import DocCard from "@/components/atoms/DocCard/DocCard";
 
 const MyCaseDetailTemplate = ({ slug }) => {
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
+  const documents = [
+    {
+      id: "document-1",
+      title: "Document 1",
+      dateTime: "12/29/2023 10:20",
+      visibilityText: "Visible to client",
+    },
+    {
+      id: "document-2",
+      title: "Document 2",
+      dateTime: "12/29/2023 10:20",
+      visibilityText: null,
+    },
+    {
+      id: "document-3",
+      title: "Document 3",
+      dateTime: "12/29/2023 10:20",
+      visibilityText: null,
+    },
+  ];
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -48,12 +69,19 @@ const MyCaseDetailTemplate = ({ slug }) => {
         );
       case "documents":
         return (
-         <div className={classes.activityLogContainer}>
+          <div className={classes.activityLogContainer}>
             <div className={classes.headingDiv}>
               <h5>Case documents</h5>
             </div>
             <div className={classes.docListContainer}>
-             
+              {documents.map((doc) => (
+                <DocCard
+                  key={doc.id}
+                  title={doc.title}
+                  dateTime={doc.dateTime}
+                  visibilityText={doc.visibilityText}
+                />
+              ))}
             </div>
           </div>
         );
