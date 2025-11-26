@@ -12,6 +12,9 @@
     background-color: var(--ghost-white);
 }
 
+.uploadDocumentButton{
+    height: 40px !important;
+}
 
 .contentClassName{
     padding: 0px !important;

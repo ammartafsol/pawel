@@ -16,8 +16,10 @@ import DocCard from "@/components/atoms/DocCard/DocCard";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { BiFilterAlt } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import { MdAddCircle } from "react-icons/md";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
+    const [searchValue, setSearchValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
 
@@ -50,7 +52,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       case "notes":
         return (
           <div className={classes.notesContainer}>
-            <Notes />
+            <Notes searchValue={searchValue} setSearchValue={setSearchValue} />
           </div>
         );
       case "activityLog":
@@ -81,6 +83,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
+                <Button label="Upload Document" className={classes.uploadDocumentButton} leftIcon={<MdAddCircle color="var(--white)" size={20} />} />
                 <SearchInput />
                 <div className={classes.filterIcon}>
                   <BiFilterAlt size={20} color="var(--black)" />
