@@ -35,6 +35,7 @@ export default function CaseProgressCard({
     jurisdiction: "",
     deadline: "",
     clientName: "",
+    deadlines: [],
   },
 }) {
   const router = useRouter();
@@ -203,13 +204,15 @@ export default function CaseProgressCard({
             <div className={classes.infoRowDetailed}>
               <BiCalendar className={mergeClass(classes.infoIcon, 'mt-1')} />
               <div className={classes.detailsDiv}>
-                 <span className={classes.infoLabel}>
-                Deadlines
-              </span>
-              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
-              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
-              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
-              
+                <span className={classes.infoLabel}>Deadlines</span>
+                {((Array.isArray(data.deadlines) && data.deadlines.length > 0) 
+                  ? data.deadlines 
+                  : (data.deadline ? [{ label: "Deadline", value: data.deadline }] : [])
+                ).map((dl, idx) => (
+                  <span key={idx} className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>
+                    {dl.label} - <strong>{dl.value}</strong>
+                  </span>
+                ))}
               </div>
             </div>
           )}

@@ -135,7 +135,11 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                   secondaryStaff: "Roxanne Gleichner",
                   jurisdiction: "EUIPO",
                   clientName: "Dana Auer",
-                  deadline: "Nov 20, 24",
+                  deadlines: [
+                    { label: "Defense", value: "Nov 20, 25" },
+                    { label: "Second Observations", value: "Dec 20, 25" },
+                    { label: "Decision", value: "Jan 20, 26" },
+                  ],
                 }}
                 // isAssignedStaffVariant
                 isCaseDetailVariant
