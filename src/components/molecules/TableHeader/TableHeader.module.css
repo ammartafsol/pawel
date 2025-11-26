@@ -9,3 +9,19 @@ font-style: normal;
 font-weight: 500;
 line-height: normal;
 }
+
+.viewAllBtn{
+    height: 40px !important;
+}
+
+.tableHeaderParent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+.tableHeaderButtons{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}

@@ -44,7 +44,7 @@ const DashboardTemplate = () => {
         <Row className="mt-4">
           <Col>
             <Wrapper
-             headerComponent={<TableHeader title="Recent Activities" />}
+             headerComponent={<TableHeader viewButtonText="View All" title="Recent Activities" />}
               className={classes.wrapper}
               contentClassName={classes.contentClassName}
             >
