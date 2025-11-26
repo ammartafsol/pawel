@@ -23,6 +23,7 @@
     border-radius: 6px;
     border: 2px solid var(--border-color-2);
     background-color: var(--light-gray-2);
+    cursor: pointer;
 }
 .forwardIcon{
     position: relative;
