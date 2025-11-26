@@ -4,7 +4,8 @@
   border-radius: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-  background-color: var(--ghost-white);
+  background-color: #fcfcfd;
+  border: 1.5px solid var(--primary-200, #d3d3e2);
 }
 
 .tableMainContainer::-webkit-scrollbar {
@@ -12,44 +13,56 @@
 }
 
 .tableMainContainer table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
 }
 
 .tableHeaderContainer {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1.5px solid var(--primary-200, #d3d3e2);
   margin-bottom: 5px;
+  background: var(--primary-50, rgba(240, 240, 245, 0.5));
 }
 
 .tableHeaderContainer th {
-  width: 20%;
   height: 50px;
-  padding: 0px;
-  padding-right: 15px;
-  color: var(--Dark-gray, #8c939b);
+  padding: 12px;
+  color: var(--charcoal-gray);
   text-align: left;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 120%; /* 16.8px */
+  font-weight: 500;
+  line-height: 120%;
   word-break: break-word;
   white-space: pre-line;
+  border-top: 1.5px solid var(--primary-200, #d3d3e2);
+  border-right: 1.5px solid var(--primary-200, #d3d3e2);
+  border-bottom: 1.5px solid var(--primary-200, #d3d3e2);
+  background: var(--primary-50, rgba(240, 240, 245, 0.5));
 }
 
 .tableBodyContainer {
   max-height: calc(60vh - 5px) !important;
+  overflow-y: auto;
+  background-color: #fcfcfd;
 }
 
 .tableBodyContainer td {
   text-align: left;
-  color: var(--Black, #172a33);
-  font-size: 15px;
+  color: var(--charcoal-gray);
+  font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 120%;
-  width: 20%;
   height: 50px;
-  padding-right: 12px;
+  padding: 12px;
   align-content: center;
+  border-bottom: 1.5px solid var(--grey-100, #f1f1f1);
+  border-left: 1.5px solid var(--grey-100, #f1f1f1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #fcfcfd;
 }
 
 .tableBodyContainer td > div {
@@ -65,8 +78,8 @@
   display: none;
 }
 
-.tableBodyContainer tr:nth-child(even) td {
-  background: #f4f7fd;
+.tableBodyContainer tr:hover td {
+  background: #eef3fb;
 }
 
 .tableBodyContainer tr td:first-child {
@@ -120,5 +133,38 @@
 
 .tableHeaderContainer th,
 .tableBodyContainer td {
-  width: 16%;
+  min-width: 180px;
+}
+
+@media (max-width: 1024px) {
+  .tableHeaderContainer th {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .tableBodyContainer td {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableMainContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .tableHeaderContainer th,
+  .tableBodyContainer td {
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tableHeaderContainer th,
+  .tableBodyContainer td {
+    min-width: 140px;
+    font-size: 12px;
+    padding: 8px;
+  }
 }
