@@ -48,6 +48,54 @@
   align-items: center;
 }
 
+.userRowAssigned {
+  display: flex;
+  padding-bottom: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.assignedHeading {
+  color: var(--storm-grey, #87878e);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.keyValueDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.keyLabel{
+  color: var(--storm-grey, #87878E);
+font-size: 10px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+text-transform: uppercase;
+}
+
+.staffName {
+  color: var(--charcoal-night, #414149);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.staffInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
 .userInfo {
   display: flex;
   align-items: center;
@@ -122,4 +170,3 @@
   font-size: 14px;
   color: var(--light-purple);
 }
-
