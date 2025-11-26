@@ -13,6 +13,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
+import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 
 
 
@@ -43,9 +44,7 @@ const Header = () => {
               )
             })}
             {/* //// search */}
-          <div className={styles.search}>
-            <Input type="search" inputClass={styles.inputClass} leftIcon={<IoSearchSharp size={20} />} placeholder="Search" />
-          </div>
+            <SearchInput/>
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               {/* message  */}
