@@ -6,16 +6,40 @@
   overflow-y: hidden;
   background-color: #fcfcfd;
   border: 1.5px solid var(--primary-200, #d3d3e2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-200, #d3d3e2) transparent;
 }
 
 .tableMainContainer::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.tableMainContainer::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.tableMainContainer::-webkit-scrollbar-thumb {
+  background: var(--primary-200, #d3d3e2);
+  border-radius: 999px;
+}
+
+.tableMainContainer::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-300, #b9b9d1);
 }
 
 .tableMainContainer table {
-  width: max-content;
-  min-width: 100%;
+  width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.tableHeaderContainer table,
+.tableBodyContainer table {
+  width: 100%;
+  min-width: 720px;
+  table-layout: fixed;
 }
 
 .tableHeaderContainer {

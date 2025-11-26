@@ -10,6 +10,9 @@ import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgre
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import { mergeClass } from "@/resources/utils/helper";
+import AppTable from "@/components/organisms/AppTable/AppTable";
+import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
+import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 
 export default function MoleculesPage() {
   return (
@@ -20,55 +23,70 @@ export default function MoleculesPage() {
         <h3 className={classes.subtitle}>ActivityLog</h3>
         <ActivityLog />
       </div> */}
-       <div className={classes.content}>
-        <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-3</h3>
-        <CaseProgressCard 
-        isStatusVariant
+      <div className={classes.content}>
+        <h3 className={mergeClass(classes.subtitle, "mb-4")}>
+          CaseProgressCard-3
+        </h3>
+        <AppTable
+          tableHeader={staffDashboardTableHeader}
+          data={staffDashboardTableBody}
+        />
+      </div>
+      <div className={classes.content}>
+        <h3 className={mergeClass(classes.subtitle, "mb-4")}>
+          CaseProgressCard-3
+        </h3>
+        <CaseProgressCard
+          isStatusVariant
           data={{
-              tabLabel: "EU TM OPPO",
-              userName: "Darlene Steuber",
-              progress: 100,
-              status: "File Observations",
-              trademarkName: "A and Sons",
-              trademarkNo: "R-3526",
-              referenceLink: "#",
-              primaryStaff: "Roxanne Gleichner",
-              secondaryStaff: "Roxanne Gleichner",
-              jurisdiction: "EUIPO",
-              deadline: "Nov 20, 24",
-              clientName: "Dana Auer"
+            tabLabel: "EU TM OPPO",
+            userName: "Darlene Steuber",
+            progress: 100,
+            status: "File Observations",
+            trademarkName: "A and Sons",
+            trademarkNo: "R-3526",
+            referenceLink: "#",
+            primaryStaff: "Roxanne Gleichner",
+            secondaryStaff: "Roxanne Gleichner",
+            jurisdiction: "EUIPO",
+            deadline: "Nov 20, 24",
+            clientName: "Dana Auer",
           }}
         />
       </div>
       <div className={classes.content}>
-        <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-1</h3>
-        <CaseProgressCard 
+        <h3 className={mergeClass(classes.subtitle, "mb-4")}>
+          CaseProgressCard-1
+        </h3>
+        <CaseProgressCard
           data={{
-              tabLabel: "EU TM OPPO",
-              userName: "Assigned Staff",
-              progress: 80,
-              status: "Decision",
-              trademarkName: "A and Sons",
-              trademarkNo: "R-3526",
-              referenceLink: "#",
-              primaryStaff: "Roxanne Gleichner",
-              secondaryStaff: "Roxanne Gleichner",
-              jurisdiction: "EUIPO",
+            tabLabel: "EU TM OPPO",
+            userName: "Assigned Staff",
+            progress: 80,
+            status: "Decision",
+            trademarkName: "A and Sons",
+            trademarkNo: "R-3526",
+            referenceLink: "#",
+            primaryStaff: "Roxanne Gleichner",
+            secondaryStaff: "Roxanne Gleichner",
+            jurisdiction: "EUIPO",
           }}
           isAssignedStaffVariant
         />
       </div>
       <div className={classes.content}>
-         <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-2</h3>
+        <h3 className={mergeClass(classes.subtitle, "mb-4")}>
+          CaseProgressCard-2
+        </h3>
         <CaseProgressCard
           data={{
-              tabLabel: "EU TM OPPO",
-              userName: "Assigned Staff",
-              progress: 80,
-              status: "Decision",
-              trademarkName: "A and Sons",
-              trademarkNo: "R-3526",
-              referenceLink: "#",
+            tabLabel: "EU TM OPPO",
+            userName: "Assigned Staff",
+            progress: 80,
+            status: "Decision",
+            trademarkName: "A and Sons",
+            trademarkNo: "R-3526",
+            referenceLink: "#",
           }}
         />
       </div>
