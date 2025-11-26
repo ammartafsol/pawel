@@ -5,22 +5,22 @@ export const staffDashboardTableHeader = [
   {
     title: "Client",
     key: "client",
-    style: { width: "25%" },
+    style: { width: "15%" },
   },
   {
     title: "Type of Case",
     key: "typeOfCase",
-    style: { width: "25%" },
+    style: { width: "15%" },
   },
   {
     title: "Trademark Name",
     key: "trademarkName",
-    style: { width: "28%" },
+    style: { width: "15%" },
   },
   {
     title: "Trademark Number",
     key: "trademarkNumber",
-    style: { width: "25%" },
+    style: { width: "15%" },
     renderItem: ({ item }) => {
       return (
         <Link href="#" style={{ color: "#1F5CAE", textDecoration: "none" }}>
@@ -32,7 +32,7 @@ export const staffDashboardTableHeader = [
   {
     title: "Status",
     key: "status",
-    style: { width: "20%" },
+    style: { width: "15%" },
     renderItem: ({ item, data }) => {
       return <Status label={item} variant={data.statusVariant} />;
     },
@@ -40,7 +40,7 @@ export const staffDashboardTableHeader = [
   {
     title: "Next Task",
     key: "nextTask",
-    style: { width: "20%" },
+    style: { width: "15%" },
     renderItem: ({ item, data }) => {
       return <Status label={item} variant={data.nextTaskVariant} />;
     },
@@ -48,7 +48,7 @@ export const staffDashboardTableHeader = [
   {
     title: "Attorney",
     key: "attorney",
-    style: { width: "55%" },
+    style: { width: "10%" },
   },
 ];
 
