@@ -1,0 +1,11 @@
+
+.tableHeaderDrop{
+    padding:12px 16px;
+}
+.tableHeaderDrop h4{
+    color: var(--charcoal-night);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}

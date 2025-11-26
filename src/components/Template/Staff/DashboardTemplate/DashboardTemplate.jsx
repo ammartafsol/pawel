@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import classes from "./DashboardTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
@@ -7,8 +8,14 @@ import { myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import CalenderHeaderDrop from "@/components/atoms/TableHeaderDrop/CalenderHeaderDrop";
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 import { newCasesData } from "@/developementContent/Data/data";
+import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
+import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
+import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
+import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 
 const DashboardTemplate = () => {
+  const [searchValue, setSearchValue] = useState("");
+  
   return (
     <div>
       <div className={classes?.dashboardTemplateHeader}>
@@ -34,10 +41,19 @@ const DashboardTemplate = () => {
           </div>
           </Col>
         </Row>
-        <Row>
-          <Wrapper title="Recent Activities">
-            dsa
-          </Wrapper>
+        <Row className="mt-4">
+          <Col>
+            <Wrapper
+             headerComponent={<TableHeader title="Recent Activities" />}
+              className={classes.wrapper}
+              contentClassName={classes.contentClassName}
+            >
+              <ResponsiveTable
+                tableHeader={staffDashboardTableHeader}
+                data={staffDashboardTableBody}
+              />
+            </Wrapper>
+          </Col>
         </Row>
       </div>
     </div>
