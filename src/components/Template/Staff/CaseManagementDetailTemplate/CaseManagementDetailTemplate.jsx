@@ -15,10 +15,14 @@ import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import DocCard from "@/components/atoms/DocCard/DocCard";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { BiFilterAlt } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
+
+
+  const router =useRouter();
 
   const documents = [
     {
@@ -111,6 +115,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
               variant="outlined"
               leftIcon={<IoChevronBack color="#151529" />}
               label="Back"
+              onClick={() => router.back()}
             />
           </div>
         }
