@@ -37,6 +37,7 @@ export default function CaseProgressCard({
     deadline: "",
     clientName: "",
     deadlines: [],
+    tasks: [], 
   },
 }) {
   const router = useRouter();
@@ -221,15 +222,22 @@ export default function CaseProgressCard({
           {/* Tasks */}
           {isCaseDetailVariant && (
             <div className={classes.infoRowDetailed}>
-              <MdChecklistRtl className={mergeClass(classes.infoIcon, 'mt-1')} />
+              <MdChecklistRtl className={mergeClass(classes.infoIcon, "mt-1")} />
               <div className={classes.detailsDiv}>
                 <span className={classes.infoLabel}>Tasks</span>
-                {((Array.isArray(data.deadlines) && data.deadlines.length > 0) 
-                  ? data.deadlines 
-                  : (data.deadline ? [{ label: "Deadline", value: data.deadline }] : [])
-                ).map((dl, idx) => (
-                  <span key={idx} className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>
-                    {dl.label} - <strong>{dl.value}</strong>
+                {(Array.isArray(data.tasks) && data.tasks.length > 0
+                  ? data.tasks
+                  : []
+                ).map((task, idx) => (
+                  <span
+                    key={idx}
+                    className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}
+                  >
+                    {typeof task === "string"
+                      ? task
+                      : task?.label
+                      ? `${task.label} - ${task.value ?? ""}`
+                      : JSON.stringify(task)}
                   </span>
                 ))}
               </div>

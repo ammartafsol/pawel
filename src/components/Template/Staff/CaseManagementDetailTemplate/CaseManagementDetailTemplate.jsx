@@ -140,6 +140,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                     { label: "Second Observations", value: "Dec 20, 25" },
                     { label: "Decision", value: "Jan 20, 26" },
                   ],
+                  tasks: ['Evidence Round Opponent']
                 }}
                 // isAssignedStaffVariant
                 isCaseDetailVariant
