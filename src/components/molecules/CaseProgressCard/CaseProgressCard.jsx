@@ -169,7 +169,7 @@ export default function CaseProgressCard({
           </div>
 
           {/* Jurisdiction */}
-          {isAssignedStaffVariant && (
+          {(isAssignedStaffVariant || isCaseDetailVariant) && (
             <div className={classes.infoRow}>
               <VscTypeHierarchySub className={classes.infoIcon} />
               <span className={classes.infoLabel}>
@@ -178,7 +178,40 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {/* Reference Link */}
+          {/* Deadline */}
+          {isStatusVariant && (
+            <div className={classes.infoRow}>
+              <BiCalendar className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Next Off. Deadline - <strong>{data.deadline}</strong>
+              </span>
+            </div>
+          )}
+
+          {/* Client Name */}
+          {(isStatusVariant || isCaseDetailVariant) && (
+            <div className={classes.infoRow}>
+              <FaRegUser className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Client Name - <strong>{data.clientName}</strong>
+              </span>
+            </div>
+          )}
+
+          {/* Deadlines */}
+          {isCaseDetailVariant && (
+            <div className={classes.infoRowDetailed}>
+              <BiCalendar className={mergeClass(classes.infoIcon, 'mt-1')} />
+              <div className={classes.detailsDiv}>
+                 <span className={classes.infoLabel}>
+                Deadlines
+              </span>
+              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
+              </div>
+            </div>
+          )}
+
+                    {/* Reference Link */}
           {!isStatusVariant && (
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
@@ -194,25 +227,6 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {/* Deadline */}
-          {isStatusVariant && (
-            <div className={classes.infoRow}>
-              <BiCalendar className={classes.infoIcon} />
-              <span className={classes.infoLabel}>
-                Next Off. Deadline - <strong>{data.deadline}</strong>
-              </span>
-            </div>
-          )}
-
-          {/* Client Name */}
-          {isStatusVariant && (
-            <div className={classes.infoRow}>
-              <FaRegUser className={classes.infoIcon} />
-              <span className={classes.infoLabel}>
-                Client Name - <strong>{data.clientName}</strong>
-              </span>
-            </div>
-          )}
         </div>
       </div>
     </div>
