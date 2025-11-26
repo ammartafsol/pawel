@@ -15,6 +15,7 @@ import { mergeClass } from "@/resources/utils/helper";
 import Status from "@/components/atoms/Status/Status";
 import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
+import { FiEdit } from "react-icons/fi";
 
 export default function CaseProgressCard({
   routePath,
@@ -122,6 +123,14 @@ export default function CaseProgressCard({
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
           )}
+
+          {
+            isCaseDetailVariant && (
+              <div className={classes.editDivider}>
+                  <FiEdit className={classes.editIcon} size={18}/>
+              </div>
+            )
+          }
 
           {/* Status Row */}
         {!isCaseDetailVariant &&  <div className={classes.statusRow}>

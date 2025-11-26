@@ -199,3 +199,14 @@ margin-bottom: 0px;
   font-size: 14px;
   color: var(--light-purple);
 }
+
+.editDivider{
+  border-top: 1px solid var(--divider);
+  display: flex;
+  justify-content: right;
+  padding-top: 12px;
+}
+
+.editIcon{
+  color: var(--grey-icon);
+}
