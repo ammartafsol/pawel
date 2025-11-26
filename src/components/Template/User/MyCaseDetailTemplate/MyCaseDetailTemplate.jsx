@@ -48,11 +48,13 @@ const MyCaseDetailTemplate = ({ slug }) => {
         );
       case "documents":
         return (
-          <div>
-            <h4 style={{ fontWeight: 600, marginBottom: "12px" }}>Documents</h4>
-            <p style={{ color: "var(--charcoal-night)", lineHeight: "1.6" }}>
-              Documents content will be displayed here.
-            </p>
+         <div className={classes.activityLogContainer}>
+            <div className={classes.headingDiv}>
+              <h5>Case documents</h5>
+            </div>
+            <div className={classes.docListContainer}>
+             
+            </div>
           </div>
         );
       default:

@@ -45,6 +45,15 @@
   border-top: 1px solid var(--light-gray);
 }
 
+.docListContainer{
+display: flex;
+  padding: 16px;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
 .contentClassName{
     padding: 0px;
 }
