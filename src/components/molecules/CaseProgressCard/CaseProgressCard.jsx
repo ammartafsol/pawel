@@ -16,6 +16,7 @@ import Status from "@/components/atoms/Status/Status";
 import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
+import { MdChecklistRtl } from "react-icons/md";
 
 export default function CaseProgressCard({
   routePath,
@@ -205,6 +206,24 @@ export default function CaseProgressCard({
               <BiCalendar className={mergeClass(classes.infoIcon, 'mt-1')} />
               <div className={classes.detailsDiv}>
                 <span className={classes.infoLabel}>Deadlines</span>
+                {((Array.isArray(data.deadlines) && data.deadlines.length > 0) 
+                  ? data.deadlines 
+                  : (data.deadline ? [{ label: "Deadline", value: data.deadline }] : [])
+                ).map((dl, idx) => (
+                  <span key={idx} className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>
+                    {dl.label} - <strong>{dl.value}</strong>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Tasks */}
+          {isCaseDetailVariant && (
+            <div className={classes.infoRowDetailed}>
+              <MdChecklistRtl className={mergeClass(classes.infoIcon, 'mt-1')} />
+              <div className={classes.detailsDiv}>
+                <span className={classes.infoLabel}>Tasks</span>
                 {((Array.isArray(data.deadlines) && data.deadlines.length > 0) 
                   ? data.deadlines 
                   : (data.deadline ? [{ label: "Deadline", value: data.deadline }] : [])
