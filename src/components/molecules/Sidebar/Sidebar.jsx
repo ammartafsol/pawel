@@ -10,7 +10,7 @@ import {
 } from "@/developementContent/Data/HeaderData/HeaderData";
 
 const Sidebar = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     }

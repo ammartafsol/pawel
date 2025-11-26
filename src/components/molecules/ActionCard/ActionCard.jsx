@@ -18,7 +18,7 @@ const getImageFromLabel = (label) => {
   return labelToImageMap[normalizedLabel] || null
 }
 
-export default function ActionCard({ image, text, label, onClick }) {
+export default function ActionCard({ image, text, label, onClick, title, description }) {
   // Use image prop if provided, otherwise auto-detect from label/text
   const imageName = image || getImageFromLabel(label || text)
   
@@ -26,22 +26,21 @@ export default function ActionCard({ image, text, label, onClick }) {
     console.warn('ActionCard: Image name could not be determined. Please provide either "image" prop or a recognized "label"/"text".')
   }
   
-  const displayText = label || text
   
   return (
     <div className={classes.card} onClick={onClick}>
       <div className={classes.iconContainer}>
         {imageName && (
           <Image
-            src={`/app-images/${imageName}.svg`}
-            alt={displayText}
+            src={image}
+            alt={title}
             width={48}
             height={48}
             className={classes.icon}
           />
         )}
       </div>
-      <span className={classes.text}>{displayText}</span>
+      <span className={classes.text}>{title}</span>
     </div>
   )
 }

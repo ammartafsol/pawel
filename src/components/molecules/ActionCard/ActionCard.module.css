@@ -1,7 +1,6 @@
 .card {
   display: flex;
-  width: 172px;
-  height: 120px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -11,6 +10,7 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   background-color: var(--white);
+  padding: 30px 30px;
 }
 
 .card:hover {

@@ -1,8 +1,11 @@
+import DashboardTemplate from '@/components/Template/Staff/DashboardTemplate/DashboardTemplate'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>staff</div>
+    <>
+    <DashboardTemplate />
+    </>
   )
 }
 
