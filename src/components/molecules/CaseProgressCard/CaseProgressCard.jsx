@@ -207,6 +207,9 @@ export default function CaseProgressCard({
                 Deadlines
               </span>
               <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
+              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
+              <span className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>Defense - <strong>{data.deadline}</strong></span>
+              
               </div>
             </div>
           )}

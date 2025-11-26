@@ -135,6 +135,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                   secondaryStaff: "Roxanne Gleichner",
                   jurisdiction: "EUIPO",
                   clientName: "Dana Auer",
+                  deadline: "Nov 20, 24",
                 }}
                 // isAssignedStaffVariant
                 isCaseDetailVariant
