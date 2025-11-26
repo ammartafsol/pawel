@@ -1,17 +1,88 @@
-
-
-.calender{
-    margin: 0px !important;
-    height: 50vh !important;
+.calender {
+  margin: 0px !important;
+  height: 50vh !important;
 }
-.breadComTop{
-    margin-bottom: 60px;
+.breadComTop {
+  margin-bottom: 60px;
 }
-.contentClassName{
-    padding: 0px !important;
-    overflow: hidden !important;
+.contentClassName {
+  padding: 0px !important;
+  overflow: hidden !important;
 }
 
-.notesContainer{
-    padding: 16px;
+.notesContainer {
+  padding: 16px;
+}
+
+.activityLogContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.headingDiv,
+.headingDivDoc {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+}
+
+.headingDivDoc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headingDiv h5,
+.headingDivDoc h5 {
+  color: var(--charcoal-night, #414149);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0px;
+}
+
+.filterIcon {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--outlined-dark, #9b9bbc);
+  background: #fff;
+  box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.docsHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.activityListContainer {
+  display: flex;
+  padding: 16px 8px 16px 16px;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-top: 1px solid var(--light-gray);
+}
+
+.docListContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 16px;
+  align-items: start;
+  gap: 16px 24px;
+  width: 100%;
+}
+
+.contentClassName {
+  padding: 0px;
 }

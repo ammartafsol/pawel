@@ -11,10 +11,15 @@ import StatusChip from "@/components/atoms/StatusChip/StatusChip";
 import { useRouter } from "next/navigation";
 import { LuSquareUser } from "react-icons/lu";
 import { VscTypeHierarchySub } from "react-icons/vsc";
+import { mergeClass } from "@/resources/utils/helper";
+import Status from "@/components/atoms/Status/Status";
+import { BiCalendar } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa6";
 
 export default function CaseProgressCard({
   routePath,
   isAssignedStaffVariant = false,
+  isStatusVariant = false,
   data = {
     tabLabel: "",
     userName: "",
@@ -25,7 +30,9 @@ export default function CaseProgressCard({
     referenceLink: "",
     primaryStaff: "",
     secondaryStaff: "",
-    jurisdiction: ""
+    jurisdiction: "",
+    deadline: "",
+    clientName: "",
   },
 }) {
   const router = useRouter();
@@ -37,10 +44,17 @@ export default function CaseProgressCard({
       }}
     >
       {/* Tab Section - Outside the card */}
-      <div className={classes.activeTab}>{data.tabLabel}</div>
+      {!isStatusVariant && (
+        <div className={classes.activeTab}>{data.tabLabel}</div>
+      )}
 
       {/* Card */}
-      <div className={classes.card}>
+      <div
+        className={mergeClass(
+          classes.card,
+          isStatusVariant && classes.isStatusVariantClass
+        )}
+      >
         {/* Card Content */}
         <div className={classes.cardContent}>
           {/* User Info Row */}
@@ -62,6 +76,19 @@ export default function CaseProgressCard({
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
+          ) : isStatusVariant ? (
+            <div className={classes.userRowAssigned}>
+              <div className={classes.staffInfo}>
+                <div className={classes.statusVariantLabel}>
+                  <p>{data.tabLabel}</p>
+                </div>
+                <div className={classes.userInfo}>
+                  <PiUserCircleFill className={classes.userIcon} />
+                  <div className={classes.userName}>{data.userName}</div>
+                </div>
+              </div>
+              <ProgressBarCircular percentage={data.progress} size={80} />
+            </div>
           ) : (
             <div className={classes.userRow}>
               <div className={classes.userInfo}>
@@ -75,14 +102,23 @@ export default function CaseProgressCard({
           {/* Status Row */}
           <div className={classes.statusRow}>
             <MdOutlineChecklistRtl className={classes.statusIcon} />
-            <StatusChip>{data.status}</StatusChip>
+            {isStatusVariant ? (
+              <Status label={data.status} />
+            ) : (
+              <StatusChip>{data.status}</StatusChip>
+            )}
           </div>
 
           {/* Trademark Name */}
           <div className={classes.infoRow}>
             <BsPatchCheck className={classes.infoIcon} />
             <span className={classes.infoLabel}>
-              Trademark Name - <strong>{data.trademarkName}</strong>
+              Trademark Name -{" "}
+              <strong
+                className={isStatusVariant && classes.statusVariantUnderlined}
+              >
+                {data.trademarkName}
+              </strong>
             </span>
           </div>
 
@@ -90,32 +126,60 @@ export default function CaseProgressCard({
           <div className={classes.infoRow}>
             <BsPatchCheck className={classes.infoIcon} />
             <span className={classes.infoLabel}>
-              Trademark No. - <strong>{data.trademarkNo}</strong>
+              Trademark No. -{" "}
+              <strong
+                className={isStatusVariant && classes.statusVariantUnderlined}
+              >
+                {data.trademarkNo}
+              </strong>
             </span>
           </div>
 
-           {/* Jurisdiction */}
+          {/* Jurisdiction */}
+          {isAssignedStaffVariant && (
             <div className={classes.infoRow}>
-            <VscTypeHierarchySub className={classes.infoIcon} />
-            <span className={classes.infoLabel}>
-              Jurisdiction - <strong>{data.jurisdiction}</strong>
-            </span>
-          </div>
+              <VscTypeHierarchySub className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Jurisdiction - <strong>{data.jurisdiction}</strong>
+              </span>
+            </div>
+          )}
 
           {/* Reference Link */}
-          <div className={classes.infoRow}>
-            <RiKeyFill className={classes.infoIcon} />
-            <a
-              href={data.referenceLink}
-              className={classes.referenceLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Reference
-              <LuExternalLink className={classes.externalIcon} />
-            </a>
-          </div>
+          {!isStatusVariant && (
+            <div className={classes.infoRow}>
+              <RiKeyFill className={classes.infoIcon} />
+              <a
+                href={data.referenceLink}
+                className={classes.referenceLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Reference
+                <LuExternalLink className={classes.externalIcon} />
+              </a>
+            </div>
+          )}
 
+          {/* Deadline */}
+          {isStatusVariant && (
+            <div className={classes.infoRow}>
+              <BiCalendar className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Next Off. Deadline - <strong>{data.deadline}</strong>
+              </span>
+            </div>
+          )}
+
+          {/* Client Name */}
+          {isStatusVariant && (
+            <div className={classes.infoRow}>
+              <FaRegUser className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Client Name - <strong>{data.clientName}</strong>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

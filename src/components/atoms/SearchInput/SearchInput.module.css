@@ -1,0 +1,5 @@
+.inputClass {
+  height: 43px !important;
+  background-color: var(--ghost-white) !important;
+  width: 300px !important;
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './ProgressBarCircular.module.css'
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function ProgressBarCircular({ percentage = 0, size = 80 }) {
   const radius = (size - 8) / 2
@@ -29,7 +30,7 @@ export default function ProgressBarCircular({ percentage = 0, size = 80 }) {
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
       </svg>
-      <div className={classes.percentage}>{percentage}%</div>
+      <div className={classes.percentage}>{percentage == 100 ? <FaCheckCircle color={'var(--primary-base)'} size={26}/> : `${percentage}%`}</div>
     </div>
   )
 }

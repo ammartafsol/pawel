@@ -23,10 +23,10 @@ export default function DocCard({
         <div className={classes.details}>
           <h3 className={classes.title}>{title}</h3>
           <p className={classes.dateTime}>{dateTime}</p>
-          <div className={classes.visibility}>
+         {visibilityText && <div className={classes.visibility}>
             <IoEyeOutline className={classes.eyeIcon} />
             <span className={classes.visibilityText}>{visibilityText}</span>
-          </div>
+          </div>}
         </div>
       </div>
     </div>

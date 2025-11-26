@@ -9,25 +9,75 @@ import Tabs from "@/components/molecules/Tabs/Tabs";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
+import { mergeClass } from "@/resources/utils/helper";
 
 export default function MoleculesPage() {
   return (
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Molecules Page</h1>
-      <div className={classes.content}>
+      {/* <div className={classes.content}>
         <h3 className={classes.subtitle}>ActivityLog</h3>
-      <ActivityLog/>
-      </div>
+        <ActivityLog />
+      </div> */}
        <div className={classes.content}>
-        <CaseProgressCard/>  
+        <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-3</h3>
+        <CaseProgressCard 
+        isStatusVariant
+          data={{
+              tabLabel: "EU TM OPPO",
+              userName: "Darlene Steuber",
+              progress: 100,
+              status: "File Observations",
+              trademarkName: "A and Sons",
+              trademarkNo: "R-3526",
+              referenceLink: "#",
+              primaryStaff: "Roxanne Gleichner",
+              secondaryStaff: "Roxanne Gleichner",
+              jurisdiction: "EUIPO",
+              deadline: "Nov 20, 24",
+              clientName: "Dana Auer"
+          }}
+        />
       </div>
-       <div className={classes.content}>
+      <div className={classes.content}>
+        <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-1</h3>
+        <CaseProgressCard 
+          data={{
+              tabLabel: "EU TM OPPO",
+              userName: "Assigned Staff",
+              progress: 80,
+              status: "Decision",
+              trademarkName: "A and Sons",
+              trademarkNo: "R-3526",
+              referenceLink: "#",
+              primaryStaff: "Roxanne Gleichner",
+              secondaryStaff: "Roxanne Gleichner",
+              jurisdiction: "EUIPO",
+          }}
+          isAssignedStaffVariant
+        />
+      </div>
+      <div className={classes.content}>
+         <h3 className={mergeClass(classes.subtitle, 'mb-4')}>CaseProgressCard-2</h3>
+        <CaseProgressCard
+          data={{
+              tabLabel: "EU TM OPPO",
+              userName: "Assigned Staff",
+              progress: 80,
+              status: "Decision",
+              trademarkName: "A and Sons",
+              trademarkNo: "R-3526",
+              referenceLink: "#",
+          }}
+        />
+      </div>
+      <div className={classes.content}>
         <h3 className={classes.subtitle}>ActionCard</h3>
-      <ActionCard label={'create new case'} />
-      <ActionCard label={'add a document'}/>
-      <ActionCard label={'export audit logs'}/>
-      <ActionCard label={'export data'}/>
+        <ActionCard label={"create new case"} />
+        <ActionCard label={"add a document"} />
+        <ActionCard label={"export audit logs"} />
+        <ActionCard label={"export data"} />
       </div>
       <div className={classes.content}>
         <h3 className={classes.subtitle}>DropDown</h3>
@@ -51,7 +101,7 @@ export default function MoleculesPage() {
           ]}
         />
       </div>
-       <div className={classes.content}>
+      <div className={classes.content}>
         <h3 className={classes.subtitle}>DropDown2</h3>
         <DropDown
           centeredLabel={"DropDown"}
