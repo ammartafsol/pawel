@@ -32,6 +32,9 @@
   background-color: var(--white, #ffffff);
   padding: 0 8px;
 }
+.centeredLabel{
+  z-index: 999;
+}
 
 .selectWrapper {
   position: relative;

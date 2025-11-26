@@ -1,0 +1,18 @@
+
+.backButton{
+    height: 34px !important;
+}
+
+.backButtonContainer{
+    padding: 14px 20px ;
+}
+
+.content{
+    padding:  20px;
+    background-color: var(--ghost-white);
+}
+
+
+.contentClassName{
+    padding: 0px !important;
+}

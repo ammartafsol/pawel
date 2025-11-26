@@ -40,3 +40,46 @@ export const caseDetailTabs = [
     label: "Documents",
   },
 ];
+
+
+export const reactActivities = [
+  {
+    label:"All",
+    value:"all"
+  },
+  {
+    label:"Today",
+    value:"today"
+  },
+  {
+    label:"Yesterday",
+    value:"yesterday"
+  },
+  {
+    label:"Last 7 Days",
+    value:"last7days"
+  },
+  {
+    label:"Last 30 Days",
+    value:"last30days"
+  },
+  {
+    label:"Last 60 Days",
+    value:"last60days"
+  },
+  {
+    label:"Last 90 Days",
+    value:"last90days"
+  },
+]
+
+export const auditTrackingOptions = [
+  {
+    label: "All",
+    value: "all"
+  },
+  {
+    label: "Audit Tracking",
+    value: "audit-tracking"
+  }
+]
