@@ -14,6 +14,9 @@ const labelVariantMap = {
   'client confirmation': 'lightBlue4',
   'submit': 'blue1',
   'track': 'blue2',
+  'active': 'success',
+  'in-active': 'secondary',
+  'inactive': 'secondary',
 }
 
 export default function Status({ label, variant }) {

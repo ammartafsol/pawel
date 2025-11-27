@@ -78,3 +78,13 @@
   background-color: var(--status-blue-2);
   color: var(--white);
 }
+
+.success {
+  background-color:var(--light-green);
+  color: var(--dark-green);
+}
+
+.secondary {
+  background-color: var(--border-color-2);
+  color: var(--dark-green-2);
+}

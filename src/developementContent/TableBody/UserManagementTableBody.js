@@ -1,0 +1,48 @@
+export const userManagementTableBody = [
+  {
+    id: 1,
+    clientName: "Virgil Kovacek",
+    email: "Virgil.Kovacek29@gmail.com",
+    numberOfCases: 6,
+    status: "In-Active",
+    statusVariant: "secondary",
+    created: "Dec 2, 2024",
+  },
+  {
+    id: 2,
+    clientName: "Beth Schmitt",
+    email: "Beth_Schmitt35@hotmail.com",
+    numberOfCases: 2,
+    status: "Active",
+    statusVariant: "success",
+    created: "Dec 1, 2024",
+  },
+  {
+    id: 3,
+    clientName: "Clay Hills",
+    email: "Clay_Hills@hotmail.com",
+    numberOfCases: 3,
+    status: "Active",
+    statusVariant: "success",
+    created: "Nov 26, 2024",
+  },
+  {
+    id: 4,
+    clientName: "Terry Gleichner",
+    email: "Terry18@gmail.com",
+    numberOfCases: 4,
+    status: "Active",
+    statusVariant: "success",
+    created: "Nov 30, 2024",
+  },
+  {
+    id: 5,
+    clientName: "Cedric Hilpert",
+    email: "Cedric48@hotmail.com",
+    numberOfCases: 5,
+    status: "In-Active",
+    statusVariant: "secondary",
+    created: "Nov 24, 2024",
+  },
+];
+

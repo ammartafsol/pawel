@@ -3,6 +3,7 @@ import classes from "./TableHeader.module.css";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import Button from "@/components/atoms/Button";
 import { IoAddCircle } from "react-icons/io5";
+import { BiFilterAlt } from "react-icons/bi";
 import DropDown from "../DropDown/DropDown";
 
 const TableHeader = ({ 
@@ -17,7 +18,8 @@ const TableHeader = ({
   onSearchChange = () => {},
   searchPlaceholder = "Search",
   selectedDropdownValue,
-  setSelectedDropdownValue
+  setSelectedDropdownValue,
+  onFilterClick = () => {}
 }) => {
 
 
@@ -52,6 +54,9 @@ const TableHeader = ({
           value={searchValue}
           setValue={onSearchChange}
         />
+        <div className={classes?.filterIcon} onClick={onFilterClick}>
+          <BiFilterAlt size={20} color="var(--black)" />
+        </div>
         {viewButtonText && (
           <Button 
             onClick={() => { onClickViewAll() }} 
