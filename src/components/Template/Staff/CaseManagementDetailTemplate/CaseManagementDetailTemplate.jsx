@@ -6,7 +6,10 @@ import { IoChevronBack } from "react-icons/io5";
 import classes from "./CaseManagementDetailTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
 import EvidenceTableTop from "@/components/molecules/EvidenceTableTop/EvidenceTableTop";
-import { auditTrackingOptions, caseDetailTabs } from "@/developementContent/Enums/enum";
+import {
+  auditTrackingOptions,
+  caseDetailTabs,
+} from "@/developementContent/Enums/enum";
 import Calender from "@/components/molecules/Calender/Calender";
 import { myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import TabFilter from "@/components/molecules/TabFilter/TabFilter";
@@ -15,6 +18,7 @@ import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import DocCard from "@/components/atoms/DocCard/DocCard";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { BiFilterAlt } from "react-icons/bi";
+import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import { useRouter } from "next/navigation";
 import { MdAddCircle } from "react-icons/md";
 
@@ -125,7 +129,31 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       >
         <div className={classes?.content}>
           <Row>
-            <Col md={3}></Col>
+            <Col md={3}>
+              <CaseProgressCard
+                data={{
+                  tabLabel: "EU TM OPPO",
+                  userName: "Assigned Staff",
+                  progress: 80,
+                  status: "Decision",
+                  trademarkName: "A and Sons",
+                  trademarkNo: "R-3526",
+                  referenceLink: "#",
+                  primaryStaff: "Roxanne Gleichner",
+                  secondaryStaff: "Roxanne Gleichner",
+                  jurisdiction: "EUIPO",
+                  clientName: "Dana Auer",
+                  deadlines: [
+                    { label: "Defense", value: "Nov 20, 25" },
+                    { label: "Second Observations", value: "Dec 20, 25" },
+                    { label: "Decision", value: "Jan 20, 26" },
+                  ],
+                  tasks: ['Evidence Round Opponent']
+                }}
+                // isAssignedStaffVariant
+                isCaseDetailVariant
+              />
+            </Col>
             <Col md={9}>
               <Wrapper
                 headerComponent={

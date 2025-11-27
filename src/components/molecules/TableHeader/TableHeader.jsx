@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import classes from "./TableHeader.module.css";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import Button from "@/components/atoms/Button";
@@ -19,8 +19,37 @@ const TableHeader = ({
   searchPlaceholder = "Search",
   selectedDropdownValue,
   setSelectedDropdownValue,
-  onFilterClick = () => {}
+  onFilterClick = () => {},
+  filterOptions = []
 }) => {
+  const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOverlayOpen(false);
+      }
+    };
+
+    if (isFilterOverlayOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isFilterOverlayOpen]);
+
+  const handleFilterIconClick = () => {
+    setIsFilterOverlayOpen(!isFilterOverlayOpen);
+    onFilterClick();
+  };
+
+  const handleFilterOptionClick = (onClick) => {
+    onClick();
+    setIsFilterOverlayOpen(false);
+  };
 
 
 
@@ -54,9 +83,29 @@ const TableHeader = ({
           value={searchValue}
           setValue={onSearchChange}
         />
-        <div className={classes?.filterIcon} onClick={onFilterClick}>
-          <BiFilterAlt size={20} color="var(--black)" />
-        </div>
+        {(filterOptions.length > 0 || onFilterClick) && (
+          <div className={classes?.filterWrapper} ref={filterRef}>
+            <div 
+              className={`${classes?.filterIcon} ${isFilterOverlayOpen ? classes?.filterIconActive : ""}`} 
+              onClick={handleFilterIconClick}
+            >
+              <BiFilterAlt size={20} color="var(--black)" />
+            </div>
+            {isFilterOverlayOpen && filterOptions.length > 0 && (
+              <div className={classes?.filterOverlay}>
+                {filterOptions.map((option, index) => (
+                  <div
+                    key={index}
+                    className={classes?.filterOption}
+                    onClick={() => handleFilterOptionClick(option.onClick || (() => {}))}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         {viewButtonText && (
           <Button 
             onClick={() => { onClickViewAll() }} 

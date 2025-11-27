@@ -90,6 +90,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 0px;
 }
 
 .staffInfo {
@@ -161,6 +162,11 @@ margin-bottom: 0px;
   gap: 12px;
 }
 
+.infoRowDetailed{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
 .infoIcon {
   font-size: 18px;
   color: var(--light-purple);
@@ -176,6 +182,10 @@ margin-bottom: 0px;
 .infoLabel strong {
   font-weight: 500;
   color: var(--charcoal-night);
+}
+
+.infoLabelDetail{
+  font-size: 14px;
 }
 
 .referenceLink {
@@ -197,4 +207,21 @@ margin-bottom: 0px;
 .externalIcon {
   font-size: 14px;
   color: var(--light-purple);
+}
+
+.editDivider{
+  border-top: 1px solid var(--divider);
+  display: flex;
+  justify-content: right;
+  padding-top: 12px;
+}
+
+.editIcon{
+  color: var(--grey-icon);
+}
+
+.detailsDiv{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }

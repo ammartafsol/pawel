@@ -1,22 +1,40 @@
 .card {
   display: flex;
-  height: 64px;
+  /* height: 64px; */
   padding: 8px;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   flex: 1 0 0;
   border-radius: 12px;
   border: 1px solid var(--light-gray, #EAEAEA);
   background: var(--white, #FFF);
 }
 
+.isDetailedVariantCard{
+  align-items: flex-start;
+}
+
 .content {
   display: flex;
-  width: 100%;
+  flex: 1;
   align-items: center;
   gap: 12px;
   height: 100%;
+}
+
+.isDetailedVariantContent{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .imageContainer {
@@ -35,6 +53,10 @@
   justify-content: flex-start;
   gap: 4px;
   flex: 1;
+}
+
+.isDetailedVariantDetails{
+  gap: 8px;
 }
 
 .title {
@@ -76,3 +98,29 @@
   line-height: normal;
 }
 
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.infoIcon {
+  font-size: 16px;
+  color: var(--light-purple);
+  flex-shrink: 0;
+}
+
+.infoLabel {
+  font-size: 12px;
+  color: var(--storm-grey);
+  font-weight: 500;
+}
+
+.infoLabel strong {
+  font-weight: 500;
+  color: var(--charcoal-night);
+}
+
+.statusVariantUnderlined{
+  text-transform: capitalize;
+}

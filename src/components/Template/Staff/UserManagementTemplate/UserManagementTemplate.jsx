@@ -16,6 +16,33 @@ const UserManagementTemplate = () => {
     console.log("Filter clicked");
   };
 
+  const filterOptions = [
+    {
+      label: "All Users",
+      onClick: () => {
+        console.log("Filter: All Users");
+      }
+    },
+    {
+      label: "Active Users",
+      onClick: () => {
+        console.log("Filter: Active Users");
+      }
+    },
+    {
+      label: "Inactive Users",
+      onClick: () => {
+        console.log("Filter: Inactive Users");
+      }
+    },
+    {
+      label: "Pending Cases",
+      onClick: () => {
+        console.log("Filter: Pending Approval");
+      }
+    }
+  ];
+
   return (
     <div className='p24'>
       <Wrapper 
@@ -27,6 +54,7 @@ const UserManagementTemplate = () => {
             onSearchChange={setSearchValue}
             searchPlaceholder="Search..."
             onFilterClick={handleFilterClick}
+            filterOptions={filterOptions}
           />
         }
         contentClassName={classes.contentClassName}
