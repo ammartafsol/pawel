@@ -55,3 +55,7 @@ export const AddNoteSchema = Yup.object({
   description: Yup.string().required("Description is required"),
   permissible: Yup.string().required("Permissible is required"),
 });
+
+export const ReplySupportSchema = Yup.object({
+  message: Yup.string().required("Message is required"),
+});

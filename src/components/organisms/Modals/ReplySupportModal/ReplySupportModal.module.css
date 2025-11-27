@@ -35,3 +35,9 @@ margin-bottom: 0px;
 .footerClass{
     padding: 12px 36px;
 }
+
+.errorText {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 4px;
+}

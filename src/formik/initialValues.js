@@ -42,3 +42,7 @@ export const addNoteFormValues = {
   description: "",
   permissible: "",
 };
+
+export const replySupportFormValues = {
+  message: "",
+};
