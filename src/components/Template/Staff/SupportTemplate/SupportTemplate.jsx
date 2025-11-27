@@ -13,7 +13,13 @@ import ReplySupportModal from "@/components/organisms/Modals/ReplySupportModal/R
 
 const SupportTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [showReplyModal, setShowReplyModal] = useState(true);
+  const [showReplyModal, setShowReplyModal] = useState(false);
+  const [selectedClientName, setSelectedClientName] = useState("");
+
+  const handlePendingClick = (rowData) => {
+    setSelectedClientName(rowData?.clientName || "");
+    setShowReplyModal(true);
+  };
 
   const handleFilterClick = () => {
     // Filter functionality can be implemented here
@@ -64,13 +70,14 @@ const SupportTemplate = () => {
         contentClassName={classes.contentClassName}
       >
         <ResponsiveTable
-          tableHeader={supportManagementTableHeader}
+          tableHeader={supportManagementTableHeader(handlePendingClick)}
           data={supportManagementTableBody}
         />
       </Wrapper>
       <ReplySupportModal 
         show={showReplyModal} 
         setShow={setShowReplyModal}
+        clientName={selectedClientName}
       />
     </div>
   )

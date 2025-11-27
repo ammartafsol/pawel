@@ -93,3 +93,12 @@
   background-color: var(--light-gray-2, #f5f5f5);
   color: var(--dark-green, #28a745);
 }
+
+.clickable {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+}

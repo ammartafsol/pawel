@@ -1,6 +1,6 @@
 import Status from "@/components/atoms/Status/Status";
 
-export const supportManagementTableHeader = [
+export const supportManagementTableHeader = (onPendingClick) => [
   {
     title: "Client Name",
     key: "clientName",
@@ -21,7 +21,17 @@ export const supportManagementTableHeader = [
     key: "status",
     style: { width: "15%" },
     renderItem: ({ item, data }) => {
-      return <Status label={item}/>;
+      const isPending = item?.toLowerCase() === 'pending';
+      return (
+        <Status 
+          label={item}
+          isPending={isPending}
+          onClick={isPending ? (e) => {
+            e.stopPropagation();
+            onPendingClick?.(data);
+          } : undefined}
+        />
+      );
     },
   },
   {
