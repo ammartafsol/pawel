@@ -7,7 +7,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 export default function DocCard({ 
   title = "Document 1", 
   dateTime = "12/29/2023 10:20",
-  visibilityText = "Visible to client"
+  visibilityText = "Visible to client",
+  isDetailedVariant = false
 }) {
   return (
     <div className={classes.card}>

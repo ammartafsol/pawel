@@ -27,6 +27,10 @@ export default function AtomsPage() {
     <div className={classes.container}>
       <Link href="/components">Back</Link>
       <h1 className={classes.title}>Atoms Page</h1>
+      <div className={classes.content}>
+        <h3 className={classes.subtitle}>DocCardDetailed</h3>
+        <DocCard isDetailedVariant/>
+      </div>
        <div className={classes.content}>
         <h3 className={classes.subtitle}>DocCard</h3>
         <DocCard/>
