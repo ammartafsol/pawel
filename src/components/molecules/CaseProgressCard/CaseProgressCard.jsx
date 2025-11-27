@@ -57,7 +57,7 @@ export default function CaseProgressCard({
       <div
         className={mergeClass(
           classes.card,
-          (isStatusVariant || isCaseDetailVariant) && classes.isStatusVariantClass
+          (isStatusVariant || isCaseDetailVariant) ? classes.isStatusVariantClass : ""
         )}
       >
         {/* Card Content */}
@@ -151,7 +151,7 @@ export default function CaseProgressCard({
             <span className={classes.infoLabel}>
               Trademark Name -{" "}
               <strong
-                className={isStatusVariant && classes.statusVariantUnderlined}
+                className={isStatusVariant ? classes.statusVariantUnderlined : ""}
               >
                 {data.trademarkName}
               </strong>
@@ -164,7 +164,7 @@ export default function CaseProgressCard({
             <span className={classes.infoLabel}>
               Trademark No. -{" "}
               <strong
-                className={isStatusVariant && classes.statusVariantUnderlined}
+                className={isStatusVariant ? classes.statusVariantUnderlined : ""}
               >
                 {data.trademarkNo}
               </strong>
