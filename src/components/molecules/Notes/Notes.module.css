@@ -1,6 +1,6 @@
 
-.notesHeader{
-
+.gapTop{
+    margin-bottom: 6px !important;
 }
 .notesWrapper{
 
@@ -9,7 +9,18 @@
     background: var(--ghost-white);
     width: 100% !important;
     padding: 16px;
-
+}
+.addNoteButton{
+    height: 37px;
+}
+.inputClass{
+    height: 40px !important;
+    width: 250px !important;
+}
+.notesHeaderRight{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .notesHeader h4{

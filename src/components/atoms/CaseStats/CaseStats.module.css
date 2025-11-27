@@ -1,0 +1,49 @@
+.statsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  padding: 10px 25px;
+  position: relative;
+}
+
+.statItem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 50%;
+  background-color: var(--storm-gray);
+  transform: translateY(40%);
+}
+
+.statItem:last-child::after {
+  display: none;
+}
+
+.statItem h4 {
+  color: var(--black);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  margin-bottom: 0px;
+}
+
+.statItem p {
+  color: var(--black);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  opacity: 0.6;
+  margin-bottom: 0px;
+}
+

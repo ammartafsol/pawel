@@ -14,14 +14,17 @@ const labelVariantMap = {
   'client confirmation': 'lightBlue4',
   'submit': 'blue1',
   'track': 'blue2',
+  'active': 'success',
+  'in-active': 'secondary',
+  'inactive': 'secondary',
 }
 
-export default function Status({ label, variant }) {
+export default function Status({ label, variant, className }) {
   // Auto-detect variant from label if not provided
   const detectedVariant = variant || labelVariantMap[label?.toLowerCase()] || 'primary'
   
   return (
-    <div className={`${classes.status} ${classes[detectedVariant]}`}>
+    <div className={`${classes.status} ${className} ${classes[detectedVariant]}`}>
       {label}
     </div>
   )

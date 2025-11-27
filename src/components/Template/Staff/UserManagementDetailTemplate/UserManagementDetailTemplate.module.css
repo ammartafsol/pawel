@@ -1,0 +1,89 @@
+
+.backButtonContainer{
+    padding: 14px 20px !important;
+}
+
+.backButton{
+    height: 38px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12) !important;
+    padding: 5px 20px 5px 10px !important;
+    border: 1px solid var(--outlined-dark);
+
+}
+
+.content{
+    padding:  20px;
+    background-color: var(--ghost-white);
+}
+
+.contentClassName{
+    padding: 0px !important;
+}
+
+.userDetailContainer{
+    border-radius: 12px;
+border: 1px solid var(--snowfall);
+background: var(--white);
+padding: 12px;
+}
+
+.userDetailItemTitle{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.userDetailItemTitle h5{
+    margin-bottom: 0px !important;
+    color: var(--storm-grey);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 2px;
+}
+
+.userDetailItem h4{
+    color: var(--charcoal-night);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.userDetailItem{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.userDetailItemContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.userDetailItemContainerRight{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.status{
+    width: fit-content !important;
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    margin-left: auto !important;
+    margin-top: 3px;
+}
+
+.deactivateButton{
+    width: fit-content !important;
+    padding: 8px 16px !important;
+    height: 40px !important;
+}
+
+.editButton[color-variant="outlined"]{
+    height: 40px !important;
+}

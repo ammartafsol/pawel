@@ -7,11 +7,23 @@
     padding: 14px 20px ;
 }
 
+.backButton{
+  height: 38px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  padding: 5px 20px 5px 10px !important;
+  border: 1px solid var(--outlined-dark);
+
+}
+
 .content{
     padding:  20px;
     background-color: var(--ghost-white);
 }
 
+.uploadDocumentButton{
+    height: 40px !important;
+}
 
 .contentClassName{
     padding: 0px !important;

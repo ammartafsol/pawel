@@ -8,11 +8,12 @@ import { FaRegFolderClosed } from "react-icons/fa6";
 import CaseProgressCard from '@/components/molecules/CaseProgressCard/CaseProgressCard';
 import { Col, Row } from "react-bootstrap";
 import { caseManagementCardsData } from '@/developementContent/Data/dummtData/dummyData';
-
+import { useRouter } from 'next/navigation';
 
 
 const CaseManagementTemplate = () => {
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
+  const router = useRouter();
   return (
     <div className='p24'>
       <Wrapper  headerComponent={<TableHeader viewButtonText='Create new case'  dropdownOptions={reactActivities}  selectedDropdownValue={selectedDropdownValue} setSelectedDropdownValue={setSelectedDropdownValue} title="Case Management" titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />} />}>
@@ -22,6 +23,7 @@ const CaseManagementTemplate = () => {
             <Col className="col-12 col-md-4" key={item.id}>
               <CaseProgressCard 
                 isStatusVariant
+                routePath={`/staff/case-management/${item.id}`}
                 data={{
                   tabLabel: item.tabLabel,
                   userName: item.userName,

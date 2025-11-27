@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  align-items: flex-end;
+}
+
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status {
+  width: fit-content !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  margin-left: auto !important;
+  margin-top: 3px;
+}
+
+.deactivateButton {
+  width: fit-content !important;
+  padding: 8px 16px !important;
+  height: 40px !important;
+}
+
+.editButton[color-variant="outlined"] {
+  height: 40px !important;
+}
+

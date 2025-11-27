@@ -1,6 +1,6 @@
 
 .tableHeaderDrop{
-    padding:12px 16px;
+    /* padding:12px 16px; */
     display: flex;
     align-items: center;
     gap: 12px;
@@ -51,4 +51,23 @@ margin: 0;
 
 .dropdownWrapper :global(.react-dropdown-select) {
     min-height: 40px !important;
+}
+
+.filterIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    border: 1px solid var(--outlined-dark);
+
+
+}
+
+.filterIcon:hover {
+    background-color: var(--light-gray-2);
 }
