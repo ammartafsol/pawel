@@ -3,6 +3,9 @@ import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import classes from "./ReplySupportModal.module.css";
 import { CgFileDocument } from "react-icons/cg";
 import { TextArea } from "@/components/atoms/TextArea/TextArea";
+import { IoMdCheckmark } from "react-icons/io";
+import Button from "@/components/atoms/Button";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
   return (
@@ -13,6 +16,12 @@ const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
       showCloseIcon={true}
       drawer={true}
       modalMainClass={classes.modalMain}
+      footerData={
+        <div className={classes.footerDiv}>
+            <Button label="" variant="outlined" leftIcon={<RiDeleteBinLine color="var(--red)" size={24}/>}/>
+            <Button label="Send Message" variant="outlined" leftIcon={<IoMdCheckmark color="var(--midnight-black)"/>}/>
+        </div>
+      }
     >
       <div className={classes.mainContainer}>
         <div className={classes.labelDiv}>

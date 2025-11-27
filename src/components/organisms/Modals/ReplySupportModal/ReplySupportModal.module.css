@@ -24,3 +24,10 @@ font-weight: 500;
 line-height: normal;
 margin-bottom: 0px;
 }
+
+.footerDiv{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 18px;
+}
