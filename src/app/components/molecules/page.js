@@ -13,7 +13,6 @@ import { mergeClass } from "@/resources/utils/helper";
 import AppTable from "@/components/organisms/AppTable/AppTable";
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
-import IconLabelComponent from "@/components/molecules/IconLabelComponent/IconLabelComponent";
 
 export default function MoleculesPage() {
   return (
@@ -24,13 +23,6 @@ export default function MoleculesPage() {
         <h3 className={classes.subtitle}>ActivityLog</h3>
         <ActivityLog />
       </div> */}
-       <div className={classes.content}>
-        <h3 className={mergeClass(classes.subtitle, "mb-4")}>
-          IconLabelComponent
-        </h3>
-        <IconLabelComponent
-        />
-      </div>
       <div className={classes.content}>
         <h3 className={mergeClass(classes.subtitle, "mb-4")}>
           CaseProgressCard-3
