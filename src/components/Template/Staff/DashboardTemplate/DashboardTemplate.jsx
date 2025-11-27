@@ -15,11 +15,14 @@ import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 import AppTable from "@/components/organisms/AppTable/AppTable";
 import { reactActivities } from "@/developementContent/Enums/enum";
 import { useRouter } from "next/navigation";
+import CreateNewCaseModal from "@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal";
 
 const DashboardTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
-const router = useRouter();
+  const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const router = useRouter();
 
   const handleDropdownChange = (value) => {
     setSelectedDropdownValue(value);
@@ -36,7 +39,7 @@ const router = useRouter();
           <Col lg={7} >
             <Wrapper
               contentClassName={classes?.calenderWrapper}
-              headerComponent={<CalenderHeaderDrop />}
+              headerComponent={<CalenderHeaderDrop  />}
             >
               <Calender className={classes?.calender} events={myEventsList} />
             </Wrapper>
@@ -50,6 +53,11 @@ const router = useRouter();
                       {...item}
                       title={item.title}
                       image={item.image}
+                      onClick={() => {
+                        if (item.title === "Create New Case") {
+                          setShowCreateNewCaseModal(true);
+                        }
+                      }}
                     />
                   </Col>
                 ))}
@@ -67,6 +75,8 @@ const router = useRouter();
                   title="Recent Activities"
                   dropdownOptions={reactActivities}
                   dropdownPlaceholder="Select Activity"
+                  searchValue={searchInput}
+                  onSearchChange={setSearchInput}
                   selectedDropdownValue={selectedDropdownValue}
                   setSelectedDropdownValue={setSelectedDropdownValue}
                 />
@@ -82,6 +92,7 @@ const router = useRouter();
           </Col>
         </Row>
       </div>
+      <CreateNewCaseModal show={showCreateNewCaseModal} setShow={setShowCreateNewCaseModal} />
     </div>
   );
 };

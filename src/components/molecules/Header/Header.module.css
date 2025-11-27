@@ -21,6 +21,7 @@
   position: relative;
   width: 30px;
   height: 60px;
+  cursor: pointer;
 }
 
 .nav {

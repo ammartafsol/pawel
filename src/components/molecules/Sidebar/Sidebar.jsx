@@ -8,15 +8,17 @@ import {
   StaffHeaderData,
   StaffToolsData,
 } from "@/developementContent/Data/HeaderData/HeaderData";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     }
-  return (
-    <div className={`${classes?.sidebar} ${!sidebarOpen && classes?.sidebarOpen}`}>
-      <div className={classes?.logo}>
+    const router = useRouter();
+    return (
+    <div  className={`${classes?.sidebar} ${!sidebarOpen && classes?.sidebarOpen}`}>
+      <div onClick={() => router.push("/user")} className={classes?.logo}>
         <Image src="/app-images/logo.png" alt="logo" fill />
       </div>
       <div className={classes?.iconContainer}>

@@ -14,19 +14,21 @@ import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
-
+import { useRouter } from "next/navigation";
 
 
 
 const Header = () => {
   const [showGenerateTicketModal, setShowGenerateTicketModal] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const [searchInput, setSearchInput] = useState("");
   return (
     <header className={styles.header}>
       <Container className="container-fluid">
         <div className={styles.headerContent}>
           {/* Logo */}
-          <div className={styles.logo}>
+          <div onClick={() => router.push("/staff")} className={styles.logo}>
             <Image src="/app-images/logo.png" alt="logo" fill />
           </div>
 
@@ -44,7 +46,7 @@ const Header = () => {
               )
             })}
             {/* //// search */}
-            <SearchInput/>
+            <SearchInput setValue={setSearchInput} value={searchInput} />
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               {/* message  */}
