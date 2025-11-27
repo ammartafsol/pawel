@@ -18,6 +18,11 @@
   border-radius: 13px !important;
   min-height: 40px !important;
   border: 1px solid var(--border-color) !important;
+  position: relative !important;
+}
+
+.dropdown > div {
+  position: relative !important;
 }
 
 
@@ -55,4 +60,24 @@
 
 .footerClass{
     padding: 12px 36px;
+}
+
+.deadlineItem {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.removeDeadlineButton {
+    height: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
+}
+
+.errorText {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 4px;
 }
