@@ -13,8 +13,10 @@ import { staffDashboardTableHeader } from "@/developementContent/TableHeader/Sta
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import { reactActivities } from "@/developementContent/Enums/enum";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
+import { useRouter } from "next/navigation";
 
 const AuditTrackingTemplate = () => {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
   
@@ -73,6 +75,7 @@ const AuditTrackingTemplate = () => {
             headerComponent={
               <TableHeader
                 viewButtonText="View All"
+                onClickViewAll={() => router.push("/staff/case-management")}
                 title="Recent Activities"
                 dropdownOptions={reactActivities}
                 dropdownPlaceholder="Select Activity"

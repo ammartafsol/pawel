@@ -2,6 +2,17 @@
     padding: 0px !important;
 }
 
+.viewDetailsLink {
+    text-decoration: underline;
+    color: inherit;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.viewDetailsLink:hover {
+    color: var(--sky-glow);
+}
+
 
 
 

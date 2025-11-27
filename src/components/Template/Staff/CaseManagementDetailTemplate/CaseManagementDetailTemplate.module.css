@@ -75,6 +75,64 @@
   background: #fff;
   box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12);
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filterIcon:hover {
+  background-color: var(--light-gray-2);
+}
+
+.filterIconActive {
+  background-color: var(--light-gray-2);
+  border-color: var(--sky-glow);
+}
+
+.filterWrapper {
+  position: relative;
+}
+
+.filterOverlay {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeInScale 0.2s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.filterOption {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--charcoal-night);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--border-color-2);
+}
+
+.filterOption:last-child {
+  border-bottom: none;
+}
+
+.filterOption:hover {
+  background-color: var(--status-light-blue-1);
+  color: var(--sky-glow);
 }
 
 .docsHeaderRight {
