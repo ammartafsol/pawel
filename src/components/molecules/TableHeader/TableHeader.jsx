@@ -5,6 +5,7 @@ import Button from "@/components/atoms/Button";
 import { IoAddCircle } from "react-icons/io5";
 import { BiFilterAlt } from "react-icons/bi";
 import DropDown from "../DropDown/DropDown";
+import GridFilter from "../GridFilter/GridFilter";
 
 const TableHeader = ({ 
   title,
@@ -20,7 +21,11 @@ const TableHeader = ({
   selectedDropdownValue,
   setSelectedDropdownValue,
   onFilterClick,
-  filterOptions = []
+  filterOptions = [],
+  gridFilter,
+  activeGridFilter,
+  setActiveGridFilter,
+  gridFilterClassName
 }) => {
   const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
   const filterRef = useRef(null);
@@ -62,6 +67,14 @@ const TableHeader = ({
         <h4>{title}</h4>
       </div>
       <div className={classes?.tableHeaderButtons}>
+        {gridFilter && activeGridFilter && setActiveGridFilter && (
+          <GridFilter
+            classesName={gridFilterClassName}
+            gridFilter={gridFilter}
+            activeGridFilter={activeGridFilter}
+            setActiveGridFilter={setActiveGridFilter}
+          />
+        )}
         {dropdownOptions.length > 0 && (
           <div className={classes?.dropdownWrapper}>
             <DropDown 
