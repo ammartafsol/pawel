@@ -71,7 +71,7 @@ const DashboardTemplate = () => {
               className={classes.wrapper}
               contentClassName={classes.contentClassName}
             >
-              <AppTable
+              <ResponsiveTable
                 tableHeader={staffDashboardTableHeader}
                 data={staffDashboardTableBody}
               />
