@@ -1,0 +1,11 @@
+
+.circularCaseProgressChart{
+    padding: 30px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--ghost-white);
+}
+.contentClassName{
+    padding: 0px !important;
+}

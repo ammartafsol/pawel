@@ -9,6 +9,8 @@ import { Col, Row } from "react-bootstrap";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import DetailActionsWithStats from "@/components/atoms/DetailActionsWithStats/DetailActionsWithStats";
+import { caseManagementCardsData, caseProgressCardsData } from "@/developementContent/Data/dummtData/dummyData";
+import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 
 const UserManagementDetailTemplate = () => {
   const router = useRouter();
@@ -64,8 +66,29 @@ const UserManagementDetailTemplate = () => {
                   editButtonClassName={classes.editButton}
                 />
               </div>
+          
               </Col>
             </Row>
+            <Row className="g-4 mt-4">
+          {caseManagementCardsData.map((item) => (
+            <Col className="col-12 col-md-4" key={item.id}>
+              <CaseProgressCard 
+                isStatusVariant
+                routePath={`/staff/case-management/${item.id}`}
+                data={{
+                  tabLabel: item.tabLabel,
+                  userName: item.userName,
+                  progress: item.progress,
+                  status: item.status,
+                  trademarkName: item.trademarkName,
+                  trademarkNo: item.trademarkNo,
+                  deadline: item.deadline,
+                  clientName: item.clientName
+                }}
+              />
+            </Col>
+          ))}
+        </Row>
           </div>
         </div>
       </Wrapper>
