@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import classes from "./DocumentManagementTemplate.module.css";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
@@ -16,9 +16,25 @@ import { mergeClass } from "@/resources/utils/helper";
 const DocumentManagementTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
   const [searchValue, setSearchValue] = useState("");
+  const fileInputRef = useRef(null);
 
   const handleFilterClick = () => {
     console.log("Filter clicked");
+  };
+
+  const handleUploadDocument = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 0) {
+      // Handle file selection here
+      console.log("Selected files:", selectedFiles);
+      // You can add your file upload logic here
+    }
+    // Reset input value to allow selecting the same file again
+    e.target.value = "";
   };
 
   const filterOptions = [
@@ -58,23 +74,30 @@ const DocumentManagementTemplate = () => {
     <div className="p24">
        <Wrapper
           headerComponent={
-            <TableHeader
-              title="Document Management"
-              titleIcon={<GoQuestion color="#D9D9D9" size={24} />}
-              searchValue={searchValue}
-              onSearchChange={setSearchValue}
-              searchPlaceholder="Search..."
-              onFilterClick={handleFilterClick}
-              filterOptions={filterOptions}
-              viewButtonText="Upload Document"
-              onClickViewAll={() => {
-                console.log("Upload Document clicked");
-              }}
-              gridFilter={gridFilter}
-              activeGridFilter={activeGridFilter}
-              setActiveGridFilter={setActiveGridFilter}
-              gridFilterClassName={classes.gridFilter}
-            />
+            <>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                multiple
+                style={{ display: "none" }}
+              />
+              <TableHeader
+                title="Document Management"
+                titleIcon={<GoQuestion color="#D9D9D9" size={24} />}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+                searchPlaceholder="Search..."
+                onFilterClick={handleFilterClick}
+                filterOptions={filterOptions}
+                viewButtonText="Upload Document"
+                onClickViewAll={handleUploadDocument}
+                gridFilter={gridFilter}
+                activeGridFilter={activeGridFilter}
+                setActiveGridFilter={setActiveGridFilter}
+                gridFilterClassName={classes.gridFilter}
+              />
+            </>
           }
           contentClassName={classes.contentClassName}
         >
