@@ -9,3 +9,14 @@
 .contentClassName {
     padding: 0px !important;
 }
+
+.viewLink {
+    text-decoration: underline;
+    cursor: pointer;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.viewLink:hover {
+    color: var(--sky-glow);
+}

@@ -1,4 +1,6 @@
 import Status from "@/components/atoms/Status/Status";
+import Link from "next/link";
+import classes from "@/components/Template/User/MyCasesTemplate/MyCasesTemplate.module.css";
 
 export const myCasesTableHeader = [
   {
@@ -58,6 +60,22 @@ export const myCasesTableHeader = [
     title: "Notes",
     key: "notes",
     style: { width: "14%" },
+  },
+  {
+    title: "View",
+    key: "view",
+    style: { width: "10%" },
+    renderItem: ({ data }) => {
+      return (
+        <Link
+          href={`/user/my-cases/${data.id}`}
+          className={classes.viewLink}
+          onClick={(e) => e.stopPropagation()}
+        >
+          View Details
+        </Link>
+      );
+    },
   },
 ];
 
