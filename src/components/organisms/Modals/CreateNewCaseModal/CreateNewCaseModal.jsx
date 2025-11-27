@@ -94,7 +94,11 @@ const CreateNewCaseModal = ({ show, setShow }) => {
             className={classes?.iconParent}
           >
             <div className={classes?.deadlineContainer}>
-              <Input type="date" />
+              <Input 
+                type="date" 
+                className={classes?.input}
+                inputClass={classes?.inputClassName}
+              />
               <Input
                 placeholder="Deadline Title"
                 className={classes?.input}

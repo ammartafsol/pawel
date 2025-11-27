@@ -7,6 +7,12 @@
     border-radius: 13px !important;
     border: 1px solid var(--border-color) !important;
 }
+
+.inputClassName[type="date"] {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    display: block !important;
+}
 .dropdown {
   width: 300px !important;
   border-radius: 13px !important;
