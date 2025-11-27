@@ -1,4 +1,31 @@
+.contentClassName {
+    padding: 0px !important;
+}
 
-.documentManagementContainer{
-    padding: 0 12px;
+.gridFilter {
+    margin-bottom: 24px;
+}
+
+.documentCard {
+    padding: 16px;
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    background: var(--white);
+}
+
+.documentCard h5 {
+    margin-bottom: 12px;
+    color: var(--charcoal-night);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.documentCard p {
+    margin-bottom: 8px;
+    color: var(--charcoal-gray);
+    font-size: 14px;
+}
+
+.documentCard p strong {
+    color: var(--charcoal-night);
 }
