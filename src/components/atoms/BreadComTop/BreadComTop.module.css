@@ -1,54 +1,6 @@
-.totalCases {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center;
-}
-
-.totalCasesContainer {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 .breadComTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 60px;
-}
-.totalCases {
-  padding: 10px 25px;
-  position: relative;
-}
-.totalCases::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 50%;
-  background-color: var(--storm-gray);
-  transform: translateY(40%);
-}
-.totalCases:last-child::after {
-  display: none;
-}
-
-.totalCases h4 {
-  color: var(--black);
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 25.2px */
-  margin-bottom: 0px;
-}
-
-.totalCases p{
-    color: var(--black);
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 140%; 
-opacity: 0.6;
 }
