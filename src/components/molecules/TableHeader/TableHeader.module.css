@@ -40,6 +40,11 @@ margin: 0;
     gap: 12px;
 }
 
+.tableHeaderButtons :global(.gridFilter) {
+    display: flex;
+    gap: 8px;
+}
+
 .dropdownWrapper {
     width: auto;
     min-width: 150px;

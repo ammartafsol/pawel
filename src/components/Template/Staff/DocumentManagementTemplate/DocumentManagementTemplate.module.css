@@ -3,7 +3,10 @@
 }
 
 .gridFilter {
-    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    gap: 10px;
 }
 
 .documentCard {

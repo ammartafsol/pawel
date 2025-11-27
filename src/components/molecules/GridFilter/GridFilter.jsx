@@ -7,7 +7,11 @@ const GridFilter = ({ gridFilter, activeGridFilter, setActiveGridFilter, classes
   return (
     <div className={`${classes.gridFilter} ${classesName}`}>
       {gridFilter.map((item) => (
-        <div onClick={() => setActiveGridFilter(item)} className={`${classes.gridFilterContent} ${activeGridFilter.value === item.value ? classes.active : ""}`}>
+        <div 
+          key={item.value}
+          onClick={() => setActiveGridFilter(item)} 
+          className={`${classes.gridFilterContent} ${activeGridFilter.value === item.value ? classes.active : ""}`}
+        >
           <span>{item.label}</span>
           <div className={classes.icon}>{item.icon}</div>
         </div>

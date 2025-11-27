@@ -4,12 +4,12 @@ import classes from "./DocumentManagementTemplate.module.css";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 import AppTable from "@/components/organisms/AppTable/AppTable";
-import GridFilter from "@/components/molecules/GridFilter/GridFilter";
 import { gridFilter } from "@/developementContent/Enums/enum";
 import { documentManagementTableHeader } from "@/developementContent/TableHeader/DocumentManagementTableHeader";
 import { documentManagementTableBody } from "@/developementContent/TableBody/DocumentManagementTableBody";
 import { GoQuestion } from "react-icons/go";
 import { Col, Row } from "react-bootstrap";
+import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
 
 const DocumentManagementTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
@@ -54,18 +54,12 @@ const DocumentManagementTemplate = () => {
 
   return (
     <div className="p24">
-      <GridFilter
-        classesName={classes.gridFilter}
-        gridFilter={gridFilter}
-        activeGridFilter={activeGridFilter}
-        setActiveGridFilter={setActiveGridFilter}
-      />
       {activeGridFilter.value === "table" ? (
         <Wrapper
           headerComponent={
             <TableHeader
               title="Document Management"
-              titleIcon={<GoQuestion color="#D9D9D9" size={20} />}
+              titleIcon={<GoQuestion color="#D9D9D9" size={24} />}
               searchValue={searchValue}
               onSearchChange={setSearchValue}
               searchPlaceholder="Search..."
@@ -75,11 +69,15 @@ const DocumentManagementTemplate = () => {
               onClickViewAll={() => {
                 console.log("Upload Document clicked");
               }}
+              gridFilter={gridFilter}
+              activeGridFilter={activeGridFilter}
+              setActiveGridFilter={setActiveGridFilter}
+              gridFilterClassName={classes.gridFilter}
             />
           }
           contentClassName={classes.contentClassName}
         >
-          <AppTable
+          <ResponsiveTable
             tableHeader={documentManagementTableHeader}
             data={documentManagementTableBody}
           />
@@ -100,6 +98,10 @@ const DocumentManagementTemplate = () => {
                 onClickViewAll={() => {
                   console.log("Upload Document clicked");
                 }}
+                gridFilter={gridFilter}
+                activeGridFilter={activeGridFilter}
+                setActiveGridFilter={setActiveGridFilter}
+                gridFilterClassName={classes.gridFilter}
               />
             }
             contentClassName={classes.contentClassName}
