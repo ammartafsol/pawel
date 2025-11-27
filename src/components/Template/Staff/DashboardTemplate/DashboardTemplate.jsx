@@ -14,10 +14,12 @@ import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDa
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 import AppTable from "@/components/organisms/AppTable/AppTable";
 import { reactActivities } from "@/developementContent/Enums/enum";
+import { useRouter } from "next/navigation";
 
 const DashboardTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
+const router = useRouter();
 
   const handleDropdownChange = (value) => {
     setSelectedDropdownValue(value);
@@ -61,6 +63,7 @@ const DashboardTemplate = () => {
               headerComponent={
                 <TableHeader
                   viewButtonText="View All"
+                  onClickViewAll={() => router.push("/staff/case-management")}
                   title="Recent Activities"
                   dropdownOptions={reactActivities}
                   dropdownPlaceholder="Select Activity"
