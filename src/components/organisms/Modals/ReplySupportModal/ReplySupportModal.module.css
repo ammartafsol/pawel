@@ -5,4 +5,22 @@
 .mainContainer {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.labelDiv {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.title{
+    color: var(--slate-gray);
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-bottom: 0px;
 }

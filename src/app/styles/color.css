@@ -64,7 +64,7 @@
   --sky-blue: #94D8FC;
   --ice-blue: #C0E6FD;
   --ghost-white: #FCFCFD;
-  --slate-gray: #323232;
+  --slate-gray-1: #323232;
   --ocean-blue: #3DA4F4;
   --royal-blue: #1F71D6;
   --marine-blue: #1F5CAE;
@@ -88,6 +88,7 @@
   --lighter-gray: #656565;
   --primary-base: #3D3D6B;
   --grey-icon: #5C615D;
+  --grey-icon2: #696969;
 
   /* Status Colors - Column 1 */
   --status-primary: #4A90E2;
