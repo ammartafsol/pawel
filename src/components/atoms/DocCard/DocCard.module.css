@@ -2,9 +2,9 @@
   display: flex;
   height: 64px;
   padding: 8px;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   flex: 1 0 0;
   border-radius: 12px;
   border: 1px solid var(--light-gray, #EAEAEA);
@@ -13,10 +13,16 @@
 
 .content {
   display: flex;
-  width: 100%;
+  flex: 1;
   align-items: center;
   gap: 12px;
   height: 100%;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .imageContainer {

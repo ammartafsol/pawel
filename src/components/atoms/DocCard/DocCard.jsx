@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { IoEyeOutline } from 'react-icons/io5'
 import classes from './DocCard.module.css'
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 export default function DocCard({ 
   title = "Document 1", 
@@ -28,6 +29,9 @@ export default function DocCard({
             <span className={classes.visibilityText}>{visibilityText}</span>
           </div>}
         </div>
+      </div>
+      <div className={classes.options}>
+        <HiOutlineDotsVertical size={24} color='var(--sky-blue)'/>
       </div>
     </div>
   )
