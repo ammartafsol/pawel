@@ -21,7 +21,7 @@ export const supportManagementTableHeader = [
     key: "status",
     style: { width: "15%" },
     renderItem: ({ item, data }) => {
-      return <Status label={item} variant={data.statusVariant} />;
+      return <Status label={item}/>;
     },
   },
   {

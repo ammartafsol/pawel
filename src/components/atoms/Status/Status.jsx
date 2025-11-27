@@ -17,7 +17,7 @@ const labelVariantMap = {
   'active': 'success',
   'in-active': 'secondary',
   'inactive': 'secondary',
-  'pending': 'pending',
+  'pending': 'secondary',
 }
 
 export default function Status({ label, variant, className }) {
