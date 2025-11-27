@@ -5,10 +5,10 @@ import { RxDotsVertical } from "react-icons/rx";
 import { usePathname } from "next/navigation";
 import Button from "@/components/atoms/Button";
 import { MdAddCircle } from "react-icons/md";
-import { IoAdd } from "react-icons/io5";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
+import AddNoteModal from "@/components/organisms/Modals/AddNoteModal/AddNoteModal";
 
-const Notes = ({searchValue,setSearchValue}) => {
+const Notes = ({searchValue,setSearchValue,showAddNoteModal,setShowAddNoteModal}) => {
   const pathname = usePathname();
   return (
     <div className={`${classes.notesWrapper}`}>
@@ -18,7 +18,12 @@ const Notes = ({searchValue,setSearchValue}) => {
           {
             pathname.includes('case-management')?
             <div className={classes.notesHeaderRight}>
-              <Button label="Add a note" className={classes.addNoteButton} leftIcon={<MdAddCircle color="var(--white)" size={20} />} />
+              <Button 
+                label="Add a note" 
+                className={classes.addNoteButton} 
+                leftIcon={<MdAddCircle color="var(--white)" size={20} />}
+                onClick={() => setShowAddNoteModal?.(true)}
+              />
               <SearchInput value={searchValue} setValue={setSearchValue} inputClass={classes.inputClass} />
             </div>
             :
@@ -36,6 +41,7 @@ const Notes = ({searchValue,setSearchValue}) => {
             <p>10:20</p>
         </div>
       </div>
+      <AddNoteModal show={showAddNoteModal} setShow={setShowAddNoteModal} />
     </div>
   );
 };

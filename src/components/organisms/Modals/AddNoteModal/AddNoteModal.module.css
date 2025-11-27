@@ -1,0 +1,53 @@
+.input {
+    width: 300px !important;
+  }
+  
+  .inputClassName{
+      height: 40px !important;
+      border-radius: 13px !important;
+      border: 1px solid var(--border-color) !important;
+  }
+
+  .dropdown {
+    width: 300px !important;
+    border-radius: 13px !important;
+    min-height: 40px !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  .descriptionContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+  }
+
+  .descriptionText{
+    color: #44464D;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+  }
+  
+  .iconInputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+.modalMain {
+  width: 100%;
+}
+
+.footerDiv{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 18px;
+}
+
+.footerClass{
+    padding: 12px 36px;
+}
+  
