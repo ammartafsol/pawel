@@ -127,3 +127,68 @@
   justify-content: center;
   min-height: calc(100% - 1rem);
 }
+
+/* Drawer styles */
+.modalDrawer {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modalDialogDrawer {
+  margin: 0 !important;
+  margin-left: auto !important;
+  max-width: 40% !important;
+  width: 40% !important;
+  height: 100vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 100vh !important;
+  padding: 16px 16px 16px 0;
+  box-sizing: border-box;
+}
+
+.modalDialogDrawer :global(.modal-content) {
+  background: var(--white);
+  height: calc(100vh - 32px);
+  width: 100%;
+  border-radius: 15px;
+  border-left: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+}
+
+.modalDialogDrawer :global(.modal-body) {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.modalEnterDrawer {
+  animation: slideInRight 0.3s ease forwards;
+}
+
+.modalExitDrawer {
+  animation: slideOutRight 0.3s ease forwards;
+}

@@ -19,25 +19,38 @@ export default function ModalSkeleton({
   footerClass,
   variant = "primary",
   icon,
+  drawer = false,
 }) {
   const [animationClass, setAnimationClass] = useState("");
 
   useEffect(() => {
     if (show) {
-      setAnimationClass(
-        variant === "primary" ? classes.modalEnter : classes.modalEnterSecondary
-      );
-    } else if (animationClass === classes.modalEnter) {
+      if (drawer) {
+        setAnimationClass(classes.modalEnterDrawer);
+      } else {
+        setAnimationClass(
+          variant === "primary" ? classes.modalEnter : classes.modalEnterSecondary
+        );
+      }
+    } else if (animationClass) {
+      if (drawer) {
+        setAnimationClass(classes.modalExitDrawer);
+      } else {
+        setAnimationClass(
+          variant === "primary" ? classes.modalExit : classes.modalExitSecondary
+        );
+      }
+    }
+  }, [show, drawer, variant]);
+
+  const handleClose = () => {
+    if (drawer) {
+      setAnimationClass(classes.modalExitDrawer);
+    } else {
       setAnimationClass(
         variant === "primary" ? classes.modalExit : classes.modalExitSecondary
       );
     }
-  }, [show]);
-
-  const handleClose = () => {
-    setAnimationClass(
-      variant === "primary" ? classes.modalExit : classes.modalExitSecondary
-    );
     setTimeout(() => setShow(false), 300); // Match the CSS animation duration
   };
 
@@ -46,16 +59,18 @@ export default function ModalSkeleton({
       size={size}
       show={show}
       onHide={handleClose}
-      centered
+      centered={!drawer}
       dialogClassName={clsx(
+        drawer && classes.modalDialogDrawer,
         variant === "secondary"
           ? classes.modalDialogSecondary
-          : classes.modalDialog,
+          : !drawer && classes.modalDialog,
         animationClass,
         modalMainClass
       )}
       className={clsx(
-        variant === "secondary" ? classes.modalSecondary : classes.modal,
+        drawer && classes.modalDrawer,
+        variant === "secondary" ? classes.modalSecondary : !drawer && classes.modal,
         modalMainClass
       )}
       backdropClassName="custom-backdrop"

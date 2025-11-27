@@ -1,10 +1,22 @@
-import React from 'react'
-import classes from './ReplySupportModal.module.css'
+import React from "react";
+import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
+import classes from "./ReplySupportModal.module.css";
 
-export default function ReplySupportModal() {
+const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <ModalSkeleton
+      show={show}
+      setShow={setShow}
+      heading={`Reply to ${clientName}`}
+      showCloseIcon={true}
+      drawer={true}
+      modalMainClass={classes.modalMain}
+    >
+      <div className={classes.mainContainer}>
+        {/* Content will be added later */}
+      </div>
+    </ModalSkeleton>
+  );
+};
+
+export default ReplySupportModal;
