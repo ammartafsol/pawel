@@ -12,6 +12,7 @@ export default function DocCard({
   dateTime = "12/29/2023 10:20",
   visibilityText = "Visible to client",
   trademarkName = "Trademark Name",
+  clientName = "Virgil Kovacek",
   trademarkNo = "R-3526",
   caseType  = "Design invalidation",
   isDetailedVariant = false
@@ -48,7 +49,7 @@ export default function DocCard({
               </strong>
             </span>
           </div>
-           <div className={classes.infoRow}>
+          {trademarkName && <div className={classes.infoRow}>
             <BsPatchCheck className={classes.infoIcon} />
             <span className={classes.infoLabel}>
               Trademark Name -{" "}
@@ -56,7 +57,16 @@ export default function DocCard({
                 {trademarkName}
               </strong>
             </span>
-          </div>
+          </div>}
+           {clientName && <div className={classes.infoRow}>
+            <BsPatchCheck className={classes.infoIcon} />
+            <span className={classes.infoLabel}>
+              Client Name -{" "}
+              <strong>
+                {clientName}
+              </strong>
+            </span>
+          </div>}
            <div className={classes.infoRow}>
             <IoFolderOutline  className={classes.infoIcon} />
             <span className={classes.infoLabel}>
