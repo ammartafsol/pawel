@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/atoms/Button";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import classes from "./CaseManagementDetailTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
@@ -27,9 +27,51 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
+  const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
   const fileInputRef = useRef(null);
+  const filterRef = useRef(null);
 
   const router =useRouter();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOverlayOpen(false);
+      }
+    };
+
+    if (isFilterOverlayOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isFilterOverlayOpen]);
+
+  const handleFilterIconClick = () => {
+    setIsFilterOverlayOpen(!isFilterOverlayOpen);
+  };
+
+  const handleFilterOptionClick = (onClick) => {
+    onClick();
+    setIsFilterOverlayOpen(false);
+  };
+
+  const filterOptions = [
+    {
+      label: "All",
+      onClick: () => {
+        console.log("Filter: All");
+      }
+    },
+    {
+      label: "Latest",
+      onClick: () => {
+        console.log("Filter: Latest");
+      }
+    },
+  ];
 
   const handleUploadDocument = () => {
     fileInputRef.current?.click();
@@ -123,8 +165,26 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                   style={{ display: "none" }}
                 />
                 <SearchInput />
-                <div className={classes.filterIcon}>
-                  <BiFilterAlt size={20} color="var(--black)" />
+                <div className={classes.filterWrapper} ref={filterRef}>
+                  <div 
+                    className={`${classes.filterIcon} ${isFilterOverlayOpen ? classes.filterIconActive : ""}`} 
+                    onClick={handleFilterIconClick}
+                  >
+                    <BiFilterAlt size={20} color="var(--black)" />
+                  </div>
+                  {isFilterOverlayOpen && filterOptions.length > 0 && (
+                    <div className={classes.filterOverlay}>
+                      {filterOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={classes.filterOption}
+                          onClick={() => handleFilterOptionClick(option.onClick || (() => {}))}
+                        >
+                          {option.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
