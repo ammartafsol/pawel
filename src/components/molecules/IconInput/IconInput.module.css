@@ -1,0 +1,20 @@
+
+.iconInput{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconInputTitle{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.iconInputTitle p{
+    margin-bottom: 0px !important;
+}
+.iconInputIcon{
+    margin-bottom: 5px !important;
+     color: #696969;
+}
