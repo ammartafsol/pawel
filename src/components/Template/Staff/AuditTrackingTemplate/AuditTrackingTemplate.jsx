@@ -12,6 +12,7 @@ import AppTable from "@/components/organisms/AppTable/AppTable";
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import { reactActivities } from "@/developementContent/Enums/enum";
+import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
 
 const AuditTrackingTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -81,7 +82,7 @@ const AuditTrackingTemplate = () => {
             }
             contentClassName={classes.contentClassName}
           >
-            <AppTable
+            <ResponsiveTable
               tableHeader={staffDashboardTableHeader}
               data={staffDashboardTableBody}
             />
