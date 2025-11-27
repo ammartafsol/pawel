@@ -1,0 +1,226 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-color, #e4e7e9);
+  background-color: var(--white);
+}
+
+.backButton {
+  height: 38px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0.5px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  padding: 5px 20px 5px 10px !important;
+  border: 1px solid var(--outlined-dark);
+}
+
+.heading {
+  color: var(--charcoal-night, #414149);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 0px;
+}
+
+.contentClassName {
+  padding: 0px !important;
+  background-color: var(--ghost-white);
+}
+
+.notificationList {
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationItem {
+  display: flex;
+  padding: 16px 24px;
+  gap: 16px;
+  border-bottom: 1px solid var(--border-color, #e4e7e9);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  background-color: var(--white);
+}
+
+.notificationItem:hover {
+  background-color: var(--ghost-white, #f5f5f7);
+}
+
+.notificationItem.unread {
+  background-color: var(--ghost-white, #f5f5f7);
+  border-left: 3px solid var(--primary-color, #007bff);
+}
+
+.notificationItem.unread:hover {
+  background-color: var(--light-gray-2, #e8e8ea);
+}
+
+.iconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.paginationParent {
+  padding: 0px 20px;
+}
+
+.iconWrapper.success {
+  background-color: #10b981;
+  color: var(--white);
+}
+
+.iconWrapper.pending {
+  background-color: #f59e0b;
+  color: var(--white);
+}
+
+.iconWrapper.info {
+  background-color: var(--primary-color, #007bff);
+  color: var(--white);
+}
+
+.iconWrapper.warning {
+  background-color: #ef4444;
+  color: var(--white);
+}
+
+.contentWrapper {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.title {
+  color: var(--charcoal-night, #414149);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.time {
+  color: var(--secondary-color, #8484AE);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.message {
+  color: var(--charcoal-night, #414149);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.filterSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color, #e4e7e9);
+  background-color: var(--white);
+}
+
+.filterLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: 1px solid var(--border-color, #e4e7e9);
+  color: var(--charcoal-night, #414149);
+}
+
+.filterButton:hover {
+  border-color: var(--primary-color, #007bff);
+  color: var(--primary-color, #007bff);
+  background-color: var(--ghost-white, #f5f5f7);
+}
+
+.filterButton.active {
+  background: var(--primary-color, #007bff);
+  border-color: var(--primary-color, #007bff);
+  color: var(--white);
+}
+
+.markAllRead {
+  color: var(--primary-color, #007bff);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.markAllRead:hover {
+  color: var(--primary-color-dark, #0056b3);
+  background-color: var(--ghost-white, #f5f5f7);
+}
+
+.markAllRead:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.markAsReadBtn {
+  margin-top: 12px;
+  width: fit-content;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.emptyStateIcon {
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.emptyStateText {
+  color: var(--secondary-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 992px) {
+  .filterLeft {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 425px) {
+  .filterSection {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+}

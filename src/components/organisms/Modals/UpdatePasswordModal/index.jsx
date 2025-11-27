@@ -1,5 +1,6 @@
+"use client";
 import Input from "@/components/atoms/Input/Input";
-import { changePasswordFormValues } from "@/formik/initialValues";
+import { updatePasswordValues } from "@/formik/initialValues";
 import { ChangePasswordFormSchema } from "@/formik/schema";
 import { useFormik } from "formik";
 import { Col, Container, Row } from "react-bootstrap";
@@ -9,7 +10,7 @@ import Button from "@/components/atoms/Button";
 
 export default function UpdatePasswordModal({ show, setShow }) {
   const form = useFormik({
-    initialValues: changePasswordFormValues,
+    initialValues: updatePasswordValues,
     validationSchema: ChangePasswordFormSchema,
     onSubmit: (values) => {
       console.log(values);

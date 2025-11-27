@@ -122,7 +122,72 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.icon:hover {
+  background: linear-gradient(180deg, #94d8fc 0%, #62c1f8 100%);
+}
+
+.iconActive {
+  background: linear-gradient(180deg, #94d8fc 0%, #62c1f8 100%);
+  border-color: var(--sky-glow, #62c1f8);
+}
+
+.profileIconWrapper {
+  position: relative;
+}
+
+.profileOverlay {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--border-color, #e4e7e9);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeInScale 0.2s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.profileOverlayItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--charcoal-night, #414149);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profileOverlayItem:hover {
+  background-color: var(--ghost-white, #f5f5f7);
+}
+
+.logoutItem {
+  border-top: 1px solid var(--border-color, #e4e7e9);
+  color: var(--danger-color, #ef4444);
+}
+
+.logoutItem:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
 .mainIcon {
   display: flex;
   align-items: center;

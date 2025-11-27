@@ -68,3 +68,13 @@ export const GenerateTicketSchema = Yup.object({
     otherwise: (schema) => schema,
   }),
 });
+
+export const ChangePasswordFormSchema = Yup.object({
+  currentPassword: Yup.string().required("Current password is required"),
+  password: Yup.string()
+    .required("New password is required")
+    .min(8, "Password must be at least 8 characters"),
+  confirmPassword: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
+});
