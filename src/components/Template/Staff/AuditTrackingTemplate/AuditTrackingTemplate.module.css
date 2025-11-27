@@ -5,7 +5,15 @@
     justify-content: center;
     align-items: center;
     background-color: var(--ghost-white);
+    height: 403px;
 }
 .contentClassName{
     padding: 0px !important;
+}
+
+.overdueCasesContainer {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
 }

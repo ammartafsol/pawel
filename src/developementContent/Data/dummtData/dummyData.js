@@ -128,10 +128,10 @@ export const caseManagementCardsData = [
   {
     id: 2,
     tabLabel: "EU TM OPPO",
-    userName: "Kathleen Steuber",
+    userName: "Kathleen Steub",
     progress: 85,
-    status: "File Opposition",
-    trademarkName: "Orn - Runolfsson",
+    status: "File Invalidation",
+    trademarkName: "Orn-Runol",
     trademarkNo: "R-3526",
     deadline: "Nov 22, 24",
     clientName: "Rafael Dietrich"

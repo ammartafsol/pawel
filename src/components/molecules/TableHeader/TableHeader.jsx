@@ -19,7 +19,7 @@ const TableHeader = ({
   searchPlaceholder = "Search",
   selectedDropdownValue,
   setSelectedDropdownValue,
-  onFilterClick = () => {},
+  onFilterClick,
   filterOptions = []
 }) => {
   const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
@@ -43,7 +43,9 @@ const TableHeader = ({
 
   const handleFilterIconClick = () => {
     setIsFilterOverlayOpen(!isFilterOverlayOpen);
-    onFilterClick();
+    if (onFilterClick) {
+      onFilterClick();
+    }
   };
 
   const handleFilterOptionClick = (onClick) => {
@@ -83,7 +85,7 @@ const TableHeader = ({
           value={searchValue}
           setValue={onSearchChange}
         />
-        {(filterOptions.length > 0 || onFilterClick) && (
+        {(filterOptions.length > 0 || onFilterClick !== undefined) && (
           <div className={classes?.filterWrapper} ref={filterRef}>
             <div 
               className={`${classes?.filterIcon} ${isFilterOverlayOpen ? classes?.filterIconActive : ""}`} 

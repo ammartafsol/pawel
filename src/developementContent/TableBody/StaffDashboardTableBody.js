@@ -10,6 +10,7 @@ export const staffDashboardTableBody = [
     nextTask: "Prepare Draft",
     nextTaskVariant: "lightBlue1",
     attorney: "PW",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const staffDashboardTableBody = [
     nextTask: "Check Draft",
     nextTaskVariant: "lightBlue2",
     attorney: "KL",
+    notes: "Figma ipsum component variant main layer. List invite group list inspect arrow vector. Select link fill vertical bullet line style undo.",
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ export const staffDashboardTableBody = [
     nextTask: "Prepare Evidence",
     nextTaskVariant: "lightBlue3",
     attorney: "PW",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const staffDashboardTableBody = [
     nextTask: "Check Evidence",
     nextTaskVariant: "lightBlue4",
     attorney: "KL",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ export const staffDashboardTableBody = [
     nextTask: "Client Confirmation",
     nextTaskVariant: "blue1",
     attorney: "PW",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ export const staffDashboardTableBody = [
     nextTask: "Submit",
     nextTaskVariant: "blue2",
     attorney: "KL",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 7,
@@ -82,6 +88,7 @@ export const staffDashboardTableBody = [
     nextTask: "Track",
     nextTaskVariant: "blue3",
     attorney: "PW",
+    notes: "Figma ipsum component variant ma...",
   },
   {
     id: 8,
@@ -94,6 +101,7 @@ export const staffDashboardTableBody = [
     nextTask: "Prepare Draft",
     nextTaskVariant: "lightBlue1",
     attorney: "KL",
+    notes: "Figma ipsum component variant ma...",
   },
 ];
 
