@@ -4,7 +4,7 @@
   border-radius: 10px;
   background-color: var(--Poor-white);
   overflow-y: auto; /* allows vertical scrolling */
-  max-height: 500px;
+  /* max-height: 500px; */
   background-color: #fcfcfd;
 }
 
