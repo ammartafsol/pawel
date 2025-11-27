@@ -5,7 +5,7 @@ export const documentManagementTableBody = [
     typeOfCase: "TM Opposition",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 20, 2024",
+    dateUploaded: "Nov 20, 2024  10:20",
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Design invalidation",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 21, 2024",
+    dateUploaded: "Nov 21, 2024 10:20",
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Privacy Violations",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 22, 2024",
+    dateUploaded: "Nov 22, 2024 10:20",
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Employment Disputes",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 23, 2024",
+    dateUploaded: "Nov 23, 2024 10:20",
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const documentManagementTableBody = [
     typeOfCase: "TM Opposition",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 24, 2024",
+    dateUploaded: "Nov 24, 2024 10:20",
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Design invalidation",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 25, 2024",
+    dateUploaded: "Nov 25, 2024 10:20",
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Privacy Violations",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 26, 2024",
+    dateUploaded: "Nov 26, 2024 10:20",
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Employment Disputes",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 27, 2024",
+    dateUploaded: "Nov 27, 2024 10:20",
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ export const documentManagementTableBody = [
     typeOfCase: "TM Opposition",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 28, 2024",
+    dateUploaded: "Nov 28, 2024 10:20",
   },
   {
     id: 10,
@@ -77,7 +77,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Design invalidation",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 29, 2024",
+    dateUploaded: "Nov 29, 2024 10:20",
   },
   {
     id: 11,
@@ -85,7 +85,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Privacy Violations",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Nov 30, 2024",
+    dateUploaded: "Nov 30, 2024 10:20",
   },
   {
     id: 12,
@@ -93,7 +93,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Employment Disputes",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Dec 1, 2024",
+    dateUploaded: "Dec 1, 2024 10:20",
   },
   {
     id: 13,
@@ -101,7 +101,7 @@ export const documentManagementTableBody = [
     typeOfCase: "TM Opposition",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Dec 2, 2024",
+    dateUploaded: "Dec 2, 2024 10:20",
   },
   {
     id: 14,
@@ -109,7 +109,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Design invalidation",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Dec 3, 2024",
+    dateUploaded: "Dec 3, 2024 10:20",
   },
   {
     id: 15,
@@ -117,7 +117,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Privacy Violations",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Dec 4, 2024",
+    dateUploaded: "Dec 4, 2024 10:20",
   },
   {
     id: 16,
@@ -125,7 +125,7 @@ export const documentManagementTableBody = [
     typeOfCase: "Employment Disputes",
     documentName: "Document 1",
     tradeMarkNo: "R-3526",
-    dateUploaded: "Dec 5, 2024",
+    dateUploaded: "Dec 5, 2024 10:20",
   },
 ];
 

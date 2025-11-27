@@ -10,6 +10,8 @@ import { documentManagementTableBody } from "@/developementContent/TableBody/Doc
 import { GoQuestion } from "react-icons/go";
 import { Col, Row } from "react-bootstrap";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
+import DocCard from "@/components/atoms/DocCard/DocCard";
+import { mergeClass } from "@/resources/utils/helper";
 
 const DocumentManagementTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
@@ -83,7 +85,20 @@ const DocumentManagementTemplate = () => {
                 data={documentManagementTableBody}
               />
             ) : (
-              ""
+              <Row className={mergeClass("g-4", classes.docCardRow)}>
+                {documentManagementTableBody?.map((item) => (
+                  <Col className="col-12 col-md-4" key={item.id}>
+                    <DocCard
+                      title={item.documentName}
+                      dateTime={item.dateUploaded}
+                      clientName={item.clientName}
+                      trademarkNo={item.tradeMarkNo}
+                      caseType={item.typeOfCase}
+                      isDetailedVariant={true}
+                    />
+                  </Col>
+                ))}
+              </Row>
             )
           }
         </Wrapper>
