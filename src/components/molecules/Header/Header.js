@@ -52,7 +52,7 @@ const Header = () => {
                 <div className={styles.messageIcon}>
                   <Image src={"/app-images/messageIcon.png"} alt="message" fill />
                 </div>
-                <h4>We're here to help</h4>
+                <h4>We&apos;re here to help</h4>
               </div>
             </div>
             <div className={styles.mainIcon}>

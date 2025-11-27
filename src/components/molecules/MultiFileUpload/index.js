@@ -10,6 +10,7 @@ import { FaFileAudio, FaFileContract } from "react-icons/fa";
 import { IoArrowUpCircleOutline, IoCloseOutline } from "react-icons/io5";
 import classes from "./MultiFileUpload.module.css";
 import { getMediaType, getSupportedImageTypes } from "@/resources/utils/mediaUpload";
+import Image from "next/image";
 
 const MultiFileUpload = ({
   label,
@@ -87,9 +88,12 @@ const MultiFileUpload = ({
 
     let iconComponent = ["images", "photo"].includes(fileType) ? (
       <div className={classes?.imageContainer}>
-        <img
+        <Image
           src={isLocalFile ? URL.createObjectURL(file) : imageUrl(file?.key)}
           alt={file?.name || file?.fileName || "Image"}
+          fill
+          style={{ objectFit: "cover" }}
+          unoptimized={isLocalFile}
         />
       </div>
     ) : fileType === "docs" ? (
