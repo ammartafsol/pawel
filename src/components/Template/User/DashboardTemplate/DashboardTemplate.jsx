@@ -46,7 +46,9 @@ const DashboardTemplate = () => {
             {
               caseProgressCardsData.map((item) => (
                 <Col className="col-12 col-md-6" key={item.id}>
-                  <CaseProgressCard data={{
+                  <CaseProgressCard 
+                  routePath={'/user/my-cases/1'}
+                  data={{
                     tabLabel: item.tabLabel,
                     userName: item.userName,
                     progress: item.progress,
