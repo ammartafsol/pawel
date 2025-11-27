@@ -54,8 +54,7 @@ const DocumentManagementTemplate = () => {
 
   return (
     <div className="p24">
-      {activeGridFilter.value === "table" ? (
-        <Wrapper
+       <Wrapper
           headerComponent={
             <TableHeader
               title="Document Management"
@@ -77,51 +76,17 @@ const DocumentManagementTemplate = () => {
           }
           contentClassName={classes.contentClassName}
         >
-          <ResponsiveTable
-            tableHeader={documentManagementTableHeader}
-            data={documentManagementTableBody}
-          />
-        </Wrapper>
-      ) : (
-        <div>
-          <Wrapper
-            headerComponent={
-              <TableHeader
-                title="Document Management"
-                titleIcon={<GoQuestion color="#D9D9D9" size={20} />}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder="Search..."
-                onFilterClick={handleFilterClick}
-                filterOptions={filterOptions}
-                viewButtonText="Upload Document"
-                onClickViewAll={() => {
-                  console.log("Upload Document clicked");
-                }}
-                gridFilter={gridFilter}
-                activeGridFilter={activeGridFilter}
-                setActiveGridFilter={setActiveGridFilter}
-                gridFilterClassName={classes.gridFilter}
+          {
+            activeGridFilter.value === "table" ? (
+              <ResponsiveTable
+                tableHeader={documentManagementTableHeader}
+                data={documentManagementTableBody}
               />
-            }
-            contentClassName={classes.contentClassName}
-          >
-            <Row className="g-4">
-              {documentManagementTableBody.map((item) => (
-                <Col className="col-12 col-md-4" key={item.id}>
-                  <div className={classes.documentCard}>
-                    <h5>{item.documentName}</h5>
-                    <p><strong>Client:</strong> {item.clientName}</p>
-                    <p><strong>Type:</strong> {item.typeOfCase}</p>
-                    <p><strong>Trade Mark:</strong> {item.tradeMarkNo}</p>
-                    <p><strong>Date:</strong> {item.dateUploaded}</p>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </Wrapper>
-        </div>
-      )}
+            ) : (
+              ""
+            )
+          }
+        </Wrapper>
     </div>
   );
 };

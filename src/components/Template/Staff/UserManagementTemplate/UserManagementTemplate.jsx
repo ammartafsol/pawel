@@ -7,6 +7,7 @@ import AppTable from '@/components/organisms/AppTable/AppTable';
 import { userManagementTableHeader } from '@/developementContent/TableHeader/UserManagementTableHeader';
 import { userManagementTableBody } from '@/developementContent/TableBody/UserManagementTableBody';
 import { FaRegUser } from "react-icons/fa";
+import ResponsiveTable from '@/components/organisms/ResponsiveTable/ResponsiveTable';
 
 const UserManagementTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -59,7 +60,7 @@ const UserManagementTemplate = () => {
         }
         contentClassName={classes.contentClassName}
       >
-        <AppTable
+        <ResponsiveTable
           tableHeader={userManagementTableHeader}
           data={userManagementTableBody}
         />
