@@ -31,7 +31,7 @@ const DashboardTemplate = () => {
       </div>
       <div className="p24">
         <Row>
-          <Col md={8}>
+          <Col lg={7} >
             <Wrapper
               contentClassName={classes?.calenderWrapper}
               headerComponent={<CalenderHeaderDrop />}
@@ -39,7 +39,7 @@ const DashboardTemplate = () => {
               <Calender className={classes?.calender} events={myEventsList} />
             </Wrapper>
           </Col>
-          <Col md={4}>
+          <Col lg={5}>
             <div className={classes?.newCases}>
               <Row className="g-4">
                 {newCasesData.map((item) => (
