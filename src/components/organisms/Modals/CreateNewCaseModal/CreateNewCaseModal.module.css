@@ -2,6 +2,11 @@
   width: 300px !important;
 }
 
+.inputClassName{
+    height: 40px !important;
+    border-radius: 13px !important;
+    border: 1px solid var(--border-color) !important;
+}
 .dropdown {
   width: 300px !important;
   border-radius: 13px !important;
@@ -9,11 +14,6 @@
   border: 1px solid var(--border-color) !important;
 }
 
-.inputClassName{
-    height: 40px !important;
-    border-radius: 13px !important;
-    border: 1px solid var(--border-color) !important;
-}
 
 .iconInputContainer{
     display: flex;

@@ -26,6 +26,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     const [searchValue, setSearchValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
+  const [showAddNoteModal, setShowAddNoteModal] = useState(false);
 
 
   const router =useRouter();
@@ -56,7 +57,12 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       case "notes":
         return (
           <div className={classes.notesContainer}>
-            <Notes searchValue={searchValue} setSearchValue={setSearchValue} />
+            <Notes 
+              showAddNoteModal={showAddNoteModal} 
+              setShowAddNoteModal={setShowAddNoteModal}
+              searchValue={searchValue} 
+              setSearchValue={setSearchValue} 
+            />
           </div>
         );
       case "activityLog":
