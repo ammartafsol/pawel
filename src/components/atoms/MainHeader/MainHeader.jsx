@@ -15,7 +15,7 @@ const MainHeader = ({
       <Button
         className={classes.viewAllBtn}
         onClick={() => {
-          onClickViewAll;
+          onClickViewAll();
         }}
         label="View All"
         leftIcon={<IoAddCircleSharp size={25} />}

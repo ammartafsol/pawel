@@ -13,8 +13,10 @@ import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgre
 import { caseProgressCardsData, circularCaseProgressChartData, myEventsList } from "@/developementContent/Data/dummtData/dummyData";
 import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 import Breadcrumbs from "@/components/molecules/Breadcrumbs/Breadcrumbs";
+import { useRouter } from "next/navigation";
 
 const DashboardTemplate = () => {
+  const router = useRouter();
   const [showBannerMessage, setShowBannerMessage] = useState(true);
   // Sample events data - events shown in time slots
  
@@ -38,13 +40,15 @@ const DashboardTemplate = () => {
             show={showBannerMessage}
             setShow={setShowBannerMessage}
           />
-          <MainHeader />
+          <MainHeader  onClickViewAll={() => router.push('/user/my-cases')}/>
           <div className={classes.caseProgressCardsMain}>
-          <Row>
+          <Row className="g-5">
             {
               caseProgressCardsData.map((item) => (
                 <Col className="col-12 col-md-6" key={item.id}>
-                  <CaseProgressCard data={{
+                  <CaseProgressCard 
+                  routePath={'/user/my-cases/1'}
+                  data={{
                     tabLabel: item.tabLabel,
                     userName: item.userName,
                     progress: item.progress,

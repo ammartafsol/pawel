@@ -29,7 +29,7 @@ const GenerateTicketModal = ({ show, setShow }) => {
           <div className={classes.imageContainer}>
             <Image src={"/app-images/ticket.png"} fill alt="logo" />
           </div>
-          <h4>How we can help you?</h4>
+          <h4>How can we help you?</h4>
         </div>
         <div className={classes.dropdownContainer}>
           <DropDown
