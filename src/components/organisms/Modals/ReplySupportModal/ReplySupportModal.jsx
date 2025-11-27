@@ -16,6 +16,7 @@ const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
       showCloseIcon={true}
       drawer={true}
       modalMainClass={classes.modalMain}
+      footerClass={classes.footerClass}
       footerData={
         <div className={classes.footerDiv}>
             <Button label="" variant="outlined" leftIcon={<RiDeleteBinLine color="var(--red)" size={24}/>}/>

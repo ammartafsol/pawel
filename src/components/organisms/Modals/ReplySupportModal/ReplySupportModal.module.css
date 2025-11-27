@@ -31,3 +31,7 @@ margin-bottom: 0px;
     align-items: center;
     gap: 18px;
 }
+
+.footerClass{
+    padding: 12px 36px;
+}
