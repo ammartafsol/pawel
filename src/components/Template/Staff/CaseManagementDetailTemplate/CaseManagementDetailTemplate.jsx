@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/atoms/Button";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import classes from "./CaseManagementDetailTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
@@ -27,9 +27,24 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
-
+  const fileInputRef = useRef(null);
 
   const router =useRouter();
+
+  const handleUploadDocument = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 0) {
+      // Handle file selection here
+      console.log("Selected files:", selectedFiles);
+      // You can add your file upload logic here
+    }
+    // Reset input value to allow selecting the same file again
+    e.target.value = "";
+  };
 
   const documents = [
     {
@@ -93,7 +108,20 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
-                <Button label="Upload Document" className={classes.uploadDocumentButton} leftIcon={<MdAddCircle color="var(--white)" size={20} />} />
+                {/* Temporarily open file browsing: */}
+                <Button 
+                  label="Upload Document" 
+                  className={classes.uploadDocumentButton} 
+                  leftIcon={<MdAddCircle color="var(--white)" size={20} />}
+                  onClick={handleUploadDocument}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  multiple
+                  style={{ display: "none" }}
+                />
                 <SearchInput />
                 <div className={classes.filterIcon}>
                   <BiFilterAlt size={20} color="var(--black)" />
