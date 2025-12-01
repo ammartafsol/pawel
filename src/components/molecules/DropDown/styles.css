@@ -74,22 +74,41 @@
     font-weight: 400 !important;
 }
 
-/* Selected option color when label is present */
-[data-has-label="true"] .react-dropdown-select {
-    color: var(--steel-mist) !important;
+/* Selected value color - default is var(--steel-mist), can be customized via selectedValueColor prop */
+/* Only apply when a value is selected */
+[data-has-selected="true"] .react-dropdown-select {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"] .react-dropdown-select .react-dropdown-select-input {
-    color: var(--steel-mist) !important;
+[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content {
-    color: var(--steel-mist) !important;
+[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content span,
-[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content div {
-    color: var(--steel-mist) !important;
+[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
+[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
+}
+
+/* Selected option color when label is present - kept for backward compatibility */
+[data-has-label="true"][data-has-selected="true"] .react-dropdown-select {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
+}
+
+[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
+}
+
+[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
+}
+
+[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
+[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
+    color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
 /* Multi-value Tags */
