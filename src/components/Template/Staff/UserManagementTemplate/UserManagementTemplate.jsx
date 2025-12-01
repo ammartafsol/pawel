@@ -11,6 +11,7 @@ import ResponsiveTable from '@/components/organisms/ResponsiveTable/ResponsiveTa
 
 const UserManagementTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleFilterClick = () => {
     // Filter functionality can be implemented here
@@ -63,6 +64,10 @@ const UserManagementTemplate = () => {
         <ResponsiveTable
           tableHeader={userManagementTableHeader}
           data={userManagementTableBody}
+          pagination
+          totalRecords={714}
+          page={currentPage}
+          onPageChange={setCurrentPage}
         />
       </Wrapper>
     </div>

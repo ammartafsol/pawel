@@ -22,6 +22,7 @@ export default function ResponsiveTable({
   onPageChange,
   actions = [],
   actionStyles = {},
+  totalTextLabel = "Staff Users",
 }) {
   return (
     <>
@@ -126,12 +127,15 @@ export default function ResponsiveTable({
       </div>
 
       {pagination && totalRecords > RECORDS_LIMIT && (
-        <Pagination
-          currentPage={page || 1}
-          totalRecords={totalRecords}
-          limit={RECORDS_LIMIT}
-          onPageChange={onPageChange}
-        />
+        <div className={classes.paginationWrapper}>
+          <Pagination
+            currentPage={page || 1}
+            totalRecords={totalRecords}
+            limit={RECORDS_LIMIT}
+            onPageChange={onPageChange || (() => {})}
+            totalTextLabel={totalTextLabel}
+          />
+        </div>
       )}
     </>
   );

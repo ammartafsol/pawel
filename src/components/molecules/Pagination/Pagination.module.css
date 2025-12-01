@@ -2,8 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   gap: 16px;
+  padding: 12px 16px;
+  height: 48px;
+  box-sizing: border-box;
 }
 
 .resultsText {
@@ -34,7 +37,7 @@
   border-radius: 6px;
   border: 1px solid #e0e0e0;
   background: #fff;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.2s ease;
   text-decoration: none;
 }
@@ -54,44 +57,6 @@
   cursor: not-allowed;
 }
 
-.activePage {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  min-width: 40px;
-  height: 40px;
-  padding: 8px 12px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  background: #0074d9;
-  border: 1px solid #0074d9;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.activePage:hover {
-  background: #0056b3;
-  border-color: #0056b3;
-}
-
-.ellipsis {
-  color: #7a7a7a;
-  font-size: 14px;
-  font-weight: 400;
-  display: flex;
-  min-width: 40px;
-  height: 40px;
-  padding: 8px 12px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  background: transparent;
-  user-select: none;
-}
-
 .arrowButton {
   display: flex;
   width: 40px;
@@ -106,6 +71,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .arrowButton:hover:not(:disabled) {
@@ -125,13 +91,6 @@
   color: #999;
 }
 
-.prevButton {
-  margin-right: 4px;
-}
-
-.nextButton {
-  margin-left: 4px;
-}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -151,14 +110,7 @@
   }
 
   .pageButton,
-  .activePage,
   .arrowButton {
-    min-width: 36px;
-    height: 36px;
-    font-size: 12px;
-  }
-
-  .ellipsis {
     min-width: 36px;
     height: 36px;
     font-size: 12px;
@@ -171,14 +123,7 @@
   }
 
   .pageButton,
-  .activePage,
   .arrowButton {
-    min-width: 32px;
-    height: 32px;
-    padding: 4px 8px;
-  }
-
-  .ellipsis {
     min-width: 32px;
     height: 32px;
     padding: 4px 8px;
