@@ -23,6 +23,7 @@ export default function CaseProgressCard({
   isAssignedStaffVariant = false,
   isStatusVariant = false,
   isCaseDetailVariant = false,
+  referenceLink = "",
   data = {
     tabLabel: "",
     userName: "",
@@ -249,7 +250,7 @@ export default function CaseProgressCard({
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
               <a
-                href={data.referenceLink}
+                href={referenceLink}
                 className={classes.referenceLink}
                 target="_blank"
                 rel="noopener noreferrer"

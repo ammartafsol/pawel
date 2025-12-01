@@ -28,11 +28,27 @@ const DashboardTemplate = () => {
     setSelectedDropdownValue(value);
   };
 
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 17) {
+      return "Good afternoon";
+    } else {
+      return "Good evening";
+    }
+  };
+
   return (
     <div>
       <div className={classes?.dashboardTemplateHeader}>
-        <h4>Wednesday, February 14th</h4>
-        <p>Good morning, John Doe.</p>
+        <h4>{new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}</h4>
+        <p>{getGreeting()}, John Doe.</p>
       </div>
       <div className="p24">
         <Row>

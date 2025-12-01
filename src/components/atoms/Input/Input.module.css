@@ -36,6 +36,7 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--steel-mist);
+  font-weight: 400;
 }
 
 .inputClassName:disabled {

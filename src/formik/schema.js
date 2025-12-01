@@ -11,7 +11,6 @@ export const LoginSchema = Yup.object({
       (value) => !value || emailRegex.test(value)
     ),
   password: Yup.string().required("Password is required"),
-  checkbox: Yup.boolean().oneOf([true], "Checkbox is required"),
 });
 
 export const ForgotPasswordSchema = Yup.object({

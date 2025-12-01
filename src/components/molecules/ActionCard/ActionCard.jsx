@@ -31,13 +31,14 @@ export default function ActionCard({ image, text, label, onClick, title, descrip
     <div className={classes.card} onClick={onClick}>
       <div className={classes.iconContainer}>
         {imageName && (
-          <Image
-            src={image}
-            alt={title}
-            width={48}
-            height={48}
-            className={classes.icon}
-          />
+          <div className={classes.iconWrapper}>
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className={classes.icon}
+            />
+          </div>
         )}
       </div>
       <span className={classes.text}>{title}</span>

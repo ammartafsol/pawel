@@ -15,7 +15,7 @@ const Calender = ({events=[], className=""}) => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        views={["month", "week", "day"]}
+        views={["month", "day"]}
         selectable={true}
         onSelectEvent={() => {
           console.log("event selected");

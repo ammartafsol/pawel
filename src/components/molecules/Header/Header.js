@@ -8,6 +8,7 @@ import { HeaderData } from "@/developementContent/Data/HeaderData/HeaderData";
 import { usePathname, useRouter } from "next/navigation";
 import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { useDispatch } from "react-redux";
@@ -112,13 +113,15 @@ const Header = () => {
                       className={styles?.profileOverlayItem}
                       onClick={handleProfileSettings}
                     >
-                      Profile Settings
+                      <IoSettingsOutline size={18} />
+                      <span>Profile Settings</span>
                     </div>
                     <div
                       className={`${styles?.profileOverlayItem} ${styles?.logoutItem}`}
                       onClick={handleLogout}
                     >
-                      Logout
+                      <IoLogOutOutline size={18} />
+                      <span>Logout</span>
                     </div>
                   </div>
                 )}
