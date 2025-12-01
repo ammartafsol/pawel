@@ -31,6 +31,7 @@
     height: 26px;
 }
 .logo{
+    cursor: pointer;
     width: 30px;
     height: 60px;
     position: relative;

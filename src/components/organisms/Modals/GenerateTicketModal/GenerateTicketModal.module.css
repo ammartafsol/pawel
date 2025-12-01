@@ -45,3 +45,9 @@ line-height: normal;
     border: 1px solid var(--deep-cerulean) !important;
     font-size: 14px !important;
 }
+
+.errorText {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 4px;
+}

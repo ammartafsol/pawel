@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React from "react";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import Button from "@/components/atoms/Button";
 import Image from "next/image";
@@ -6,9 +7,25 @@ import classes from "./GenerateTicketModal.module.css";
 import DropDown from "@/components/molecules/DropDown/DropDown";
 import { TextArea } from "@/components/atoms/TextArea/TextArea";
 import { ticketIssues } from "@/developementContent/Enums/enum";
+import { useFormik } from "formik";
+import { GenerateTicketSchema } from "@/formik/schema";
+import { generateTicketFormValues } from "@/formik/initialValues";
 
 const GenerateTicketModal = ({ show, setShow }) => {
-  const [selectedIssue, setSelectedIssue] = useState(null);
+  const formik = useFormik({
+    initialValues: generateTicketFormValues,
+    validationSchema: GenerateTicketSchema,
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+  });
+
+  const handleSubmit = async (values) => {
+    console.log("Form submitted:", values);
+    // Add your API call here
+    // setShow(false);
+  };
+
   return (
     <ModalSkeleton
       show={show}
@@ -21,6 +38,7 @@ const GenerateTicketModal = ({ show, setShow }) => {
           variant="outlined"
           label="Send Message"
           className={classes.sendMessageButton}
+          onClick={() => formik.handleSubmit()}
         />
       }
     >
@@ -34,18 +52,30 @@ const GenerateTicketModal = ({ show, setShow }) => {
         <div className={classes.dropdownContainer}>
           <DropDown
             options={ticketIssues}
-            values={selectedIssue?selectedIssue:[]}
+            values={formik.values.issue ? ticketIssues.filter(opt => opt.value.toString() === formik.values.issue) : []}
             placeholder="Select an issue"
-            onChange={(e) => {
-              setSelectedIssue(e);
+            closeOnSelect={true}
+            onChange={(value) => {
+              const selectedValue = value && value.length > 0 ? value[0]?.value?.toString() : "";
+              formik.setFieldValue("issue", selectedValue);
+              // Clear description when issue changes
+              if (selectedValue !== formik.values.issue) {
+                formik.setFieldValue("description", "");
+              }
             }}
             label={"I have issue with "}
           />
-          {
-            selectedIssue && (
-              <TextArea placeholder="Please briefly describe your issue here..." />
-            )
-          }
+          {formik.touched.issue && formik.errors.issue && (
+            <div className={classes.errorText}>{formik.errors.issue}</div>
+          )}
+          {formik.values.issue && (
+            <TextArea 
+              placeholder="Please briefly describe your issue here..." 
+              value={formik.values.description}
+              setValue={(value) => formik.setFieldValue("description", value)}
+              error={formik.touched.description && formik.errors.description}
+            />
+          )}
         </div>
       </div>
     </ModalSkeleton>

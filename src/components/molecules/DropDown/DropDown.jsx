@@ -50,6 +50,7 @@ const DropDown = ({
   labelClassName,
   errorClassName,
   containerClassName,
+  selectedValueColor = "var(--steel-mist)",
   ...props
 }) => {
 
@@ -71,6 +72,8 @@ const DropDown = ({
     <div 
       className={`${classes.container} ${centeredLabel ? classes.containerWithCenteredLabel : ""} ${containerClassName || ""}`}
       data-has-label={label || centeredLabel ? "true" : undefined}
+      data-has-selected={values && values.length > 0 ? "true" : "false"}
+      style={values && values.length > 0 ? { "--selected-value-color": selectedValueColor } : {}}
     >
       {centeredLabel && (
         <label className={`${classes.centeredLabel} ${labelClassName || ""}`}>
@@ -83,7 +86,11 @@ const DropDown = ({
         </label>
       )}
 
-      <div className={centeredLabel ? classes.selectWrapper : ""}>
+      <div 
+        className={centeredLabel ? classes.selectWrapper : ""}
+        style={values && values.length > 0 ? { "--selected-value-color": selectedValueColor } : {}}
+        data-has-selected={values && values.length > 0 ? "true" : "false"}
+      >
         <Select
         values={values}
         options={options}

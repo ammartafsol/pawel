@@ -11,8 +11,26 @@ import { GrDocumentText } from "react-icons/gr";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { IoMdCheckmark } from "react-icons/io";
 import Button from "@/components/atoms/Button";
+import { useFormik } from "formik";
+import { AddNoteSchema } from "@/formik/schema";
+import { addNoteFormValues } from "@/formik/initialValues";
+import { auditTrackingOptions } from "@/developementContent/Enums/enum";
 
 const AddNoteModal = ({ show, setShow }) => {
+  const formik = useFormik({
+    initialValues: addNoteFormValues,
+    validationSchema: AddNoteSchema,
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+  });
+
+  const handleSubmit = async (values) => {
+    console.log("Form submitted:", values);
+    // Add your API call here
+    // setShow(false);
+  };
+
   return (
     <ModalSkeleton 
       heading={"Add a note"} 
@@ -27,11 +45,16 @@ const AddNoteModal = ({ show, setShow }) => {
             label="" 
             variant="outlined" 
             leftIcon={<RiDeleteBinLine color="var(--red)" size={24}/>}
+            onClick={() => {
+              formik.resetForm();
+              setShow(false);
+            }}
           />
           <Button 
             label="Add Note" 
             variant="outlined" 
             leftIcon={<IoMdCheckmark color="var(--midnight-black)"/>}
+            onClick={() => formik.handleSubmit()}
           />
         </div>
       }
@@ -42,6 +65,9 @@ const AddNoteModal = ({ show, setShow }) => {
             className={classes.input}
             inputClass={classes.inputClassName}
             placeholder="Type here..."
+            value={formik.values.noteTitle}
+            setValue={(value) => formik.setFieldValue("noteTitle", value)}
+            error={formik.touched.noteTitle && formik.errors.noteTitle}
           />
         </IconInput>
         <div>
@@ -49,16 +75,28 @@ const AddNoteModal = ({ show, setShow }) => {
             <GrDocumentText size={22} />
             <div className={classes.descriptionText}>Description</div>
           </div>
-          <TextArea placeholder="Add note points..." />
+          <TextArea 
+            placeholder="Add note points..." 
+            value={formik.values.description}
+            setValue={(value) => formik.setFieldValue("description", value)}
+            error={formik.touched.description && formik.errors.description}
+          />
         </div>
         <IconInput title={"Permissible"} icon={<MdKey size={22} />}>
           <DropDown
             className={classes.dropdown}
-            options={[]}
+            options={auditTrackingOptions}
             placeholder="Select"
-            values={[]}
-            onChange={(e) => {}}
+            values={formik.values.permissible ? auditTrackingOptions.filter(opt => opt.value === formik.values.permissible) : []}
+            closeOnSelect={true}
+            onChange={(value) => {
+              const selectedValue = value && value.length > 0 ? value[0]?.value : "";
+              formik.setFieldValue("permissible", selectedValue);
+            }}
           />
+          {formik.touched.permissible && formik.errors.permissible && (
+            <div className={classes.errorText}>{formik.errors.permissible}</div>
+          )}
         </IconInput>
       </div>
     </ModalSkeleton>

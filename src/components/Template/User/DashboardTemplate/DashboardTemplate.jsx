@@ -19,7 +19,17 @@ const DashboardTemplate = () => {
   const router = useRouter();
   const [showBannerMessage, setShowBannerMessage] = useState(true);
   // Sample events data - events shown in time slots
- 
+
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 17) {
+      return "Good afternoon";
+    } else {
+      return "Good evening";
+    }
+  };
 
   return (
     <div>
@@ -34,7 +44,7 @@ const DashboardTemplate = () => {
                 year: "numeric",
               })}
             </div>
-            <h4>Good evening, Joe.</h4>
+            <h4>{getGreeting()}, Joe.</h4>
           </div>
           <BannerMessage
             show={showBannerMessage}
@@ -48,6 +58,7 @@ const DashboardTemplate = () => {
                 <Col className="col-12 col-md-6" key={item.id}>
                   <CaseProgressCard 
                   routePath={'/user/my-cases/1'}
+                  referenceLink="/user/my-cases/1"
                   data={{
                     tabLabel: item.tabLabel,
                     userName: item.userName,

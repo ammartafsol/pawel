@@ -1,3 +1,4 @@
+"use client";
 import { Modal } from "react-bootstrap";
 import { AiOutlineClose } from "react-icons/ai";
 import clsx from "clsx";

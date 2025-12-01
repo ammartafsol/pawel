@@ -1,0 +1,184 @@
+.main {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+  width: 180px;
+  margin: auto;
+}
+
+.box {
+  user-select: none;
+  height: auto;
+  width: auto;
+}
+
+.box label {
+  color: var(--white-color);
+  font-family: Helvetica;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.uploadImageBox {
+  width: 170px !important;
+  border-radius: 50%;
+  height: 170px !important;
+  position: relative;
+}
+
+.uploadBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.uploadBox .icon {
+  height: 52px;
+  width: 52px;
+  color: var(--white-color);
+}
+
+.uploadBox .uploadIcon {
+  position: absolute;
+  right: -8px;
+  top: 15px;
+  background-color: var(--text-gray-color);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.uploadBox .uploadIcon svg {
+  color: var(--white-color);
+  font-size: 15px;
+}
+
+/* Image Uploaded */
+.imageUploaded {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  position: relative;
+  background-color: rgb(220, 220, 220);
+}
+
+.imageUploaded img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: inherit;
+}
+
+.imageUploaded .editAndDelete {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.imageUploaded .editAndDelete .icon {
+  background-color: var(--black-color);
+  padding: 6px;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px 1px #afa8a8;
+}
+
+.imageUploaded .editAndDelete .icon svg {
+  color: var(--white-color);
+  vertical-align: middle;
+  width: 12px;
+  height: 12px;
+  display: inherit;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  background-color: var(--black-color);
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px 1px #afa8a8;
+  z-index: 2;
+}
+
+.closeIcon svg {
+  color: var(--white-color);
+  vertical-align: middle;
+  display: flex;
+}
+
+.label {
+  color: var(--white-color);
+  text-transform: capitalize;
+  font-family: Helvetica;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.iosAdd {
+  font-size: 48px !important;
+}
+.addIcon {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  background-color: var(--background-color);
+}
+
+.user {
+  position: relative;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+}
+
+.user img {
+  border-radius: 50%;
+}
+
+.editOverlayIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background: var(--black-color, #222);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 2;
+  transition: background 0.2s;
+}
+.editOverlayIcon:hover {
+  background: var(--primary-color, #007bff);
+}
+.editOverlayIcon svg {
+  color: var(--white-color, #fff);
+  font-size: 14px;
+}
+
+@media screen and (max-device-width: 767px) {
+  .box {
+    width: 106px !important;
+  }
+}

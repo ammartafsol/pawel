@@ -25,3 +25,29 @@ export const resetPasswordValues = {
   password: "",
   confirmPassword: "",
 };
+
+export const createNewCaseFormValues = {
+  caseType: "",
+  clientName: "",
+  reference: "",
+  trademarkName: "",
+  jurisdiction: "",
+  deadlines: [{ date: "", title: "" }],
+  primaryStaff: "",
+  secondaryStaff: "",
+};
+
+export const addNoteFormValues = {
+  noteTitle: "",
+  description: "",
+  permissible: "",
+};
+
+export const replySupportFormValues = {
+  message: "",
+};
+
+export const generateTicketFormValues = {
+  issue: "",
+  description: "",
+};
