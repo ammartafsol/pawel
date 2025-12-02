@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Pagination.module.css";
 import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
+import { IoIosArrowBack , IoIosArrowForward  } from "react-icons/io";
 
 /**
  * Pagination Component - A flexible and accessible pagination component
@@ -101,7 +102,7 @@ export default function Pagination({
           aria-label="Previous page"
           type="button"
         >
-          <IoArrowBackOutline size={22} />
+          <IoIosArrowBack size={18} />
         </button>
         <button
           className={classes.pageButton}
@@ -119,7 +120,7 @@ export default function Pagination({
           aria-label="Next page"
           type="button"
         >
-          <IoArrowForwardOutline size={22} />
+          <IoIosArrowForward size={18} />
         </button>
       </div>
     </div>

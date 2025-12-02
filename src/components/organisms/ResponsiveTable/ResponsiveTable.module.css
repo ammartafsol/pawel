@@ -75,6 +75,6 @@
 }
 
 .paginationWrapper {
-  border-top: 1.5px solid var(--primary-200, #D3D3E2);
+  /* border-top: 1.5px solid var(--primary-200, #D3D3E2); */
   background-color: #fcfcfd;
 }

@@ -25,13 +25,13 @@
 }
 
 .pageButton {
-  color: #7a7a7a;
+  color: var(--charcoal-gray);
   font-size: 14px;
   font-weight: 400;
   display: flex;
-  min-width: 40px;
-  height: 40px;
-  padding: 8px 12px;
+  min-width: 30px;
+  height: 30px;
+  padding: 2px 12px;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
@@ -59,15 +59,15 @@
 
 .arrowButton {
   display: flex;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
   border: 1px solid #e0e0e0;
   background: #fff;
-  color: #333;
+  color: var(--midnight-blue);
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -94,11 +94,11 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .paginationContainer {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
+.paginationContainer {
+  padding: 12px 8px;
+  height: 45px;
+  box-sizing: border-box;
+}
 
   .resultsText {
     font-size: 12px;
@@ -111,21 +111,38 @@
 
   .pageButton,
   .arrowButton {
-    min-width: 36px;
-    height: 36px;
-    font-size: 12px;
+    min-width: 28px;
+    height: 28px;
   }
 }
 
 @media (max-width: 480px) {
   .paginationButtons {
-    gap: 2px;
+    gap: 3px;
   }
 
-  .pageButton,
-  .arrowButton {
-    min-width: 32px;
-    height: 32px;
-    padding: 4px 8px;
+  .pageButton{
+   min-width: 27px;
+    height: 27px;
+    padding: 2px 6px;
   }
+
+  .arrowButton {
+    min-width: 25px;
+    height: 25px;
+    padding: 2px 5px;
+  }
+}
+
+@media (max-width: 375px) {
+  .paginationContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .paginationContainer {
+  height: max-content;
+  padding: 4px 16px;
+}
+
 }
