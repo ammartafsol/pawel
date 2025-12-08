@@ -24,6 +24,7 @@ export default function CaseProgressCard({
   isAssignedStaffVariant = false,
   isStatusVariant = false,
   isCaseDetailVariant = false,
+  showReference = true,
   referenceLink = "",
   data = {
     tabLabel: "",
@@ -51,7 +52,6 @@ export default function CaseProgressCard({
   },
 }) {
 
-  console.log("data",data);
 
   const router = useRouter();
   return (
@@ -259,7 +259,10 @@ export default function CaseProgressCard({
             </div>
           )}
 
-                    {/* Reference Link */}
+          {
+            showReference && (
+          <div>
+            
           {!isStatusVariant && (
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
@@ -287,6 +290,11 @@ export default function CaseProgressCard({
               </div>
             )
           }
+            </div>
+
+            )
+          }
+                    {/* Reference Link */}
 
           
 

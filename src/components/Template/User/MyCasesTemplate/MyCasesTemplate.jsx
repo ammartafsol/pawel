@@ -57,11 +57,9 @@ const MyCasesTemplate = () => {
                   status: item.status,
                   trademarkName: item.trademarkName,
                   trademarkNo: item.trademarkNo,
-                  referenceLink: item.referenceLink,
                   officeDeadline: item.officeDeadline,
-                  reference: item.reference,
                 }}
-               
+               showReference={false}
                 />
             </Col>
             )
