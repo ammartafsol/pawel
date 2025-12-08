@@ -225,3 +225,9 @@ margin-bottom: 0px;
   flex-direction: column;
   gap: 3px;
 }
+
+.deadlineDivider {
+  height: 1px;
+  background-color: var(--divider);
+  margin: 8px 0;
+}

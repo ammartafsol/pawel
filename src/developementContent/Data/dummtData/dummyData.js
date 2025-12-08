@@ -8,6 +8,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-15",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 2,
@@ -18,6 +33,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-20",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 3,
@@ -28,6 +58,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-25",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 4,
@@ -38,6 +83,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-03-01",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
 ];
 

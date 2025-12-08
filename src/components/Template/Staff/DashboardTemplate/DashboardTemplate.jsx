@@ -13,13 +13,13 @@ import { staffDashboardTableHeader } from "@/developementContent/TableHeader/Sta
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 import AppTable from "@/components/organisms/AppTable/AppTable";
-import { reactActivities } from "@/developementContent/Enums/enum";
+import { caseStatusFilters, reactActivities } from "@/developementContent/Enums/enum";
 import { useRouter } from "next/navigation";
 import CreateNewCaseModal from "@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal";
 
 const DashboardTemplate = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
+  const [selectedDropdownValue, setSelectedDropdownValue] = useState(caseStatusFilters[0]);
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
@@ -89,7 +89,7 @@ const DashboardTemplate = () => {
                   viewButtonText="View All"
                   onClickViewAll={() => router.push("/staff/case-management")}
                   title="Recent Activities"
-                  dropdownOptions={reactActivities}
+                  dropdownOptions={caseStatusFilters}
                   dropdownPlaceholder="Select Activity"
                   searchValue={searchInput}
                   onSearchChange={setSearchInput}

@@ -237,11 +237,16 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                   secondaryStaff: "Roxanne Gleichner",
                   jurisdiction: "EUIPO",
                   clientName: "Dana Auer",
-                  deadlines: [
-                    { label: "Defense", value: "Nov 20, 25" },
-                    { label: "Second Observations", value: "Dec 20, 25" },
-                    { label: "Decision", value: "Jan 20, 26" },
-                  ],
+                  officeDeadline: "2024-11-20",
+                  internalDeadline: "2024-11-23",
+                  reference: {
+                    referenceName: "My Web",
+                    link: "#",
+                    refrenece: [
+                      { label: "Reference 1", value: "Reference 1" },
+                      { label: "Reference 2", value: "Reference 2" },
+                    ]
+                  },
                   tasks: ['Evidence Round Opponent']
                 }}
                 // isAssignedStaffVariant

@@ -66,7 +66,8 @@ const DashboardTemplate = () => {
                     status: item.status,
                     trademarkName: item.trademarkName,
                     trademarkNo: item.trademarkNo,
-                    referenceLink: item.referenceLink
+                    referenceLink: item.referenceLink,
+                    reference: item.reference
                   }} />
                 </Col>
               ))

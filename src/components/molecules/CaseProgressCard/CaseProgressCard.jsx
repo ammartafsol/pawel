@@ -17,6 +17,7 @@ import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
 import { MdChecklistRtl } from "react-icons/md";
+import { RenderDate } from "@/components/organisms/AppTable/commonCell";
 
 export default function CaseProgressCard({
   routePath,
@@ -36,11 +37,22 @@ export default function CaseProgressCard({
     secondaryStaff: "",
     jurisdiction: "",
     deadline: "",
+    officeDeadline: "",
+    internalDeadline: "",
+    
     clientName: "",
     deadlines: [],
     tasks: [], 
+    reference:{
+      referenceName:"",
+      link:"",
+      refrenece:[],
+    }
   },
 }) {
+
+  console.log("data",data);
+
   const router = useRouter();
   return (
     <div
@@ -96,25 +108,10 @@ export default function CaseProgressCard({
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
           ) : isCaseDetailVariant ? (
-             <div className={classes.userRowAssigned}>
-              <div className={classes.staffInfo}>
-                <div className={classes.statusVariantLabel}>
-                  <p>{data.tabLabel}</p>
-                </div>
-               <div className={classes.staffInfo}>
-                <div className={classes.userInfo}>
-                  <LuSquareUser className={classes.userIcon} />
-                  <div className={classes.assignedHeading}>Assigned Staff</div>
-                </div>
-                <div className={classes.keyValueDiv}>
-                  <span className={classes.keyLabel}>Primary:</span>
-                  <p className={classes.staffName}>{data?.primaryStaff}</p>
-                </div>
-                <div className={classes.keyValueDiv}>
-                  <span className={classes.keyLabel}>Secondary:</span>
-                  <p className={classes.staffName}>{data?.secondaryStaff}</p>
-                </div>
-              </div>
+            <div className={classes.userRow}>
+              <div className={classes.userInfo}>
+                <PiUserCircleFill className={classes.userIcon} />
+                <div className={classes.userName}>{data.userName}</div>
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
@@ -172,6 +169,16 @@ export default function CaseProgressCard({
             </span>
           </div>
 
+          {/* Office Deadline - Show in grid view and case detail */}
+          {!isStatusVariant && !isAssignedStaffVariant && data.officeDeadline && (
+            <div className={classes.infoRow}>
+              <BiCalendar className={classes.infoIcon} />
+              <span className={classes.infoLabel}>
+                Office Deadline - <strong><RenderDate date={data.officeDeadline} /></strong>
+              </span>
+            </div>
+          )}
+
           {/* Jurisdiction */}
           {(isAssignedStaffVariant || isCaseDetailVariant) && (
             <div className={classes.infoRow}>
@@ -202,22 +209,29 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {/* Deadlines */}
+          {/* Internal Deadline and Office Deadline */}
           {isCaseDetailVariant && (
-            <div className={classes.infoRowDetailed}>
-              <BiCalendar className={mergeClass(classes.infoIcon, 'mt-1')} />
-              <div className={classes.detailsDiv}>
-                <span className={classes.infoLabel}>Deadlines</span>
-                {((Array.isArray(data.deadlines) && data.deadlines.length > 0) 
-                  ? data.deadlines 
-                  : (data.deadline ? [{ label: "Deadline", value: data.deadline }] : [])
-                ).map((dl, idx) => (
-                  <span key={idx} className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}>
-                    {dl.label} - <strong>{dl.value}</strong>
+            <>
+              {data.internalDeadline && (
+                <div className={classes.infoRow}>
+                  <BiCalendar className={classes.infoIcon} />
+                  <span className={classes.infoLabel}>
+                    Internal Deadline - <strong><RenderDate date={data.internalDeadline} /></strong>
                   </span>
-                ))}
-              </div>
-            </div>
+                </div>
+              )}
+              {data.internalDeadline && data.officeDeadline && (
+                <div className={classes.deadlineDivider}></div>
+              )}
+              {data.officeDeadline && (
+                <div className={classes.infoRow}>
+                  <BiCalendar className={classes.infoIcon} />
+                  <span className={classes.infoLabel}>
+                    Office Deadline - <strong><RenderDate date={data.officeDeadline} /></strong>
+                  </span>
+                </div>
+              )}
+            </>
           )}
 
           {/* Tasks */}
@@ -250,16 +264,33 @@ export default function CaseProgressCard({
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
               <a
-                href={referenceLink}
+                href={referenceLink || data?.reference?.link || "#"}
                 className={classes.referenceLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Reference
+                {data.referenceName || data?.reference?.referenceName || "Reference"}
                 <LuExternalLink className={classes.externalIcon} />
               </a>
             </div>
           )}
+
+          {
+            data?.reference?.refrenece?.length > 0 && (
+              <div className={classes.infoRowDetailed}>
+                <span className={classes.infoLabel}>Reference</span>
+                {data.reference.refrenece.map((item, index) => (
+                  <div key={index} className={mergeClass(classes)}>
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            )
+          }
+
+          
+
+
 
         </div>
       </div>
