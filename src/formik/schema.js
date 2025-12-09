@@ -46,7 +46,7 @@ export const CreateNewCaseSchema = Yup.object({
       officeDeadline: Yup.string().required("Office deadline date is required"),
     })
   ).min(1, "At least one deadline is required"),
-  primaryStaff: Yup.string(),
+  primaryStaff: Yup.string().required("Primary Staff is required"),
   secondaryStaff: Yup.string(),
 });
 

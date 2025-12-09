@@ -10,13 +10,22 @@ import { MdOutlineAssignment } from "react-icons/md";
 import { IoMdKey, IoMdCheckmark } from "react-icons/io";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FaBalanceScale, FaRegUserCircle } from "react-icons/fa";
-import { IoAddCircle, IoCalendarClearOutline, IoSearchSharp } from "react-icons/io5";
+import { IoAddCircle, IoCalendarClearOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Button from "@/components/atoms/Button";
 import { useFormik } from "formik";
 import { CreateNewCaseSchema } from "@/formik/schema";
 import { createNewCaseFormValues } from "@/formik/initialValues";
 import { auditTrackingOptions } from "@/developementContent/Enums/enum";
+
+// Staff options for dropdown
+const staffOptions = [
+  { label: "Roxanne Gleichner", value: "roxanne-gleichner" },
+  { label: "John Doe", value: "john-doe" },
+  { label: "Jane Smith", value: "jane-smith" },
+  { label: "Michael Johnson", value: "michael-johnson" },
+  { label: "Sarah Williams", value: "sarah-williams" },
+];
 
 const CreateNewCaseModal = ({ show, setShow }) => {
   const formik = useFormik({
@@ -207,26 +216,43 @@ const CreateNewCaseModal = ({ show, setShow }) => {
               className={classes?.iconParent}
             >
               <div className={classes?.deadlineContainer}>
-                <Input
-                  placeholder="Type to search"
-                  className={classes?.input}
-                  label="primary"
-                  inputClass={classes?.inputClassName}
-                  type="search"
-                  rightIcon={<IoSearchSharp size={20} />}
-                  value={formik.values.primaryStaff}
-                  setValue={(value) => formik.setFieldValue("primaryStaff", value)}
-                />
-                <Input
-                  placeholder="Type to search"
-                  className={classes?.input}
-                  label="secondary"
-                  inputClass={classes?.inputClassName}
-                  type="search"
-                  rightIcon={<IoSearchSharp size={20} />}
-                  value={formik.values.secondaryStaff}
-                  setValue={(value) => formik.setFieldValue("secondaryStaff", value)}
-                />
+                <div>
+                  <div className={classes.staffLabel}>Primary</div>
+                  <DropDown
+                    options={staffOptions}
+                    placeholder="Select Primary Staff"
+                    values={formik.values.primaryStaff ? staffOptions.filter(opt => opt.value === formik.values.primaryStaff) : []}
+                    className={classes.dropdown}
+                    closeOnSelect={true}
+                    searchable={true}
+                    onChange={(value) => {
+                      const selectedValue = value && value.length > 0 ? value[0]?.value : "";
+                      formik.setFieldValue("primaryStaff", selectedValue);
+                      formik.setFieldTouched("primaryStaff", true);
+                    }}
+                    onDropdownClose={() => {
+                      formik.setFieldTouched("primaryStaff", true);
+                    }}
+                  />
+                  {formik.touched.primaryStaff && formik.errors.primaryStaff && (
+                    <div className={classes.errorText}>{formik.errors.primaryStaff}</div>
+                  )}
+                </div>
+                <div>
+                  <div className={classes.staffLabel}>Secondary</div>
+                  <DropDown
+                    options={staffOptions}
+                    placeholder="Select Secondary Staff (Optional)"
+                    values={formik.values.secondaryStaff ? staffOptions.filter(opt => opt.value === formik.values.secondaryStaff) : []}
+                    className={classes.dropdown}
+                    closeOnSelect={true}
+                    searchable={true}
+                    onChange={(value) => {
+                      const selectedValue = value && value.length > 0 ? value[0]?.value : "";
+                      formik.setFieldValue("secondaryStaff", selectedValue);
+                    }}
+                  />
+                </div>
               </div>
             </IconInput>
           </div>
