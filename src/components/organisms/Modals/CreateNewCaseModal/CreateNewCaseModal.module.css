@@ -21,10 +21,6 @@
   position: relative !important;
 }
 
-.dropdown > div {
-  position: relative !important;
-}
-
 
 .iconInputContainer{
     display: flex;

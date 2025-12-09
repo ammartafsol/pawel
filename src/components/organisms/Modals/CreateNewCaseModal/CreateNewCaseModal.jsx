@@ -34,7 +34,7 @@ const CreateNewCaseModal = ({ show, setShow }) => {
   };
 
   const handleAddDeadline = () => {
-    const newDeadlines = [...formik.values.deadlines, { date: "", title: "" }];
+    const newDeadlines = [...formik.values.deadlines, { title: "", internalDeadline: "", officeDeadline: "" }];
     formik.setFieldValue("deadlines", newDeadlines);
   };
 
@@ -48,6 +48,7 @@ const CreateNewCaseModal = ({ show, setShow }) => {
     newDeadlines[index] = { ...newDeadlines[index], [field]: value };
     formik.setFieldValue("deadlines", newDeadlines);
   };
+
   return (
     <div>
       <ModalSkeleton
@@ -151,15 +152,7 @@ const CreateNewCaseModal = ({ show, setShow }) => {
           >
             <div className={classes?.deadlineContainer}>
               {formik.values.deadlines.map((deadline, index) => (
-                <div key={`deadline-${index}-${deadline.date || deadline.title || index}`} className={classes.deadlineItem}>
-                  <Input 
-                    type="date" 
-                    className={classes?.input}
-                    inputClass={classes?.inputClassName}
-                    value={deadline.date}
-                    setValue={(value) => handleDeadlineChange(index, "date", value)}
-                    error={formik.touched.deadlines?.[index]?.date && formik.errors.deadlines?.[index]?.date}
-                  />
+                <div key={`deadline-${index}-${deadline.title || deadline.internalDeadline || deadline.officeDeadline || index}`} className={classes.deadlineItem}>
                   <Input
                     placeholder="Deadline Title"
                     className={classes?.input}
@@ -167,6 +160,24 @@ const CreateNewCaseModal = ({ show, setShow }) => {
                     value={deadline.title}
                     setValue={(value) => handleDeadlineChange(index, "title", value)}
                     error={formik.touched.deadlines?.[index]?.title && formik.errors.deadlines?.[index]?.title}
+                  />
+                  <Input 
+                    type="date" 
+                    className={classes?.input}
+                    inputClass={classes?.inputClassName}
+                    value={deadline.internalDeadline}
+                    setValue={(value) => handleDeadlineChange(index, "internalDeadline", value)}
+                    error={formik.touched.deadlines?.[index]?.internalDeadline && formik.errors.deadlines?.[index]?.internalDeadline}
+                    label="Internal Deadline"
+                  />
+                  <Input 
+                    type="date" 
+                    className={classes?.input}
+                    inputClass={classes?.inputClassName}
+                    value={deadline.officeDeadline}
+                    setValue={(value) => handleDeadlineChange(index, "officeDeadline", value)}
+                    error={formik.touched.deadlines?.[index]?.officeDeadline && formik.errors.deadlines?.[index]?.officeDeadline}
+                    label="Office Deadline"
                   />
                   {formik.values.deadlines.length > 1 && (
                     <Button
