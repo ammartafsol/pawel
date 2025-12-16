@@ -11,6 +11,8 @@ import BannerMessage from "@/components/atoms/BannerMessage/BannerMessage";
 import MainHeader from "@/components/atoms/MainHeader/MainHeader";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import { caseProgressCardsData, circularCaseProgressChartData, myEventsList } from "@/developementContent/Data/dummtData/dummyData";
+import { myUserCaseTableHeader } from "@/developementContent/TableHeader/MyCasesTableHeader";
+import { myCasesTableBody } from "@/developementContent/TableBody/MyCasesTableBody";
 import CircularCaseProgressChart from "@/components/atoms/CircularCaseProgressChart/CircularCaseProgressChart";
 import Breadcrumbs from "@/components/molecules/Breadcrumbs/Breadcrumbs";
 import { useRouter } from "next/navigation";
@@ -51,29 +53,12 @@ const DashboardTemplate = () => {
             setShow={setShowBannerMessage}
           />
           <MainHeader  onClickViewAll={() => router.push('/user/my-cases')}/>
-          <div className={classes.caseProgressCardsMain}>
-          <Row className="g-5">
-            {
-              caseProgressCardsData.map((item) => (
-                <Col className="col-12 col-md-6" key={item.id}>
-                  <CaseProgressCard 
-                  routePath={'/user/my-cases/1'}
-                  referenceLink="/user/my-cases/1"
-                  data={{
-                    tabLabel: item.tabLabel,
-                    userName: item.userName,
-                    progress: item.progress,
-                    status: item.status,
-                    trademarkName: item.trademarkName,
-                    trademarkNo: item.trademarkNo,
-                    referenceLink: item.referenceLink,
-                    reference: item.reference
-                  }} />
-                </Col>
-              ))
-            }
-          </Row>
-          </div>
+          <Wrapper title="My Cases" className={classes.wrapper} contentClassName={classes.contentClassName}>
+            <ResponsiveTable
+              tableHeader={myUserCaseTableHeader}
+              data={myCasesTableBody}
+            />
+          </Wrapper>
           <Wrapper title="Recent Case Statuses">
             <Calender events={myEventsList} />
           </Wrapper>

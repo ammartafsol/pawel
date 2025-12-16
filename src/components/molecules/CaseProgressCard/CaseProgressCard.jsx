@@ -262,8 +262,6 @@ export default function CaseProgressCard({
           {
             showReference && (
           <div>
-            
-          {!isStatusVariant && (
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
               <a
@@ -276,7 +274,6 @@ export default function CaseProgressCard({
                 <LuExternalLink className={classes.externalIcon} />
               </a>
             </div>
-          )}
 
           {
             data?.reference?.refrenece?.length > 0 && (

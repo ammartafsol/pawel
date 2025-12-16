@@ -114,11 +114,17 @@ const MyCaseDetailTemplate = ({ slug }) => {
               referenceLink: "#",
               jurisdiction: "EUIPO",
               officeDeadline: "2024-02-25",
-              referenceName:"My Web",
-              referenceLink:"#",
               internalDeadline: "2024-02-25",
+              reference: {
+                referenceName: "My Web",
+                link: "#",
+                refrenece: [
+                  { label: "Reference 1", value: "Reference 1" },
+                  { label: "Reference 2", value: "Reference 2" },
+                ]
+              },
             }}
-            showReference={false}
+            showReference={true}
           />
         </Col>
         <Col md={8}>

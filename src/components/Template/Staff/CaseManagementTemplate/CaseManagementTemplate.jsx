@@ -52,6 +52,7 @@ const CaseManagementTemplate = () => {
               <CaseProgressCard 
                 isStatusVariant
                 routePath={`/staff/case-management/${item.id}`}
+                referenceLink={item.referenceLink}
                 data={{
                   tabLabel: item.tabLabel,
                   userName: item.userName,
@@ -60,8 +61,11 @@ const CaseManagementTemplate = () => {
                   trademarkName: item.trademarkName,
                   trademarkNo: item.trademarkNo,
                   deadline: item.deadline,
-                  clientName: item.clientName
+                  clientName: item.clientName,
+                  reference: item.reference,
+                  referenceLink: item.referenceLink,
                 }}
+                showReference={true}
               />
             </Col>
           ))}

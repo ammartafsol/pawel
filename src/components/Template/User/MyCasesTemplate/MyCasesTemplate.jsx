@@ -16,18 +16,18 @@ import { myUserCaseTableHeader } from "@/developementContent/TableHeader/MyCases
 import { myCasesTableBody } from "@/developementContent/TableBody/MyCasesTableBody";
 
 const MyCasesTemplate = () => {
-  const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
+  const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[1]);
   const [searchValue, setSearchValue] = useState("");
   return (
     <>
       <BreadComTop statesCaseData={statesCaseData} />
-      <GridFilter
+      {/* <GridFilter
         classesName={classes.gridFilter}
         gridFilter={gridFilter}
         activeGridFilter={activeGridFilter}
         setActiveGridFilter={setActiveGridFilter}
-      />
-      {activeGridFilter.value === "table" ? (
+      /> */}
+      {/* {activeGridFilter.value === "table" ? (
         <div>
           <Wrapper
             title="My Cases"
@@ -43,13 +43,17 @@ const MyCasesTemplate = () => {
             />
           </Wrapper>
         </div>
-      ) : (
+      ) 
+      
+      : (
+      )} */}
         <Row className="g-4">
           {caseProgressCardsData.map((item) =>{
             return(
               <Col className="col-12 col-md-4" key={item.id}>
               <CaseProgressCard
               routePath={`/user/my-cases/${item.id}`}
+              referenceLink={item.referenceLink}
                 data={{
                   tabLabel: item.tabLabel,
                   userName: item.userName,
@@ -58,14 +62,15 @@ const MyCasesTemplate = () => {
                   trademarkName: item.trademarkName,
                   trademarkNo: item.trademarkNo,
                   officeDeadline: item.officeDeadline,
+                  reference: item.reference,
+                  referenceLink: item.referenceLink,
                 }}
-               showReference={false}
+               showReference={true}
                 />
             </Col>
             )
           })}
         </Row>
-      )}
     </>
   );
 };
