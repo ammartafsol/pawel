@@ -73,6 +73,33 @@ export const reactActivities = [
   },
 ]
 
+export const caseStatusFilters = [
+  {
+    label: "All",
+    value: "all"
+  },
+  {
+    label: "File Observations",
+    value: "File Observations"
+  },
+  {
+    label: "File Invalidation",
+    value: "File Invalidation"
+  },
+  {
+    label: "Defense",
+    value: "Defense"
+  },
+  {
+    label: "Second Observations",
+    value: "Second Observations"
+  },
+  {
+    label: "Cooling-Off Period",
+    value: "Cooling-Off Period"
+  },
+]
+
 export const auditTrackingOptions = [
   {
     label: "All",

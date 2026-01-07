@@ -11,6 +11,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue1",
     attorney: "PW",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 2,
@@ -24,6 +26,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue2",
     attorney: "KL",
     notes: "Figma ipsum component variant main layer. List invite group list inspect arrow vector. Select link fill vertical bullet line style undo.",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 3,
@@ -37,6 +41,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue3",
     attorney: "PW",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 4,
@@ -50,6 +56,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue4",
     attorney: "KL",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 5,
@@ -63,6 +71,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "blue1",
     attorney: "PW",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 6,
@@ -76,6 +86,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "blue2",
     attorney: "KL",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 7,
@@ -89,6 +101,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue1",
     attorney: "PW",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
   {
     id: 8,
@@ -102,6 +116,8 @@ export const staffDashboardTableBody = [
     nextTaskVariant: "lightBlue2",
     attorney: "KL",
     notes: "Figma ipsum component variant ma...",
+    internalDeadline: "2024-11-20",
+    officeDeadline: "2024-11-20",
   },
 ];
 

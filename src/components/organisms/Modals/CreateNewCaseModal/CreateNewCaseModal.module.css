@@ -21,10 +21,6 @@
   position: relative !important;
 }
 
-.dropdown > div {
-  position: relative !important;
-}
-
 
 .iconInputContainer{
     display: flex;
@@ -80,4 +76,12 @@
     color: var(--error);
     font-size: 12px;
     margin-top: 4px;
+}
+
+.staffLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--storm-grey);
+    margin-bottom: 8px;
 }

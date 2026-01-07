@@ -8,6 +8,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-15",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 2,
@@ -18,6 +33,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-20",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 3,
@@ -28,6 +58,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-02-25",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
   {
     id: 4,
@@ -38,6 +83,21 @@ export const caseProgressCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     referenceLink: "#",
+    officeDeadline: "2024-03-01",
+    reference:{
+      referenceName:"My Web",
+      link:"#",
+      refrenece:[
+        {
+          label:"Reference 1",
+          value:"Reference 1",
+        },
+        {
+          label:"Reference 2",
+          value:"Reference 2",
+        },
+      ]
+    }
   },
 ];
 
@@ -123,7 +183,16 @@ export const caseManagementCardsData = [
     trademarkName: "A and Sons",
     trademarkNo: "R-3526",
     deadline: "Nov 20, 24",
-    clientName: "Dana Auer"
+    clientName: "Dana Auer",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   },
   {
     id: 2,
@@ -134,7 +203,16 @@ export const caseManagementCardsData = [
     trademarkName: "Orn-Runol",
     trademarkNo: "R-3526",
     deadline: "Nov 22, 24",
-    clientName: "Rafael Dietrich"
+    clientName: "Rafael Dietrich",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   },
   {
     id: 3,
@@ -145,7 +223,16 @@ export const caseManagementCardsData = [
     trademarkName: "Cummings, Reic...",
     trademarkNo: "R-3526",
     deadline: "Nov 25, 24",
-    clientName: "Al Cassin"
+    clientName: "Al Cassin",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   },
   {
     id: 4,
@@ -156,7 +243,16 @@ export const caseManagementCardsData = [
     trademarkName: "Heller - Hoppe",
     trademarkNo: "R-3526",
     deadline: "Nov 28, 24",
-    clientName: "Pete Orn"
+    clientName: "Pete Orn",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   },
   {
     id: 5,
@@ -167,7 +263,16 @@ export const caseManagementCardsData = [
     trademarkName: "Lueilwitz LLC",
     trademarkNo: "R-3526",
     deadline: "Dec 1, 24",
-    clientName: "Alberta Herman"
+    clientName: "Alberta Herman",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   },
   {
     id: 6,
@@ -178,6 +283,15 @@ export const caseManagementCardsData = [
     trademarkName: "Crist and Sons",
     trademarkNo: "R-3526",
     deadline: "Dec 5, 24",
-    clientName: "Kathleen Steuber"
+    clientName: "Kathleen Steuber",
+    referenceLink: "#",
+    reference: {
+      referenceName: "My Web",
+      link: "#",
+      refrenece: [
+        { label: "Reference 1", value: "Reference 1" },
+        { label: "Reference 2", value: "Reference 2" },
+      ]
+    }
   }
 ];

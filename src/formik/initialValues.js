@@ -32,7 +32,7 @@ export const createNewCaseFormValues = {
   reference: "",
   trademarkName: "",
   jurisdiction: "",
-  deadlines: [{ date: "", title: "" }],
+  deadlines: [{ title: "", internalDeadline: "", officeDeadline: "" }],
   primaryStaff: "",
   secondaryStaff: "",
 };

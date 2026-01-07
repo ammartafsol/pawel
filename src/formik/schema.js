@@ -41,11 +41,12 @@ export const CreateNewCaseSchema = Yup.object({
   jurisdiction: Yup.string().required("Jurisdiction is required"),
   deadlines: Yup.array().of(
     Yup.object({
-      date: Yup.string().required("Deadline date is required"),
       title: Yup.string().required("Deadline title is required"),
+      internalDeadline: Yup.string().required("Internal deadline date is required"),
+      officeDeadline: Yup.string().required("Office deadline date is required"),
     })
-  ),
-  primaryStaff: Yup.string(),
+  ).min(1, "At least one deadline is required"),
+  primaryStaff: Yup.string().required("Primary Staff is required"),
   secondaryStaff: Yup.string(),
 });
 

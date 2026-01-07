@@ -1,5 +1,6 @@
 import Status from "@/components/atoms/Status/Status";
 import Link from "next/link";
+import { RenderDate } from "@/components/organisms/AppTable/commonCell";
 
 export const staffDashboardTableHeader = [
   {
@@ -46,6 +47,22 @@ export const staffDashboardTableHeader = [
     },
   },
   {
+    title: "Internal Deadline",
+    key: "internalDeadline",
+    style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderDate date={item} />;
+    },
+  },
+  {
+    title: "Office Deadline",
+    key: "officeDeadline",
+    style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderDate date={item} />;
+    },
+  },
+  {
     title: "Attorney",
     key: "attorney",
     style: { width: "10%" },
@@ -65,5 +82,6 @@ export const staffDashboardTableHeader = [
       );
     },
   },
+ 
 ];
 

@@ -9,6 +9,7 @@ export const myCasesTableBody = [
     nextTask: "Prepare Draft",
     nextTaskVariant: "lightBlue1",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-02-15",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const myCasesTableBody = [
     nextTask: "Prepare Evidence",
     nextTaskVariant: "lightBlue2",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-02-20",
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const myCasesTableBody = [
     nextTask: "Check Evidence",
     nextTaskVariant: "lightBlue3",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-02-25",
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const myCasesTableBody = [
     nextTask: "Client Confirmation",
     nextTaskVariant: "lightBlue4",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-03-01",
   },
   {
     id: 5,
@@ -54,6 +58,7 @@ export const myCasesTableBody = [
     nextTask: "Submit",
     nextTaskVariant: "blue1",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-03-05",
   },
   {
     id: 6,
@@ -65,6 +70,7 @@ export const myCasesTableBody = [
     nextTask: "Track",
     nextTaskVariant: "blue2",
     notes: "Figma ipsum component variant main layer...",
+    officeDeadline: "2024-03-10",
   },
 ];
 

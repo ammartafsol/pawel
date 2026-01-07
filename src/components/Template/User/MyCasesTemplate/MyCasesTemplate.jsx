@@ -12,24 +12,22 @@ import { Col, Row } from "react-bootstrap";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
-import { myCasesTableHeader } from "@/developementContent/TableHeader/MyCasesTableHeader";
+import { myUserCaseTableHeader } from "@/developementContent/TableHeader/MyCasesTableHeader";
 import { myCasesTableBody } from "@/developementContent/TableBody/MyCasesTableBody";
-import { useRouter } from "next/navigation";
 
 const MyCasesTemplate = () => {
-  const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
+  const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[1]);
   const [searchValue, setSearchValue] = useState("");
-  const router = useRouter();
   return (
     <>
       <BreadComTop statesCaseData={statesCaseData} />
-      <GridFilter
+      {/* <GridFilter
         classesName={classes.gridFilter}
         gridFilter={gridFilter}
         activeGridFilter={activeGridFilter}
         setActiveGridFilter={setActiveGridFilter}
-      />
-      {activeGridFilter.value === "table" ? (
+      /> */}
+      {/* {activeGridFilter.value === "table" ? (
         <div>
           <Wrapper
             title="My Cases"
@@ -40,17 +38,22 @@ const MyCasesTemplate = () => {
             contentClassName={classes.contentClassName}
           >
             <ResponsiveTable
-              tableHeader={myCasesTableHeader}
+              tableHeader={myUserCaseTableHeader}
               data={myCasesTableBody}
             />
           </Wrapper>
         </div>
-      ) : (
+      ) 
+      
+      : (
+      )} */}
         <Row className="g-4">
-          {caseProgressCardsData.map((item) => (
-            <Col className="col-12 col-md-4" key={item.id}>
+          {caseProgressCardsData.map((item) =>{
+            return(
+              <Col className="col-12 col-md-4" key={item.id}>
               <CaseProgressCard
               routePath={`/user/my-cases/${item.id}`}
+              referenceLink={item.referenceLink}
                 data={{
                   tabLabel: item.tabLabel,
                   userName: item.userName,
@@ -58,14 +61,16 @@ const MyCasesTemplate = () => {
                   status: item.status,
                   trademarkName: item.trademarkName,
                   trademarkNo: item.trademarkNo,
+                  officeDeadline: item.officeDeadline,
+                  reference: item.reference,
                   referenceLink: item.referenceLink,
                 }}
-               
+               showReference={true}
                 />
             </Col>
-          ))}
+            )
+          })}
         </Row>
-      )}
     </>
   );
 };

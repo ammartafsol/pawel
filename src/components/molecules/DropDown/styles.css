@@ -75,39 +75,38 @@
 }
 
 /* Selected value color - default is var(--steel-mist), can be customized via selectedValueColor prop */
-/* Only apply when a value is selected */
-[data-has-selected="true"] .react-dropdown-select {
+.react-dropdown-select {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
+.react-dropdown-select .react-dropdown-select-input {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
+.react-dropdown-select .react-dropdown-select-content {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
+.react-dropdown-select .react-dropdown-select-content span,
+.react-dropdown-select .react-dropdown-select-content div {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
 /* Selected option color when label is present - kept for backward compatibility */
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select {
+[data-has-label="true"] .react-dropdown-select {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-input {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content span,
+[data-has-label="true"] .react-dropdown-select .react-dropdown-select-content div {
     color: var(--selected-value-color, var(--steel-mist)) !important;
 }
 
@@ -138,7 +137,7 @@
 }
 
 .react-dropdown-select .react-dropdown-select-option-remove:hover {
-    color: var(--error) !important;
+    /* color: var(--error) !important; */
 }
 
 /* Dropdown Handle */
@@ -154,6 +153,8 @@
     transform: rotate(180deg) !important;
 }
 
+/* Hide dropdown handle when rightIcon is present - handled in component */
+
 /* Loading State */
 .react-dropdown-select .react-dropdown-select-loading {
     color: var(--sky-glow, #62c1f8) !important;
@@ -166,9 +167,9 @@
     transition: color 0.2s ease !important;
 }
 
-.react-dropdown-select .react-dropdown-select-clear:hover {
+/* .react-dropdown-select .react-dropdown-select-clear:hover {
     color: var(--error) !important;
-}
+} */
 
 /* Scrollbar Styling */
 .react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar {

@@ -106,17 +106,25 @@ const MyCaseDetailTemplate = ({ slug }) => {
           <CaseProgressCard
             data={{
               tabLabel: "EU TM OPPO",
-              userName: "Assigned Staff",
+              userName: "Darlene Steuber",
               progress: 80,
               status: "Decision",
               trademarkName: "A and Sons",
               trademarkNo: "R-3526",
               referenceLink: "#",
-              primaryStaff: "Roxanne Gleichner",
-              secondaryStaff: "Roxanne Gleichner",
               jurisdiction: "EUIPO",
+              officeDeadline: "2024-02-25",
+              internalDeadline: "2024-02-25",
+              reference: {
+                referenceName: "My Web",
+                link: "#",
+                refrenece: [
+                  { label: "Reference 1", value: "Reference 1" },
+                  { label: "Reference 2", value: "Reference 2" },
+                ]
+              },
             }}
-            isAssignedStaffVariant={true}
+            showReference={true}
           />
         </Col>
         <Col md={8}>

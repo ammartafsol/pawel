@@ -1,211 +1,77 @@
-/* React Dropdown Select Global Styles */
-.react-dropdown-select {
-    border: 1px solid var(--outlined-dark) !important;
-    border-radius: 8px !important;
-    background-color: var(--white, #ffffff) !important;
-    font-size: 14px !important;
-    min-height: 48px !important;
-    padding: 5px 10px !important;
-    transition: all 0.2s ease !important;
+/* DropDown Component Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
 }
 
-.react-dropdown-select:hover {
-    border-color: var(--outlined-dark) !important;
+.containerWithCenteredLabel {
+  position: relative;
 }
 
-.react-dropdown-select:focus-within {
-    border-color: var(--outlined-dark) !important;
-    box-shadow: 0 0 0 3px rgba(0, 116, 217, 0.1) !important;
-    outline: none !important;
+.label {
+  color: var(--slate-shadow);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.react-dropdown-select:disabled {
-    background-color: #f5f5f5 !important;
-    color:  #999 !important;
-    cursor: not-allowed !important;
-    opacity: 0.6 !important;
+.centeredLabel {
+  color: var(--storm-grey);
+  text-align: left;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background-color: var(--white, #ffffff);
+  padding: 0 8px;
+}
+.centeredLabel{
+  z-index: 999;
 }
 
-/* Dropdown Menu */
-.react-dropdown-select .react-dropdown-select-dropdown {
-    border: 1px solid var(--border-color) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    background-color: var(--white) !important;
-    margin-top: 4px !important;
-    max-height: 300px !important;
-    overflow-y: auto !important;
-    z-index: 1000 !important;
+.selectWrapper {
+  position: relative;
 }
 
-/* Dropdown Items */
-.react-dropdown-select .react-dropdown-select-item {
-    padding: 12px 16px !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    color: var(--text-color, #333) !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    border-bottom: 1px solid var(--border-light, #f0f0f0) !important;
+.error {
+  color: red !important;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
 }
 
-.react-dropdown-select .react-dropdown-select-item:hover {
-    background-color: var(--sky-glow, #62c1f8) !important;
-    color: var(--white, #ffffff) !important;
+.dropdownHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--midnight-blue);
+  transition: all 0.2s ease-in-out;
 }
 
-.react-dropdown-select .react-dropdown-select-item.react-dropdown-select-item-selected {
-    background-color: var(--sky-glow, #62c1f8) !important;
-    color: var(--white, #ffffff) !important;
-    font-weight: 500 !important;
+.dropdownHandleIcon {
+  transition: all 0.2s ease-in-out;
 }
 
-/* Input Field */
-.react-dropdown-select .react-dropdown-select-input {
-    font-size: 14px !important;
-    color: var(--text-color, #333) !important;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
+.dropdownWithRightIcon {
+  position: relative;
 }
 
-.react-dropdown-select .react-dropdown-select-input::placeholder {
-    color: var(--placeholder-color) !important;
-    font-weight: 400 !important;
-}
-
-/* Selected value color - default is var(--steel-mist), can be customized via selectedValueColor prop */
-/* Only apply when a value is selected */
-[data-has-selected="true"] .react-dropdown-select {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
-[data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-/* Selected option color when label is present - kept for backward compatibility */
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-input {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content span,
-[data-has-label="true"][data-has-selected="true"] .react-dropdown-select .react-dropdown-select-content div {
-    color: var(--selected-value-color, var(--steel-mist)) !important;
-}
-
-/* Multi-value Tags */
-.react-dropdown-select .react-dropdown-select-option {
-    background-color: var(--sky-glow, #62c1f8) !important;
-    color: var(--white, #ffffff) !important;
-    border-radius: 16px !important;
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    margin: 2px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 4px !important;
-}
-
-.react-dropdown-select .react-dropdown-select-option-remove {
-    background: none !important;
-    border: none !important;
-    color: var(--white, #ffffff) !important;
-    cursor: pointer !important;
-    font-size: 16px !important;
-    line-height: 1 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transition: color 0.2s ease !important;
-}
-
-.react-dropdown-select .react-dropdown-select-option-remove:hover {
-    color: var(--error) !important;
-}
-
-/* Dropdown Handle */
-.react-dropdown-select .react-dropdown-select-dropdown-handle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted, #666) !important;
-    transition: transform 0.2s ease !important;
-}
-
-.react-dropdown-select.react-dropdown-select-open .react-dropdown-select-dropdown-handle {
-    transform: rotate(180deg) !important;
-}
-
-/* Loading State */
-.react-dropdown-select .react-dropdown-select-loading {
-    color: var(--sky-glow, #62c1f8) !important;
-}
-
-/* Clear Button */
-.react-dropdown-select .react-dropdown-select-clear {
-    color: var(--text-muted, #666) !important;
-    cursor: pointer !important;
-    transition: color 0.2s ease !important;
-}
-
-.react-dropdown-select .react-dropdown-select-clear:hover {
-    color: var(--error) !important;
-}
-
-/* Scrollbar Styling */
-.react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar {
-    width: 6px;
-}
-
-.react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar-track {
-    background-color: var(--scrollbar-track, #f1f1f1);
-    border-radius: 3px;
-}
-
-.react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar-thumb {
-    background-color: var(--sky-glow, #62c1f8);
-    border-radius: 3px;
-}
-
-.react-dropdown-select .react-dropdown-select-dropdown::-webkit-scrollbar-thumb:hover {
-    background-color: var(--sky-glow, #62c1f8);
-}
-
-/* RTL Support */
-.react-dropdown-select[dir="rtl"] {
-    text-align: right !important;
-}
-
-.react-dropdown-select[dir="rtl"] .react-dropdown-select-input {
-    text-align: right !important;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .react-dropdown-select {
-        font-size: 16px !important;
-        /* Prevents zoom on iOS */
-    }
-
-    .react-dropdown-select .react-dropdown-select-dropdown {
-        max-height: 200px !important;
-    }
+.rightIconContainer {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
