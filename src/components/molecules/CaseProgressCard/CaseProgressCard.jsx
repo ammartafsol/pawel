@@ -17,7 +17,7 @@ import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
 import { MdChecklistRtl } from "react-icons/md";
-import { RenderDate } from "@/components/organisms/AppTable/commonCell";
+import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
 export default function CaseProgressCard({
   routePath,
@@ -174,7 +174,7 @@ export default function CaseProgressCard({
             <div className={classes.infoRow}>
               <BiCalendar className={classes.infoIcon} />
               <span className={classes.infoLabel}>
-                Office Deadline - <strong><RenderDate date={data.officeDeadline} /></strong>
+                Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
               </span>
             </div>
           )}

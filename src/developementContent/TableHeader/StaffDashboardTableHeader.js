@@ -1,6 +1,6 @@
 import Status from "@/components/atoms/Status/Status";
+import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
-import { RenderDate } from "@/components/organisms/AppTable/commonCell";
 
 export const staffDashboardTableHeader = [
   {
@@ -51,7 +51,7 @@ export const staffDashboardTableHeader = [
     key: "internalDeadline",
     style: { width: "15%" },
     renderItem: ({ item }) => {
-      return <RenderDate date={item} />;
+      return <RenderDateCell cellValue={item} />;
     },
   },
   {
@@ -59,7 +59,7 @@ export const staffDashboardTableHeader = [
     key: "officeDeadline",
     style: { width: "15%" },
     renderItem: ({ item }) => {
-      return <RenderDate date={item} />;
+      return <RenderDateCell cellValue={item} />;
     },
   },
   {

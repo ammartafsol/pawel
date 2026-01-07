@@ -1,7 +1,6 @@
 .tableWrapper {
   width: 100%;
   overflow-x: auto; /* scrolls if content wider */
-  border-radius: 10px;
   background-color: var(--Poor-white);
   overflow-y: auto; /* allows vertical scrolling */
   /* max-height: 500px; */
@@ -72,4 +71,9 @@
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.paginationWrapper {
+  /* border-top: 1.5px solid var(--primary-200, #D3D3E2); */
+  background-color: #fcfcfd;
 }

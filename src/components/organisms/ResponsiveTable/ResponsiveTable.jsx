@@ -1,11 +1,11 @@
 "use client";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
-import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
 import { imageUrl, mergeClass } from "@/resources/utils/helper";
 import Image from "next/image";
 import classes from "./ResponsiveTable.module.css";
 import Pagination from "@/components/molecules/Pagination/Pagination";
+import { Skeleton } from "@mui/material";
 
 export default function ResponsiveTable({
   onRowClick = () => {},
@@ -22,6 +22,7 @@ export default function ResponsiveTable({
   onPageChange,
   actions = [],
   actionStyles = {},
+  totalTextLabel = "Staff Users",
 }) {
   return (
     <>
@@ -47,11 +48,33 @@ export default function ResponsiveTable({
           </thead>
           <tbody className={classes.tableBody}>
             {loading ? (
-              <tr>
-                <td colSpan={tableHeader.length + (actions.length ? 1 : 0)}>
-                  <SpinnerLoading />
-                </td>
-              </tr>
+              Array.from({ length: 10 }).map((_, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  className={mergeClass(classes.bodyRow, rowClassName)}
+                >
+                  {tableHeader?.map((item, colIndex) => (
+                    <td key={colIndex} style={item.style || {}}>
+                      <Skeleton
+                        variant="rectangular"
+                        height={30}
+                        animation="wave"
+                        sx={{ borderRadius: "4px" }}
+                      />
+                    </td>
+                  ))}
+                  {actions?.length > 0 && (
+                    <td style={{ ...actionStyles }}>
+                      <Skeleton
+                        variant="rectangular"
+                        height={30}
+                        animation="wave"
+                        sx={{ borderRadius: "4px" }}
+                      />
+                    </td>
+                  )}
+                </tr>
+              ))
             ) : data?.length ? (
               data.map((item, rowIndex) => (
                 <tr
@@ -125,13 +148,16 @@ export default function ResponsiveTable({
         </table>
       </div>
 
-      {pagination && totalRecords > RECORDS_LIMIT && (
-        <Pagination
-          currentPage={page || 1}
-          totalRecords={totalRecords}
-          limit={RECORDS_LIMIT}
-          onPageChange={onPageChange}
-        />
+     {pagination && totalRecords > RECORDS_LIMIT && (
+        <div className={classes.paginationWrapper}>
+          <Pagination
+            currentPage={page || 1}
+            totalRecords={totalRecords}
+            limit={RECORDS_LIMIT}
+            onPageChange={onPageChange || (() => {})}
+            totalTextLabel={totalTextLabel}
+          />
+        </div>
       )}
     </>
   );
