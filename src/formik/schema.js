@@ -37,17 +37,16 @@ export const CreateNewCaseSchema = Yup.object({
   caseType: Yup.string().required("Case Type is required"),
   clientName: Yup.string().required("Client Name is required"),
   reference: Yup.string().required("Reference is required"),
-  trademarkName: Yup.string().required("Trademark Name/No. is required"),
+  trademarkName: Yup.string().required("Trademark Name is required"),
+  trademarkNumber: Yup.string().required("Trademark Number is required"),
   jurisdiction: Yup.string().required("Jurisdiction is required"),
   deadlines: Yup.array().of(
     Yup.object({
-      title: Yup.string().required("Deadline title is required"),
       internalDeadline: Yup.string().required("Internal deadline date is required"),
       officeDeadline: Yup.string().required("Office deadline date is required"),
     })
   ).min(1, "At least one deadline is required"),
   primaryStaff: Yup.string().required("Primary Staff is required"),
-  secondaryStaff: Yup.string(),
 });
 
 export const AddNoteSchema = Yup.object({

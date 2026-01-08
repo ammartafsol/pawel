@@ -1,5 +1,4 @@
-import Status from "@/components/atoms/Status/Status";
-import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+import { RenderDateCell, RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
 
 export const staffDashboardTableHeader = [
@@ -7,16 +6,25 @@ export const staffDashboardTableHeader = [
     title: "Client",
     key: "client",
     style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderTextCell cellValue={item} />;
+    },
   },
   {
     title: "Type of Case",
-    key: "typeOfCase",
+    key: "type",
     style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderTextCell cellValue={item} />;
+    },
   },
   {
     title: "Trademark Name",
     key: "trademarkName",
     style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderTextCell cellValue={item} />;
+    },
   },
   {
     title: "Trademark Number",
@@ -30,23 +38,7 @@ export const staffDashboardTableHeader = [
       );
     },
   },
-  {
-    title: "Status",
-    key: "status",
-    style: { width: "20%" },
-    renderItem: ({ item, data }) => {
-      return <Status label={item} variant={data.statusVariant} />;
-    },
-  },
-  {
-    title: "Next Task",
-    key: "nextTask",
-    style: { width: "20%" },
-    renderItem: ({ item, data }) => {
-      return <Status label={item} variant={data.nextTaskVariant} />;
-    },
-  },
-  {
+   {
     title: "Internal Deadline",
     key: "internalDeadline",
     style: { width: "15%" },
@@ -54,7 +46,7 @@ export const staffDashboardTableHeader = [
       return <RenderDateCell cellValue={item} />;
     },
   },
-  {
+   {
     title: "Office Deadline",
     key: "officeDeadline",
     style: { width: "15%" },
@@ -63,25 +55,52 @@ export const staffDashboardTableHeader = [
     },
   },
   {
-    title: "Attorney",
-    key: "attorney",
-    style: { width: "10%" },
-  },
-  {
-    title: "Notes",
-    key: "notes",
-    style: { width: "20%" },
+    title:"",
+    key:"slug",
+    style: { width: "15%" },
     renderItem: ({ item }) => {
-      return (
-        <div 
-        style={{ 
-          paddingRight: "8px"
-        }}>
-          {item}
-        </div>
-      );
+      return <Link href={`/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
+        View Details
+      </Link>;
     },
-  },
- 
+  }
+  // {
+  //   title: "Status",
+  //   key: "status",
+  //   style: { width: "20%" },
+  //   renderItem: ({ item, data }) => {
+  //     return <Status label={item} variant={data.statusVariant} />;
+  //   },
+  // },
+  // {
+  //   title: "Next Task",
+  //   key: "nextTask",
+  //   style: { width: "20%" },
+  //   renderItem: ({ item, data }) => {
+  //     return <Status label={item} variant={data.nextTaskVariant} />;
+  //   },
+  // },
+  // {
+  //   title: "Attorney",
+  //   key: "attorney",
+  //   style: { width: "10%" },
+  //   renderItem: ({ item }) => {
+  //     return <RenderTextCell cellValue={item} />;
+  //   },
+  // },
+  // {
+  //   title: "Notes",
+  //   key: "notes",
+  //   style: { width: "20%" },
+  //   renderItem: ({ item }) => {
+  //     return (
+  //       <div 
+  //       style={{ 
+  //         paddingRight: "8px"
+  //       }}>
+  //         {item}
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
-

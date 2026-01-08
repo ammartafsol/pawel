@@ -22,6 +22,8 @@ const useAxios = () => {
     (state) => state.authReducer
   );
 
+  console.log("myaccessToken",accessToken);
+
   // Function to refresh the access token
   const refreshAccessToken = async () => {
     if (refreshPromise) {
@@ -96,7 +98,7 @@ const useAxios = () => {
       "Content-Type": isFormData ? "multipart/form-data" : "application/json",
       timezone: momentTimezone.tz.guess(),
       ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
-      ...headers,
+      ...(headers && { ...headers }),
     };
 
     try {
@@ -104,7 +106,7 @@ const useAxios = () => {
         method,
         url,
         data,
-        headers: { _headers },
+        headers:  _headers ,
         signal,
         ...(responseType && { responseType }),
       });

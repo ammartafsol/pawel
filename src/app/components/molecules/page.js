@@ -10,9 +10,9 @@ import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgre
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import { mergeClass } from "@/resources/utils/helper";
-import AppTable from "@/components/organisms/AppTable/AppTable";
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
+import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
 
 export default function MoleculesPage() {
   return (
@@ -27,7 +27,7 @@ export default function MoleculesPage() {
         <h3 className={mergeClass(classes.subtitle, "mb-4")}>
           CaseProgressCard-3
         </h3>
-        <AppTable
+        <ResponsiveTable
           tableHeader={staffDashboardTableHeader}
           data={staffDashboardTableBody}
         />

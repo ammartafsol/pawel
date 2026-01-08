@@ -22,6 +22,8 @@
 }
 
 
+
+
 .iconInputContainer{
     display: flex;
     flex-direction: column;
@@ -78,10 +80,16 @@
     margin-top: 4px;
 }
 
+.dropdownWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .staffLabel {
-    display: block;
+    color: var(--slate-shadow);
     font-size: 14px;
     font-weight: 500;
-    color: var(--storm-grey);
+    line-height: normal;
     margin-bottom: 8px;
 }

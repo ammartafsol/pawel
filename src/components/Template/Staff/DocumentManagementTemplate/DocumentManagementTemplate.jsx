@@ -3,7 +3,6 @@ import React, { useState, useRef } from "react";
 import classes from "./DocumentManagementTemplate.module.css";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
-import AppTable from "@/components/organisms/AppTable/AppTable";
 import { gridFilter } from "@/developementContent/Enums/enum";
 import { documentManagementTableHeader } from "@/developementContent/TableHeader/DocumentManagementTableHeader";
 import { documentManagementTableBody } from "@/developementContent/TableBody/DocumentManagementTableBody";

@@ -21,16 +21,6 @@ const ResetPasswordTemplate = () => {
   const emailFromCookie = getEmailCookie();
   const codeFromCookie = getCodeCookie();
 
-  useEffect(() => {
-    // Redirect if email or code is missing
-    if (!emailFromCookie || !codeFromCookie) {
-      RenderToast({
-        type: "error",
-        message: "Session expired. Please start the password reset process again.",
-      });
-      router.push("/forgot-password");
-    }
-  }, [emailFromCookie, codeFromCookie, router]);
 
   const formik = useFormik({
     initialValues: resetPasswordValues,
