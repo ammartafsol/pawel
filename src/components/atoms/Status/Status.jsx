@@ -16,7 +16,7 @@ const labelVariantMap = {
   'track': 'blue2',
   'active': 'success',
   'in-active': 'secondary',
-  'inactive': 'secondary',
+  'inactive': 'inactiveStatus',
   'pending': 'secondary',
 }
 

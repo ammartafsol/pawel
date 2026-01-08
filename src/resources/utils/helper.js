@@ -151,6 +151,15 @@ export const uploadImagesHelper = async ({
     });
 };
 
+export const capitalizeFirstWord = (str) => {
+  if (!str) return str;
+
+  const parts = str.split(" ", 2);
+  parts[0] = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+
+  return parts.join(" ");
+}
+
 export const deleteMedia = async ({
   slug,
   key,

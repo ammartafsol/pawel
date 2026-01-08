@@ -27,18 +27,18 @@ const DetailActionsWithStats = ({
           variant={statusVariant}
           className={`${classes.status} ${statusClassName || ""}`}
         />
-        <Button
+        {/* <Button
           label={deactivateLabel}
           className={`${classes.deactivateButton} ${deactivateButtonClassName || ""}`}
           onClick={onDeactivate}
-        />
-        <Button
+        /> */}
+        {/* <Button
           label={editLabel}
           leftIcon={<MdOutlineEdit />}
           variant="outlined"
           className={`${classes.editButton} ${editButtonClassName || ""}`}
           onClick={onEdit}
-        />
+        /> */}
       </div>
       <CaseStats statsData={statsData} />
     </div>

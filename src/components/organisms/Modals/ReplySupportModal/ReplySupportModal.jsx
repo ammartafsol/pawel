@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import classes from "./ReplySupportModal.module.css";
 import { CgFileDocument } from "react-icons/cg";
@@ -10,8 +10,13 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useFormik } from "formik";
 import { ReplySupportSchema } from "@/formik/schema";
 import { replySupportFormValues } from "@/formik/initialValues";
+import useAxios from "@/interceptor/axios-functions";
+import RenderToast from "@/components/atoms/RenderToast";
 
-const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
+const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen", getSupportData }) => {
+  const { Post } = useAxios();
+
+  const [loading, setLoading] = useState('');
   const formik = useFormik({
     initialValues: replySupportFormValues,
     validationSchema: ReplySupportSchema,
@@ -21,9 +26,25 @@ const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
   });
 
   const handleSubmit = async (values) => {
-    console.log("Form submitted:", values);
-    // Add your API call here
-    // setShow(false);
+    setLoading('loading');
+    const obj = {
+      message: values.message,
+      clientName: clientName,
+    };
+    const { response } = await Post({
+      route: `admin/support/reply`,
+      data: obj,
+    });
+    if(response) {
+      RenderToast({
+        type: 'success',
+        message: 'Message sent successfully',
+      });
+      getSupportData();
+      setShow(false);
+      formik.resetForm();
+    }
+    setLoading('');
   };
 
   return (
@@ -47,7 +68,10 @@ const ReplySupportModal = ({ show, setShow, clientName = "Herman Schoen" }) => {
               }}
             />
             <Button 
-              label="Send Message" 
+              label={loading === 'loading' ? 'Sending...' : 'Send Message'} 
+              disabled={loading === 'loading'}
+              loading={loading === 'loading'}
+              showSpinner={true}
               variant="outlined" 
               leftIcon={<IoMdCheckmark color="var(--midnight-black)"/>}
               onClick={() => formik.handleSubmit()}

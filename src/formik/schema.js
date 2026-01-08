@@ -59,6 +59,7 @@ export const ReplySupportSchema = Yup.object({
   message: Yup.string().required("Message is required"),
 });
 
+
 export const GenerateTicketSchema = Yup.object({
   issue: Yup.string().required("Please select an issue"),
   description: Yup.string().when("issue", {

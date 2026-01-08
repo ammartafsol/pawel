@@ -1,10 +1,11 @@
 import UserManagementDetailTemplate from '@/components/Template/Staff/UserManagementDetailTemplate/UserManagementDetailTemplate'
 import React from 'react'
 
-const page = () => {
+const page = async({params}) => {
+    const {slug} = await params;
   return (
     <>
-    <UserManagementDetailTemplate />
+    <UserManagementDetailTemplate slug={slug} />
     </>
   )
 }
