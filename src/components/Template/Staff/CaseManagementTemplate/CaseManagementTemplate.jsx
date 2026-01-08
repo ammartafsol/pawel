@@ -123,7 +123,7 @@ const CaseManagementTemplate = () => {
              <Col className="col-12 col-md-4" key={item.id}>
                <CaseProgressCard 
                  isStatusVariant
-                 routePath={`/case-management/${item.slug}`}
+                 routePath={`/staff/case-management/${item.slug}`}
                  showEditButton={true}
                  onEditClick={() => handleEditClick(item.slug)}
                  data={{

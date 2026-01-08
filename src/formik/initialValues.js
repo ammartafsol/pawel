@@ -40,7 +40,7 @@ export const createNewCaseFormValues = {
 export const addNoteFormValues = {
   noteTitle: "",
   description: "",
-  permissible: "",
+  permissible: [],
 };
 
 export const replySupportFormValues = {

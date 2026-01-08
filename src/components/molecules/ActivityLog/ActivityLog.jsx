@@ -1,6 +1,7 @@
 import React from 'react'
 import Activity from '../../atoms/Activity/Activity'
 import classes from './ActivityLog.module.css'
+import NoDataFound from '@/components/atoms/NoDataFound/NoDataFound'
 
 const DEFAULT_ACTIVITIES = [
   { text: "Status update to Defense", date: "May 1, 2025" },
@@ -11,14 +12,14 @@ const DEFAULT_ACTIVITIES = [
 export default function ActivityLog({ activities = DEFAULT_ACTIVITIES }) {
   return (
     <div className={classes.activityLogContainer}>
-      {activities.map((activity, index) => (
+      {activities.length > 0 ? activities.map((activity, index) => (
         <Activity
           key={index}
           text={activity.text}
           date={activity.date}
           isLast={index === activities.length - 1}
         />
-      ))}
+      )) : <NoDataFound className={classes.noDataFound} text="No activities found" />}
     </div>
   )
 }
