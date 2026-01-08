@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import classes from "./CaseManagementTemplate.module.css"
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import TableHeader from '@/components/molecules/TableHeader/TableHeader';
@@ -7,72 +7,174 @@ import { caseStatusFilters } from '@/developementContent/Enums/enum';
 import { FaRegFolderClosed } from "react-icons/fa6";
 import CaseProgressCard from '@/components/molecules/CaseProgressCard/CaseProgressCard';
 import { Col, Row } from "react-bootstrap";
-import { caseManagementCardsData } from '@/developementContent/Data/dummtData/dummyData';
 import CreateNewCaseModal from '@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal';
 import useDebounce from '@/resources/hooks/useDebounce';
-
+import useAxios from '@/interceptor/axios-functions';
+import { RECORDS_LIMIT } from '@/resources/utils/constant';
+import Pagination from '@/components/molecules/Pagination/Pagination';
+import NoDataFound from '@/components/atoms/NoDataFound/NoDataFound';
+import SpinnerLoading from '@/components/atoms/SpinnerLoading/SpinnerLoading';
 
 const CaseManagementTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
+  const [showUpdateDeadlineModal, setShowUpdateDeadlineModal] = useState(false);
+  const [selectedCaseSlug, setSelectedCaseSlug] = useState(null);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(caseStatusFilters[0]);
+  const [loading,setLoading] = useState('');
+  const [page,setPage] = useState(1);
+  const [totalRecords,setTotalRecords] = useState(0);
+  const [data, setData] = useState([]);
   const [search,setSearch] = useState("");
   const debouceSearch = useDebounce(search, 500);
+  const { Get } = useAxios();
 
-  // Filter cases based on selected status
-  const filteredCases = useMemo(() => {
-    let filtered = caseManagementCardsData;
+  // Calculate progress based on deadlines
+  const calculateProgress = (deadlines = []) => {
+    if (!deadlines || deadlines.length === 0) return 0;
+    const now = new Date();
+    const completedDeadlines = deadlines.filter(d => new Date(d.deadline) < now).length;
+    return Math.round((completedDeadlines / deadlines.length) * 100);
+  };
 
-    // Filter by status
-    if (selectedDropdownValue?.value && selectedDropdownValue.value !== "all") {
-      filtered = filtered.filter(item => item.status === selectedDropdownValue.value);
-    }
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+  };
 
-    // Filter by search term
-    if (debouceSearch) {
-      const searchLower = debouceSearch.toLowerCase();
-      filtered = filtered.filter(item => 
-        item.clientName?.toLowerCase().includes(searchLower) ||
-        item.trademarkName?.toLowerCase().includes(searchLower) ||
-        item.trademarkNo?.toLowerCase().includes(searchLower) ||
-        item.status?.toLowerCase().includes(searchLower) ||
-        item.tabLabel?.toLowerCase().includes(searchLower)
-      );
-    }
+  // Get next deadline
+  const getNextDeadline = (deadlines = []) => {
+    if (!deadlines || deadlines.length === 0) return "";
+    const now = new Date();
+    const upcomingDeadlines = deadlines
+      .filter(d => new Date(d.deadline) >= now)
+      .sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    return upcomingDeadlines.length > 0 ? formatDate(upcomingDeadlines[0].deadline) : "";
+  };
 
-    return filtered;
-  }, [selectedDropdownValue, debouceSearch]);
+  // Transform API data to card format
+  const transformCaseData = (caseData) => {
+    return {
+      id: caseData._id,
+      slug: caseData.slug || caseData._id,
+      tabLabel: caseData.status || "Case",
+      userName: caseData.primaryStaff?.fullName || "Unassigned",
+      progress: calculateProgress(caseData.deadlines),
+      status: caseData.status || "Pending",
+      trademarkName: caseData.trademarkName || "",
+      trademarkNo: caseData.trademarkNumber || "",
+      deadline: getNextDeadline(caseData.deadlines),
+      clientName: caseData.client?.fullName || "Unknown Client"
+    };
+  };
+
+  const getData = async (_page) => {
+    setLoading('loading');
+    
+      const queryParams = new URLSearchParams({
+        search: debouceSearch || "",
+        page: (_page || page || 1).toString(),
+        limit: RECORDS_LIMIT.toString(),
+      });
+
+      // Add status filter if selected
+      if (selectedDropdownValue?.value && selectedDropdownValue.value !== "all") {
+        queryParams.append("status", selectedDropdownValue.value);
+      }
+
+      const { response } = await Get({ 
+        route: `case/all?${queryParams.toString()}`,
+        showAlert: false,
+      });
+
+      if (response) {
+        setTotalRecords(response?.totalRecords || 0);
+        const transformedData = response.data?.map(transformCaseData) || [];
+        setData(transformedData);
+      }
+      setLoading('');
+
+  };
+
+  console.log("data0",data);
+
+  useEffect(() => {
+    getData(page);
+  }, [debouceSearch, page, selectedDropdownValue]);
+
+  const handleEditClick = (caseSlug) => {
+    setSelectedCaseSlug(caseSlug);
+    setShowUpdateDeadlineModal(true);
+  };
+
+  if(loading === 'loading'){
+    return <SpinnerLoading />
+  }
 
   return (
     <div className='p24'>
       <Wrapper   headerComponent={<TableHeader viewButtonText='Create new case' searchValue={search} onSearchChange={setSearch} onClickViewAll={() => setShowCreateNewCaseModal(true)}  dropdownOptions={caseStatusFilters}  selectedDropdownValue={selectedDropdownValue} setSelectedDropdownValue={setSelectedDropdownValue} title="Case Management" titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />} />}>
       <div className={classes.caseManagementCards}>
-        <Row className="g-4">
-          {filteredCases.map((item) => (
-            <Col className="col-12 col-md-4" key={item.id}>
-              <CaseProgressCard 
-                isStatusVariant
-                routePath={`/staff/case-management/${item.id}`}
-                referenceLink={item.referenceLink}
-                data={{
-                  tabLabel: item.tabLabel,
-                  userName: item.userName,
-                  progress: item.progress,
-                  status: item.status,
-                  trademarkName: item.trademarkName,
-                  trademarkNo: item.trademarkNo,
-                  deadline: item.deadline,
-                  clientName: item.clientName,
-                  reference: item.reference,
-                  referenceLink: item.referenceLink,
-                }}
-                showReference={true}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
+         {
+          data?.length> 0 ?(
+           <Row className="g-4">
+           {data.map((item) => (
+             <Col className="col-12 col-md-4" key={item.id}>
+               <CaseProgressCard 
+                 isStatusVariant
+                 routePath={`/case-management/${item.slug}`}
+                 showEditButton={true}
+                 onEditClick={() => handleEditClick(item.slug)}
+                 data={{
+                   tabLabel: item.tabLabel,
+                   userName: item.userName,
+                   progress: item.progress,
+                   status: item.status,
+                   trademarkName: item.trademarkName,
+                   trademarkNo: item.trademarkNo,
+                   deadline: item.deadline,
+                   clientName: item.clientName
+                 }}
+               />
+             </Col>
+           ))}
+         </Row>):
+         <NoDataFound text="No cases found" />
+         }
+          {
+            totalRecords > RECORDS_LIMIT && (
+              <Pagination
+              
+              currentPage={page}
+              totalRecords={totalRecords}
+              limit={RECORDS_LIMIT}
+              onPageChange={(e) => {
+                setPage(e);
+              }}
+               />
+              
+            )
+          }
+        </div>
       </Wrapper>
-      <CreateNewCaseModal show={showCreateNewCaseModal} setShow={setShowCreateNewCaseModal} />
+      <CreateNewCaseModal 
+        show={showCreateNewCaseModal} 
+        setShow={setShowCreateNewCaseModal}
+        onCaseCreated={() => {
+          getData(page);
+        }}
+      />
+      <CreateNewCaseModal 
+        show={showUpdateDeadlineModal} 
+        setShow={setShowUpdateDeadlineModal}
+        caseSlug={selectedCaseSlug}
+        isUpdateMode={true}
+        onCaseCreated={() => {
+          getData(page);
+          setSelectedCaseSlug(null);
+        }}
+      />
     </div>
   )
 }
