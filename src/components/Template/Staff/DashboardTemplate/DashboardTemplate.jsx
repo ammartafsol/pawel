@@ -33,7 +33,7 @@ const DashboardTemplate = () => {
   const { Get } = useAxios();
   const router = useRouter();
 
-  const handleDropdownChange = (value) => setSelectedDropdownValue(value);
+
 
   const getDateRange = (view, date) => {
     const currentMoment = moment(date);

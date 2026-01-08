@@ -97,7 +97,6 @@ const CaseManagementTemplate = () => {
 
   };
 
-  console.log("data0",data);
 
   useEffect(() => {
     getData(page);

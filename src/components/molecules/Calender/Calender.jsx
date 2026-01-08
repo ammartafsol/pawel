@@ -11,6 +11,7 @@ const Calender = ({
   onNavigate,
   view,
   date,
+  onSelectEvent,
 }) => {
   const localizer = momentLocalizer(moment);
 
@@ -27,9 +28,9 @@ const Calender = ({
         onView={onView}
         onNavigate={onNavigate}
         selectable={true}
-        onSelectEvent={() => {
+        onSelectEvent={onSelectEvent || (() => {
           console.log("event selected");
-        }}
+        })}
       />
     </div>
   );
