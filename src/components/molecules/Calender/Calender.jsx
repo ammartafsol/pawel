@@ -4,9 +4,15 @@ import classes from "./Calender.module.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
-const Calender = ({events=[], className=""}) => {
+const Calender = ({
+  events = [],
+  className = "",
+  onView,
+  onNavigate,
+  view,
+  date,
+}) => {
   const localizer = momentLocalizer(moment);
- 
 
   return (
     <div className={`${classes.calenderContainer} ${className}`}>
@@ -16,6 +22,10 @@ const Calender = ({events=[], className=""}) => {
         startAccessor="start"
         endAccessor="end"
         views={["month", "day"]}
+        view={view}
+        date={date}
+        onView={onView}
+        onNavigate={onNavigate}
         selectable={true}
         onSelectEvent={() => {
           console.log("event selected");
