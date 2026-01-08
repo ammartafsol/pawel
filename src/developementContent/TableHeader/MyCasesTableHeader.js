@@ -1,7 +1,7 @@
 import Status from "@/components/atoms/Status/Status";
 import Link from "next/link";
 import classes from "@/components/Template/User/MyCasesTemplate/MyCasesTemplate.module.css";
-import { RenderDate } from "@/components/organisms/AppTable/commonCell";
+import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
 export const myCasesTableHeader = [
   {
@@ -130,7 +130,7 @@ export const myUserCaseTableHeader = [
     key: "officeDeadline",
     style: { width: "18%" },
     renderItem: ({ item }) => {
-      return <RenderDate date={item} />;
+      return <RenderDateCell cellValue={item} />;
     },
   },
   {

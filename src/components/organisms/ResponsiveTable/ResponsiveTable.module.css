@@ -1,7 +1,6 @@
 .tableWrapper {
   width: 100%;
   overflow-x: auto; /* scrolls if content wider */
-  border-radius: 10px;
   background-color: var(--Poor-white);
   overflow-y: auto; /* allows vertical scrolling */
   /* max-height: 500px; */
