@@ -8,7 +8,6 @@ import { circularCaseProgressChartData, caseManagementCardsData, myEventsList } 
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import Calender from "@/components/molecules/Calender/Calender";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
-import AppTable from "@/components/organisms/AppTable/AppTable";
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import { staffDashboardTableBody } from "@/developementContent/TableBody/StaffDashboardTableBody";
 import { reactActivities } from "@/developementContent/Enums/enum";

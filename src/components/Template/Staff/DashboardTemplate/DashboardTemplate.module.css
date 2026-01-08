@@ -1,3 +1,46 @@
+/* 
+
+.dashboardTemplateHeader{
+    background-color: var(--light-gray-2);
+    padding: 24px;
+}
+
+.dashboardTemplateHeader h4{
+    color: var(--sage-gray);
+font-size: 24px;
+font-weight: 500;
+line-height: 150%; 
+letter-spacing: -0.528px;
+margin-bottom: 0px;
+}
+
+.dashboardTemplateHeader p{
+    color: var(--shadow-moss);
+font-size: 36px;
+font-style: normal;
+font-weight: 700;
+line-height: 150%; 
+margin-bottom: 0px;
+}
+
+.calenderWrapper{
+    padding: 0px 0px !important;
+}
+.calender{
+    margin: 0px !important;
+}
+
+.newCases{
+    padding: 16px;
+    border-radius: 12px;
+border: 1px solid var(--light-gray);
+}
+
+.contentClassName {
+    padding: 0px !important;
+} */
+
+
 
 
 .dashboardTemplateHeader{

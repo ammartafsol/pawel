@@ -39,10 +39,10 @@ const LoginTemplate = () => {
       setTokenCookie(token);
       setUserMetadataCookie(user);
       RenderToast({
-        type: "info",
-        message: "Please complete your profile to continue",
+        type: "success",
+        message: "Login successful",
       });
-      router.push("/sign-up");
+      response?.data?.user?.role === "staff" ? router.push("/staff") : router.push("/user");
       return;
     }
   };

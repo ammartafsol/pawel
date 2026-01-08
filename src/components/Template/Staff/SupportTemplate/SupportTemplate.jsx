@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import classes from "./SupportTemplate.module.css"
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import TableHeader from '@/components/molecules/TableHeader/TableHeader';
-import AppTable from '@/components/organisms/AppTable/AppTable';
 import { supportManagementTableHeader } from '@/developementContent/TableHeader/SupportManagementTableHeader';
 import { supportManagementTableBody } from '@/developementContent/TableBody/SupportManagementTableBody';
 import { GoQuestion } from "react-icons/go";
