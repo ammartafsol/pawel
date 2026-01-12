@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import classes from "./MyCaseDetailTemplate.module.css";
 import BreadComTop from "@/components/atoms/BreadComTop/BreadComTop";
@@ -20,6 +20,7 @@ import NotFound from "@/components/atoms/NotFound/NotFound";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton";
 import moment from "moment";
+import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 
 const MyCaseDetailTemplate = ({ slug }) => {
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
@@ -30,6 +31,9 @@ const MyCaseDetailTemplate = ({ slug }) => {
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentView, setCurrentView] = useState("month");
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const isInitialMount = useRef(true);
   const { Get } = useAxios();
 
   // Get date range based on view and date (reference: Staff DashboardTemplate)
@@ -53,11 +57,13 @@ const MyCaseDetailTemplate = ({ slug }) => {
 
   // Transform calendar events from case details deadlines (reference: User DashboardTemplate)
   const transformDeadlinesToEvents = (caseData) => {
-    if (!caseData || !caseData.deadlines || !Array.isArray(caseData.deadlines)) return [];
-    
+    if (!caseData || !caseData.deadlines || !Array.isArray(caseData.deadlines))
+      return [];
+
     const events = [];
-    const clientName = caseData.client?.fullName || caseData.trademarkName || "Case";
-    
+    const clientName =
+      caseData.client?.fullName || caseData.trademarkName || "Case";
+
     caseData.deadlines.forEach((deadline) => {
       if (deadline.deadline) {
         const deadlineDate = new Date(deadline.deadline);
@@ -80,7 +86,7 @@ const MyCaseDetailTemplate = ({ slug }) => {
         });
       }
     });
-    
+
     return events;
   };
 
@@ -90,22 +96,16 @@ const MyCaseDetailTemplate = ({ slug }) => {
     setCalendarLoading(true);
     const { startDate, endDate } = getDateRange(currentView, currentDate);
     const queryParams = new URLSearchParams({ startDate, endDate });
-
-    try {
-      const { response } = await Get({
-        route: `case/detail/${slug}?${queryParams.toString()}`,
-        showAlert: false,
-      });
-      if (response?.status === "success" && response.data) {
-        // Transform calendar events from deadlines in the case details response
-        const events = transformDeadlinesToEvents(response.data);
-        setCalendarEvents(events);
-      }
-    } catch (error) {
-      console.error("Error fetching calendar data:", error);
-    } finally {
-      setCalendarLoading(false);
+    const { response } = await Get({
+      route: `case/detail/${slug}?${queryParams.toString()}`,
+      showAlert: false,
+    });
+    if (response?.status === "success" && response.data) {
+      // Transform calendar events from deadlines in the case details response
+      const events = transformDeadlinesToEvents(response.data);
+      setCalendarEvents(events);
     }
+    setCalendarLoading(false);
   };
 
   // Fetch case details (reference: Staff CaseManagementDetailTemplate)
@@ -113,52 +113,41 @@ const MyCaseDetailTemplate = ({ slug }) => {
     const fetchCaseDetails = async () => {
       if (!slug) return;
       setLoading(true);
-      try {
-        const { response } = await Get({
-          route: `case/detail/${slug}`,
-          showAlert: false,
-        });
-        if (response?.status === "success" && response.data) {
-          setCaseDetails(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching case details:", error);
-      } finally {
-        setLoading(false);
+      const { response } = await Get({
+        route: `case/detail/${slug}`,
+        showAlert: false,
+      });
+      if (response?.status === "success" && response.data) {
+        setCaseDetails(response.data);
+        // Transform calendar events from initial case details (without query params)
+        const events = transformDeadlinesToEvents(response.data);
+        setCalendarEvents(events);
       }
+      setLoading(false);
     };
 
     fetchCaseDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  // Fetch initial calendar data on mount (reference: User DashboardTemplate)
+  // Fetch calendar data when view or date changes (only when user interacts with calendar)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     if (!slug) return;
-    const { startDate, endDate } = getDateRange("month", new Date());
-    const queryParams = new URLSearchParams({ startDate, endDate });
-    const fetchInitialCalendar = async () => {
-      setCalendarLoading(true);
-        const { response } = await Get({
-          route: `case/detail/${slug}?${queryParams.toString()}`,
-          showAlert: false,
-        });
-        if (response?.status === "success" && response.data) {
-          const events = transformDeadlinesToEvents(response.data);
-          setCalendarEvents(events);
-        }
-        setCalendarLoading(false);
-    };
-    fetchInitialCalendar();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
-
-  // Fetch calendar data when view or date changes (reference: User DashboardTemplate)
-  useEffect(() => {
-    if (!slug) return;
-    fetchCalendarData();
+    if (currentView && currentDate) {
+      fetchCalendarData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentView, currentDate]);
+
+  // Handle calendar event click
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setShowEventModal(true);
+  };
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -173,7 +162,6 @@ const MyCaseDetailTemplate = ({ slug }) => {
     });
   };
 
-  console.log("calendarEvents",calendarEvents);
 
   // Format date for deadline display
   const formatDeadlineDate = (dateString) => {
@@ -201,12 +189,15 @@ const MyCaseDetailTemplate = ({ slug }) => {
     return {
       tabLabel: caseDetails.status || "Case",
       userName: caseDetails.primaryStaff?.fullName || "Unassigned",
+      primaryStaff: caseDetails.primaryStaff?.fullName || "",
+      secondaryStaff: caseDetails.secondaryStaff?.fullName || "",
       progress:
         caseDetails.deadlines?.length > 0
           ? Math.round(
               (caseDetails.deadlines.filter(
                 (d) => new Date(d.deadline) < new Date()
-              ).length / caseDetails.deadlines.length) *
+              ).length /
+                caseDetails.deadlines.length) *
                 100
             )
           : 0,
@@ -223,23 +214,10 @@ const MyCaseDetailTemplate = ({ slug }) => {
       clientName: caseDetails.client?.fullName || "Unknown Client",
       deadlines: transformDeadlines(caseDetails.deadlines),
       tasks:
-        caseDetails.deadlines
-          ?.map((d) => d.deadlineStatus)
-          .filter(Boolean) || [],
-      officeDeadline:
-        caseDetails.deadlines?.[0]?.officeActionDeadline
-          ? new Date(
-              caseDetails.deadlines[0].officeActionDeadline
-            )
-              .toISOString()
-              .split("T")[0]
-          : "",
-      internalDeadline:
-        caseDetails.deadlines?.[0]?.deadline
-          ? new Date(caseDetails.deadlines[0].deadline)
-              .toISOString()
-              .split("T")[0]
-          : "",
+        caseDetails.deadlines?.map((d) => d.deadlineStatus).filter(Boolean) ||
+        [],
+      officeDeadline: caseDetails.lastOfficeDeadline || "",
+      internalDeadline: caseDetails.lastInternalDeadline || "",
       reference: {
         referenceName: "Reference",
         link: "#",
@@ -247,6 +225,8 @@ const MyCaseDetailTemplate = ({ slug }) => {
       },
     };
   };
+
+  console.log("caseDetails", caseDetails);
 
   // Transform documents from API
   const documents =
@@ -347,6 +327,8 @@ const MyCaseDetailTemplate = ({ slug }) => {
 
   const caseData = transformCaseData();
 
+  console.log("caseData",caseData);
+
   return (
     <div className="p24">
       <BreadComTop />
@@ -376,6 +358,7 @@ const MyCaseDetailTemplate = ({ slug }) => {
                   date={currentDate}
                   onView={setCurrentView}
                   onNavigate={setCurrentDate}
+                  onSelectEvent={handleEventClick}
                 />
               )}
             </Wrapper>
@@ -394,6 +377,12 @@ const MyCaseDetailTemplate = ({ slug }) => {
           </Col>
         </Row>
       </div>
+      <CalendarEventDetailModal
+        show={showEventModal}
+        setShow={setShowEventModal}
+        event={selectedEvent}
+        routePrefix="/user/my-cases"
+      />
     </div>
   );
 };

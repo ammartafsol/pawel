@@ -9,14 +9,14 @@ import { MdOutlineDescription } from "react-icons/md";
 import Status from "@/components/atoms/Status/Status";
 import classes from "./CalendarEventDetailModal.module.css";
 
-const CalendarEventDetailModal = ({ show, setShow, event }) => {
+const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/my-cases" }) => {
   const router = useRouter();
 
   if (!event) return null;
 
   const handleViewCase = () => {
     if (event.resource?.slug) {
-      router.push(`/user/my-cases/${event.resource.slug}`);
+      router.push(`${routePrefix}/${event.resource.slug}`);
       setShow(false);
     }
   };

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./MyCasesTemplate.module.css";
 import BreadComTop from "@/components/atoms/BreadComTop/BreadComTop";
-import { statesCaseData } from "@/developementContent/Data/dummtData/dummyData";
 import { Col, Row } from "react-bootstrap";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
@@ -60,6 +59,11 @@ const MyCasesTemplate = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
+  const [caseStats, setCaseStats] = useState({
+    totalCases: 0,
+    activeCases: 0,
+    completedCases: 0,
+  });
   const debouncedSearch = useDebounce(searchValue, 500);
   const { Get } = useAxios();
 
@@ -89,6 +93,12 @@ const MyCasesTemplate = () => {
     if (response) {
       setData(response?.data || []);
       setTotalRecords(response?.totalRecords || 0);
+      // Extract case statistics from response
+      setCaseStats({
+        totalCases: response?.totalCases || 0,
+        activeCases: response?.activeCases || 0,
+        completedCases: response?.completedCases || 0,
+      });
       if (typeof _page === 'number') {
         setPage(_page);
       }
@@ -134,9 +144,25 @@ const MyCasesTemplate = () => {
     return <SpinnerLoading />;
   }
 
+  // Prepare stats data for BreadComTop component
+  const statsData = [
+    {
+      title: "Total Cases",
+      value: caseStats.totalCases,
+    },
+    {
+      title: "Active Cases",
+      value: caseStats.activeCases,
+    },
+    {
+      title: "Completed Cases",
+      value: caseStats.completedCases,
+    },
+  ];
+
   return (
     <>
-      <BreadComTop statesCaseData={statesCaseData} />
+      <BreadComTop statesCaseData={statsData} />
       <div className="p24">
         <Wrapper
           headerComponent={

@@ -59,7 +59,7 @@ export const staffDashboardTableHeader = [
     key:"slug",
     style: { width: "15%" },
     renderItem: ({ item }) => {
-      return <Link href={`/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
+      return <Link href={`/staff/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
         View Details
       </Link>;
     },

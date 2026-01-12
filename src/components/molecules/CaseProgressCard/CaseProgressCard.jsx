@@ -203,7 +203,7 @@ export default function CaseProgressCard({
             <div className={classes.infoRow}>
               <BiCalendar className={classes.infoIcon} />
               <span className={classes.infoLabel}>
-                Office Deadline - <strong><RenderDateCell date={data.officeDeadline} /></strong>
+                Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
               </span>
             </div>
           )}
@@ -245,7 +245,7 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Internal Deadline - <strong><RenderDateCell date={data.internalDeadline} /></strong>
+                    Internal Deadline - <strong><RenderDateCell cellValue={data.internalDeadline} /></strong>
                   </span>
                 </div>
               )}
@@ -256,7 +256,7 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Office Deadline - <strong><RenderDateCell date={data.officeDeadline} /></strong>
+                    Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
                   </span>
                 </div>
               )}

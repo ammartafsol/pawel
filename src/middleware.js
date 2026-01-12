@@ -74,10 +74,6 @@ export default function middleware(req) {
     }
   }
 
-  console.log("hasToken", tokenCookie);
-  console.log("isPublicRoute", isPublicRoute);
-  console.log("userRole", userRole);
-  console.log("pathname", pathname);
 
   // If no token and trying to access protected route, redirect to login
   if (!hasToken && !isPublicRoute) {

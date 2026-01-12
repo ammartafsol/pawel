@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from "./CaseManagementTemplate.module.css"
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import TableHeader from '@/components/molecules/TableHeader/TableHeader';
@@ -14,6 +14,7 @@ import { RECORDS_LIMIT } from '@/resources/utils/constant';
 import Pagination from '@/components/molecules/Pagination/Pagination';
 import NoDataFound from '@/components/atoms/NoDataFound/NoDataFound';
 import SpinnerLoading from '@/components/atoms/SpinnerLoading/SpinnerLoading';
+import { calculateProgress } from '@/resources/utils/caseHelper';
 
 const CaseManagementTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
@@ -27,14 +28,6 @@ const CaseManagementTemplate = () => {
   const [search,setSearch] = useState("");
   const debouceSearch = useDebounce(search, 500);
   const { Get } = useAxios();
-
-  // Calculate progress based on deadlines
-  const calculateProgress = (deadlines = []) => {
-    if (!deadlines || deadlines.length === 0) return 0;
-    const now = new Date();
-    const completedDeadlines = deadlines.filter(d => new Date(d.deadline) < now).length;
-    return Math.round((completedDeadlines / deadlines.length) * 100);
-  };
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -60,7 +53,7 @@ const CaseManagementTemplate = () => {
       slug: caseData.slug || caseData._id,
       tabLabel: caseData.status || "Case",
       userName: caseData.primaryStaff?.fullName || "Unassigned",
-      progress: calculateProgress(caseData.deadlines),
+      progress: calculateProgress(caseData),
       status: caseData.status || "Pending",
       trademarkName: caseData.trademarkName || "",
       trademarkNo: caseData.trademarkNumber || "",
@@ -71,7 +64,6 @@ const CaseManagementTemplate = () => {
 
   const getData = async (_page) => {
     setLoading('loading');
-    
       const queryParams = new URLSearchParams({
         search: debouceSearch || "",
         page: (_page || page || 1).toString(),

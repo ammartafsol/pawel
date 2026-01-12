@@ -17,6 +17,36 @@ export default function CircularCaseProgressChart({
 
   // Helper function to create arc path
   const createArcPath = (startAngle, endAngle, innerRadius, outerRadius) => {
+    const angleDiff = endAngle - startAngle
+    // Handle full circle case (360 degrees or very close to it)
+    const isFullCircle = Math.abs(angleDiff - 360) < 0.01 || angleDiff >= 360
+    
+    if (isFullCircle) {
+      // For full circle, use slightly less than 360 to ensure path closes properly
+      const adjustedEndAngle = startAngle + 359.99
+      const startAngleRad = (startAngle * Math.PI) / 180
+      const endAngleRad = (adjustedEndAngle * Math.PI) / 180
+      
+      const x1 = center + innerRadius * Math.cos(startAngleRad)
+      const y1 = center + innerRadius * Math.sin(startAngleRad)
+      const x2 = center + outerRadius * Math.cos(startAngleRad)
+      const y2 = center + outerRadius * Math.sin(startAngleRad)
+      const x3 = center + outerRadius * Math.cos(endAngleRad)
+      const y3 = center + outerRadius * Math.sin(endAngleRad)
+      const x4 = center + innerRadius * Math.cos(endAngleRad)
+      const y4 = center + innerRadius * Math.sin(endAngleRad)
+      
+      // For full circle, use large arc flag
+      return [
+        `M ${x1} ${y1}`,
+        `L ${x2} ${y2}`,
+        `A ${outerRadius} ${outerRadius} 0 1 1 ${x3} ${y3}`,
+        `L ${x4} ${y4}`,
+        `A ${innerRadius} ${innerRadius} 0 1 0 ${x1} ${y1}`,
+        'Z'
+      ].join(' ')
+    }
+    
     const startAngleRad = (startAngle * Math.PI) / 180
     const endAngleRad = (endAngle * Math.PI) / 180
     
@@ -29,7 +59,7 @@ export default function CircularCaseProgressChart({
     const x4 = center + innerRadius * Math.cos(endAngleRad)
     const y4 = center + innerRadius * Math.sin(endAngleRad)
     
-    const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0
+    const largeArcFlag = angleDiff > 180 ? 1 : 0
     
     return [
       `M ${x1} ${y1}`,

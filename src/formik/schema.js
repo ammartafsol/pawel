@@ -52,9 +52,8 @@ export const CreateNewCaseSchema = Yup.object({
 export const AddNoteSchema = Yup.object({
   noteTitle: Yup.string().required("Note Title is required"),
   description: Yup.string().required("Description is required"),
-  permissible: Yup.string().required("Permissible is required"),
+  permissible: Yup.array().of(Yup.string()).min(1, "At least one permission must be selected"),
 });
-
 export const ReplySupportSchema = Yup.object({
   message: Yup.string().required("Message is required"),
 });

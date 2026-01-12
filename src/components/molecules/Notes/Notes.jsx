@@ -52,7 +52,7 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
       permissions: values.permissible || [],
     }
     const { response } = await Post({
-      route: `admin/case-note/create/${slug}`,
+      route: `case-note/create/${slug}`,
       data: obj,
     });
     if (response) {
