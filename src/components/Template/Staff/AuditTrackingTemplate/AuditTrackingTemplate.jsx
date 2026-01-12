@@ -18,6 +18,7 @@ import moment from "moment";
 import useDebounce from "@/resources/hooks/useDebounce";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
+import { calculateProgress } from "@/resources/utils/caseHelper";
 
 const AuditTrackingTemplate = () => {
   const router = useRouter();
@@ -80,14 +81,6 @@ const AuditTrackingTemplate = () => {
     ];
   };
 
-  // Calculate progress based on deadlines
-  const calculateProgress = (deadlines = []) => {
-    if (!deadlines || deadlines.length === 0) return 0;
-    const now = new Date();
-    const completedDeadlines = deadlines.filter(d => new Date(d.deadline) < now).length;
-    return Math.round((completedDeadlines / deadlines.length) * 100);
-  };
-
   // Format date for display
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -111,7 +104,7 @@ const AuditTrackingTemplate = () => {
       slug: caseData.slug || caseData._id,
       tabLabel: caseData.status || "Case",
       userName: caseData.primaryStaff?.fullName || "Unassigned",
-      progress: calculateProgress(caseData.deadlines),
+      progress: calculateProgress(caseData),
       status: caseData.status || "Pending",
       trademarkName: caseData.trademarkName || "",
       trademarkNo: caseData.trademarkNumber || "",
