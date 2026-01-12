@@ -13,6 +13,7 @@ import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketMod
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
+import { clearAllCookies } from "@/resources/utils/cookie";
 
 const Header = () => {
   const [showGenerateTicketModal, setShowGenerateTicketModal] = useState(false);
@@ -55,6 +56,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    clearAllCookies();
     dispatch(signOutRequest());
     router.push("/login");
     setShowProfileOverlay(false);

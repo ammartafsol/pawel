@@ -10,6 +10,10 @@
     padding: 0px !important;
 }
 
+.caseManagementCards{
+    padding: 25px 16px !important;
+}
+
 .viewLink {
     text-decoration: underline;
     cursor: pointer;
