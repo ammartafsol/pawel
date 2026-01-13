@@ -49,6 +49,6 @@ export const replySupportFormValues = {
 
 
 export const generateTicketFormValues = {
-  issue: "",
-  description: "",
+  categorySlug: "",
+  message: "",
 };

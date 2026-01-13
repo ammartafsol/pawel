@@ -328,7 +328,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     visibilityText: doc.permissions?.includes("visible-to-client") ? "Visible to client" : null,
   })) || [];
 
-  console.log("documents",documents);
 
   // Transform activity logs from API
   const activities = caseDetails?.activityLogs?.map((log) => ({

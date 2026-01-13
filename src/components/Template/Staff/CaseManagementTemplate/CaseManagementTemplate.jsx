@@ -69,12 +69,9 @@ const CaseManagementTemplate = () => {
         page: (_page || page || 1).toString(),
         limit: RECORDS_LIMIT.toString(),
       });
-
-      // Add status filter if selected
       if (selectedDropdownValue?.value && selectedDropdownValue.value !== "all") {
         queryParams.append("status", selectedDropdownValue.value);
       }
-
       const { response } = await Get({ 
         route: `case/all?${queryParams.toString()}`,
         showAlert: false,

@@ -60,12 +60,8 @@ export const ReplySupportSchema = Yup.object({
 
 
 export const GenerateTicketSchema = Yup.object({
-  issue: Yup.string().required("Please select an issue"),
-  description: Yup.string().when("issue", {
-    is: (value) => value && value !== "",
-    then: (schema) => schema.required("Description is required"),
-    otherwise: (schema) => schema,
-  }),
+  categorySlug: Yup.string().required("Please select a category"),
+  message: Yup.string().required("Message is required"),
 });
 
 export const ChangePasswordFormSchema = Yup.object({
