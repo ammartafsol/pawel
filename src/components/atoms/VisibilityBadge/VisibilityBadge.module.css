@@ -1,0 +1,16 @@
+.visibilityBadges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.visibilityBadge {
+    color: var(--midnight-black);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    background-color: rgba(1, 97, 95, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+

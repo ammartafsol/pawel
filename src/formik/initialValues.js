@@ -40,14 +40,15 @@ export const createNewCaseFormValues = {
 export const addNoteFormValues = {
   noteTitle: "",
   description: "",
-  permissible: "",
+  permissible: [],
 };
 
 export const replySupportFormValues = {
   message: "",
 };
 
+
 export const generateTicketFormValues = {
-  issue: "",
-  description: "",
+  categorySlug: "",
+  message: "",
 };

@@ -50,7 +50,7 @@ export const StaffHeaderData = [
 export const StaffToolsData = [
   {
     id: 1,
-    name: "Audit Tracking",
+    name: "KPI tracking",
     href: "/staff/audit-tracking",
     icon: <FiPieChart size={24}  />,
   },

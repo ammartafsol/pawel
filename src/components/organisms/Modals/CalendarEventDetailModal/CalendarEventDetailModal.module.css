@@ -1,0 +1,163 @@
+.modalContent {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header Section */
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--silver-gray);
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-1) 0%, #4A90E2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0px 4px 12px rgba(74, 144, 226, 0.2);
+}
+
+.calendarIcon {
+  width: 32px;
+  height: 32px;
+  color: var(--white);
+}
+
+.eventTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--midnight-black);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Details Grid */
+.detailsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--ghost-white);
+  border-radius: 8px;
+  border: 1px solid var(--silver-gray);
+  transition: all 0.2s ease;
+}
+
+.detailItem:hover {
+  background: var(--white);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  border-color: var(--blue-1);
+}
+
+.detailLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--industrial-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.labelIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--blue-1);
+}
+
+.detailValue {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dateText {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--midnight-black);
+  margin: 0;
+}
+
+.timeText {
+  font-size: 14px;
+  color: var(--industrial-gray);
+  font-weight: 400;
+}
+
+.caseIdText {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--midnight-black);
+  margin: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.deadlineText {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--midnight-black);
+  margin: 0;
+}
+
+/* Action Section */
+.actionSection {
+  padding-top: 16px;
+  border-top: 1px solid var(--silver-gray);
+  display: flex;
+  justify-content: center;
+}
+
+.viewButton {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 24px;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 4px;
+    gap: 20px;
+  }
+
+  .iconWrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .calendarIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .eventTitle {
+    font-size: 18px;
+  }
+
+  .detailItem {
+    padding: 12px;
+  }
+
+  .dateText {
+    font-size: 16px;
+  }
+}
+

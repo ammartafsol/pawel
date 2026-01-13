@@ -17,6 +17,7 @@ import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
 import { MdChecklistRtl } from "react-icons/md";
+import Button from "@/components/atoms/Button";
 import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
 export default function CaseProgressCard({
@@ -24,8 +25,9 @@ export default function CaseProgressCard({
   isAssignedStaffVariant = false,
   isStatusVariant = false,
   isCaseDetailVariant = false,
-  showReference = true,
   referenceLink = "",
+  onEditClick,
+  showEditButton = false,
   data = {
     tabLabel: "",
     userName: "",
@@ -73,6 +75,21 @@ export default function CaseProgressCard({
           (isStatusVariant || isCaseDetailVariant) ? classes.isStatusVariantClass : ""
         )}
       >
+        {/* Edit Button */}
+        {showEditButton && onEditClick && (
+          <div className={classes.editButtonContainer}>
+            <Button
+              label=""
+              variant="outlined"
+              leftIcon={<FiEdit size={16} />}
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditClick();
+              }}
+              className={classes.editButton}
+            />
+          </div>
+        )}
         {/* Card Content */}
         <div className={classes.cardContent}>
           {/* User Info Row */}
@@ -108,10 +125,22 @@ export default function CaseProgressCard({
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
           ) : isCaseDetailVariant ? (
-            <div className={classes.userRow}>
-              <div className={classes.userInfo}>
-                <PiUserCircleFill className={classes.userIcon} />
-                <div className={classes.userName}>{data.userName}</div>
+            <div className={classes.userRowAssigned}>
+              <div className={classes.staffInfo}>
+                <div className={classes.userInfo}>
+                  <LuSquareUser className={classes.userIcon} />
+                  <div className={classes.assignedHeading}>Assigned Staff</div>
+                </div>
+                <div className={classes.keyValueDiv}>
+                  <span className={classes.keyLabel}>PRIMARY:</span>
+                  <p className={classes.staffName}>{data?.primaryStaff || "Unassigned"}</p>
+                </div>
+                {data?.secondaryStaff && (
+                  <div className={classes.keyValueDiv}>
+                    <span className={classes.keyLabel}>SECONDARY:</span>
+                    <p className={classes.staffName}>{data?.secondaryStaff}</p>
+                  </div>
+                )}
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
             </div>
@@ -216,7 +245,7 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Internal Deadline - <strong><RenderDate date={data.internalDeadline} /></strong>
+                    Internal Deadline - <strong><RenderDateCell cellValue={data.internalDeadline} /></strong>
                   </span>
                 </div>
               )}
@@ -227,7 +256,7 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Office Deadline - <strong><RenderDate date={data.officeDeadline} /></strong>
+                    Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
                   </span>
                 </div>
               )}
@@ -259,9 +288,8 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {
-            showReference && (
-          <div>
+                    {/* Reference Link */}
+          {!isStatusVariant && (
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
               <a
@@ -274,6 +302,7 @@ export default function CaseProgressCard({
                 <LuExternalLink className={classes.externalIcon} />
               </a>
             </div>
+          )}
 
           {
             data?.reference?.refrenece?.length > 0 && (
@@ -287,11 +316,6 @@ export default function CaseProgressCard({
               </div>
             )
           }
-            </div>
-
-            )
-          }
-                    {/* Reference Link */}
 
           
 

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./UserManagementDetailTemplate.module.css";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import Button from "@/components/atoms/Button";
@@ -9,11 +9,130 @@ import { Col, Row } from "react-bootstrap";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import DetailActionsWithStats from "@/components/atoms/DetailActionsWithStats/DetailActionsWithStats";
-import { caseManagementCardsData, caseProgressCardsData } from "@/developementContent/Data/dummtData/dummyData";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
+import useAxios from "@/interceptor/axios-functions";
+import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
+import { capitalizeFirstWord } from "@/resources/utils/helper";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
+import Pagination from "@/components/molecules/Pagination/Pagination";
+import { RECORDS_LIMIT } from "@/resources/utils/constant";
 
-const UserManagementDetailTemplate = () => {
+const UserManagementDetailTemplate = ({ slug }) => {
   const router = useRouter();
+  const [role, setRole] = useState("");
+  const dispatch = useDispatch();
+  const [statsData, setStatsData] = useState([]);
+  const [loading, setLoading] = useState("");
+  const [data, setData] = useState(null);
+  const [cases, setCases] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { Get, Patch } = useAxios();
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+  };
+
+  // Get next deadline
+  const getNextDeadline = (deadlines = []) => {
+    if (!deadlines || deadlines.length === 0) return "";
+    const now = new Date();
+    const upcomingDeadlines = deadlines
+      .filter(d => new Date(d.deadline) >= now)
+      .sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    return upcomingDeadlines.length > 0 ? formatDate(upcomingDeadlines[0].deadline) : "";
+  };
+
+  const getUserDetails = async (page = 1) => {
+    setLoading("loading");
+    const query = {
+      page: page,
+      limit: RECORDS_LIMIT,
+    };
+    const queryString = new URLSearchParams(query).toString();
+    const { response } = await Get({
+      route: `users/detail/${slug}?${queryString}`,
+      showAlert: false,
+    });
+    if (response) {
+      setRole(response?.user?.role);
+      setData({ user: response?.user });
+      setCases(response?.data || []);
+      setTotalRecords(response?.totalRecords || 0);
+      const statsData = [
+        { title: "Total Cases", value: response?.totalRecords || 0 },
+        { title: "Active Cases", value: response?.results || 0 },
+        { title: "Completed Cases", value: 0 },
+      ];
+      setStatsData(statsData);
+    }
+    setLoading("");
+  };
+
+
+
+  const handleActivateDeactivateClick = () => {
+    setShowConfirmModal(true);
+  };
+
+  // Determine button label and status variant based on user status
+  const userStatus = data?.user?.status || '';
+  const isActive = userStatus?.toLowerCase() === 'active';
+  const statusVariant = isActive ? 'success' : 'secondary';
+
+  useEffect(() => {
+    if (slug) {
+      getUserDetails(1);
+      setCurrentPage(1);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    if (slug && currentPage > 1) {
+      getUserDetails(currentPage);
+    }
+  }, [currentPage]);
+
+  if (loading === "loading") {
+    return <SpinnerLoading />;
+  }
+
+  // Calculate progress based on deadlines
+  const calculateProgress = (deadlines = []) => {
+    if (!deadlines || deadlines.length === 0) return 0;
+    const now = new Date();
+    const completedDeadlines = deadlines.filter(
+      (d) => new Date(d.deadline) < now
+    ).length;
+    return Math.round((completedDeadlines / deadlines.length) * 100);
+  };
+
+  // Transform case data for CaseProgressCard
+  const transformCaseData = (caseData) => {
+    return {
+      id: caseData._id,
+      slug: caseData.slug || caseData._id,
+      tabLabel: caseData.status || "Case",
+      userName: caseData.primaryStaff?.fullName || "Unassigned",
+      progress: calculateProgress(caseData.deadlines),
+      status: caseData.status || "Pending",
+      trademarkName: caseData.trademarkName || "",
+      trademarkNo: caseData.trademarkNumber || "",
+      deadline: getNextDeadline(caseData.deadlines),
+      clientName: caseData.client?.fullName || "Unknown Client",
+    };
+  };
+
+
+  // Transform cases for display
+  const transformedCases = cases?.map(transformCaseData) || [];
+
   return (
     <div className="p24">
       <Wrapper
@@ -34,66 +153,93 @@ const UserManagementDetailTemplate = () => {
           <div className={classes.userDetailContainer}>
             <Row>
               <Col md={6}>
-              <div className={classes.userDetailItemContainer}>
-                <div className={classes.userDetailItem}>
-                  <div className={classes.userDetailItemTitle}>
-                    <FiUser size={16} color="#8484AE" />
-                    <h5>Client Name</h5>
+                <div className={classes.userDetailItemContainer}>
+                  <div className={classes.userDetailItem}>
+                    <div className={classes.userDetailItemTitle}>
+                      <FiUser size={16} color="#8484AE" />
+                      <h5>{role === "staff" ? "Staff Name" : "Client Name"}</h5>
+                    </div>
+                    <h4>{capitalizeFirstWord(data?.user?.fullName) || "Unknown"}</h4>
                   </div>
-                  <h4>Herman Schoen</h4>
+                  {role === "client" && (
+                    <div className={classes.userDetailItem}>
+                      <div className={classes.userDetailItemTitle}>
+                        <MdOutlineEmail size={16} color="#8484AE" />
+                        <h5>Email</h5>
+                      </div>
+                      <h4>{data?.user?.email || "No email"}</h4>
+                    </div>
+                  )}
+                  
                 </div>
-                <div className={classes.userDetailItem}>
-                  <div className={classes.userDetailItemTitle}>
-                    <MdOutlineEmail size={16} color="#8484AE" />
-                    <h5>Client Name</h5>
-                  </div>
-                  <h4>Herman Schoen</h4>
-                </div>
-              </div>
               </Col>
               <Col md={6}>
-              <div className={classes.userDetailItemContainerRight}>
-                <DetailActionsWithStats
-                  statusLabel="Active"
-                  statusVariant="success"
-                  statsData={[
-                    { title: "Total Cases", value: 6 },
-                    { title: "Active Cases", value: 2 },
-                    { title: "Completed Cases", value: 4 },
-                  ]}
-                  statusClassName={classes.status}
-                  deactivateButtonClassName={classes.deactivateButton}
-                  editButtonClassName={classes.editButton}
-                />
-              </div>
-          
+                <div className={classes.userDetailItemContainerRight}>
+                  <DetailActionsWithStats
+                    statusLabel={userStatus}
+                    statusVariant={statusVariant}
+                    statsData={statsData || []}
+                    statusClassName={classes.status}
+                    deactivateButtonClassName={classes.deactivateButton}
+                    editButtonClassName={classes.editButton}
+                    onDeactivate={handleActivateDeactivateClick}
+                  />
+                </div>
               </Col>
             </Row>
             <Row className="g-4 mt-4">
-          {caseManagementCardsData.map((item) => (
-            <Col className="col-12 col-md-4" key={item.id}>
-              <CaseProgressCard 
-                isStatusVariant
-                routePath={`/staff/case-management/${item.id}`}
-                data={{
-                  tabLabel: item.tabLabel,
-                  userName: item.userName,
-                  progress: item.progress,
-                  status: item.status,
-                  trademarkName: item.trademarkName,
-                  trademarkNo: item.trademarkNo,
-                  deadline: item.deadline,
-                  clientName: item.clientName
-                }}
-              />
-            </Col>
-          ))}
-        </Row>
+              {transformedCases.length > 0 ? (
+                <>
+                  {transformedCases.map((item) => (
+                    <Col className="col-12 col-md-4" key={item.id}>
+                      <CaseProgressCard
+                        isStatusVariant
+                        routePath={`/staff/case-management/${item.slug}`}
+                        data={{
+                          tabLabel: item.tabLabel,
+                          userName: item.userName,
+                          progress: item.progress,
+                          status: item.status,
+                          trademarkName: item.trademarkName,
+                          trademarkNo: item.trademarkNo,
+                          deadline: item.deadline,
+                          clientName: item.clientName,
+                        }}
+                      />
+                    </Col>
+                  ))}
+                  {totalRecords > RECORDS_LIMIT && (
+                    <Col className="col-12">
+                      <div >
+                        <Pagination
+                          currentPage={currentPage}
+                          totalRecords={totalRecords}
+                          limit={RECORDS_LIMIT}
+                          onPageChange={(page) => {
+                            setCurrentPage(page);
+                          }}
+                          totalTextLabel="Cases"
+                        />
+                      </div>
+                    </Col>
+                  )}
+                </>
+              ) : (
+                <Col className="col-12">
+                  <NoDataFound text="No cases found" />
+                </Col>
+              )}
+            </Row>
           </div>
         </div>
       </Wrapper>
+      
     </div>
   );
+};
+
+UserManagementDetailTemplate.propTypes = {
+  slug: PropTypes.string.isRequired,
 };
 
 export default UserManagementDetailTemplate;

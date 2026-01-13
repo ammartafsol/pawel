@@ -29,7 +29,6 @@ const LoginTemplate = () => {
   });
   const handleSubmit = async(values) => {
     setLoading("loading");    
-    setLoading("");    
     const obj = { email: values?.email, password: values?.password };
     const { response } = await Post({ route: "auth/login", data: obj });
     if(response){
@@ -63,7 +62,8 @@ const LoginTemplate = () => {
           <Button
             variant="primary"
             onClick={()=>{formik.handleSubmit()}}
-            label="Sign In"
+            label={loading === 'loading' ? "Signing in..." : "Sign In"}
+            disabled={loading === 'loading'}
             className={classes.loginButton}
           />
         </div>

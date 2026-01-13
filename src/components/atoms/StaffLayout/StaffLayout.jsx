@@ -8,6 +8,7 @@ import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
+import { clearAllCookies } from "@/resources/utils/cookie";
 
 const StaffLayout = ({ children }) => {
   const router = useRouter();
@@ -41,6 +42,7 @@ const StaffLayout = ({ children }) => {
   };
 
   const handleLogout = () => {
+    clearAllCookies();
     dispatch(signOutRequest());
     router.push("/login");
     setIsProfileOverlayOpen(false);

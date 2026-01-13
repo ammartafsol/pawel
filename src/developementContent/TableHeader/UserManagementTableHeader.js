@@ -38,7 +38,7 @@ export const userManagementTableHeader = [
     renderItem: ({ data }) => {
       return (
         <Link 
-          href={`/staff/user-management/${data.id}`}
+          href={`/staff/user-management/${data.slug}`}
           className={classes.viewDetailsLink}
           onClick={(e) => e.stopPropagation()}
         >

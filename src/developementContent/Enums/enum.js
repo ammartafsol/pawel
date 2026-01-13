@@ -102,14 +102,16 @@ export const caseStatusFilters = [
 
 export const auditTrackingOptions = [
   {
-    label: "All",
-    value: "all"
+    label: "Visible to client",
+    value: "visible-to-client"
   },
   {
-    label: "Audit Tracking",
-    value: "audit-tracking"
+    label: "Visible to staff",
+    value: "visible-to-staff"
   }
 ]
+
+
 
 export const notificationBtn = [
   {

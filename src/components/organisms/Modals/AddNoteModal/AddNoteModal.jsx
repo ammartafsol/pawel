@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import classes from "./AddNoteModal.module.css";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import IconInput from "@/components/molecules/IconInput/IconInput";
@@ -16,20 +17,25 @@ import { AddNoteSchema } from "@/formik/schema";
 import { addNoteFormValues } from "@/formik/initialValues";
 import { auditTrackingOptions } from "@/developementContent/Enums/enum";
 
-const AddNoteModal = ({ show, setShow }) => {
+const AddNoteModal = ({ show, loading, setShow,handleSubmit }) => {
   const formik = useFormik({
     initialValues: addNoteFormValues,
     validationSchema: AddNoteSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       handleSubmit(values);
     },
   });
 
-  const handleSubmit = async (values) => {
-    console.log("Form submitted:", values);
-    // Add your API call here
-    // setShow(false);
-  };
+  // Reset form when modal closes or after successful submission
+  useEffect(() => {
+    if (!show && loading !== "loading") {
+      formik.resetForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, loading]);
+
+
 
   return (
     <ModalSkeleton 
@@ -44,6 +50,7 @@ const AddNoteModal = ({ show, setShow }) => {
           <Button 
             label="" 
             variant="outlined" 
+            disabled={loading === "loading"}
             leftIcon={<RiDeleteBinLine color="var(--red)" size={24}/>}
             onClick={() => {
               formik.resetForm();
@@ -51,8 +58,10 @@ const AddNoteModal = ({ show, setShow }) => {
             }}
           />
           <Button 
-            label="Add Note" 
+            label={loading === "loading" ? "Adding..." : "Add Note"}
             variant="outlined" 
+            disabled={loading === "loading"}
+            loading={loading === "loading"}
             leftIcon={<IoMdCheckmark color="var(--midnight-black)"/>}
             onClick={() => formik.handleSubmit()}
           />
@@ -86,12 +95,17 @@ const AddNoteModal = ({ show, setShow }) => {
           <DropDown
             className={classes.dropdown}
             options={auditTrackingOptions}
-            placeholder="Select"
-            values={formik.values.permissible ? auditTrackingOptions.filter(opt => opt.value === formik.values.permissible) : []}
-            closeOnSelect={true}
-            onChange={(value) => {
-              const selectedValue = value && value.length > 0 ? value[0]?.value : "";
-              formik.setFieldValue("permissible", selectedValue);
+            placeholder="Select permissions"
+            multi={true}
+            values={formik.values.permissible && formik.values.permissible.length > 0 
+              ? auditTrackingOptions.filter(opt => formik.values.permissible.includes(opt.value))
+              : []}
+            closeOnSelect={false}
+            onChange={(selectedOptions) => {
+              const selectedValues = selectedOptions && selectedOptions.length > 0 
+                ? selectedOptions.map(opt => opt.value)
+                : [];
+              formik.setFieldValue("permissible", selectedValues);
             }}
           />
           {formik.touched.permissible && formik.errors.permissible && (
@@ -101,6 +115,18 @@ const AddNoteModal = ({ show, setShow }) => {
       </div>
     </ModalSkeleton>
   );
+};
+
+AddNoteModal.propTypes = {
+  show: PropTypes.bool,
+  loading: PropTypes.string,
+  setShow: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+AddNoteModal.defaultProps = {
+  show: false,
+  loading: "",
 };
 
 export default AddNoteModal;
