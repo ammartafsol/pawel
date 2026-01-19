@@ -2,7 +2,7 @@ import { handleDecrypt, handleEncrypt } from "@/interceptor/encryption";
 import Cookies from "js-cookie";
 
 // ! replace _proj with YOUR_PROJ_NAME for samurai and _projx for projexor
-export const PROJECT_NAME = "proj";
+export const PROJECT_NAME = "pawel";
 
 
 export const TOKEN_COOKIE_NAME = `_xpdx_${PROJECT_NAME}`;

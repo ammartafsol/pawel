@@ -96,8 +96,8 @@ const helveticaNeue = localFont({
 });
 
 export const metadata = {
-  title: "next-web",
-  description: `A Next.js web application with custom fonts and styles`,
+  title: "Pawel-web",
+  description: `pawel`,
 };
 
 export default function RootLayout({ children }) {

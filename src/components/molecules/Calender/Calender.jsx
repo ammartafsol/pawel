@@ -15,6 +15,8 @@ const Calender = ({
 }) => {
   const localizer = momentLocalizer(moment);
 
+  console.log("events in calender", events);
+
   return (
     <div className={`${classes.calenderContainer} ${className}`}>
       <Calendar
