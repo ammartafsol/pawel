@@ -11,6 +11,7 @@ import classes from "./CalendarEventDetailModal.module.css";
 
 const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/my-cases" }) => {
   const router = useRouter();
+  console.log("modal event", event);
 
   if (!event) return null;
 
