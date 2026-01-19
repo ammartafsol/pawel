@@ -18,6 +18,7 @@ import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton"
 import useAxios from "@/interceptor/axios-functions";
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
+import { useSelector } from "react-redux";
 
 const DashboardTemplate = () => {
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(
@@ -38,6 +39,10 @@ const DashboardTemplate = () => {
 
   const { Get } = useAxios();
   const router = useRouter();
+  const { user } = useSelector((state) => state.authReducer);
+
+  // Check user permissions
+  const hasCreateCasePermission = user?.permissions?.includes('create-case') || false;
 
   const getDateRange = (view, date) => {
     const currentMoment = moment(date);
@@ -203,20 +208,29 @@ const DashboardTemplate = () => {
           <Col lg={5}>
             <div className={classes?.newCases}>
               <Row className="g-4">
-                {newCasesData.map((item) => (
-                  <Col md={6} key={item.id}>
-                    <ActionCard
-                      {...item}
-                      title={item.title}
-                      image={item.image}
-                      onClick={
-                        item.title === "Create New Case"
-                          ? () => setShowCreateNewCaseModal(true)
-                          : undefined
-                      }
-                    />
-                  </Col>
-                ))}
+                {newCasesData.map((item) => {
+                  // Check if action requires permission
+                  const requiresCreateCase = item.title === "Create New Case";
+                  const isDisabled = requiresCreateCase && !hasCreateCasePermission;
+                  
+                  return (
+                    <Col md={6} key={item.id}>
+                      <ActionCard
+                        {...item}
+                        title={item.title}
+                        image={item.image}
+                        disabled={isDisabled}
+                        onClick={
+                          isDisabled
+                            ? undefined
+                            : item.title === "Create New Case"
+                            ? () => setShowCreateNewCaseModal(true)
+                            : undefined
+                        }
+                      />
+                    </Col>
+                  );
+                })}
               </Row>
             </div>
           </Col>
