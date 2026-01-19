@@ -18,7 +18,7 @@ const getImageFromLabel = (label) => {
   return labelToImageMap[normalizedLabel] || null
 }
 
-export default function ActionCard({ image, text, label, onClick, title, description }) {
+export default function ActionCard({ image, text, label, onClick, title, description, disabled = false }) {
   // Use image prop if provided, otherwise auto-detect from label/text
   const imageName = image || getImageFromLabel(label || text)
   
@@ -26,9 +26,17 @@ export default function ActionCard({ image, text, label, onClick, title, descrip
     console.warn('ActionCard: Image name could not be determined. Please provide either "image" prop or a recognized "label"/"text".')
   }
   
+  const handleClick = () => {
+    if (!disabled && onClick) {
+      onClick();
+    }
+  };
   
   return (
-    <div className={classes.card} onClick={onClick}>
+    <div 
+      className={`${classes.card} ${disabled ? classes.disabled : ''}`} 
+      onClick={handleClick}
+    >
       <div className={classes.iconContainer}>
         {imageName && (
           <div className={classes.iconWrapper}>

@@ -127,7 +127,7 @@ export const uploadMedia = async ({ files, Post, route = "media/upload" }) => {
     isFormData: true,
   });
   if (response) {
-    return response;
+    return response?.data;
   }
 
   return null;
@@ -144,16 +144,12 @@ export const uploadMediaHelper = async ({
   if (files.length === 0) return [];
 
   setIsLoading(loadingType);
-  uploadMedia({ files, Post, route })
-    .then((res) => {
-      if (res) {
-        setFiles(res);
-      } else {
-        setFiles([]);
-      }
-      setIsLoading("");
-    })
-    .finally(() => {
-      setIsLoading("");
-    });
+  const response = await uploadMedia({ files, Post, route });
+  if (response) {
+    setFiles(response);
+  } else {
+    setFiles([]);
+  }
+  setIsLoading("");
+  return response ? response : null;
 };

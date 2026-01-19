@@ -73,3 +73,15 @@ export const ChangePasswordFormSchema = Yup.object({
     .required("Confirm password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
+
+
+
+export const AssignDocumentSchema = Yup.object({
+  document: Yup.object()
+    .nullable()
+    .required("Document is required"),
+  permissions: Yup.array()
+    .of(Yup.string())
+    .min(1, "At least one permission must be selected")
+    .required("Permissions are required"),
+});

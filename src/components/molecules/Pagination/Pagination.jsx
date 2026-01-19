@@ -73,11 +73,6 @@ export default function Pagination({
   maxVisiblePages = 5,
   totalTextLabel = "Staff Users",
 }) {
-  // Input validation - ensure required props are provided
-  if (!onPageChange || typeof onPageChange !== 'function') {
-    console.error('Pagination: onPageChange is required and must be a function');
-    return null;
-  }
 
   // Don't render pagination if there are no records
   if (totalRecords <= 0) {

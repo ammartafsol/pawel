@@ -28,6 +28,7 @@ import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton";
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
+import AssignDocumentModal from "@/components/organisms/Modals/AssignDocumentModal/AssignDocumentModal";
 import { calculateProgress } from "@/resources/utils/caseHelper";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
@@ -44,6 +45,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [currentView, setCurrentView] = useState("month");
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showAssignDocumentModal, setShowAssignDocumentModal] = useState(false);
   const fileInputRef = useRef(null);
   const filterRef = useRef(null);
   const isInitialMount = useRef(true);
@@ -244,18 +246,25 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   ];
 
   const handleUploadDocument = () => {
-    fileInputRef.current?.click();
+    setShowAssignDocumentModal(true);
   };
 
-  const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length > 0) {
-      // Handle file selection here
-      console.log("Selected files:", selectedFiles);
-      // You can add your file upload logic here
+  // Refetch case details after document assignment
+  const refetchCaseDetails = async () => {
+    if (!slug) return;
+    
+    try {
+      const { response } = await Get({
+        route: `case/detail/${slug}`,
+        showAlert: false,
+      });
+
+      if (response?.status === "success" && response.data) {
+        setCaseDetails(response.data);
+      }
+    } catch (error) {
+      console.error("Error refetching case details:", error);
     }
-    // Reset input value to allow selecting the same file again
-    e.target.value = "";
   };
 
   // Format date for display
@@ -389,19 +398,11 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
-                {/* Temporarily open file browsing: */}
                 <Button 
                   label="Upload Document" 
                   className={classes.uploadDocumentButton} 
                   leftIcon={<MdAddCircle color="var(--white)" size={20} />}
                   onClick={handleUploadDocument}
-                />
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  multiple
-                  style={{ display: "none" }}
                 />
                 <SearchInput />
                 <div className={classes.filterWrapper} ref={filterRef}>
@@ -436,17 +437,21 @@ const CaseManagementDetailTemplate = ({ slug }) => {
               </div>
             </div>
             <div className={classes.docListContainer}>
+              <Row>
               {documents.length > 0 ? documents.map((doc) => (
-                <DocCard
-                  key={doc.id}
-                  title={doc.title}
-                  dateTime={doc.dateTime}
-                  visibilityText={doc.visibilityText}
-                />
+               <Col md={6} lg={4} xl={3}>
+                 <DocCard
+                    key={doc.id}
+                    title={doc.title}
+                    dateTime={doc.dateTime}
+                    visibilityText={doc.visibilityText}
+                  />
+               </Col>
               ))
               :
               <NoDataFound className={classes?.Nodocument} text="No documents found" />
-              }
+            }
+            </Row>
             </div>
           </div>
         );
@@ -544,6 +549,16 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         setShow={setShowEventModal}
         event={selectedEvent}
         routePrefix="/staff/case-management"
+      />
+      <AssignDocumentModal
+        show={showAssignDocumentModal}
+        setShow={setShowAssignDocumentModal}
+        caseSlug={slug}
+        documents={documents}
+        setDocuments={async (newDocs) => {
+          // Refetch case details to get the latest document list
+          await refetchCaseDetails();
+        }}
       />
     </div>
   );

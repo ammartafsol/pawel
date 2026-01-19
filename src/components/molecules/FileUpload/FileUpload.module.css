@@ -1,0 +1,361 @@
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  color: var(--black-2);
+  font-family: var(--font-bricolage);
+  font-size: var(--fs14);
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: var(--s8);
+  text-transform: capitalize;
+}
+
+.main {
+  width: 100%;
+}
+
+.dragAndDropContainer {
+  width: 100%;
+  min-height: 200px;
+  border-radius: 8px;
+  background: var(--white-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s34);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* hover styles can be customized if needed */
+
+.dragActive {
+  border-color: #2563eb;
+  background: #f0f9ff;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dragAndDropMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.uploadTextWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.uploadIcon {
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+
+.fileSizeAndSupportingFormatsText {
+  color: var(--black-2);
+  font-family: var(--font-bricolage);
+  font-size: var(--fs14);
+  font-weight: 400;
+  opacity: 0.4;
+  margin: 0;
+  text-align: center;
+}
+
+.browseText {
+  color: var(--blue-1);
+  text-align: center;
+  font-family: var(--font-bricolage);
+  font-size: var(--fs14);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  text-align: center;
+}
+
+.uploadTitle {
+  color: var(--black-2);
+  font-size: var(--fs14);
+  font-family: var(--font-bricolage);
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.uploadDescription {
+  color: var(--black-2);
+  font-size: var(--fs14);
+  font-family: var(--font-bricolage);
+  font-weight: 400;
+  opacity: 0.4;
+  margin: 0;
+  text-align: center;
+}
+
+.uploadButton {
+  height: 32px !important;
+  padding: 7px 20px !important;
+  font-size: var(--fs14) !important;
+  font-family: var(--font-bricolage) !important;
+  font-weight: 600 !important;
+  align-self: center;
+  text-decoration: underline;
+}
+
+/* File Preview Styles */
+.filePreview {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+.fileItem {
+  position: relative;
+}
+
+/* Ensure individual preview inside list item has proper box and positioning */
+.fileItem .filePreview {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  /* overflow: hidden; */
+  background: #f3f4f6;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fileIcon {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.fileDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fileName {
+  color: var(--black-2);
+  font-size: var(--fs14);
+  font-family: var(--font-bricolage);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.fileSize {
+  color: var(--black-2);
+  font-size: var(--fs14);
+  font-family: var(--font-bricolage);
+  font-weight: 400;
+  opacity: 0.4;
+}
+
+.removeIconContainer {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  z-index: 2;
+}
+
+.removeIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--white);
+}
+
+.removeIcon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.removeIcon svg {
+  color: var(--black);
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.removeButton:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+.removeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Classes referenced by JSX for per-item remove and icons */
+.removeFile {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.removeFile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.deleteDiv {
+  width: 18px;
+  height: 18px;
+  color: #111827;
+}
+
+.file {
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.imagePreviewWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.imagePreviewWrapper .removeFileButton {
+  margin: 0 !important;
+}
+
+.previewImage {
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.previewFileInfo {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.previewFileName {
+  font-size: var(--fs14);
+  font-weight: 500;
+  font-family: var(--font-bricolage);
+  color: var(--black-2);
+  margin-bottom: 2px;
+}
+
+.previewFileSize {
+  color: var(--black-2);
+  font-size: var(--fs14);
+  font-family: var(--font-bricolage);
+  font-weight: 400;
+  opacity: 0.4;
+}
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  background: #e1e1e1;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cropModal {
+  max-width: 600px !important;
+  padding: 0 !important;
+}
+.cropModalBody {
+  padding: 0 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .uploadArea {
+    min-height: 180px;
+    padding: 20px;
+  }
+
+  .uploadTitle {
+    font-size: var(--fs14);
+  }
+
+  .fileInfo {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .uploadArea {
+    min-height: 160px;
+    padding: 16px;
+  }
+
+  .uploadContent {
+    gap: 8px;
+  }
+
+  .uploadButton {
+    padding: 6px 12px;
+    font-size: var(--fs12);
+  }
+}

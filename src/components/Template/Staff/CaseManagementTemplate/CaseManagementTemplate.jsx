@@ -13,6 +13,7 @@ import useAxios from '@/interceptor/axios-functions';
 import { RECORDS_LIMIT } from '@/resources/utils/constant';
 import Pagination from '@/components/molecules/Pagination/Pagination';
 import NoDataFound from '@/components/atoms/NoDataFound/NoDataFound';
+import { useSelector } from 'react-redux';
 import SpinnerLoading from '@/components/atoms/SpinnerLoading/SpinnerLoading';
 import { calculateProgress } from '@/resources/utils/caseHelper';
 
@@ -21,6 +22,7 @@ const CaseManagementTemplate = () => {
   const [showUpdateDeadlineModal, setShowUpdateDeadlineModal] = useState(false);
   const [selectedCaseSlug, setSelectedCaseSlug] = useState(null);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(caseStatusFilters[0]);
+  const {user} = useSelector((state) => state.authReducer);
   const [loading,setLoading] = useState('');
   const [page,setPage] = useState(1);
   const [totalRecords,setTotalRecords] = useState(0);
@@ -62,6 +64,8 @@ const CaseManagementTemplate = () => {
     };
   };
 
+  console.log("transformCaseData",transformCaseData);
+
   const getData = async (_page) => {
     setLoading('loading');
       const queryParams = new URLSearchParams({
@@ -86,6 +90,9 @@ const CaseManagementTemplate = () => {
 
   };
 
+  // Check user permissions
+  const hasCreateCasePermission = user?.permissions?.includes('create-case') || false;
+  const hasUpdateCasePermission = user?.permissions?.includes('update-case') || false;
 
   useEffect(() => {
     getData(page);
@@ -102,7 +109,7 @@ const CaseManagementTemplate = () => {
 
   return (
     <div className='p24'>
-      <Wrapper   headerComponent={<TableHeader viewButtonText='Create new case' searchValue={search} onSearchChange={setSearch} onClickViewAll={() => setShowCreateNewCaseModal(true)}  dropdownOptions={caseStatusFilters}  selectedDropdownValue={selectedDropdownValue} setSelectedDropdownValue={setSelectedDropdownValue} title="Case Management" titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />} />}>
+      <Wrapper   headerComponent={<TableHeader viewButtonText='Create new case' searchValue={search} onSearchChange={setSearch} onClickViewAll={() => setShowCreateNewCaseModal(true)} disabled={!hasCreateCasePermission} dropdownOptions={caseStatusFilters}  selectedDropdownValue={selectedDropdownValue} setSelectedDropdownValue={setSelectedDropdownValue} title="Case Management" titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />} />}>
       <div className={classes.caseManagementCards}>
          {
           data?.length> 0 ?(
@@ -112,7 +119,7 @@ const CaseManagementTemplate = () => {
                <CaseProgressCard 
                  isStatusVariant
                  routePath={`/staff/case-management/${item.slug}`}
-                 showEditButton={true}
+                 showEditButton={hasUpdateCasePermission}
                  onEditClick={() => handleEditClick(item.slug)}
                  data={{
                    tabLabel: item.tabLabel,

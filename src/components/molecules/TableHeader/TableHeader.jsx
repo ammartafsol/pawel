@@ -12,6 +12,7 @@ const TableHeader = ({
   titleIcon,
   viewButtonText = "",
   onClickViewAll = () => {},
+  disabled = false,
   dropdownOptions = [],
   dropdownPlaceholder = "Select...",
   onDropdownChange = () => {},
@@ -128,6 +129,7 @@ const TableHeader = ({
             leftIcon={<IoAddCircle size={20} color="var(--white)" />} 
             label={viewButtonText}
             variant="primary"
+            disabled={disabled}
           />
         )}
       </div>

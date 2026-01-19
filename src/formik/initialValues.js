@@ -52,3 +52,9 @@ export const generateTicketFormValues = {
   categorySlug: "",
   message: "",
 };
+
+
+export const assignDocumentFormValues = {
+  document: null,
+  permissions: [],
+};

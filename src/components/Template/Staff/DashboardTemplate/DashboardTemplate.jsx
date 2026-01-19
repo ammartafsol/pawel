@@ -18,6 +18,7 @@ import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton"
 import useAxios from "@/interceptor/axios-functions";
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
+import { useSelector } from "react-redux";
 
 const DashboardTemplate = () => {
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(
@@ -38,6 +39,11 @@ const DashboardTemplate = () => {
 
   const { Get } = useAxios();
   const router = useRouter();
+  const { user } = useSelector((state) => state.authReducer);
+
+  // Check user permissions
+  const hasCreateCasePermission = user?.permissions?.includes('create-case') || false;
+  const hasUpdateCasePermission = user?.permissions?.includes('update-case') || false;
 
   const getDateRange = (view, date) => {
     const currentMoment = moment(date);
@@ -203,20 +209,35 @@ const DashboardTemplate = () => {
           <Col lg={5}>
             <div className={classes?.newCases}>
               <Row className="g-4">
-                {newCasesData.map((item) => (
-                  <Col md={6} key={item.id}>
-                    <ActionCard
-                      {...item}
-                      title={item.title}
-                      image={item.image}
-                      onClick={
-                        item.title === "Create New Case"
-                          ? () => setShowCreateNewCaseModal(true)
-                          : undefined
-                      }
-                    />
-                  </Col>
-                ))}
+                {newCasesData.map((item) => {
+                  // Determine if this action card should be disabled based on permissions
+                  let isDisabled = false;
+                  if (item.title === "Create New Case") {
+                    isDisabled = !hasCreateCasePermission;
+                  } else if (item.title === "Add a Document") {
+                    // Assuming document upload requires create-case permission
+                    isDisabled = !hasCreateCasePermission;
+                  }
+                  // Export actions might not require specific permissions, but can be added if needed
+                  
+                  return (
+                    <Col md={6} key={item.id}>
+                      <ActionCard
+                        {...item}
+                        title={item.title}
+                        image={item.image}
+                        disabled={isDisabled}
+                        onClick={
+                          item.title === "Create New Case" && hasCreateCasePermission
+                            ? () => setShowCreateNewCaseModal(true)
+                            : item.title === "Add a Document" && hasCreateCasePermission
+                            ? () => router.push("/staff/document-management")
+                            : undefined
+                        }
+                      />
+                    </Col>
+                  );
+                })}
               </Row>
             </div>
           </Col>

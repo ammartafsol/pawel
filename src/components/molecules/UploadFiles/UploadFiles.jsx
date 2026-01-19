@@ -1,32 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { BiUpload } from "react-icons/bi";
+import { BiX } from "react-icons/bi";
+import { HiOutlineEye } from "react-icons/hi";
 import classes from "./UploadFiles.module.css";
+import useAxios from "@/interceptor/axios-functions";
+import { uploadMedia, getSupportedImageTypes } from "@/resources/utils/mediaUpload";
+import RenderToast from "@/components/atoms/RenderToast";
+import Spinner from "react-bootstrap/Spinner";
 
 /**
  * UploadFiles component for uploading files via drag-and-drop or file picker.
- *
- * @param {Object} props
- * @param {File[]} props.files - Array of selected files.
- * @param {Function} props.setFiles - Function to update files.
- * @param {React.RefObject} [props.fileInputRef] - Optional ref for file input.
- * @param {string} [props.error] - Error message to display.
- * @param {boolean} props.dragActive - Whether drag is active.
- * @param {Function} props.setDragActive - Function to set drag active state.
- * @param {string} [props.label] - Label for the upload area.
- * @param {boolean} [props.single=false] - If true, only one file can be uploaded.
- * @param {boolean} [props.disabled=false] - If true, disables upload.
- * @param {boolean} [props.readonly=false] - If true, makes upload read-only.
- * @param {number} [props.maxFiles=5] - Maximum number of files allowed.
- * @param {Function} [props.onRemove=null] - Callback for removing files.
- * @param {string} [props.accept="*"] - File types accepted. Use "*" for any file type, or a comma-separated list (e.g. "image/\*,application/pdf").
- *
- * @example
- * <UploadFiles
- *   files={files}
- *   setFiles={setFiles}
- *   accept="image/*,application/pdf"
- * />
  */
 export default function UploadFiles({
   files,
@@ -40,25 +24,123 @@ export default function UploadFiles({
   disabled = false,
   readonly = false,
   maxFiles = 5,
-  onRemove = null,
   accept = "*",
+  onFileKeysChange, // Callback to notify parent when file keys are updated
 }) {
-  // Use internal ref if not provided
   const internalFileInputRef = React.useRef();
   const inputRef = fileInputRef || internalFileInputRef;
+  const { Post, Patch } = useAxios();
+  const [uploadingIndices, setUploadingIndices] = useState(new Set()); // Track which files are currently uploading
+  const [deletingIndex, setDeletingIndex] = useState(null);
+  const [fileKeys, setFileKeys] = useState({}); // Track uploaded file keys: { fileIndex: key }
+
+  const triggerUpload = async (selectedFiles, startIndex) => {
+    if (!selectedFiles?.length) return;
+    
+    // Mark files as uploading
+    const uploadingSet = new Set();
+    selectedFiles.forEach((_, idx) => {
+      uploadingSet.add(startIndex + idx);
+    });
+    setUploadingIndices(new Set(uploadingSet));
+    
+    try {
+      const response = await uploadMedia({ files: selectedFiles, Post, route: "media/upload" });
+      if (response) {
+        // Extract keys from response structure: { images: [{ key: "..." }], docs: [{ key: "..." }], etc }
+        // Note: uploadMedia returns response?.data, so response is already the data object
+        const keys = [];
+        
+        // Extract from images array
+        if (response.images && Array.isArray(response.images)) {
+          response.images.forEach((item) => {
+            if (item.key) keys.push(item.key);
+          });
+        }
+        // Extract from docs array
+        if (response.docs && Array.isArray(response.docs)) {
+          response.docs.forEach((item) => {
+            if (item.key) keys.push(item.key);
+          });
+        }
+        // Extract from audio array
+        if (response.audio && Array.isArray(response.audio)) {
+          response.audio.forEach((item) => {
+            if (item.key) keys.push(item.key);
+          });
+        }
+        // Extract from other arrays if they exist
+        if (response.other && Array.isArray(response.other)) {
+          response.other.forEach((item) => {
+            if (item.key) keys.push(item.key);
+          });
+        }
+        
+        // Store file keys for deletion
+        if (keys.length > 0) {
+          const newKeys = {};
+          keys.forEach((key, idx) => {
+            if (idx < selectedFiles.length) {
+              newKeys[startIndex + idx] = key;
+            }
+          });
+          setFileKeys((prev) => {
+            const updated = { ...prev, ...newKeys };
+            // Notify parent component about updated file keys
+            if (onFileKeysChange) {
+              onFileKeysChange(updated);
+            }
+            return updated;
+          });
+        }
+      }
+    } catch (err) {
+      RenderToast({ message: "Failed to upload files", type: "error" });
+      console.error("Upload error:", err);
+    } finally {
+      // Remove uploaded files from uploading set
+      setUploadingIndices((prev) => {
+        const newSet = new Set(prev);
+        selectedFiles.forEach((_, idx) => {
+          newSet.delete(startIndex + idx);
+        });
+        return newSet;
+      });
+    }
+  };
 
   const handleFileChange = (e) => {
     if (disabled || readonly) return;
     const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles?.length > 0) {
-      if (single) {
-        setFiles([selectedFiles[0]]);
-      } else {
-        const availableSlots = maxFiles - files?.length;
-        const filesToAdd = selectedFiles.slice(0, availableSlots);
-        setFiles([...files, ...filesToAdd]);
+    if (!selectedFiles?.length) return;
+
+    // Validate file types
+    const validFiles = selectedFiles.filter((file) => {
+      if (!isValidFileType(file)) {
+        RenderToast({
+          message: `File type not supported: ${file.name}`,
+          type: "error",
+        });
+        return false;
+      }
+      return true;
+    });
+
+    if (!validFiles.length) return;
+
+    if (single) {
+      setFiles([validFiles[0]]);
+      triggerUpload([validFiles[0]], 0);
+    } else {
+      const availableSlots = maxFiles - files?.length;
+      const filesToAdd = validFiles.slice(0, availableSlots);
+      if (filesToAdd.length) {
+        const newFiles = [...files, ...filesToAdd];
+        setFiles(newFiles);
+        triggerUpload(filesToAdd, files.length);
       }
     }
+    e.target.value = "";
   };
 
   const handleDrop = (e) => {
@@ -66,18 +148,34 @@ export default function UploadFiles({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files?.length > 0) {
-      if (single) {
-        setFiles([e.dataTransfer.files[0]]);
-      } else {
-        setFiles((prev) => {
-          const availableSlots = maxFiles - prev.length;
-          const filesToAdd = Array.from(e.dataTransfer.files).slice(
-            0,
-            availableSlots
-          );
-          return [...prev, ...filesToAdd];
+    
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    if (!droppedFiles.length) return;
+
+    // Validate file types
+    const validFiles = droppedFiles.filter((file) => {
+      if (!isValidFileType(file)) {
+        RenderToast({
+          message: `File type not supported: ${file.name}`,
+          type: "error",
         });
+        return false;
+      }
+      return true;
+    });
+
+    if (!validFiles.length) return;
+
+    if (single) {
+      setFiles([validFiles[0]]);
+      triggerUpload([validFiles[0]], 0);
+    } else {
+      const availableSlots = maxFiles - files.length;
+      const filesToAdd = validFiles.slice(0, availableSlots);
+      if (filesToAdd.length) {
+        const newFiles = [...files, ...filesToAdd];
+        setFiles(newFiles);
+        triggerUpload(filesToAdd, files.length);
       }
     }
   };
@@ -96,87 +194,163 @@ export default function UploadFiles({
     setDragActive(false);
   };
 
-  // Disable upload if maxFiles reached (for multi mode)
-  const reachedMaxFiles = !single && files?.length >= maxFiles;
+  const handleRemoveFile = async (idx) => {
+    if (disabled || readonly) return;
+    
+    const fileKey = fileKeys[idx];
+    const file = files[idx];
 
-  const handleClickUpload = () => {
-    if (disabled || readonly || reachedMaxFiles) return;
-    inputRef.current && inputRef.current.click();
+    // If file was uploaded, delete from server first
+    if (fileKey) {
+      setDeletingIndex(idx);
+      try {
+        const { response } = await Patch({
+          route: "media/delete",
+          data: { key: fileKey },
+        });
+        
+        // Only remove from UI if API call was successful
+        if (response) {
+          RenderToast({ message: "File deleted successfully", type: "success" });
+          
+          // Remove from local state after successful deletion
+          if (single) {
+            setFiles([]);
+            setFileKeys({});
+          } else {
+            setFiles(files.filter((_, i) => i !== idx));
+            const newKeys = { ...fileKeys };
+            delete newKeys[idx];
+            // Reindex keys
+            const reindexed = {};
+            files.forEach((_, i) => {
+              if (i < idx && fileKeys[i]) reindexed[i] = fileKeys[i];
+              if (i > idx && fileKeys[i]) reindexed[i - 1] = fileKeys[i];
+            });
+            setFileKeys(reindexed);
+          }
+        } else {
+          RenderToast({ message: "Failed to delete file", type: "error" });
+        }
+      } catch (err) {
+        RenderToast({ message: "Failed to delete file", type: "error" });
+        console.error("Delete error:", err);
+      } finally {
+        setDeletingIndex(null);
+      }
+    } else {
+      // If file was not uploaded (no key), just remove from local state
+      if (single) {
+        setFiles([]);
+        setFileKeys({});
+      } else {
+        setFiles(files.filter((_, i) => i !== idx));
+        const newKeys = { ...fileKeys };
+        delete newKeys[idx];
+        // Reindex keys
+        const reindexed = {};
+        files.forEach((_, i) => {
+          if (i < idx && fileKeys[i]) reindexed[i] = fileKeys[i];
+          if (i > idx && fileKeys[i]) reindexed[i - 1] = fileKeys[i];
+        });
+        setFileKeys(reindexed);
+      }
+    }
   };
 
-  const handleRemoveFile = (idx) => {
-    if (disabled || readonly) return;
-    if (single) {
-      onRemove ? onRemove(files[0]) : setFiles([]);
-    } else {
-      onRemove
-        ? onRemove(files, idx)
-        : setFiles(files.filter((_, i) => i !== idx));
+  const handleOpenFile = (file) => {
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = file.name || "download";
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const reachedMaxFiles = !single && files?.length >= maxFiles;
+  const isImage = (file) => file?.type?.startsWith("image/");
+
+  // Get supported file types and convert to accept string
+  const getAcceptString = () => {
+    if (accept === "*") {
+      // Use getSupportedImageTypes to get all supported types
+      const supportedTypes = getSupportedImageTypes(["all"]);
+      return Object.keys(supportedTypes).join(",");
     }
+    return accept;
+  };
+
+  // Validate file type
+  const isValidFileType = (file) => {
+    if (accept === "*") {
+      const supportedTypes = getSupportedImageTypes(["all"]);
+      return Object.keys(supportedTypes).some((mimeType) => {
+        if (mimeType.endsWith("/*")) {
+          const baseType = mimeType.split("/")[0];
+          return file.type?.startsWith(`${baseType}/`);
+        }
+        return file.type === mimeType;
+      });
+    }
+    // If accept is specified, browser handles validation
+    return true;
   };
 
   return (
     <div className={classes.uploadContainer}>
       {label && <h2>{label}</h2>}
+      
       <div className={classes.main}>
         <div
-          className={`${classes.dragAndDropContainer} ${dragActive ? classes.dragActive : ""
-            } ${disabled ? classes.disabled : ""} ${reachedMaxFiles ? classes.disabled : ""
-            }`}
-          onClick={handleClickUpload}
+          className={`${classes.dragAndDropContainer} ${
+            dragActive ? classes.dragActive : ""
+          } ${disabled || reachedMaxFiles ? classes.disabled : ""}`}
+          onClick={() => !disabled && !reachedMaxFiles && inputRef.current?.click()}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          style={{
-            cursor:
-              disabled || reachedMaxFiles
-                ? "not-allowed"
-                : readonly
-                  ? "default"
-                  : "pointer",
-            opacity: disabled || reachedMaxFiles ? 0.6 : 1,
-          }}
         >
           {single && files?.length > 0 ? (
-            <div className={classes.imagePreviewWrapper}>
-              {files[0]?.type?.startsWith("image/") ? (
-                <img
-                  src={files[0] ? URL.createObjectURL(files[0]) : ""}
-                  alt="Uploaded"
-                  className={`${classes.imagePreview} ${classes.previewImage}`}
-                />
-              ) : (
-                <div
-                  className={`${classes.fileInfo} ${classes.previewFileInfo}`}
-                >
-                  <span className={classes.previewFileName}>
-                    {files[0]?.name}
-                  </span>
-                  <span className={classes.previewFileSize}>
-                    {(files[0]?.size / 1024)?.toFixed(2)} KB
-                  </span>
+            <div className={classes.singleFilePreview}>
+              {uploadingIndices.has(0) ? (
+                <div className={classes.loadingWrapper}>
+                  <Spinner animation="border" variant="primary" />
+                  <p>Uploading...</p>
                 </div>
-              )}
-              <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+              ) : isImage(files[0]) && fileKeys[0] ? (
+                <div className={classes.imageWrapper}>
+                  <img
+                    src={URL.createObjectURL(files[0])}
+                    alt="Preview"
+                    className={classes.previewImage}
+                  />
+                </div>
+              ) : !isImage(files[0]) ? (
+                <div className={classes.fileInfoCard}>
+                  <div className={classes.fileIcon}>📄</div>
+                  <div className={classes.fileDetails}>
+                    <span className={classes.fileName}>{files[0]?.name}</span>
+                    <span className={classes.fileSize}>
+                      {(files[0]?.size / 1024)?.toFixed(2)} KB
+                    </span>
+                  </div>
+                </div>
+              ) : null}
+              <div className={classes.fileActions}>
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (files[0]) {
-                      const url = URL.createObjectURL(files[0]);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = files[0].name || "download";
-                      a.target = "_blank";
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);
-                      URL.revokeObjectURL(url);
-                    }
+                    handleOpenFile(files[0]);
                   }}
-                  className={classes.openFileButton}
+                  className={classes.actionButton}
+                  disabled={disabled || readonly}
                 >
-                  Open
+                  <HiOutlineEye size={18} />
+                  View
                 </button>
                 {!readonly && !disabled && (
                   <button
@@ -185,21 +359,24 @@ export default function UploadFiles({
                       e.stopPropagation();
                       handleRemoveFile(0);
                     }}
-                    className={classes.removeFileButton}
+                    className={`${classes.actionButton} ${classes.deleteButton}`}
+                    disabled={deletingIndex === 0}
                   >
-                    Remove
+                    {deletingIndex === 0 ? (
+                      <Spinner animation="border" size="sm" />
+                    ) : (
+                      <BiX size={18} />
+                    )}
+                    {deletingIndex === 0 ? "Deleting..." : "Remove"}
                   </button>
                 )}
               </div>
             </div>
           ) : (
             <div className={classes.dragAndDropMessage}>
-              <BiUpload
-                color="var(--primary)"
-                size={43}
-              />
-              <p>Upload your files here</p>
-              <p>Browse</p>
+              <BiUpload color="var(--sky-blue)" size={48} />
+              <p>Drag & drop your files here</p>
+              <p>or click to browse</p>
             </div>
           )}
 
@@ -210,61 +387,59 @@ export default function UploadFiles({
             ref={inputRef}
             onChange={handleFileChange}
             disabled={disabled || readonly || reachedMaxFiles}
-            readOnly={readonly}
-            accept={accept === "*" ? undefined : accept}
+            accept={getAcceptString()}
           />
         </div>
       </div>
+
       {!single && files?.length > 0 && (
         <div className={classes.filePreview}>
           {files?.map((file, idx) => (
-            <div key={idx} className={classes.fileItem} data-single={single}>
-              {file?.type?.startsWith("image/") ? (
-                <img
-                  src={file ? URL.createObjectURL(file) : ""}
-                  alt={file?.name}
-                  className={`${classes.imagePreview} ${classes.previewImage}`}
-                />
-              ) : (
-                <div
-                  className={`${classes.fileInfo} ${classes.previewFileInfo}`}
-                >
-                  <span className={classes.previewFileName}>{file?.name}</span>
-                  <span className={classes.previewFileSize}>
-                    {(file?.size / 1024)?.toFixed(2)} KB
-                  </span>
+            <div key={`${file.name}-${idx}`} className={classes.fileCard}>
+              {uploadingIndices.has(idx) ? (
+                <div className={classes.loadingWrapper}>
+                  <Spinner animation="border" variant="primary" />
                 </div>
-              )}
-              <div className={classes.btnWrapper}>
+              ) : isImage(file) && fileKeys[idx] ? (
+                <div className={classes.imageWrapper}>
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    className={classes.thumbnailImage}
+                  />
+                </div>
+              ) : !isImage(file) ? (
+                <div className={classes.fileInfoCard}>
+                  <div className={classes.fileIcon}>📄</div>
+                  <div className={classes.fileDetails}>
+                    <span className={classes.fileName}>{file.name}</span>
+                    <span className={classes.fileSize}>
+                      {(file.size / 1024)?.toFixed(2)} KB
+                    </span>
+                  </div>
+                </div>
+              ) : null}
+              <div className={classes.fileActions}>
                 <button
                   type="button"
-                  onClick={() => {
-                    if (file) {
-                      const url = URL.createObjectURL(file);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = file.name || "download";
-                      a.target = "_blank";
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);
-                      URL.revokeObjectURL(url);
-                    }
-                  }}
-                  className={classes.openFileButton}
+                  onClick={() => handleOpenFile(file)}
+                  className={classes.actionButton}
                   disabled={disabled || readonly}
                 >
-                  Open
+                  <HiOutlineEye size={16} />
                 </button>
                 {!readonly && !disabled && (
                   <button
                     type="button"
-                    onClick={(e) => {
-                      handleRemoveFile(idx);
-                    }}
-                    className={classes.removeFileButton}
+                    onClick={() => handleRemoveFile(idx)}
+                    className={`${classes.actionButton} ${classes.deleteButton}`}
+                    disabled={deletingIndex === idx}
                   >
-                    Remove
+                    {deletingIndex === idx ? (
+                      <Spinner animation="border" size="sm" />
+                    ) : (
+                      <BiX size={16} />
+                    )}
                   </button>
                 )}
               </div>

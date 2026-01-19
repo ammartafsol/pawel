@@ -46,4 +46,15 @@
   text-transform: capitalize;
 }
 
+.card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 

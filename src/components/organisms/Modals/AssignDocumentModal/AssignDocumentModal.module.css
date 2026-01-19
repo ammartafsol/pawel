@@ -1,0 +1,34 @@
+.dropdown {
+  width: 300px !important;
+  border-radius: 13px !important;
+  min-height: 40px !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.iconInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalMain {
+  width: 100%;
+}
+
+.footerDiv {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 18px;
+}
+
+.footerClass {
+  padding: 12px 36px;
+}
+
+.errorText {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
