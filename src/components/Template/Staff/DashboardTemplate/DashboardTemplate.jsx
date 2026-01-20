@@ -118,6 +118,8 @@ const DashboardTemplate = () => {
       typeof activityData?.type === "object"
         ? activityData.type?.name
         : "Unknown Type",
+    typeObject: activityData?.type || null, // Include full type object with phases
+    status: activityData?.status || null, // Include status to match with phase
     trademarkName: activityData?.trademarkName || "Unknown TrademarkName",
     trademarkNumber: activityData?.trademarkNumber || "Unknown TrademarkNumber",
     internalDeadline:
@@ -133,12 +135,20 @@ const DashboardTemplate = () => {
     return auditTracking
       .flatMap((caseData) => {
         const clientName = caseData.client?.fullName || "Unknown Client";
+        const typeObject = caseData.type || null;
+
         return (caseData.deadlines || []).map((deadline) => {
           if (!deadline.deadline) return null;
 
           const deadlineDate = new Date(deadline.deadline);
           const start = new Date(deadlineDate).setHours(0, 0, 0, 0);
           const end = new Date(deadlineDate).setHours(23, 59, 59, 999);
+
+          // Match the phase based on deadlineStatus
+          const matchingPhase =
+            typeObject?.phases?.find(
+              (phase) => phase.name === deadline.deadlineStatus
+            ) || null;
 
           return {
             start: new Date(start),
@@ -149,6 +159,11 @@ const DashboardTemplate = () => {
               slug: caseData.slug,
               deadlineStatus: deadline.deadlineStatus,
               deadline: deadline.deadline,
+              typeName:
+                typeof typeObject === "object" ? typeObject?.name : null,
+              phaseName: deadline.deadlineStatus,
+              phaseBgColor: matchingPhase?.bgColor || null,
+              phaseColor: matchingPhase?.color || null,
             },
           };
         });

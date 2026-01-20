@@ -159,3 +159,12 @@
   gap: 16px 24px;
   width: 100%;
 }
+
+
+.NoDocument{
+  min-height: 30vh !important;
+}
+
+.auditTrackingContainer{
+  padding: 15px;
+}

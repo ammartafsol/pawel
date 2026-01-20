@@ -17,7 +17,6 @@ import Notes from "@/components/molecules/Notes/Notes";
 import ActivityLog from "@/components/molecules/ActivityLog/ActivityLog";
 import DocCard from "@/components/atoms/DocCard/DocCard";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
-import { BiFilterAlt } from "react-icons/bi";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import { useRouter } from "next/navigation";
 import { MdAddCircle } from "react-icons/md";
@@ -47,7 +46,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showAssignDocumentModal, setShowAssignDocumentModal] = useState(false);
-  const fileInputRef = useRef(null);
   const filterRef = useRef(null);
   const isInitialMount = useRef(true);
 
@@ -75,11 +73,12 @@ const CaseManagementDetailTemplate = ({ slug }) => {
 
   // Transform calendar events from case details deadlines (reference: MyCaseDetailTemplate)
   const transformDeadlinesToEvents = (caseData) => {
-    if (!caseData || !caseData.deadlines || !Array.isArray(caseData.deadlines)) return [];
-    
+    if (!caseData || !caseData.deadlines || !Array.isArray(caseData.deadlines))
+      return [];
+
     const events = [];
     const clientName = caseData.client?.fullName || "Unknown Client";
-    
+
     caseData.deadlines.forEach((deadline) => {
       if (deadline.deadline) {
         const deadlineDate = new Date(deadline.deadline);
@@ -100,7 +99,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         });
       }
     });
-    
+
     return events;
   };
 
@@ -110,46 +109,34 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     setCalendarLoading(true);
     const { startDate, endDate } = getDateRange(currentView, currentDate);
     const queryParams = new URLSearchParams({ startDate, endDate });
-
-    try {
-      const { response } = await Get({
-        route: `case/detail/${slug}?${queryParams.toString()}`,
-        showAlert: false,
-      });
-      if (response?.status === "success" && response.data) {
-        // Transform calendar events from deadlines in the case details response
-        const events = transformDeadlinesToEvents(response.data);
-        setCalendarEvents(events);
-      }
-    } catch (error) {
-      console.error("Error fetching calendar data:", error);
-    } finally {
-      setCalendarLoading(false);
+    const { response } = await Get({
+      route: `case/detail/${slug}?${queryParams.toString()}`,
+      showAlert: false,
+    });
+    if (response) {
+      const events = transformDeadlinesToEvents(response.data);
+      setCalendarEvents(events);
     }
+    setCalendarLoading(false);
+  };
+
+  const fetchCaseDetails = async () => {
+    if (!slug) return;
+
+    setLoading(true);
+    const { response } = await Get({
+      route: `case/detail/${slug}`,
+      showAlert: false,
+    });
+
+    if (response?.status === "success" && response.data) {
+      setCaseDetails(response.data);
+    }
+    setLoading(false);
   };
 
   // Fetch case details
   useEffect(() => {
-    const fetchCaseDetails = async () => {
-      if (!slug) return;
-      
-      setLoading(true);
-      try {
-        const { response } = await Get({
-          route: `case/detail/${slug}`,
-          showAlert: false,
-        });
-
-        if (response?.status === "success" && response.data) {
-          setCaseDetails(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching case details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchCaseDetails();
   }, [slug]);
 
@@ -208,43 +195,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     };
   }, [isFilterOverlayOpen]);
 
-  const handleFilterIconClick = () => {
-    setIsFilterOverlayOpen(!isFilterOverlayOpen);
-  };
 
-  const handleFilterIconKeyDown = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleFilterIconClick();
-    }
-  };
-
-  const handleFilterOptionClick = (onClick) => {
-    onClick();
-    setIsFilterOverlayOpen(false);
-  };
-
-  const handleFilterOptionKeyDown = (e, onClick) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleFilterOptionClick(onClick);
-    }
-  };
-
-  const filterOptions = [
-    {
-      label: "All",
-      onClick: () => {
-        console.log("Filter: All");
-      }
-    },
-    {
-      label: "Latest",
-      onClick: () => {
-        console.log("Filter: Latest");
-      }
-    },
-  ];
 
   const handleUploadDocument = () => {
     setShowAssignDocumentModal(true);
@@ -253,7 +204,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   // Refetch case details after document assignment
   const refetchCaseDetails = async () => {
     if (!slug) return;
-    
+
     try {
       const { response } = await Get({
         route: `case/detail/${slug}`,
@@ -272,12 +223,12 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: '2-digit', 
-      day: '2-digit', 
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -285,7 +236,11 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const formatDeadlineDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "2-digit",
+    });
   };
 
   // Transform deadlines for CaseProgressCard
@@ -310,17 +265,26 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       referenceLink: "#",
       primaryStaff: caseDetails.primaryStaff?.fullName || "",
       secondaryStaff: caseDetails.secondaryStaff?.fullName || "",
-      jurisdiction: typeof caseDetails.jurisdiction === 'object' 
-        ? caseDetails.jurisdiction?.name || caseDetails.jurisdiction?.code || "" 
-        : caseDetails.jurisdiction || "",
+      jurisdiction:
+        typeof caseDetails.jurisdiction === "object"
+          ? caseDetails.jurisdiction?.name ||
+            caseDetails.jurisdiction?.code ||
+            ""
+          : caseDetails.jurisdiction || "",
       clientName: caseDetails.client?.fullName || "Unknown Client",
       deadlines: transformDeadlines(caseDetails.deadlines),
-      tasks: caseDetails.deadlines?.map(d => d.deadlineStatus).filter(Boolean) || [],
-      officeDeadline: caseDetails.deadlines?.[0]?.officeActionDeadline 
-        ? new Date(caseDetails.deadlines[0].officeActionDeadline).toISOString().split('T')[0]
+      tasks:
+        caseDetails.deadlines?.map((d) => d.deadlineStatus).filter(Boolean) ||
+        [],
+      officeDeadline: caseDetails.deadlines?.[0]?.officeActionDeadline
+        ? new Date(caseDetails.deadlines[0].officeActionDeadline)
+            .toISOString()
+            .split("T")[0]
         : "",
       internalDeadline: caseDetails.deadlines?.[0]?.deadline
-        ? new Date(caseDetails.deadlines[0].deadline).toISOString().split('T')[0]
+        ? new Date(caseDetails.deadlines[0].deadline)
+            .toISOString()
+            .split("T")[0]
         : "",
       reference: {
         referenceName: "Reference",
@@ -330,31 +294,32 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     };
   };
 
-  // Transform documents from API
-  const allDocuments = caseDetails?.caseDocuments?.map((doc) => ({
-    id: doc._id,
-    title: doc.fileName || "Document",
-    dateTime: formatDate(doc.createdAt),
-    visibilityText: doc.permissions?.includes("visible-to-client") ? "Visible to client" : null,
-  })) || [];
+  const allDocuments =
+    caseDetails?.caseDocuments?.map((doc) => ({
+      id: doc._id,
+      title: doc.fileName || "Document",
+      dateTime: formatDate(doc.createdAt),
+      visibilityText: doc.permissions?.includes("visible-to-client")
+        ? "Visible to client"
+        : null,
+    })) || [];
 
   // Filter documents based on search value
   const documents = documentSearchValue
     ? allDocuments.filter((doc) =>
-        doc.title.toLowerCase().includes(documentSearchValue.toLowerCase())
+        doc.title.toLowerCase().includes(documentSearchValue.toLowerCase()),
       )
     : allDocuments;
 
-
   // Transform activity logs from API
-  const activities = caseDetails?.activityLogs?.map((log) => ({
-    text: log.description || log.type,
-    date: formatDate(log.createdAt),
-  })) || [];
+  const activities =
+    caseDetails?.activityLogs?.map((log) => ({
+      text: log.description || log.type,
+      date: formatDate(log.createdAt),
+    })) || [];
 
   // Transform case notes from API
   const caseNotes = caseDetails?.caseNotes || [];
-
 
   // Handle new note creation - update local state
   const handleNoteCreated = (newNote) => {
@@ -362,7 +327,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     if (caseDetails) {
       setCaseDetails({
         ...caseDetails,
-        caseNotes: [newNote,...(caseDetails.caseNotes || [])]
+        caseNotes: [newNote, ...(caseDetails.caseNotes || [])],
       });
     }
   };
@@ -378,10 +343,10 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       case "notes":
         return (
           <div className={classes.notesContainer}>
-            <Notes 
-              showAddNoteModal={showAddNoteModal} 
+            <Notes
+              showAddNoteModal={showAddNoteModal}
               setShowAddNoteModal={setShowAddNoteModal}
-              searchValue={searchValue} 
+              searchValue={searchValue}
               setSearchValue={setSearchValue}
               caseNotes={caseNotes}
               slug={slug}
@@ -406,13 +371,13 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
-                <Button 
-                  label="Upload Document" 
-                  className={classes.uploadDocumentButton} 
+                <Button
+                  label="Upload Document"
+                  className={classes.uploadDocumentButton}
                   leftIcon={<MdAddCircle color="var(--white)" size={20} />}
                   onClick={handleUploadDocument}
                 />
-                <SearchInput 
+                <SearchInput
                   value={documentSearchValue}
                   setValue={setDocumentSearchValue}
                   placeholder="Search documents..."
@@ -451,22 +416,27 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             </div>
             <div className={classes.docListContainer}>
               <Row>
-              {documents.length > 0 ? documents.map((doc) => (
-               <Col md={6} lg={4} xl={3} key={doc.id}>
-                 <DocCard
-                    title={doc.title}
-                    dateTime={doc.dateTime}
-                    visibilityText={doc.visibilityText}
+                {documents.length > 0 ? (
+                  documents.map((doc) => (
+                    <Col md={6} lg={4} xl={3} key={doc.id}>
+                      <DocCard
+                        title={doc.title}
+                        dateTime={doc.dateTime}
+                        visibilityText={doc.visibilityText}
+                      />
+                    </Col>
+                  ))
+                ) : (
+                  <NoDataFound
+                    className={classes?.Nodocument}
+                    text={
+                      documentSearchValue
+                        ? "No documents found matching your search"
+                        : "No documents found"
+                    }
                   />
-               </Col>
-              ))
-              :
-              <NoDataFound 
-                className={classes?.Nodocument} 
-                text={documentSearchValue ? "No documents found matching your search" : "No documents found"} 
-              />
-            }
-            </Row>
+                )}
+              </Row>
             </div>
           </div>
         );
@@ -484,9 +454,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   }
 
   if (!caseDetails) {
-    return (
-    <NotFound message="Case not found" />
-    );
+    return <NotFound message="Case not found" />;
   }
 
   const caseData = transformCaseData();
@@ -511,28 +479,28 @@ const CaseManagementDetailTemplate = ({ slug }) => {
           <Row>
             <Col md={4}>
               {caseData && (
-                <CaseProgressCard
-                  data={caseData}
-                  isCaseDetailVariant
-                />
+                <CaseProgressCard data={caseData} isCaseDetailVariant />
               )}
             </Col>
             <Col md={8}>
               <Wrapper
                 headerComponent={
-                  <EvidenceTableTop
-                    title="Audit Tracking"
-                    placeholder="Select..."
-                    selectedValue={selectedValue}
-                    options={auditTrackingOptions}
-                    setSelectedValue={setSelectedValue}
-                  />
+                  // <EvidenceTableTop
+                  //   title="Audit Tracking"
+                  //   placeholder="Select..."
+                  //   selectedValue={selectedValue}
+                  //   options={auditTrackingOptions}
+                  //   setSelectedValue={setSelectedValue}
+                  // />
+                  <div className={classes.auditTrackingContainer}>
+                    <h4>Audit Tracking</h4>
+                  </div>
                 }
               >
                 {calendarLoading ? (
                   <LoadingSkeleton height="500px" />
                 ) : (
-                  <Calender 
+                  <Calender
                     events={calendarEvents}
                     view={currentView}
                     date={currentDate}

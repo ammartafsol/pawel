@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import moment from "moment";
 import { BiCalendar, BiFile, BiCheckCircle } from "react-icons/bi";
 import { MdOutlineDescription } from "react-icons/md";
-import Status from "@/components/atoms/Status/Status";
+import PhasePill from "@/components/atoms/PhasePill/PhasePill";
 import classes from "./CalendarEventDetailModal.module.css";
 
 const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/my-cases" }) => {
@@ -72,9 +72,10 @@ const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/m
                 <span>Status</span>
               </div>
               <div className={classes.detailValue}>
-                <Status 
-                  label={event.resource.deadlineStatus} 
-                  variant={event.resource.deadlineStatus}
+                <PhasePill
+                  label={event.resource.phaseName || event.resource.deadlineStatus}
+                  bgColor={event.resource.phaseBgColor}
+                  color={event.resource.phaseColor}
                 />
               </div>
             </div>

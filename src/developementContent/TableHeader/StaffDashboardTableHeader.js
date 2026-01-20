@@ -1,5 +1,6 @@
 import { RenderDateCell, RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
+import PhasePill from "@/components/atoms/PhasePill/PhasePill";
 
 export const staffDashboardTableHeader = [
   {
@@ -14,7 +15,28 @@ export const staffDashboardTableHeader = [
     title: "Type of Case",
     key: "type",
     style: { width: "15%" },
-    renderItem: ({ item }) => {
+    renderItem: ({ item, data }) => {
+      // Find matching phase based on status
+      const typeObject = data?.typeObject;
+      const status = data?.status;
+      
+      if (typeObject?.phases && status) {
+        const matchingPhase = typeObject.phases.find(
+          (phase) => phase.name === status
+        );
+        
+        if (matchingPhase) {
+          return (
+            <PhasePill
+              label={item}
+              bgColor={matchingPhase.bgColor}
+              color={matchingPhase.color}
+            />
+          );
+        }
+      }
+      
+      // Fallback to default text cell if no phase match found
       return <RenderTextCell cellValue={item} />;
     },
   },

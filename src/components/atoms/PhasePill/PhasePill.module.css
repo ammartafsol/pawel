@@ -1,0 +1,12 @@
+.phasePill {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+}
+
+

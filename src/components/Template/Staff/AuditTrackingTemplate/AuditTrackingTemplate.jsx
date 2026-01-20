@@ -128,28 +128,43 @@ const AuditTrackingTemplate = () => {
 
   // Transform audit tracking to calendar events
   const transformAuditTrackingToEvents = (auditTracking) => {
-    return auditTracking.flatMap((caseData) => {
-      const clientName = caseData.client?.fullName || "Unknown Client";
-      return (caseData.deadlines || []).map((deadline) => {
-        if (!deadline.deadline) return null;
+    return auditTracking
+      .flatMap((caseData) => {
+        const clientName = caseData.client?.fullName || "Unknown Client";
+        const typeObject = caseData.type || null;
 
-        const deadlineDate = new Date(deadline.deadline);
-        const start = new Date(deadlineDate).setHours(0, 0, 0, 0);
-        const end = new Date(deadlineDate).setHours(23, 59, 59, 999);
+        return (caseData.deadlines || []).map((deadline) => {
+          if (!deadline.deadline) return null;
 
-        return {
-          start: new Date(start),
-          end: new Date(end),
-          title: clientName,
-          resource: {
-            caseId: caseData._id,
-            slug: caseData.slug,
-            deadlineStatus: deadline.deadlineStatus,
-            deadline: deadline.deadline,
-          },
-        };
-      });
-    }).filter(Boolean);
+          const deadlineDate = new Date(deadline.deadline);
+          const start = new Date(deadlineDate).setHours(0, 0, 0, 0);
+          const end = new Date(deadlineDate).setHours(23, 59, 59, 999);
+
+          // Match the phase based on deadlineStatus
+          const matchingPhase =
+            typeObject?.phases?.find(
+              (phase) => phase.name === deadline.deadlineStatus
+            ) || null;
+
+          return {
+            start: new Date(start),
+            end: new Date(end),
+            title: clientName,
+            resource: {
+              caseId: caseData._id,
+              slug: caseData.slug,
+              deadlineStatus: deadline.deadlineStatus,
+              deadline: deadline.deadline,
+              typeName:
+                typeof typeObject === "object" ? typeObject?.name : null,
+              phaseName: deadline.deadlineStatus,
+              phaseBgColor: matchingPhase?.bgColor || null,
+              phaseColor: matchingPhase?.color || null,
+            },
+          };
+        });
+      })
+      .filter(Boolean);
   };
 
   // Fetch only recent activities
