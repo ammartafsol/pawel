@@ -16,6 +16,7 @@ import useAxios from "@/interceptor/axios-functions";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
 import { Skeleton } from "@mui/material";
 import UploadDocumentModal from "@/components/organisms/Modals/UploadDocumentModal/UploadDocumentModal";
+import config from "@/config";
 
 const DocumentManagementTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
@@ -95,12 +96,17 @@ const DocumentManagementTemplate = () => {
       const lastDeadline =
         deadlines.length > 0 ? deadlines[deadlines.length - 1] : {};
 
+// Try to resolve file key from common backend field names
+const fileKey = item.key
+const fileUrl = fileKey ? `${config.awsBaseUrl}/${fileKey}` : "";
+
       return {
         id: item._id,
         slug: item.slug,
         clientName: client.fullName || "Unknown Client",
         typeOfCase: caseData.status || "Unknown Type",
         documentName: item.fileName || "Document",
+        fileUrl,
         tradeMarkNo: caseData.trademarkNumber || "-",
         dateUploaded: item.createdAt || null,
         internalDeadline: lastDeadline.deadline || null,
