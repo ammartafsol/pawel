@@ -33,6 +33,7 @@ import { calculateProgress } from "@/resources/utils/caseHelper";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [documentSearchValue, setDocumentSearchValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
   const [showAddNoteModal, setShowAddNoteModal] = useState(false);
@@ -330,12 +331,19 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   };
 
   // Transform documents from API
-  const documents = caseDetails?.caseDocuments?.map((doc) => ({
+  const allDocuments = caseDetails?.caseDocuments?.map((doc) => ({
     id: doc._id,
     title: doc.fileName || "Document",
     dateTime: formatDate(doc.createdAt),
     visibilityText: doc.permissions?.includes("visible-to-client") ? "Visible to client" : null,
   })) || [];
+
+  // Filter documents based on search value
+  const documents = documentSearchValue
+    ? allDocuments.filter((doc) =>
+        doc.title.toLowerCase().includes(documentSearchValue.toLowerCase())
+      )
+    : allDocuments;
 
 
   // Transform activity logs from API
@@ -404,8 +412,13 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                   leftIcon={<MdAddCircle color="var(--white)" size={20} />}
                   onClick={handleUploadDocument}
                 />
-                <SearchInput />
-                <div className={classes.filterWrapper} ref={filterRef}>
+                <SearchInput 
+                  value={documentSearchValue}
+                  setValue={setDocumentSearchValue}
+                  placeholder="Search documents..."
+                />
+                {/* Filter icon commented out */}
+                {/* <div className={classes.filterWrapper} ref={filterRef}>
                   <div 
                     role="button"
                     tabIndex={0}
@@ -433,15 +446,14 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                       ))}
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={classes.docListContainer}>
               <Row>
               {documents.length > 0 ? documents.map((doc) => (
-               <Col md={6} lg={4} xl={3}>
+               <Col md={6} lg={4} xl={3} key={doc.id}>
                  <DocCard
-                    key={doc.id}
                     title={doc.title}
                     dateTime={doc.dateTime}
                     visibilityText={doc.visibilityText}
@@ -449,7 +461,10 @@ const CaseManagementDetailTemplate = ({ slug }) => {
                </Col>
               ))
               :
-              <NoDataFound className={classes?.Nodocument} text="No documents found" />
+              <NoDataFound 
+                className={classes?.Nodocument} 
+                text={documentSearchValue ? "No documents found matching your search" : "No documents found"} 
+              />
             }
             </Row>
             </div>

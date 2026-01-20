@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import Pagination from "@/components/molecules/Pagination/Pagination";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
+import { calculateProgress } from "@/resources/utils/caseHelper";
 
 const UserManagementDetailTemplate = ({ slug }) => {
   const router = useRouter();
@@ -103,15 +104,6 @@ const UserManagementDetailTemplate = ({ slug }) => {
     return <SpinnerLoading />;
   }
 
-  // Calculate progress based on deadlines
-  const calculateProgress = (deadlines = []) => {
-    if (!deadlines || deadlines.length === 0) return 0;
-    const now = new Date();
-    const completedDeadlines = deadlines.filter(
-      (d) => new Date(d.deadline) < now
-    ).length;
-    return Math.round((completedDeadlines / deadlines.length) * 100);
-  };
 
   // Transform case data for CaseProgressCard
   const transformCaseData = (caseData) => {
@@ -120,7 +112,7 @@ const UserManagementDetailTemplate = ({ slug }) => {
       slug: caseData.slug || caseData._id,
       tabLabel: caseData.status || "Case",
       userName: caseData.primaryStaff?.fullName || "Unassigned",
-      progress: calculateProgress(caseData.deadlines),
+      progress: calculateProgress(caseData),
       status: caseData.status || "Pending",
       trademarkName: caseData.trademarkName || "",
       trademarkNo: caseData.trademarkNumber || "",
@@ -129,9 +121,10 @@ const UserManagementDetailTemplate = ({ slug }) => {
     };
   };
 
-
   // Transform cases for display
   const transformedCases = cases?.map(transformCaseData) || [];
+
+  console.log("transformedCases",cases);
 
   return (
     <div className="p24">

@@ -86,7 +86,7 @@ const UserManagementTemplate = () => {
   const transformUserData = (item) => {
     const getStatusVariant = (status) => {
       if (status === 'active') return 'success';
-      if (status === 'inactive') return 'error';
+      if (status === 'inactive') return 'inactiveStatus';
       return 'warning';
     };
 
