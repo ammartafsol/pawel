@@ -12,7 +12,6 @@ const TableHeader = ({
   titleIcon,
   viewButtonText = "",
   onClickViewAll = () => {},
-  disabled = false,
   dropdownOptions = [],
   dropdownPlaceholder = "Select...",
   onDropdownChange = () => {},
@@ -26,7 +25,10 @@ const TableHeader = ({
   gridFilter,
   activeGridFilter,
   setActiveGridFilter,
-  gridFilterClassName
+  gridFilterClassName,
+  hideSearch = false,
+  hideFilter = false,
+  hideDropdown = false,
 }) => {
   const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
   const filterRef = useRef(null);
@@ -47,10 +49,10 @@ const TableHeader = ({
     };
   }, [isFilterOverlayOpen]);
 
-  const handleFilterIconClick = () => {
+  const handleFilterIconClick = (e) => {
     setIsFilterOverlayOpen(!isFilterOverlayOpen);
     if (onFilterClick) {
-      onFilterClick();
+      onFilterClick(e);
     }
   };
 
@@ -76,7 +78,7 @@ const TableHeader = ({
             setActiveGridFilter={setActiveGridFilter}
           />
         )}
-        {dropdownOptions.length > 0 && (
+        {!hideDropdown && dropdownOptions.length > 0 && (
           <div className={classes?.dropdownWrapper}>
             <DropDown 
               options={dropdownOptions}
@@ -94,12 +96,14 @@ const TableHeader = ({
             />
           </div>
         )}
-        <SearchInput 
-          placeholder={searchPlaceholder}
-          value={searchValue}
-          setValue={onSearchChange}
-        />
-        {(filterOptions.length > 0 || onFilterClick !== undefined) && (
+        {!hideSearch && (
+          <SearchInput 
+            placeholder={searchPlaceholder}
+            value={searchValue}
+            setValue={onSearchChange}
+          />
+        )}
+        {!hideFilter && (filterOptions.length > 0 || onFilterClick !== undefined) && (
           <div className={classes?.filterWrapper} ref={filterRef}>
             <div 
               className={`${classes?.filterIcon} ${isFilterOverlayOpen ? classes?.filterIconActive : ""}`} 
@@ -129,7 +133,6 @@ const TableHeader = ({
             leftIcon={<IoAddCircle size={20} color="var(--white)" />} 
             label={viewButtonText}
             variant="primary"
-            disabled={disabled}
           />
         )}
       </div>

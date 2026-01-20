@@ -10,7 +10,7 @@ import { newCasesData } from "@/developementContent/Data/data";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
 import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
-import { caseStatusFilters } from "@/developementContent/Enums/enum";
+// import { caseStatusFilters } from "@/developementContent/Enums/enum";
 import { useRouter } from "next/navigation";
 import CreateNewCaseModal from "@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
@@ -21,9 +21,9 @@ import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEven
 import { useSelector } from "react-redux";
 
 const DashboardTemplate = () => {
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState(
-    caseStatusFilters[0]
-  );
+  // const [selectedDropdownValue, setSelectedDropdownValue] = useState(
+  //   caseStatusFilters[0]
+  // );
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [calendarLoading, setCalendarLoading] = useState(false);
@@ -265,10 +265,12 @@ const DashboardTemplate = () => {
                   viewButtonText="View All"
                   onClickViewAll={() => router.push("/case-management")}
                   title="Recent Activities"
-                  dropdownOptions={caseStatusFilters}
-                  dropdownPlaceholder="Select Activity"
-                  selectedDropdownValue={selectedDropdownValue}
-                  setSelectedDropdownValue={setSelectedDropdownValue}
+                  hideDropdown={true}
+                  hideSearch={true}
+                  // dropdownOptions={caseStatusFilters}
+                  // dropdownPlaceholder="Select Activity"
+                  // selectedDropdownValue={selectedDropdownValue}
+                  // setSelectedDropdownValue={setSelectedDropdownValue}
                 />
               }
               className={classes.wrapper}

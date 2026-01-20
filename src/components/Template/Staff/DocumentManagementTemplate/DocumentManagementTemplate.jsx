@@ -10,6 +10,7 @@ import { Col, Row } from "react-bootstrap";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
 import DocCard from "@/components/atoms/DocCard/DocCard";
 import Pagination from "@/components/molecules/Pagination/Pagination";
+import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import { mergeClass } from "@/resources/utils/helper";
 import useDebounce from "@/resources/hooks/useDebounce";
 import useAxios from "@/interceptor/axios-functions";
@@ -250,32 +251,38 @@ const fileUrl = fileKey ? `${config.awsBaseUrl}/${fileKey}` : "";
               </Row>
             ) : (
               <>
-                <Row className={mergeClass("g-4", classes.docCardRow)}>
-                  {data?.map((item) => (
-                    <Col className="col-12 col-md-4" key={item.id}>
-                      <DocCard
-                        title={item.documentName}
-                        dateTime={item.dateUploaded}
-                        clientName={item.clientName}
-                        trademarkNo={item.tradeMarkNo}
-                        caseType={item.typeOfCase}
-                        isDetailedVariant={true}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-                {totalRecords > RECORDS_LIMIT && (
-                  <div className={classes.paginationWrapper}>
-                    <Pagination
-                      currentPage={page || 1}
-                      totalRecords={totalRecords}
-                      limit={RECORDS_LIMIT}
-                      onPageChange={(newPage) => {
-                        getDocumentData({ _status: status, _page: newPage });
-                      }}
-                      totalTextLabel="Documents"
-                    />
-                  </div>
+                {data?.length > 0 ? (
+                  <>
+                    <Row className={mergeClass("g-4", classes.docCardRow)}>
+                      {data?.map((item) => (
+                        <Col className="col-12 col-md-4" key={item.id}>
+                          <DocCard
+                            title={item.documentName}
+                            dateTime={item.dateUploaded}
+                            clientName={item.clientName}
+                            trademarkNo={item.tradeMarkNo}
+                            caseType={item.typeOfCase}
+                            isDetailedVariant={true}
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                    {totalRecords > RECORDS_LIMIT && (
+                      <div className={classes.paginationWrapper}>
+                        <Pagination
+                          currentPage={page || 1}
+                          totalRecords={totalRecords}
+                          limit={RECORDS_LIMIT}
+                          onPageChange={(newPage) => {
+                            getDocumentData({ _status: status, _page: newPage });
+                          }}
+                          totalTextLabel="Documents"
+                        />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <NoDataFound text="No documents found" />
                 )}
               </>
             )}
