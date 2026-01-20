@@ -10,18 +10,26 @@ import UploadImageBox from "@/components/molecules/UploadImageBox";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
 import RenderToast from "@/components/atoms/RenderToast";
 import { IoChevronBack } from "react-icons/io5";
+import useAxios from "@/interceptor/axios-functions";
+import { uploadMedia } from "@/resources/utils/mediaUpload";
+import { useDispatch } from "react-redux";
 import classes from "./ProfileSettingTemplate.module.css";
+import { updateUser } from "@/store/auth/authSlice";
 
 const ProfileSettingTemplate = () => {
   const router = useRouter();
   const [loading, setLoading] = useState("");
-const pathname = usePathname();
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+  const { Post, Patch } = useAxios();
 
 
   const initialValues = {
     photo: null,
     fullName: "",
     email: "",
+    phoneValue: "",
+    countryCode: "",
     phoneNumber: "",
   };
 
@@ -47,22 +55,62 @@ const pathname = usePathname();
       photo: null,
       fullName: "Admin User",
       email: "admin@admin.com",
-      phoneNumber: "+92 343 243432",
+      // react-phone-input-2 expects digits including dial code (no '+')
+      phoneValue: "92343243432",
+      countryCode: "+92",
+      phoneNumber: "343243432",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (values) => {
     setLoading("loading");
-    
-    // Simulate API delay
-    setTimeout(() => {
-      RenderToast({
-        message: "Profile updated successfully",
-        type: "success",
+      let photoKey = null;
+      
+      // Upload image first if a new photo is selected
+      if (values.photo && values.photo instanceof File) {
+        const uploadResponse = await uploadMedia({
+          files: [values.photo],
+          Post,
+          route: "media/upload",
+        });
+        
+        if (uploadResponse) {
+          // Extract key from response
+          if (uploadResponse.images && Array.isArray(uploadResponse.images) && uploadResponse.images.length > 0) {
+            photoKey = uploadResponse.images[0].key;
+          } else if (uploadResponse.photo && Array.isArray(uploadResponse.photo) && uploadResponse.photo.length > 0) {
+            photoKey = uploadResponse.photo[0].key;
+          }
+        }
+      }
+      
+      // Prepare update payload
+      const updatePayload = {
+        fullName: values.fullName,
+        countryCode: values.countryCode,
+        phoneNumber: values.phoneNumber,
+      };
+      
+      // Add photo key if image was uploaded
+      if (photoKey) {
+        updatePayload.photo = photoKey;
+      }
+      
+      // Update user profile
+      const { response } = await Patch({
+        route: "users/update/me",
+        data: updatePayload,
       });
+      
+      if (response) {
+        RenderToast({
+          message: "Profile updated successfully",
+          type: "success",
+        });
+        dispatch(updateUser(response?.data));
       setLoading("");
-    }, 1000);
+    } 
   };
 
   return (
@@ -130,8 +178,19 @@ const pathname = usePathname();
                 <div className={classes.formRow}>
                   <PhoneInput
                     label="Phone Number"
-                    value={profileFormik.values.phoneNumber || ""}
-                    setValue={(value) => profileFormik.setFieldValue("phoneNumber", value)}
+                    value={profileFormik.values.phoneValue || ""}
+                    setValue={(value, meta) => {
+                      const dialCode = meta?.dialCode ? String(meta.dialCode) : "";
+                      const raw = (value || "").toString().replaceAll(/\D/g, "");
+                      const national =
+                        dialCode && raw.startsWith(dialCode)
+                          ? raw.slice(dialCode.length)
+                          : raw;
+
+                      profileFormik.setFieldValue("phoneValue", raw);
+                      profileFormik.setFieldValue("countryCode", meta?.countryCode || "");
+                      profileFormik.setFieldValue("phoneNumber", national);
+                    }}
                     error={profileFormik.touched.phoneNumber && profileFormik.errors.phoneNumber}
                     className={classes.inputField}
                   />
@@ -142,7 +201,7 @@ const pathname = usePathname();
                     label="Update Password"
                     variant="outlined"
                     className={classes.updatePasswordButton}
-                    onClick={() => {pathname.includes('/staff') ? router.push("/staff/update-password") : router.push("/user/update-password")}}
+                    onClick={() => {router.push("/update-password")}}
                   />
                   <Button
                     label={loading === "loading" ? "Please wait..." : "Save Changes"}
