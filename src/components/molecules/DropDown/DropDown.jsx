@@ -60,7 +60,6 @@ const DropDown = ({
     if (rightIcon) {
       return null;
     }
-    console.log(state);
     return (
       <div className={classes.dropdownHandle}>
         <IoChevronDown

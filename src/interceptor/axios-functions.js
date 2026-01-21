@@ -22,7 +22,6 @@ const useAxios = () => {
     (state) => state.authReducer
   );
 
-  console.log("myaccessToken",accessToken);
 
   // Function to refresh the access token
   const refreshAccessToken = async () => {

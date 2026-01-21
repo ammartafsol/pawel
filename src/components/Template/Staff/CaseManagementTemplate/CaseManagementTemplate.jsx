@@ -79,7 +79,6 @@ const CaseManagementTemplate = () => {
     };
   };
 
-  console.log("transformCaseData",transformCaseData);
 
   const getData = async (_page) => {
     setLoading('loading');
