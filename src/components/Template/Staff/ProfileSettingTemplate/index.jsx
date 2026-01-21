@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import React, { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { isValidPhoneNumber } from "react-phone-number-input";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input/Input";
 import PhoneInput from "@/components/atoms/PhoneInput/PhoneInput";
@@ -12,7 +13,7 @@ import RenderToast from "@/components/atoms/RenderToast";
 import { IoChevronBack } from "react-icons/io5";
 import useAxios from "@/interceptor/axios-functions";
 import { uploadMedia } from "@/resources/utils/mediaUpload";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./ProfileSettingTemplate.module.css";
 import { updateUser } from "@/store/auth/authSlice";
 
@@ -20,48 +21,56 @@ const ProfileSettingTemplate = () => {
   const router = useRouter();
   const [loading, setLoading] = useState("");
   const dispatch = useDispatch();
-  const pathname = usePathname();
   const { Post, Patch } = useAxios();
+  const { user } = useSelector((state) => state.authReducer);
 
+  const initialValues = useMemo(() => {
+    const photo = user?.photo || user?.image || null;
+    const fullName = user?.fullName || user?.name || "";
+    const email = user?.email || "";
+    const callingCode = user?.callingCode || user?.countryCode || "";
+    const phoneNumber = user?.phoneNumber || "";
 
-  const initialValues = {
-    photo: null,
-    fullName: "",
-    email: "",
-    phoneValue: "",
-    countryCode: "",
-    phoneNumber: "",
-  };
+    return {
+      photo,
+      fullName,
+      email,
+      // react-phone-input-2 expects digits including dial code (no '+')
+      phoneValue:
+        callingCode && phoneNumber ? `${String(callingCode)}${String(phoneNumber)}` : "",
+      countryCode: callingCode ? String(callingCode) : "",
+      phoneNumber: phoneNumber ? String(phoneNumber) : "",
+    };
+  }, [user]);
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
     phoneNumber: Yup.string()
       .required("Phone number is required")
-      .min(10, "Phone number must be at least 10 digits")
-      .max(16, "Phone number must not exceed 16 digits"),
+      .test(
+        "is-valid-phone-number",
+        "Please enter a valid phone number",
+        (value, context) => {
+          const { countryCode } = context?.parent || {};
+          if (!countryCode || !value) return false;
+          try {
+            const fullNumber = `+${String(countryCode)}${String(value)}`;
+            return isValidPhoneNumber(fullNumber);
+          } catch {
+            return false;
+          }
+        }
+      ),
   });
 
   const profileFormik = useFormik({
     initialValues,
+    enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
       handleSubmit(values);
     },
   });
-
-  useEffect(() => {
-    // Set default values for demo
-    profileFormik.setValues({
-      photo: null,
-      fullName: "Admin User",
-      email: "admin@admin.com",
-      // react-phone-input-2 expects digits including dial code (no '+')
-      phoneValue: "92343243432",
-      countryCode: "+92",
-      phoneNumber: "343243432",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSubmit = async (values) => {
     setLoading("loading");
@@ -87,10 +96,11 @@ const ProfileSettingTemplate = () => {
       
       // Prepare update payload
       const updatePayload = {
-        fullName: values.fullName,
-        countryCode: values.countryCode,
-        phoneNumber: values.phoneNumber,
-      };
+      fullName: values.fullName,
+      // send numeric calling code (e.g. "92") for different countries
+      callingCode: values.countryCode,
+      phoneNumber: values.phoneNumber,
+    };
       
       // Add photo key if image was uploaded
       if (photoKey) {
@@ -179,19 +189,25 @@ const ProfileSettingTemplate = () => {
                   <PhoneInput
                     label="Phone Number"
                     value={profileFormik.values.phoneValue || ""}
-                    setValue={(value, meta) => {
-                      const dialCode = meta?.dialCode ? String(meta.dialCode) : "";
+                    setValue={(value, meta = {}) => {
+                      const dialCode = meta.dialCode ? String(meta.dialCode) : "";
                       const raw = (value || "").toString().replaceAll(/\D/g, "");
                       const national =
                         dialCode && raw.startsWith(dialCode)
                           ? raw.slice(dialCode.length)
                           : raw;
 
+                      // control value: full digits including calling code
                       profileFormik.setFieldValue("phoneValue", raw);
-                      profileFormik.setFieldValue("countryCode", meta?.countryCode || "");
+                      // store numeric calling code like "92"
+                      profileFormik.setFieldValue("countryCode", dialCode);
+                      // store national subscriber number
                       profileFormik.setFieldValue("phoneNumber", national);
                     }}
-                    error={profileFormik.touched.phoneNumber && profileFormik.errors.phoneNumber}
+                    error={
+                      profileFormik.touched.phoneNumber &&
+                      profileFormik.errors.phoneNumber
+                    }
                     className={classes.inputField}
                   />
                 </div>

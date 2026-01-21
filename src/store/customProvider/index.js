@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import store, { persistor } from "..";
-import { signOutRequest } from "../auth/authSlice";
+import { signOutRequest, updateUser } from "../auth/authSlice";
+import { setCount } from "../new_notification/newNotification";
+import { usePathname } from "next/navigation";
 
 export function CustomProvider({ children }) {
   useEffect(() => {
@@ -22,22 +24,23 @@ export function CustomProvider({ children }) {
 }
 
 export default function ApisProvider({ children }) {
-  let accessToken = useSelector((state) => state.authReducer.accessToken);
+  const accessToken = useSelector((state) => state.authReducer.accessToken);
   const dispatch = useDispatch();
   const { Get } = useAxios();
+  const pathname = usePathname();
 
-  const getCommonData = async () => {
+  const getUserDetails = async () => {
     const [{ response: userResponse }] = await Promise?.all([
       Get({ route: "users/me" }),
     ]);
     if (userResponse) {
-      dispatch(setExample(userResponse?.data?.data));
+      dispatch(updateUser(userResponse?.data));
     }
   };
 
   useEffect(() => {
     if (accessToken) {
-      console.log("Access Token:", accessToken);
+      getUserDetails();
     }
   }, [accessToken]);
 
@@ -49,6 +52,25 @@ export default function ApisProvider({ children }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchNotificationCount = async () => {
+    const { response } = await Get({
+      route: "notifications?seen=false",
+      showAlert: false,
+    });
+
+    if (response) {
+      const notifications =
+        response?.notifications || response?.data?.notifications || [];
+      dispatch(setCount(notifications.length));
+    }
+  };
+  // Fetch notification count whenever the path changes
+  useEffect(() => {
+ 
+
+    fetchNotificationCount();
+  }, [pathname, dispatch]);
 
   return children;
 }

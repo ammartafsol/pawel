@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import classes from "./CaseManagementTemplate.module.css"
 import Wrapper from '@/components/atoms/Wrapper/Wrapper';
 import TableHeader from '@/components/molecules/TableHeader/TableHeader';
-import { caseStatusFilters } from '@/developementContent/Enums/enum';
+// import { caseStatusFilters } from '@/developementContent/Enums/enum';
 import { FaRegFolderClosed } from "react-icons/fa6";
 import CaseProgressCard from '@/components/molecules/CaseProgressCard/CaseProgressCard';
 import { Col, Row } from "react-bootstrap";
@@ -21,7 +21,14 @@ const CaseManagementTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
   const [showUpdateDeadlineModal, setShowUpdateDeadlineModal] = useState(false);
   const [selectedCaseSlug, setSelectedCaseSlug] = useState(null);
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState(caseStatusFilters[0]);
+  // Case type filters fetched from API (case-type/all)
+  const [caseTypeFilters, setCaseTypeFilters] = useState([
+    { label: 'All', value: 'all' },
+  ]);
+  const [selectedDropdownValue, setSelectedDropdownValue] = useState({
+    label: 'All',
+    value: 'all',
+  });
   const {user} = useSelector((state) => state.authReducer);
   const [loading,setLoading] = useState('');
   const [page,setPage] = useState(1);
@@ -73,8 +80,9 @@ const CaseManagementTemplate = () => {
         page: (_page || page || 1).toString(),
         limit: RECORDS_LIMIT.toString(),
       });
+      // Append selected case type as ?type= when not "all"
       if (selectedDropdownValue?.value && selectedDropdownValue.value !== "all") {
-        queryParams.append("status", selectedDropdownValue.value);
+        queryParams.append("type", selectedDropdownValue.value);
       }
       const { response } = await Get({ 
         route: `case/all?${queryParams.toString()}`,
@@ -90,9 +98,37 @@ const CaseManagementTemplate = () => {
 
   };
 
+  // Fetch case types for dropdown filter
+  const fetchCaseTypes = async () => {
+      const { response } = await Get({
+        route: 'case-type/all',
+        showAlert: false,
+      });
+
+      const apiTypes = Array.isArray(response?.data) ? response.data : [];
+
+      const dynamicFilters = apiTypes.map((type) => ({
+        label: type.name || 'Unknown Type',
+        value: type.slug || type._id,
+      }));
+
+      const allOption = { label: 'All', value: 'all' };
+      setCaseTypeFilters([allOption, ...dynamicFilters]);
+
+      // Ensure selected value is a valid option
+      if (!selectedDropdownValue || selectedDropdownValue.value === undefined) {
+        setSelectedDropdownValue(allOption);
+      }
+    
+  };
+
   // Check user permissions
   const hasCreateCasePermission = user?.permissions?.includes('create-case') || false;
   const hasUpdateCasePermission = user?.permissions?.includes('update-case') || false;
+
+  useEffect(() => {
+    fetchCaseTypes();
+  }, []);
 
   useEffect(() => {
     getData(page);
@@ -109,7 +145,23 @@ const CaseManagementTemplate = () => {
 
   return (
     <div className='p24'>
-      <Wrapper   headerComponent={<TableHeader viewButtonText='Create new case' searchValue={search} onSearchChange={setSearch} onClickViewAll={() => setShowCreateNewCaseModal(true)} disabled={!hasCreateCasePermission} dropdownOptions={caseStatusFilters}  selectedDropdownValue={selectedDropdownValue} setSelectedDropdownValue={setSelectedDropdownValue} title="Case Management" titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />} />}>
+      <Wrapper
+        headerComponent={
+          <TableHeader
+            viewButtonText='Create new case'
+            searchValue={search}
+            onSearchChange={setSearch}
+            onClickViewAll={() => setShowCreateNewCaseModal(true)}
+            disabled={!hasCreateCasePermission}
+            // Use dynamic case types as dropdown options
+            dropdownOptions={caseTypeFilters}
+            selectedDropdownValue={selectedDropdownValue}
+            setSelectedDropdownValue={setSelectedDropdownValue}
+            title="Case Management"
+            titleIcon={<FaRegFolderClosed color='#D9D9D9' size={20} />}
+          />
+        }
+      >
       <div className={classes.caseManagementCards}>
          {
           data?.length> 0 ?(

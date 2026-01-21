@@ -57,14 +57,14 @@ const UploadImageBox = ({
                   alt=""
                   className={imgClass ? imgClass : ""}
                 />
-                {/* Edit (pencil) Icon Overlay */}
-                {/* <div
+                {/* Edit (pencil) Icon Overlay when image already uploaded */}
+                <div
                   className={classes.editOverlayIcon}
                   onClick={() => inputRef.current.click()}
                   title="Change photo"
                 >
                   <MdModeEdit />
-                </div> */}
+                </div>
                 <div className={classes.editAndDelete}>
                   {edit && (
                     <>

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import PhoneNumberInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+import PhoneInputLib from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import classes from "./PhoneInput.module.css"; // Use Input styles
 import { mergeClass } from "@/resources/utils/helper";
 
@@ -9,8 +9,8 @@ import { mergeClass } from "@/resources/utils/helper";
  * PhoneInput component for phone number input.
  *
  * @param {Object} props
- * @param {string} [props.defaultCountry="PK"] - Default country code for phone input.
- * @param {string} [props.country] - Country code for phone input.
+ * @param {string} [props.defaultCountry="pk"] - Default country code for phone input (ISO2).
+ * @param {string} [props.country] - Country code for phone input (ISO2).
  * @param {string} [props.label=""] - Main label for the input.
  * @param {string} [props.label2=""] - Sub label for the input.
  * @param {string} [props.value=""] - Input value.
@@ -33,7 +33,7 @@ import { mergeClass } from "@/resources/utils/helper";
  * @returns {JSX.Element}
  */
 export default function PhoneInput({
-  defaultCountry = "PK",
+  defaultCountry = "pk",
   country,
   label,
   label2,
@@ -75,29 +75,33 @@ export default function PhoneInput({
         style={customStyle}
       >
         {leftIcon && <div className={classes.leftIconBox}>{leftIcon}</div>}
-        <PhoneNumberInput
-          countryCallingCodeEditable={false}
-          international={true}
-          defaultCountry={defaultCountry}
+        <PhoneInputLib
+          country={(country || defaultCountry)?.toLowerCase()}
           value={value}
-          onChange={(value) => {
-            setValue(value || "");
-          }}
+          enableSearch
+          countryCodeEditable={false}
           disabled={disabled}
           placeholder={placeholder}
-          id={`input${label}`}
-          className={mergeClass(
+          onChange={(val, data) => {
+            // pass both value and metadata (dialCode, countryCode, etc.)
+            setValue(val || "", data);
+          }}
+          inputProps={{
+            id: `input${label}`,
+            onKeyDown: (e) => {
+              ["Enter", "NumpadEnter"].includes(e.code) &&
+                onEnterClick &&
+                onEnterClick();
+            },
+            ref: inputRef,
+          }}
+          containerClass={mergeClass(
             inputClass,
             classes.inputClassName,
             noBorder ? classes.noBorder : ""
           )}
-          style={{ ...inputStyle, ...(leftIcon && { paddingLeft: 50 }) }}
-          onKeyDownCapture={(e) => {
-            ["Enter", "NumpadEnter"].includes(e.code) &&
-              onEnterClick &&
-              onEnterClick();
-          }}
-          ref={inputRef}
+          inputClass=""
+          buttonClass=""
           {...props}
         />
         {rightIcon && <div className={classes.rightIconBox}>{rightIcon}</div>}

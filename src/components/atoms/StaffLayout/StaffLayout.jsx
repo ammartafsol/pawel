@@ -6,13 +6,16 @@ import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
 import { clearAllCookies } from "@/resources/utils/cookie";
 
 const StaffLayout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const notificationCount = useSelector(
+    (state) => state.newNotificationReducer.count
+  );
   const [isProfileOverlayOpen, setIsProfileOverlayOpen] = useState(false);
   const profileRef = useRef(null);
 
@@ -48,6 +51,8 @@ const StaffLayout = ({ children }) => {
     setIsProfileOverlayOpen(false);
   };
 
+  
+
   return (
     <div className={classes?.staffLayout}>
       <Sidebar />
@@ -55,8 +60,16 @@ const StaffLayout = ({ children }) => {
         {/*  right side header */}
         <div className={classes?.rightSideHeader}>
           <div className={classes?.mainIcon}>
-            <div onClick={() => router.push("/staff/notifications")} className={classes?.icon}>
+            <div
+              onClick={() => router.push("/staff/notifications")}
+              className={classes?.icon}
+            >
               <MdNotifications size={22} color="var(--white)" />
+              {notificationCount > 0 && (
+                <span className={classes?.notificationBadge}>
+                  {notificationCount}
+                </span>
+              )}
             </div>
             <div className={classes?.profileIconWrapper} ref={profileRef}>
               <div

@@ -11,7 +11,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
 import { clearAllCookies } from "@/resources/utils/cookie";
 
@@ -21,6 +21,9 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
+  const notificationCount = useSelector(
+    (state) => state.newNotificationReducer.count
+  );
   const [searchInput, setSearchInput] = useState("");
   const profileRef = useRef(null);
   const overlayRef = useRef(null);
@@ -101,6 +104,11 @@ const Header = () => {
                 onClick={() => router.push("/user/notifications")}
               >
                 <MdNotifications size={22} color="var(--white)" />
+                {notificationCount > 0 && (
+                  <span className={styles?.notificationBadge}>
+                    {notificationCount}
+                  </span>
+                )}
               </div>
               <div className={styles?.profileIconWrapper} ref={profileRef}>
                 <div

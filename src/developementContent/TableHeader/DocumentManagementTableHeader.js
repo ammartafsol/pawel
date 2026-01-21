@@ -1,3 +1,5 @@
+import { RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+
 export const documentManagementTableHeader = [
   {
     title: "Client Name",

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/globals.css";
 import "./styles/typography.css";
+import { SocketProvider } from "@/context/SocketContext";
 
 
 const helveticaNeue = localFont({
@@ -106,9 +107,9 @@ export default function RootLayout({ children }) {
       <body className={`${helveticaNeue.variable}`} suppressHydrationWarning>
         <ToastContainer />
         <CustomProvider>
-          {/* <SocketProvider> */}
+          <SocketProvider>
           {children}
-          {/* </SocketProvider> */}
+          </SocketProvider>
         </CustomProvider>
       </body>
     </html>

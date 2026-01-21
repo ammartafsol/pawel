@@ -5,7 +5,7 @@ const config = {
   // apiBaseUrl: "https://wb6bv6gg-3029.inc1.devtunnels.ms",
   // apiBaseUrl: "https://sskw3ghk-3029.inc1.devtunnels.ms",
   apiBaseUrl: "https://pawel-backend-dd2-51774555c09f.herokuapp.com",
-  awsBaseUrl: "",
+  awsBaseUrl: "https://astrid-tafsol-bucket.s3.us-east-2.amazonaws.com",
   siteKey: "",
 };
 
