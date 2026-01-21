@@ -20,7 +20,7 @@ const labelVariantMap = {
   'pending': 'secondary',
 }
 
-export default function Status({ label, variant, className, onClick, isPending = false }) {
+export default function Status({ label, variant, className, onClick, isPending = false, style }) {
   const [isHovered, setIsHovered] = useState(false)
   // Auto-detect variant from label if not provided
   const detectedVariant = variant || labelVariantMap[label?.toLowerCase()] || 'primary'
@@ -31,6 +31,7 @@ export default function Status({ label, variant, className, onClick, isPending =
   return (
     <div 
       className={`${classes.status} ${className} ${classes[detectedVariant]} ${isClickable ? classes.clickable : ''}`}
+      style={style}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={isClickable ? onClick : undefined}

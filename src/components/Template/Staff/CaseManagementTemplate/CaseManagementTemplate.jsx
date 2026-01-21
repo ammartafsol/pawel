@@ -57,6 +57,12 @@ const CaseManagementTemplate = () => {
 
   // Transform API data to card format
   const transformCaseData = (caseData) => {
+    // Find the phase that matches the case status
+    const currentStatus = caseData.status || "";
+    const matchingPhase = caseData.type?.phases?.find(
+      (phase) => phase.name === currentStatus
+    );
+
     return {
       id: caseData._id,
       slug: caseData.slug || caseData._id,
@@ -64,6 +70,8 @@ const CaseManagementTemplate = () => {
       userName: caseData.primaryStaff?.fullName || "Unassigned",
       progress: calculateProgress(caseData),
       status: caseData.status || "Pending",
+      phaseBgColor: matchingPhase?.bgColor || null,
+      phaseColor: matchingPhase?.color || null,
       trademarkName: caseData.trademarkName || "",
       trademarkNo: caseData.trademarkNumber || "",
       deadline: getNextDeadline(caseData.deadlines),
@@ -178,6 +186,8 @@ const CaseManagementTemplate = () => {
                    userName: item.userName,
                    progress: item.progress,
                    status: item.status,
+                   phaseBgColor: item.phaseBgColor,
+                   phaseColor: item.phaseColor,
                    trademarkName: item.trademarkName,
                    trademarkNo: item.trademarkNo,
                    deadline: item.deadline,

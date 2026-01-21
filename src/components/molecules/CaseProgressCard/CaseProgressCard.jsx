@@ -33,6 +33,8 @@ export default function CaseProgressCard({
     userName: "",
     progress: 0,
     status: "",
+    phaseBgColor: null,
+    phaseColor: null,
     trademarkName: "",
     trademarkNo: "",
     referenceLink: "",
@@ -42,19 +44,17 @@ export default function CaseProgressCard({
     deadline: "",
     officeDeadline: "",
     internalDeadline: "",
-    
+
     clientName: "",
     deadlines: [],
-    tasks: [], 
-    reference:{
-      referenceName:"",
-      link:"",
-      refrenece:[],
-    }
+    tasks: [],
+    reference: {
+      referenceName: "",
+      link: "",
+      refrenece: [],
+    },
   },
 }) {
-
-
   const router = useRouter();
   return (
     <div
@@ -64,7 +64,7 @@ export default function CaseProgressCard({
       }}
     >
       {/* Tab Section - Outside the card */}
-      {(!isStatusVariant && !isCaseDetailVariant) && (
+      {!isStatusVariant && !isCaseDetailVariant && (
         <div className={classes.activeTab}>{data.tabLabel}</div>
       )}
 
@@ -72,7 +72,9 @@ export default function CaseProgressCard({
       <div
         className={mergeClass(
           classes.card,
-          (isStatusVariant || isCaseDetailVariant) ? classes.isStatusVariantClass : ""
+          isStatusVariant || isCaseDetailVariant
+            ? classes.isStatusVariantClass
+            : ""
         )}
       >
         {/* Edit Button */}
@@ -115,7 +117,7 @@ export default function CaseProgressCard({
             <div className={classes.userRowAssigned}>
               <div className={classes.staffInfo}>
                 <div className={classes.statusVariantLabel}>
-                  <p>{data.tabLabel}</p>
+                  <p>{data?.tabLabel}</p>
                 </div>
                 <div className={classes.userInfo}>
                   <PiUserCircleFill className={classes.userIcon} />
@@ -133,7 +135,9 @@ export default function CaseProgressCard({
                 </div>
                 <div className={classes.keyValueDiv}>
                   <span className={classes.keyLabel}>PRIMARY:</span>
-                  <p className={classes.staffName}>{data?.primaryStaff || "Unassigned"}</p>
+                  <p className={classes.staffName}>
+                    {data?.primaryStaff || "Unassigned"}
+                  </p>
                 </div>
                 {data?.secondaryStaff && (
                   <div className={classes.keyValueDiv}>
@@ -154,31 +158,35 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {
-            isCaseDetailVariant && (
-              <div className={classes.editDivider}>
-                  <FiEdit className={classes.editIcon} size={18}/>
-              </div>
-            )
-          }
+          {isCaseDetailVariant && (
+            <div className={classes.editDivider}>
+              <FiEdit className={classes.editIcon} size={18} />
+            </div>
+          )}
 
           {/* Status Row */}
-        {!isCaseDetailVariant &&  <div className={classes.statusRow}>
-            <MdOutlineChecklistRtl className={classes.statusIcon} />
-            {isStatusVariant ? (
-              <Status label={data.status} />
-            ) : (
-              <StatusChip>{data.status}</StatusChip>
-            )}
-          </div>}
-
+          {!isCaseDetailVariant && (
+            <div className={classes.statusRow}>
+              <MdOutlineChecklistRtl className={classes.statusIcon} />
+              <Status
+                label={data.status}
+                style={{
+                  backgroundColor: data.phaseBgColor,
+                  color: data.phaseColor,
+                  borderColor: data.phaseBgColor,
+                }}
+              />
+            </div>
+          )}
           {/* Trademark Name */}
           <div className={classes.infoRow}>
             <BsPatchCheck className={classes.infoIcon} />
             <span className={classes.infoLabel}>
               Trademark Name -{" "}
               <strong
-                className={isStatusVariant ? classes.statusVariantUnderlined : ""}
+                className={
+                  isStatusVariant ? classes.statusVariantUnderlined : ""
+                }
               >
                 {data.trademarkName}
               </strong>
@@ -191,7 +199,9 @@ export default function CaseProgressCard({
             <span className={classes.infoLabel}>
               Trademark No. -{" "}
               <strong
-                className={isStatusVariant ? classes.statusVariantUnderlined : ""}
+                className={
+                  isStatusVariant ? classes.statusVariantUnderlined : ""
+                }
               >
                 {data.trademarkNo}
               </strong>
@@ -199,14 +209,19 @@ export default function CaseProgressCard({
           </div>
 
           {/* Office Deadline - Show in grid view and case detail */}
-          {!isStatusVariant && !isAssignedStaffVariant && data.officeDeadline && (
-            <div className={classes.infoRow}>
-              <BiCalendar className={classes.infoIcon} />
-              <span className={classes.infoLabel}>
-                Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
-              </span>
-            </div>
-          )}
+          {!isStatusVariant &&
+            !isAssignedStaffVariant &&
+            data.officeDeadline && (
+              <div className={classes.infoRow}>
+                <BiCalendar className={classes.infoIcon} />
+                <span className={classes.infoLabel}>
+                  Office Deadline -{" "}
+                  <strong>
+                    <RenderDateCell cellValue={data.officeDeadline} />
+                  </strong>
+                </span>
+              </div>
+            )}
 
           {/* Jurisdiction */}
           {(isAssignedStaffVariant || isCaseDetailVariant) && (
@@ -245,7 +260,10 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Internal Deadline - <strong><RenderDateCell cellValue={data.internalDeadline} /></strong>
+                    Internal Deadline -{" "}
+                    <strong>
+                      <RenderDateCell cellValue={data.internalDeadline} />
+                    </strong>
                   </span>
                 </div>
               )}
@@ -256,7 +274,10 @@ export default function CaseProgressCard({
                 <div className={classes.infoRow}>
                   <BiCalendar className={classes.infoIcon} />
                   <span className={classes.infoLabel}>
-                    Office Deadline - <strong><RenderDateCell cellValue={data.officeDeadline} /></strong>
+                    Office Deadline -{" "}
+                    <strong>
+                      <RenderDateCell cellValue={data.officeDeadline} />
+                    </strong>
                   </span>
                 </div>
               )}
@@ -266,7 +287,9 @@ export default function CaseProgressCard({
           {/* Tasks */}
           {isCaseDetailVariant && (
             <div className={classes.infoRowDetailed}>
-              <MdChecklistRtl className={mergeClass(classes.infoIcon, "mt-1")} />
+              <MdChecklistRtl
+                className={mergeClass(classes.infoIcon, "mt-1")}
+              />
               <div className={classes.detailsDiv}>
                 <span className={classes.infoLabel}>Tasks</span>
                 {(Array.isArray(data.tasks) && data.tasks.length > 0
@@ -275,7 +298,10 @@ export default function CaseProgressCard({
                 ).map((task, idx) => (
                   <span
                     key={idx}
-                    className={mergeClass(classes.infoLabel, classes.infoLabelDetail)}
+                    className={mergeClass(
+                      classes.infoLabel,
+                      classes.infoLabelDetail
+                    )}
                   >
                     {typeof task === "string"
                       ? task
@@ -288,7 +314,7 @@ export default function CaseProgressCard({
             </div>
           )}
 
-                    {/* Reference Link */}
+          {/* Reference Link */}
           {!isStatusVariant && (
             <div className={classes.infoRow}>
               <RiKeyFill className={classes.infoIcon} />
@@ -298,29 +324,24 @@ export default function CaseProgressCard({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {data.referenceName || data?.reference?.referenceName || "Reference"}
+                {data.referenceName ||
+                  data?.reference?.referenceName ||
+                  "Reference"}
                 <LuExternalLink className={classes.externalIcon} />
               </a>
             </div>
           )}
 
-          {
-            data?.reference?.refrenece?.length > 0 && (
-              <div className={classes.infoRowDetailed}>
-                <span className={classes.infoLabel}>Reference</span>
-                {data.reference.refrenece.map((item, index) => (
-                  <div key={index} className={mergeClass(classes)}>
-                    {item.label}
-                  </div>
-                ))}
-              </div>
-            )
-          }
-
-          
-
-
-
+          {data?.reference?.refrenece?.length > 0 && (
+            <div className={classes.infoRowDetailed}>
+              <span className={classes.infoLabel}>Reference</span>
+              {data.reference.refrenece.map((item, index) => (
+                <div key={index} className={mergeClass(classes)}>
+                  {item.label}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
