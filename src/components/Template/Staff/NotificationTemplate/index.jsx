@@ -50,17 +50,23 @@ const NotificationTemplate = () => {
 
   /* ------------------ API ------------------ */
   const fetchNotifications = useCallback(
-    async (status, pageNo) => {
+    async (filterValue, pageNo) => {
       setLoading('loading');
 
-      const queryString = new URLSearchParams({
-        status,
+      const params = new URLSearchParams({
         limit: String(RECORDS_LIMIT),
         page: String(pageNo),
-      }).toString();
+      });
+
+      // Only add seen parameter if filter is not "all"
+      if (filterValue === 'read') {
+        params.append('seen', 'true');
+      } else if (filterValue === 'unread') {
+        params.append('seen', 'false');
+      }
 
       const { response } = await Get({
-        route: `notifications?${queryString}`,
+        route: `notifications?${params.toString()}`,
         showAlert: false,
       });
 
@@ -207,56 +213,66 @@ const NotificationTemplate = () => {
         </div>
 
         <div className={classes.notificationList}>
-          {
-           notifications.length ? (
-            notifications.map((notification) => (
-              <div
-                key={notification._id}
-                className={`${classes.notificationItem} ${
-                  !notification?.seen ? classes.unread : ""
-                }`}
-              >
-                <div className={classes.iconWrapper}>
-                  {getIcon(notification.type)}
-                </div>
-
-                <div className={classes.contentWrapper}>
-                  <div className={classes.header}>
-                    <h3>{notification.title}</h3>
-                    <p>{moment(notification.createdAt).fromNow()}</p>
+          {notifications.length ? (
+            <>
+              {notifications.map((notification) => (
+                <div
+                  key={notification._id}
+                  className={`${classes.notificationItem} ${
+                    notification?.seen ? "" : classes.unread
+                  }`}
+                >
+                  <div
+                    className={`${classes.iconWrapper} ${
+                      notification.type ? classes[notification.type] : ""
+                    }`}
+                  >
+                    {getIcon(notification.type)}
                   </div>
 
-                  <p>{notification.message}</p>
+                  <div className={classes.contentWrapper}>
+                    <div className={classes.header}>
+                      <h3 className={classes.title}>{notification.title}</h3>
+                      <p className={classes.time}>
+                        {moment(notification.createdAt).fromNow()}
+                      </p>
+                    </div>
 
-                  {!notification?.seen && (
-                    <Button
-                      label={
-                        markingId === notification._id
-                          ? "Marking..."
-                          : "Mark as read"
-                      }
-                      variant="light"
-                      onClick={(e) =>
-                        handleMarkAsRead(notification._id, e)
-                      }
-                      disabled={markingId === notification._id}
-                    />
-                  )}
+                    <p className={classes.message}>{notification.message}</p>
+
+                    {notification?.seen ? null : (
+                      <Button
+                        label={
+                          markingId === notification._id
+                            ? "Marking..."
+                            : "Mark as read"
+                        }
+                        variant="light"
+                        className={classes.markAsReadBtn}
+                        onClick={(e) =>
+                          handleMarkAsRead(notification._id, e)
+                        }
+                        disabled={markingId === notification._id}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+
+              {totalRecords > RECORDS_LIMIT && (
+                <div className={classes.paginationParent}>
+                  <Pagination
+                    totalRecords={totalRecords}
+                    currentPage={page}
+                    limit={RECORDS_LIMIT}
+                    onPageChange={setPage}
+                    showResultsText={false}
+                  />
+                </div>
+              )}
+            </>
           ) : (
             <NoDataFound text="No notifications found" />
-          )}
-
-          {totalRecords > RECORDS_LIMIT && (
-            <Pagination
-              totalRecords={totalRecords}
-              currentPage={page}
-              limit={RECORDS_LIMIT}
-              onPageChange={setPage}
-              showResultsText={false}
-            />
           )}
         </div>
       </Wrapper>

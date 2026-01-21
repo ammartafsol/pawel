@@ -44,6 +44,7 @@ const LoginTemplate = () => {
       response?.data?.user?.role === "staff" ? router.push("/staff") : router.push("/user");
       return;
     }
+    setLoading("");
   };
   return (
     <AuthWrapper

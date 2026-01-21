@@ -18,7 +18,6 @@ export const SocketProvider = ({ children }) => {
 
   const { accessToken, user } = useSelector((state) => state?.authReducer);
 
-  console.log("socketId",socket)
 
   useEffect(() => {
     if (accessToken) {
