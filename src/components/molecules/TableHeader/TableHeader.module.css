@@ -49,6 +49,8 @@ margin-bottom: 4px !important;
     gap: 8px;
 }
 
+
+
 .dropdownWrapper {
     width: auto;
     min-width: 150px;
@@ -134,6 +136,16 @@ margin-bottom: 4px !important;
     color: var(--sky-glow);
 }
 
+.searchInputContainer {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+
+.tableHeaderButtons :global(.inputClass) {
+    width: 100% !important;
+}
+
 /* Responsive styles */
 @media (max-width: 1200px) {
     .tableHeaderParent {
@@ -147,15 +159,19 @@ margin-bottom: 4px !important;
     
     .dropdownWrapper {
         min-width: 140px;
+        flex: 0 0 auto;
     }
     
     .dropdown {
         width: 140px;
     }
     
-    /* Make search input responsive on smaller desktop */
-    .tableHeaderButtons :global(.inputClass) {
-        width: 250px !important;
+    .viewAllBtn {
+        flex-shrink: 0;
+    }
+    
+    .searchInputContainer {
+        max-width: 300px;
     }
 }
 
@@ -170,6 +186,10 @@ margin-bottom: 4px !important;
         width: 100%;
     }
     
+    .tableHeaderDrop h4 {
+        font-size: 17px;
+    }
+    
     .tableHeaderButtons {
         width: 100%;
         justify-content: flex-start;
@@ -178,6 +198,7 @@ margin-bottom: 4px !important;
     
     .dropdownWrapper {
         min-width: 130px;
+        flex: 0 0 auto;
     }
     
     .dropdown {
@@ -187,7 +208,16 @@ margin-bottom: 4px !important;
     .viewAllBtn {
         height: 38px !important;
         font-size: 13px !important;
+        flex-shrink: 0;
     }
+    
+    /* Make search input take available space */
+    .tableHeaderButtons > :global(div:not(:first-child)) {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: 100%;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -197,11 +227,16 @@ margin-bottom: 4px !important;
     }
     
     .tableHeaderButtons {
-        gap: 6px;
+        gap: 8px;
+        width: 100%;
     }
     
     .tableHeaderDrop {
         gap: 8px;
+    }
+    
+    .tableHeaderDrop h4 {
+        font-size: 17px;
     }
     
     .titleIcon {
@@ -210,6 +245,7 @@ margin-bottom: 4px !important;
     
     .dropdownWrapper {
         min-width: 120px;
+        flex: 0 0 auto;
     }
     
     .dropdown {
@@ -225,10 +261,12 @@ margin-bottom: 4px !important;
         height: 36px !important;
         font-size: 12px !important;
         padding: 8px 12px !important;
+        flex-shrink: 0;
     }
     
     .filterIcon {
         padding: 6px;
+        flex-shrink: 0;
     }
     
     .filterIcon svg {
@@ -246,9 +284,7 @@ margin-bottom: 4px !important;
         font-size: 13px;
     }
     
-    /* Make search input responsive on tablet */
     .tableHeaderButtons :global(.inputClass) {
-        width: 200px !important;
         height: 36px !important;
     }
 }
@@ -260,12 +296,17 @@ margin-bottom: 4px !important;
     }
     
     .tableHeaderButtons {
-        gap: 4px;
+        gap: 8px;
         flex-wrap: wrap;
+        width: 100%;
     }
     
     .tableHeaderDrop {
         gap: 6px;
+    }
+    
+    .tableHeaderDrop h4 {
+        font-size: 16px;
     }
     
     .titleIcon {
@@ -275,7 +316,6 @@ margin-bottom: 4px !important;
     .dropdownWrapper {
         min-width: 100px;
         flex: 1;
-        min-width: 100px;
     }
     
     .dropdown {
@@ -318,11 +358,7 @@ margin-bottom: 4px !important;
         font-size: 12px;
     }
     
-    /* Make search input responsive on mobile */
     .tableHeaderButtons :global(.inputClass) {
-        width: 100% !important;
-        min-width: 120px !important;
-        max-width: 200px !important;
         height: 34px !important;
     }
 }
@@ -331,13 +367,11 @@ margin-bottom: 4px !important;
     .tableHeaderButtons {
         flex-direction: column;
         width: 100%;
+        gap: 8px;
     }
     
-    /* Make search input full width */
-    .tableHeaderButtons :global(.inputClass) {
+    .searchInputContainer {
         width: 100% !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
     }
     
     /* Make dropdown full width */
@@ -360,12 +394,15 @@ margin-bottom: 4px !important;
     .tableHeaderButtons :global(.gridFilter) {
         width: 100%;
     }
-
-    .searchInput{
-        width: 100% !important;
+    
+    /* Make filter icon full width */
+    .filterWrapper {
+        width: 100%;
     }
-    .searchInputContainer{
-        width: 100% !important;
+    
+    .filterIcon {
+        width: 100%;
+        justify-content: center;
     }
 }
 

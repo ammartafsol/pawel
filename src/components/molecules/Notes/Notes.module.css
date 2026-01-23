@@ -11,33 +11,43 @@
     padding: 16px;
 }
 .addNoteButton{
-    height: 37px;
+    height: 40px !important;
+    flex-shrink: 0;
 }
 .inputClass{
     height: 40px !important;
-    width: 250px !important;
+    width: 100% !important;
 }
 .notesHeaderRight{
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 }
 
-.notesHeader h4{
-    color: var(--charcoal-gray);
-font-size: 14px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-margin-bottom: 0px !important;
+/* Make SearchInput wrapper take full width */
+.notesHeaderRight > :global(div:not(:first-child)) {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+.notesHeader h4,
+.notesHeader h5 {
+    color: var(--charcoal-night, #414149);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0px;
 }
 
 .notesHeader{
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-
+    padding: 6px 16px;
+    flex-wrap: wrap;
 }
 
 .notesContainer{
@@ -73,3 +83,50 @@ margin-bottom: 0px !important;
 .notesFooter p{
     margin-bottom: 0px !important;
 }
+
+
+@media (max-width: 992px) {
+  
+    
+    .notesHeader h4,
+    .notesHeader h5 {
+        font-size: 15px;
+        margin-bottom: 10px !important;
+    }
+    
+    .notesHeaderRight {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+    
+    .addNoteButton {
+        width: 100%;
+        height: 38px !important;
+    }
+    
+    .notesHeaderRight :global(.inputClass) {
+        width: 100% !important;
+    }
+}
+
+
+@media (max-width: 1328px) {
+    .notesHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 0px;
+    }
+    
+    .notesHeader h4,
+    .notesHeader h5 {
+        margin-bottom: 8px !important;
+    }
+    
+    .notesHeaderRight {
+        width: 100%;
+        gap: 10px;
+    }
+}
+

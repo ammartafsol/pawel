@@ -36,6 +36,7 @@
 .activityLogContainer {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .headingDiv,
@@ -50,6 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .headingDiv h5,
@@ -139,7 +141,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
+
+
 
 .activityListContainer {
   display: flex;
@@ -167,4 +172,135 @@
 
 .auditTrackingContainer{
   padding: 15px;
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 1328px) {
+  .headingDivDoc h5 {
+    margin-bottom: 8px !important;
+  }
+  .headingDivDoc {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 12px 16px;
+  }
+  
+  .docsHeaderRight {
+    width: 100%;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .headingDivDoc {
+    padding: 10px 14px;
+  }
+  
+  .headingDivDoc h5 {
+    font-size: 15px;
+    margin-bottom: 10px !important;
+  }
+  
+  .docsHeaderRight {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  .uploadDocumentButton {
+    width: 100%;
+    height: 38px !important;
+  }
+  
+  .docsHeaderRight :global(.inputClass) {
+    width: 100% !important;
+  }
+  
+/* Make SearchInput wrapper take full width */
+.docsHeaderRight > :global(div:not(:first-child)) {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+  .docListContainer {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px 16px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headingDivDoc {
+    padding: 8px 12px;
+  }
+  
+  .headingDivDoc h5 {
+    font-size: 14px;
+    margin-bottom: 8px !important;
+  }
+  
+  .docsHeaderRight {
+    gap: 6px;
+  }
+  
+  .uploadDocumentButton {
+    height: 36px !important;
+  }
+  
+  .docListContainer {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px 12px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .headingDivDoc {
+    padding: 6px 10px;
+  }
+  
+  .headingDivDoc h5 {
+    font-size: 13px;
+    margin-bottom: 6px !important;
+  }
+  
+  .uploadDocumentButton {
+    height: 34px !important;
+    font-size: 13px !important;
+  }
+  
+  .docListContainer {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 490px) {
+  .headingDivDoc {
+    padding: 6px 8px;
+  }
+  
+  .headingDivDoc h5 {
+    font-size: 12px;
+    margin-bottom: 6px !important;
+  }
+  
+  .docsHeaderRight {
+    gap: 6px;
+  }
+  
+  .uploadDocumentButton {
+    height: 32px !important;
+    font-size: 12px !important;
+    padding: 4px 12px !important;
+  }
+  
+  .docListContainer {
+    padding: 6px;
+    gap: 8px;
+  }
 }

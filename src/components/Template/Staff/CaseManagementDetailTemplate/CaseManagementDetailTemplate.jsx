@@ -406,7 +406,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.docListContainer}>
               <Row>
                 {documents.length > 0 ? (
-                  documents.map((doc) => (
+                  documents?.map((doc) => (
                     <Col md={6} lg={4} xl={3} key={doc.id}>
                       <DocCard
                         title={doc.title}

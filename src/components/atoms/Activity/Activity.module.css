@@ -65,3 +65,134 @@
   line-height: normal;
   white-space: nowrap;
 }
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .activityContainer {
+    gap: 10px;
+  }
+  
+  .contentWrapper {
+    gap: 12px;
+  }
+  
+  .text,
+  .date {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 992px) {
+  .iconWrapper {
+    width: 36px;
+    min-width: 36px;
+  }
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .activityContainer {
+    gap: 8px;
+  }
+  
+  .contentWrapper {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .activityContainer {
+    gap: 10px;
+  }
+  
+  .iconWrapper {
+    width: 32px;
+    min-width: 32px;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .contentWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding-top: 0;
+  }
+  
+  .text,
+  .date {
+    font-size: 12px;
+  }
+  
+  .date {
+    white-space: normal;
+  }
+  
+  .verticalLine {
+    min-height: 20px;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .activityContainer {
+    gap: 8px;
+  }
+  
+  .iconWrapper {
+    width: 28px;
+    min-width: 28px;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+  }
+  
+  .contentWrapper {
+    gap: 2px;
+  }
+  
+  .text,
+  .date {
+    font-size: 11px;
+  }
+  
+  .verticalLine {
+    min-height: 16px;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 490px) {
+  .activityContainer {
+    gap: 6px;
+  }
+  
+  .iconWrapper {
+    width: 24px;
+    min-width: 24px;
+  }
+  
+  .icon {
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+  }
+  
+  .text,
+  .date {
+    font-size: 10px;
+  }
+  
+  .verticalLine {
+    min-height: 12px;
+  }
+}
+

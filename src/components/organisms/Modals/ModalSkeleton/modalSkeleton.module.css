@@ -192,3 +192,16 @@
 .modalExitDrawer {
   animation: slideOutRight 0.3s ease forwards;
 }
+
+@media (max-width: 576px) {
+  .modalDialogDrawer {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0;
+  }
+
+  .modalDialogDrawer :global(.modal-content) {
+    height: 100vh;
+    border-radius: 0;
+  }
+}

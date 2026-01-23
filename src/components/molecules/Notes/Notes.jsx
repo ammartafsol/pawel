@@ -67,7 +67,7 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
       {/* Header with Add Note button and Search - shown once */}
       {pathname.includes('case-management') && (
         <div className={`${classes.notesHeader} ${classes.gapTop}`}>
-          <h4>Notes</h4>
+          <h5>Notes</h5>
           <div className={classes.notesHeaderRight}>
             <Button 
               label="Add a note" 

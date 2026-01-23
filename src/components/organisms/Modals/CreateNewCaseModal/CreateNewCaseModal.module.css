@@ -1,5 +1,6 @@
 .input {
-  width: 300px !important;
+  width: 100% !important;
+  max-width: 300px;
 }
 
 .inputClassName{
@@ -14,11 +15,19 @@
     display: block !important;
 }
 .dropdown {
-  width: 300px !important;
+  width: 100% !important;
+  max-width: 300px;
   border-radius: 13px !important;
   min-height: 40px !important;
   border: 1px solid var(--border-color) !important;
   position: relative !important;
+}
+
+@media (max-width: 768px) {
+  .input,
+  .dropdown {
+    max-width: 100%;
+  }
 }
 
 
