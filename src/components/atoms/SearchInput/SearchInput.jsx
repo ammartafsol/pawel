@@ -4,8 +4,8 @@ import Input from '../Input/Input'
 import { IoSearchSharp } from "react-icons/io5";
 import { mergeClass } from '@/resources/utils/helper';
 
-export default function SearchInput({placeholder = "Search",value = "",setValue = () => {},inputClass = ""}) {
+export default function SearchInput({placeholder = "Search",value = "",setValue = () => {},inputClass = "",containerClass = ""}) {
   return (
-    <Input type="search" setValue={setValue} value={value} inputClass={inputClass || classes.inputClass} leftIcon={<IoSearchSharp size={20} />} placeholder={placeholder} />
+    <Input type="search" containerClass={containerClass} setValue={setValue} value={value} inputClass={inputClass || classes.inputClass} leftIcon={<IoSearchSharp size={20} />} placeholder={placeholder} />
   )
 }

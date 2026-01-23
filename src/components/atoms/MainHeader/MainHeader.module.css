@@ -4,16 +4,121 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 44px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .mainHeader h4{
     color: var(--charcoal-night);
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
 }
+
 .viewAllBtn{
     height: 40px !important;
     background-color: var(--deep-cerulean) !important;
+    flex-shrink: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .mainHeader {
+        margin-top: 36px;
+    }
+    
+    .mainHeader h4 {
+        font-size: 17px;
+    }
+    
+    .viewAllBtn {
+        height: 38px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .mainHeader {
+        margin-top: 32px;
+        gap: 10px;
+    }
+    
+    .mainHeader h4 {
+        font-size: 16px;
+    }
+    
+    .viewAllBtn {
+        height: 36px !important;
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainHeader {
+        margin-top: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .mainHeader h4 {
+        font-size: 15px;
+        width: 100%;
+    }
+    
+    .viewAllBtn {
+        height: 36px !important;
+        font-size: 13px !important;
+        width: 100%;
+    }
+    
+    .viewAllBtn :global(svg) {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mainHeader {
+        margin-top: 20px;
+        gap: 10px;
+    }
+    
+    .mainHeader h4 {
+        font-size: 14px;
+    }
+    
+    .viewAllBtn {
+        height: 34px !important;
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+    }
+    
+    .viewAllBtn :global(svg) {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 490px) {
+    .mainHeader {
+        margin-top: 16px;
+        gap: 8px;
+    }
+    
+    .mainHeader h4 {
+        font-size: 13px;
+    }
+    
+    .viewAllBtn {
+        height: 32px !important;
+        font-size: 11px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .viewAllBtn :global(svg) {
+        width: 16px;
+        height: 16px;
+    }
 }

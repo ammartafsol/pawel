@@ -160,7 +160,6 @@ const CaseManagementTemplate = () => {
             onSearchChange={setSearch}
             onClickViewAll={() => setShowCreateNewCaseModal(true)}
             disabled={!hasCreateCasePermission}
-            // Use dynamic case types as dropdown options
             dropdownOptions={caseTypeFilters}
             selectedDropdownValue={selectedDropdownValue}
             setSelectedDropdownValue={setSelectedDropdownValue}
@@ -174,7 +173,7 @@ const CaseManagementTemplate = () => {
           data?.length> 0 ?(
            <Row className="g-4">
            {data.map((item) => (
-             <Col className="col-12 col-md-4" key={item.id}>
+             <Col className="col-12 col-md-6  col-xl-4" key={item.id}>
                <CaseProgressCard 
                  isStatusVariant
                  routePath={`/staff/case-management/${item.slug}`}

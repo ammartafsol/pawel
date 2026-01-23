@@ -13,6 +13,7 @@ import { FaRegFolderClosed } from "react-icons/fa6";
 import Pagination from "@/components/molecules/Pagination/Pagination";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
+import { calculateProgress } from "@/resources/utils/caseHelper";
 
 // Helper function to format status (convert kebab-case to Title Case)
 const formatStatus = (status) => {
@@ -67,15 +68,6 @@ const MyCasesTemplate = () => {
   const debouncedSearch = useDebounce(searchValue, 500);
   const { Get } = useAxios();
 
-  // Calculate progress based on deadlines
-  const calculateProgress = (deadlines = []) => {
-    if (!deadlines || deadlines.length === 0) return 0;
-    const now = new Date();
-    const completedDeadlines = deadlines.filter(
-      (d) => new Date(d.deadline) < now
-    ).length;
-    return Math.round((completedDeadlines / deadlines.length) * 100);
-  };
 
   const getCasesData = async (_page) => {
     setLoading("loading");
@@ -121,7 +113,7 @@ const MyCasesTemplate = () => {
       slug: caseData.slug || caseData._id,
       tabLabel: formattedStatus,
       userName: caseData.primaryStaff?.fullName || "Unassigned",
-      progress: calculateProgress(caseData.deadlines),
+      progress: calculateProgress(caseData),
       status: formattedStatus,
       trademarkName: caseData.trademarkName || "",
       trademarkNo: caseData.trademarkNumber || "",
@@ -184,7 +176,7 @@ const MyCasesTemplate = () => {
               <>
                 <Row className="g-4">
                   {transformedData.map((item) => (
-                    <Col className="col-12 col-md-4" key={item.id}>
+                    <Col className="col-12 col-md-6  col-xl-4" key={item.id}>
                       <CaseProgressCard
                         isStatusVariant
                         routePath={`/user/my-cases/${item.slug}`}

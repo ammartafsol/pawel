@@ -10,15 +10,23 @@ import {
 } from "@/developementContent/Data/HeaderData/HeaderData";
 import { useRouter } from "next/navigation";
 
-const Sidebar = () => {
+const Sidebar = ({ onItemClick }) => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     }
     const router = useRouter();
+    
+    const handleItemClick = (href) => {
+        router.push(href);
+        if (onItemClick) {
+            onItemClick();
+        }
+    };
+    
     return (
     <div  className={`${classes?.sidebar} ${!sidebarOpen && classes?.sidebarOpen}`}>
-      <div onClick={() => router.push("/user")} className={classes?.logo}>
+      <div onClick={() => handleItemClick("/user")} className={classes?.logo}>
         <Image src="/app-images/logo.png" alt="logo" fill />
       </div>
       <div className={classes?.iconContainer}>
@@ -39,10 +47,12 @@ const Sidebar = () => {
         {StaffHeaderData?.map((item) => {
           return (
             <SidebarItem
+              key={item?.href}
               icon={item?.icon}
               href={item?.href}
               title={item?.name}
               sidebarOpen={sidebarOpen}
+              onItemClick={onItemClick}
             />
           );
         })}
@@ -55,10 +65,12 @@ const Sidebar = () => {
         {StaffToolsData?.map((item) => {
           return (
             <SidebarItem
+              key={item?.href}
               icon={item?.icon}
               href={item?.href}
               title={item?.name}
               sidebarOpen={sidebarOpen}
+              onItemClick={onItemClick}
             />
           );
         })}

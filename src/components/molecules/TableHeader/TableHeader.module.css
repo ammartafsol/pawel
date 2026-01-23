@@ -7,11 +7,12 @@
 }
 .tableHeaderDrop h4{
     color: var(--charcoal-night);
-font-size: 16px;
+font-size: 18px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
 margin: 0;
+margin-bottom: 4px !important;
 }
 
 .titleIcon {
@@ -32,12 +33,15 @@ margin: 0;
     justify-content: space-between;
     padding: 12px 16px;
     border-bottom: 1px solid var(--light-gray);
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .tableHeaderButtons{
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .tableHeaderButtons :global(.gridFilter) {
@@ -129,3 +133,240 @@ margin: 0;
     background-color: var(--status-light-blue-1);
     color: var(--sky-glow);
 }
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .tableHeaderParent {
+        padding: 10px 14px;
+        gap: 10px;
+    }
+    
+    .tableHeaderButtons {
+        gap: 10px;
+    }
+    
+    .dropdownWrapper {
+        min-width: 140px;
+    }
+    
+    .dropdown {
+        width: 140px;
+    }
+    
+    /* Make search input responsive on smaller desktop */
+    .tableHeaderButtons :global(.inputClass) {
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .tableHeaderParent {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+    
+    .tableHeaderDrop {
+        width: 100%;
+    }
+    
+    .tableHeaderButtons {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+    
+    .dropdownWrapper {
+        min-width: 130px;
+    }
+    
+    .dropdown {
+        width: 130px;
+    }
+    
+    .viewAllBtn {
+        height: 38px !important;
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .tableHeaderParent {
+        padding: 10px;
+        gap: 8px;
+    }
+    
+    .tableHeaderButtons {
+        gap: 6px;
+    }
+    
+    .tableHeaderDrop {
+        gap: 8px;
+    }
+    
+    .titleIcon {
+        font-size: 18px;
+    }
+    
+    .dropdownWrapper {
+        min-width: 120px;
+    }
+    
+    .dropdown {
+        width: 120px;
+    }
+    
+    .dropdownWrapper :global(.react-dropdown-select) {
+        min-height: 36px !important;
+        font-size: 13px !important;
+    }
+    
+    .viewAllBtn {
+        height: 36px !important;
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+    }
+    
+    .filterIcon {
+        padding: 6px;
+    }
+    
+    .filterIcon svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .filterOverlay {
+        min-width: 160px;
+        font-size: 13px;
+    }
+    
+    .filterOption {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    /* Make search input responsive on tablet */
+    .tableHeaderButtons :global(.inputClass) {
+        width: 200px !important;
+        height: 36px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .tableHeaderParent {
+        padding: 8px;
+        gap: 6px;
+    }
+    
+    .tableHeaderButtons {
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+    
+    .tableHeaderDrop {
+        gap: 6px;
+    }
+    
+    .titleIcon {
+        font-size: 16px;
+    }
+    
+    .dropdownWrapper {
+        min-width: 100px;
+        flex: 1;
+        min-width: 100px;
+    }
+    
+    .dropdown {
+        width: 100%;
+    }
+    
+    .dropdownWrapper :global(.react-dropdown-select) {
+        min-height: 34px !important;
+        font-size: 12px !important;
+    }
+    
+    .viewAllBtn {
+        height: 34px !important;
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+    }
+    
+    .viewAllBtn :global(svg) {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .filterIcon {
+        padding: 5px;
+    }
+    
+    .filterIcon svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .filterOverlay {
+        min-width: 140px;
+        right: auto;
+        left: 0;
+    }
+    
+    .filterOption {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    /* Make search input responsive on mobile */
+    .tableHeaderButtons :global(.inputClass) {
+        width: 100% !important;
+        min-width: 120px !important;
+        max-width: 200px !important;
+        height: 34px !important;
+    }
+}
+
+@media (max-width: 490px) {
+    .tableHeaderButtons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    /* Make search input full width */
+    .tableHeaderButtons :global(.inputClass) {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Make dropdown full width */
+    .dropdownWrapper {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    .dropdown {
+        width: 100% !important;
+    }
+    
+    /* Make view all button full width */
+    .viewAllBtn {
+        width: 100% !important;
+        height: 40px !important;
+    }
+    
+    /* Make grid filter full width if present */
+    .tableHeaderButtons :global(.gridFilter) {
+        width: 100%;
+    }
+
+    .searchInput{
+        width: 100% !important;
+    }
+    .searchInputContainer{
+        width: 100% !important;
+    }
+}
+
+

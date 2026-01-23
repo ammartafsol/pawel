@@ -8,23 +8,24 @@ import { HeaderData } from "@/developementContent/Data/HeaderData/HeaderData";
 import { usePathname, useRouter } from "next/navigation";
 import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import { IoSettingsOutline, IoLogOutOutline, IoMenu, IoCloseOutline } from "react-icons/io5";
 import GenerateTicketModal from "@/components/organisms/Modals/GenerateTicketModal/GenerateTicketModal";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
 import { clearAllCookies } from "@/resources/utils/cookie";
+import { Drawer } from "@mui/material";
 
 const Header = () => {
   const [showGenerateTicketModal, setShowGenerateTicketModal] = useState(false);
   const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
   const notificationCount = useSelector(
     (state) => state.newNotificationReducer.count
   );
-  const [searchInput, setSearchInput] = useState("");
   const profileRef = useRef(null);
   const overlayRef = useRef(null);
 
@@ -49,6 +50,18 @@ const Header = () => {
     };
   }, [showProfileOverlay]);
 
+  // Close drawer when route changes
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
   const handleProfileClick = () => {
     setShowProfileOverlay(!showProfileOverlay);
   };
@@ -69,9 +82,18 @@ const Header = () => {
       <Container className="container-fluid">
         <div className={styles.headerContent}>
           {/* Logo */}
-          <div onClick={() => router.push("/staff")} className={styles.logo}>
+          <div onClick={() => router.push("/user")} className={styles.logo}>
             <Image src="/app-images/logo.png" alt="logo" fill />
           </div>
+
+          {/* Menu Button for Mobile */}
+          <button 
+            className={styles.menuButton}
+            onClick={toggleDrawer(true)}
+            aria-label="Open menu"
+          >
+            <IoMenu size={24} color="var(--charcoal-night)" />
+          </button>
 
           {/* Navigation Menu */}
           <nav className={styles.nav}>
@@ -87,7 +109,6 @@ const Header = () => {
               )
             })}
             {/* //// search */}
-            <SearchInput setValue={setSearchInput} value={searchInput} />
             {/* Action Buttons */}
             <div className={styles.actionButtons}>
               {/* message  */}
@@ -141,6 +162,61 @@ const Header = () => {
           <GenerateTicketModal show={showGenerateTicketModal} setShow={setShowGenerateTicketModal} />
         </div>
       </Container>
+      
+      {/* Drawer for Mobile Navigation */}
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: 280,
+          },
+        }}
+      >
+        <div className={styles.drawerContent}>
+          <div className={styles.drawerHeader}>
+            <div onClick={() => router.push("/user")} className={styles.drawerLogo}>
+              <Image src="/app-images/logo.png" alt="logo" fill />
+            </div>
+            <button 
+              className={styles.drawerCloseButton}
+              onClick={toggleDrawer(false)}
+              aria-label="Close menu"
+            >
+              <IoCloseOutline size={24} />
+            </button>
+          </div>
+          <nav className={styles.drawerNav}>
+            {HeaderData.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link 
+                  href={item.href} 
+                  className={`${styles.drawerNavLink} ${isActive && styles.drawerActive}`} 
+                  key={item.id}
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+           
+            <div 
+              onClick={() => {
+                setShowGenerateTicketModal(true);
+                setDrawerOpen(false);
+              }} 
+              className={styles.drawerMessage}
+            >
+              <div className={styles.messageIcon}>
+                <Image src={"/app-images/messageIcon.png"} alt="message" fill />
+              </div>
+              <h4>We&apos;re here to help</h4>
+            </div>
+          </nav>
+        </div>
+      </Drawer>
     </header>
   );
 };

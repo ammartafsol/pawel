@@ -59,6 +59,13 @@ const DashboardTemplate = () => {
 
   const transformCaseData = (caseData) => {
     const latestDeadline = caseData.deadlines?.[caseData.deadlines.length - 1];
+    
+    // Find the phase that matches the case status
+    const currentStatus = caseData.status || "";
+    const matchingPhase = caseData.type?.phases?.find(
+      (phase) => phase.name === currentStatus
+    );
+    
     return {
       id: caseData.slug || caseData._id,
       typeOfCase: caseData.type?.name || "Unknown Type",
@@ -66,6 +73,8 @@ const DashboardTemplate = () => {
       trademarkNumber: caseData.trademarkNumber || "",
       status: caseData.status || "Unknown",
       statusVariant: caseData.status || "default",
+      phaseBgColor: matchingPhase?.bgColor || null,
+      phaseColor: matchingPhase?.color || null,
       officeDeadline: latestDeadline?.officeActionDeadline || null,
       slug: caseData.slug || caseData._id,
     };

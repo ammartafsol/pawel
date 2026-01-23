@@ -100,7 +100,9 @@ const TableHeader = ({
           <SearchInput 
             placeholder={searchPlaceholder}
             value={searchValue}
+            containerClass={classes.searchInputContainer}
             setValue={onSearchChange}
+            inputClass={classes.searchInput}
           />
         )}
         {!hideFilter && (filterOptions.length > 0 || onFilterClick !== undefined) && (

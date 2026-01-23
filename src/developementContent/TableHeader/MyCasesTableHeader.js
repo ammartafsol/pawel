@@ -100,11 +100,18 @@ export const myUserCaseTableHeader = [
     key: "status",
     style: { width: "18%" },
     renderItem: ({ item, data }) => {
+      // Apply phase colors if available
+      const statusStyle = data.phaseBgColor && data.phaseColor ? {
+        backgroundColor: data.phaseBgColor,
+        color: data.phaseColor,
+        borderColor: data.phaseBgColor,
+      } : undefined;
+      
       // Handle status with badge (e.g., "Cooling-Of 47.5")
       if (data.statusBadge) {
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Status label={item} variant={data.statusVariant} />
+            <Status label={item} variant={data.statusVariant} style={statusStyle} />
             {/* {data.statusBadge && (
               <span
                 style={{
@@ -122,7 +129,7 @@ export const myUserCaseTableHeader = [
           </div>
         );
       }
-      return <Status label={item} variant={data.statusVariant} />;
+      return <Status label={item} variant={data.statusVariant} style={statusStyle} />;
     },
   },
   {

@@ -4,19 +4,22 @@ import classes from "./StaffLayout.module.css";
 import Sidebar from "@/components/molecules/Sidebar/Sidebar";
 import { MdNotifications } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { IoSettingsOutline, IoLogOutOutline, IoMenu } from "react-icons/io5";
+import { useRouter, usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutRequest } from "@/store/auth/authSlice";
 import { clearAllCookies } from "@/resources/utils/cookie";
+import { Drawer } from "@mui/material";
 
 const StaffLayout = ({ children }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
   const notificationCount = useSelector(
     (state) => state.newNotificationReducer.count
   );
   const [isProfileOverlayOpen, setIsProfileOverlayOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const profileRef = useRef(null);
 
   useEffect(() => {
@@ -35,6 +38,11 @@ const StaffLayout = ({ children }) => {
     };
   }, [isProfileOverlayOpen]);
 
+  // Close drawer when route changes
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
   const handleProfileClick = () => {
     setIsProfileOverlayOpen(!isProfileOverlayOpen);
   };
@@ -51,14 +59,28 @@ const StaffLayout = ({ children }) => {
     setIsProfileOverlayOpen(false);
   };
 
-  
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
 
   return (
     <div className={classes?.staffLayout}>
-      <Sidebar />
+      <div className={classes?.sidebarDesktop}>
+        <Sidebar />
+      </div>
       <div className={classes?.rightSide}>
         {/*  right side header */}
         <div className={classes?.rightSideHeader}>
+          <button 
+            className={classes?.menuButton}
+            onClick={toggleDrawer(true)}
+            aria-label="Open menu"
+          >
+            <IoMenu size={24} color="var(--white)" />
+          </button>
           <div className={classes?.mainIcon}>
             <div
               onClick={() => router.push("/staff/notifications")}
@@ -101,6 +123,20 @@ const StaffLayout = ({ children }) => {
         </div>
         <div className={classes?.rightSideContent}>{children}</div>
       </div>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: 293,
+          },
+        }}
+      >
+        <div className={classes?.drawerContent}>
+          <Sidebar onItemClick={() => setDrawerOpen(false)} />
+        </div>
+      </Drawer>
     </div>
   );
 };

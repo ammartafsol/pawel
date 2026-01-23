@@ -72,7 +72,6 @@ const DashboardTemplate = () => {
 
   const getDashboardData = async () => {
     setLoading(true);
-    try {
       const { response } = await Get({
         route: "users/dashboard",
         showAlert: false,
@@ -83,18 +82,14 @@ const DashboardTemplate = () => {
           (response?.data?.recentActivities || []).map(transformActivityData)
         );
       }
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
-    }
-    setLoading(false);
+      setLoading(false);
+    
   };
 
   const fetchCalendarData = async () => {
     setCalendarLoading(true);
     const { startDate, endDate } = getDateRange(currentView, currentDate);
     const queryParams = new URLSearchParams({ startDate, endDate });
-
-    try {
       const { response } = await Get({
         route: `users/dashboard?${queryParams.toString()}`,
         showAlert: false,
@@ -104,10 +99,8 @@ const DashboardTemplate = () => {
           transformAuditTrackingToEvents(response?.data?.auditTracking || [])
         );
       }
-    } catch (error) {
-      console.error("Error fetching calendar data:", error);
-    }
-    setCalendarLoading(false);
+      setCalendarLoading(false);
+    
   };
 
   const transformActivityData = (activityData) => ({
@@ -131,7 +124,6 @@ const DashboardTemplate = () => {
   });
 
   const transformAuditTrackingToEvents = (auditTracking) => {
-    console.log("auditTracking in transformAuditTrackingToEvents", auditTracking);
     return auditTracking
       .flatMap((caseData) => {
         const clientName = caseData.client?.fullName || "Unknown Client";
@@ -201,7 +193,7 @@ const DashboardTemplate = () => {
       </div>
       <div className="p24">
         <Row>
-          <Col lg={7}>
+          <Col lg={6} xl={7}>
             <Wrapper
               contentClassName={classes?.calenderWrapper}
               headerComponent={<CalenderHeaderDrop />}
@@ -221,7 +213,7 @@ const DashboardTemplate = () => {
               )}
             </Wrapper>
           </Col>
-          <Col lg={5}>
+          <Col lg={6} xl={5}>
             <div className={classes?.newCases}>
               <Row className="g-4">
                 {newCasesData.map((item) => {

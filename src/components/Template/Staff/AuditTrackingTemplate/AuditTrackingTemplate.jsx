@@ -354,7 +354,7 @@ const AuditTrackingTemplate = () => {
   return (
     <div className="p24">
       <Row>
-        <Col md={5}>
+        <Col lg={6} xl={5}>
           <Wrapper
             contentClassName={classes?.contentClassName}
             title="Audit Tracking"
@@ -367,7 +367,7 @@ const AuditTrackingTemplate = () => {
             </div>
           </Wrapper>
         </Col>
-        <Col md={7}>
+        <Col lg={6} xl={7}>
           <Wrapper
             contentClassName={classes?.contentClassName}
             title="Overdue Case Progresses"

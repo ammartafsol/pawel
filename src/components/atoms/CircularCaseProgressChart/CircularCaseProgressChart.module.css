@@ -2,14 +2,24 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .chartWrapper {
   position: relative;
+  flex-shrink: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .chart {
   display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 
 .backgroundCircle {
@@ -67,4 +77,56 @@
   font-weight: 500;
   line-height: normal;
 }
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .container {
+    gap: 20px;
+  }
+  
+  .chartWrapper {
+    transform: scale(0.96);
+    transform-origin: center;
+  }
+  
+  .centerText {
+    font-size: 18px;
+  }
+  
+  .segmentValue {
+    font-size: 13px;
+  }
+  
+  .legendText {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    gap: 18px;
+  }
+  
+  .chartWrapper {
+    transform: scale(0.92);
+  }
+  
+  .centerText {
+    font-size: 17px;
+  }
+  
+  .segmentValue {
+    font-size: 12px;
+  }
+  
+  .legendText {
+    font-size: 14px;
+  }
+  
+  .legendDot {
+    width: 11px;
+    height: 11px;
+  }
+}
+
 

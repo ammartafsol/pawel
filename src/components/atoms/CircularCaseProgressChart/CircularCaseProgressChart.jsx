@@ -104,7 +104,7 @@ export default function CircularCaseProgressChart({
   return (
     <div className={classes.container}>
       <div className={classes.chartWrapper}>
-        <svg width={size} height={size} className={classes.chart}>
+        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className={classes.chart}>
           {/* Background circle - outer edge */}
           <circle
             cx={center}

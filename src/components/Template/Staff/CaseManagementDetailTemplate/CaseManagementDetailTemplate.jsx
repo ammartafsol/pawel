@@ -147,7 +147,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     const queryParams = new URLSearchParams({ startDate, endDate });
     const fetchInitialCalendar = async () => {
       setCalendarLoading(true);
-      try {
         const { response } = await Get({
           route: `case/detail/${slug}?${queryParams.toString()}`,
           showAlert: false,
@@ -156,11 +155,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
           const events = transformDeadlinesToEvents(response.data);
           setCalendarEvents(events);
         }
-      } catch (error) {
-        console.error("Error fetching initial calendar data:", error);
-      } finally {
         setCalendarLoading(false);
-      }
     };
     fetchInitialCalendar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -201,22 +196,17 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     setShowAssignDocumentModal(true);
   };
 
-  // Refetch case details after document assignment
   const refetchCaseDetails = async () => {
     if (!slug) return;
-
-    try {
       const { response } = await Get({
         route: `case/detail/${slug}`,
         showAlert: false,
       });
 
-      if (response?.status === "success" && response.data) {
+      if (response) {
         setCaseDetails(response.data);
       }
-    } catch (error) {
-      console.error("Error refetching case details:", error);
-    }
+    
   };
 
   // Format date for display
@@ -323,7 +313,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
 
   // Handle new note creation - update local state
   const handleNoteCreated = (newNote) => {
-    console.log("newNote", newNote);
     if (caseDetails) {
       setCaseDetails({
         ...caseDetails,
@@ -476,13 +465,13 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         }
       >
         <div className={classes?.content}>
-          <Row>
-            <Col md={4}>
+          <Row className="g-4">
+            <Col md={5} lg={5}>
               {caseData && (
                 <CaseProgressCard data={caseData} isCaseDetailVariant />
               )}
             </Col>
-            <Col md={8}>
+            <Col md={7} lg={7}>
               <Wrapper
                 headerComponent={
                   // <EvidenceTableTop

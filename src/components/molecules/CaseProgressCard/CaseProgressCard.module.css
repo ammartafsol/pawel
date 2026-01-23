@@ -245,3 +245,33 @@ margin-bottom: 0px;
   min-width: 32px !important;
   padding: 0 !important;
 }
+
+
+@media screen and (max-width: 1400px) {
+  .infoLabel, .userName{
+    font-size: 14px;
+  }
+  
+}
+
+
+
+@media screen and (max-width: 1200px) {
+  .infoLabel, .userName{
+    font-size: 13px;
+  }
+
+  
+}
+
+
+
+
+
+
+@media screen and (max-width: 620px) {
+.userRowAssigned{
+  flex-direction: column;
+  gap: 15px;
+}
+}

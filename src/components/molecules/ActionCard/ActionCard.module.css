@@ -57,4 +57,24 @@
   box-shadow: none;
 }
 
+@media screen and (max-width: 1400px) {
+.text{
+  font-size: 13px;
+}
+.card{
+  padding: 10px 10px;
+}
+}
+
+
+@media screen and (max-width: 1200px) {
+.text{
+  font-size: 11px;
+}
+.card{
+  padding: 0px;
+}
+}
+
+
 

@@ -1,6 +1,7 @@
 .supportCenterContainer {
   width: 70%;
   margin: 0 auto;
+  padding: 0 24px;
 }
 
 .supportCenterContainer h4 {
@@ -43,11 +44,164 @@
   margin-bottom: 0px !important;
 }
 
-
 .sendMessageButton[color-variant="outlined"] {
     color: var(--deep-cerulean) !important;
     border: 1px solid var(--deep-cerulean) !important;
     font-size: 14px !important;
     height: 40px !important;
     margin-top: 12px !important;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .supportCenterContainer {
+    width: 80%;
+    padding: 0 20px;
+  }
+  
+  .supportCenterContainer h4 {
+    font-size: 19px;
+  }
+  
+  .supportCenterWrapperContent h4,
+  .supportCenterWrapperContent p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .supportCenterContainer {
+    width: 85%;
+    padding: 0 18px;
+  }
+  
+  .supportCenterContainer h4 {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+  
+  .supportCenterWrapper {
+    padding: 10px;
+  }
+  
+  .supportCenterWrapperContent {
+    gap: 6px;
+  }
+  
+  .supportCenterWrapperContent h4,
+  .supportCenterWrapperContent p {
+    font-size: 14px;
+  }
+  
+  .sendMessageButton[color-variant="outlined"] {
+    height: 38px !important;
+    font-size: 13px !important;
+    margin-top: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .supportCenterContainer {
+    width: 100%;
+    padding: 0 16px;
+  }
+  
+  .supportCenterContainer h4 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+  
+  .supportCenterWrapper {
+    padding: 12px;
+    border-radius: 10px;
+  }
+  
+  .supportCenterWrapperContent {
+    gap: 6px;
+  }
+  
+  .supportCenterWrapperContent h4,
+  .supportCenterWrapperContent p {
+    font-size: 14px;
+  }
+  
+  .sendMessageButton[color-variant="outlined"] {
+    height: 36px !important;
+    font-size: 13px !important;
+    margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .supportCenterContainer {
+    padding: 0 12px;
+  }
+  
+  .supportCenterContainer h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .supportCenterWrapper {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .supportCenterWrapperContent {
+    gap: 5px;
+  }
+  
+  .supportCenterWrapperContent h4 {
+    font-size: 13px;
+  }
+  
+  .supportCenterWrapperContent p {
+    font-size: 13px;
+  }
+  
+  .sendMessageButton[color-variant="outlined"] {
+    height: 34px !important;
+    font-size: 12px !important;
+    margin-top: 10px !important;
+    padding: 6px 12px !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .supportCenterContainer {
+    padding: 0 8px;
+  }
+  
+  .supportCenterContainer h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  
+  .supportCenterWrapper {
+    padding: 8px;
+    border-radius: 6px;
+  }
+  
+  .supportCenterWrapperContent {
+    gap: 4px;
+  }
+  
+  .supportCenterWrapperContent h4 {
+    font-size: 12px;
+  }
+  
+  .supportCenterWrapperContent p {
+    font-size: 12px;
+  }
+  
+  .sendMessageButton[color-variant="outlined"] {
+    height: 32px !important;
+    font-size: 11px !important;
+    margin-top: 8px !important;
+    padding: 5px 10px !important;
+  }
+
+  .sendMessageButton[color-variant="outlined"]{
+    width: 100% !important;
+  }
 }
