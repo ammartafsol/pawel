@@ -18,6 +18,7 @@ import { RECORDS_LIMIT } from "@/resources/utils/constant";
 import { Skeleton } from "@mui/material";
 import UploadDocumentModal from "@/components/organisms/Modals/UploadDocumentModal/UploadDocumentModal";
 import config from "@/config";
+import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
 const DocumentManagementTemplate = () => {
   const [activeGridFilter, setActiveGridFilter] = useState(gridFilter[0]);
@@ -109,7 +110,7 @@ const fileUrl = fileKey ? `${config.awsBaseUrl}/${fileKey}` : "";
         documentName: item.fileName || "Document",
         fileUrl,
         tradeMarkNo: caseData.trademarkNumber || "-",
-        dateUploaded: item.createdAt || null,
+        dateUploaded: item.createdAt  || null,
         internalDeadline: lastDeadline.deadline || null,
         officeDeadline: lastDeadline.officeActionDeadline || null,
       };

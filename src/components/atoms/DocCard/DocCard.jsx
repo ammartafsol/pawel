@@ -6,6 +6,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { mergeClass } from '@/resources/utils/helper';
 import { BsPatchCheck } from "react-icons/bs";
 import { IoFolderOutline } from "react-icons/io5";
+import { RenderDateCell } from '@/components/organisms/ResponsiveTable/CommonCells';
 
 export default function DocCard({ 
   title = "Document 1", 
@@ -31,7 +32,7 @@ export default function DocCard({
         </div>
         <div className={mergeClass(classes.details, isDetailedVariant && classes.isDetailedVariantDetails)}>
           <h3 className={classes.title}>{title}</h3>
-          <p className={classes.dateTime}>{dateTime}</p>
+          <p className={classes.dateTime}>{<RenderDateCell cellValue={dateTime} />}</p>
          {(visibilityText && !isDetailedVariant) && <div className={classes.visibility}>
             <IoEyeOutline className={classes.eyeIcon} />
             <span className={classes.visibilityText}>{visibilityText}</span>

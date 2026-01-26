@@ -1,4 +1,4 @@
-import { RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+import { RenderDateCell, RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
 export const documentManagementTableHeader = [
   {
@@ -41,6 +41,9 @@ export const documentManagementTableHeader = [
     title: "Date Uploaded",
     key: "dateUploaded",
     style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderDateCell cellValue={item} />;
+    },
   },
 ];
 
