@@ -42,18 +42,27 @@
 }
 
 .notesHeader{
-    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 16px;
+    /* padding: 6px 16px; */
     flex-wrap: wrap;
+}
+
+.notesList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .notesContainer{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 12px;
 }
 
 .notesContainer p{

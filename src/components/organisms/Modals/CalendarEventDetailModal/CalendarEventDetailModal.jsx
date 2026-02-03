@@ -9,15 +9,15 @@ import { MdOutlineDescription } from "react-icons/md";
 import PhasePill from "@/components/atoms/PhasePill/PhasePill";
 import classes from "./CalendarEventDetailModal.module.css";
 
-const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/my-cases" }) => {
+const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/my-cases", hideViewCaseButton = false }) => {
   const router = useRouter();
 
   if (!event) return null;
 
   const handleViewCase = () => {
-    if (event.resource?.slug) {
-      router.push(`${routePrefix}/${event.resource.slug}`);
-      setShow(false);
+    const caseSlugOrId = event.resource?.slug || event.resource?.caseId;
+    if (caseSlugOrId) {
+      router.push(`${routePrefix}/${caseSlugOrId}`);
     }
   };
 
@@ -81,15 +81,15 @@ const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/m
             </div>
           )}
 
-          {/* Case Information */}
-          {event.resource?.caseId && (
+          {/* Trademark No. */}
+          {event.resource?.trademarkNumber && (
             <div className={classes.detailItem}>
               <div className={classes.detailLabel}>
                 <BiFile className={classes.labelIcon} />
-                <span>Case ID</span>
+                <span>Trademark No.</span>
               </div>
               <div className={classes.detailValue}>
-                <p className={classes.caseIdText}>{event.resource.caseId}</p>
+                <p className={classes.caseIdText}>{event.resource.trademarkNumber}</p>
               </div>
             </div>
           )}
@@ -111,7 +111,7 @@ const CalendarEventDetailModal = ({ show, setShow, event, routePrefix = "/user/m
         </div>
 
         {/* Action Button */}
-        {event.resource?.slug && (
+        {!hideViewCaseButton && (event.resource?.slug || event.resource?.caseId) && (
           <div className={classes.actionSection}>
             <Button
               label="View Full Case Details"

@@ -28,7 +28,10 @@ import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton"
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import AssignDocumentModal from "@/components/organisms/Modals/AssignDocumentModal/AssignDocumentModal";
+import CreateNewCaseModal from "@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal";
 import { calculateProgress } from "@/resources/utils/caseHelper";
+import config from "@/config";
+import { useSelector } from "react-redux";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -46,11 +49,14 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showAssignDocumentModal, setShowAssignDocumentModal] = useState(false);
+  const [showUpdateCaseModal, setShowUpdateCaseModal] = useState(false);
   const filterRef = useRef(null);
   const isInitialMount = useRef(true);
 
   const router = useRouter();
   const { Get } = useAxios();
+  const { user } = useSelector((state) => state.authReducer);
+  const hasUpdateCasePermission = user?.permissions?.includes("update-case") || false;
 
   // Get date range based on view and date (reference: MyCaseDetailTemplate)
   const getDateRange = (view, date) => {
@@ -78,6 +84,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
 
     const events = [];
     const clientName = caseData.client?.fullName || "Unknown Client";
+    const typeObject = caseData.type || null;
 
     caseData.deadlines.forEach((deadline) => {
       if (deadline.deadline) {
@@ -87,14 +94,25 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         const end = new Date(deadlineDate);
         end.setHours(23, 59, 59, 999);
 
+        const matchingPhase =
+          typeObject?.phases?.find(
+            (phase) => phase.name === deadline.deadlineStatus
+          ) || null;
+
         events.push({
           start: start,
           end: end,
           title: clientName,
           resource: {
+            slug: caseData.slug,
+            caseId: caseData._id,
+            trademarkNumber: caseData.trademarkNumber,
             deadlineStatus: deadline.deadlineStatus,
             deadline: deadline.deadline,
             officeActionDeadline: deadline.officeActionDeadline,
+            phaseName: deadline.deadlineStatus,
+            phaseBgColor: matchingPhase?.bgColor || null,
+            phaseColor: matchingPhase?.color || null,
           },
         });
       }
@@ -196,6 +214,10 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     setShowAssignDocumentModal(true);
   };
 
+  const handleEditClick = () => {
+    setShowUpdateCaseModal(true);
+  };
+
   const refetchCaseDetails = async () => {
     if (!slug) return;
       const { response } = await Get({
@@ -292,6 +314,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       visibilityText: doc.permissions?.includes("visible-to-client")
         ? "Visible to client"
         : null,
+      fileUrl: doc.key ? `${config.awsBaseUrl}/${doc.key}` : "",
     })) || [];
 
   // Filter documents based on search value
@@ -407,11 +430,12 @@ const CaseManagementDetailTemplate = ({ slug }) => {
               <Row>
                 {documents.length > 0 ? (
                   documents?.map((doc) => (
-                    <Col md={6} lg={4} xl={3} key={doc.id}>
+                    <Col md={6}  lg={4} key={doc.id}>
                       <DocCard
                         title={doc.title}
                         dateTime={doc.dateTime}
                         visibilityText={doc.visibilityText}
+                        fileUrl={doc.fileUrl}
                       />
                     </Col>
                   ))
@@ -468,7 +492,12 @@ const CaseManagementDetailTemplate = ({ slug }) => {
           <Row className="g-4">
             <Col md={5} lg={5}>
               {caseData && (
-                <CaseProgressCard data={caseData} isCaseDetailVariant />
+                <CaseProgressCard
+                  data={caseData}
+                  isCaseDetailVariant
+                  showEditButton={hasUpdateCasePermission}
+                  onEditClick={handleEditClick}
+                />
               )}
             </Col>
             <Col md={7} lg={7}>
@@ -521,6 +550,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         setShow={setShowEventModal}
         event={selectedEvent}
         routePrefix="/staff/case-management"
+        hideViewCaseButton
       />
       <AssignDocumentModal
         show={showAssignDocumentModal}
@@ -530,6 +560,15 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         setDocuments={async (newDocs) => {
           // Refetch case details to get the latest document list
           await refetchCaseDetails();
+        }}
+      />
+      <CreateNewCaseModal
+        show={showUpdateCaseModal}
+        setShow={setShowUpdateCaseModal}
+        caseSlug={slug}
+        isUpdateMode={true}
+        onCaseCreated={() => {
+          refetchCaseDetails();
         }}
       />
     </div>

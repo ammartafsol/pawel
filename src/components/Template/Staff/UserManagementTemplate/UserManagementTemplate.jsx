@@ -18,43 +18,10 @@ const UserManagementTemplate = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
-  const [status, setStatus] = useState("");
   const debouncedSearch = useDebounce(searchValue, 500);
   const { Get } = useAxios();
 
-  const handleFilterClick = () => {
-    // Filter functionality can be implemented here
-    console.log("Filter clicked");
-  };
-
-  const filterOptions = [
-    {
-      label: "All",
-      value: "",
-      onClick: () => {
-        setStatus("");
-        setPage(1);
-      }
-    },
-    {
-      label: "Active",
-      value: "active",
-      onClick: () => {
-        setStatus("active");
-        setPage(1);
-      }
-    },
-    {
-      label: "Inactive",
-      value: "inactive",
-      onClick: () => {
-        setStatus("inactive");
-        setPage(1);
-      }
-    }
-  ];
-
-  const getUserData = async ({_status, _page}) => {
+  const getUserData = async ({ _page } = {}) => {
     setLoading('loading');
     const currentPage = _page !== undefined ? _page : page;
     const query = {
@@ -62,7 +29,6 @@ const UserManagementTemplate = () => {
       search: debouncedSearch || "",
       page: currentPage,
       limit: RECORDS_LIMIT,
-      status: _status !== undefined ? _status : status,
     };
     const queryString = new URLSearchParams(query).toString();
     const { response } = await Get({ 
@@ -80,8 +46,8 @@ const UserManagementTemplate = () => {
   };
 
   useEffect(() => {
-    getUserData({_status: status, _page: 1});
-  }, [debouncedSearch, status]);
+    getUserData({ _page: 1 });
+  }, [debouncedSearch]);
 
   const transformUserData = (item) => {
     const getStatusVariant = (status) => {
@@ -117,8 +83,6 @@ const UserManagementTemplate = () => {
               setSearchValue(value);
             }}
             searchPlaceholder="Search..."
-            onFilterClick={handleFilterClick}
-            filterOptions={filterOptions}
           />
         }
         contentClassName={classes.contentClassName}
@@ -131,7 +95,7 @@ const UserManagementTemplate = () => {
           page={page}
           totalRecords={totalRecords}
           onPageChange={(newPage) => {
-            getUserData({_status: status, _page: newPage});
+            getUserData({ _page: newPage });
           }}
         />
       </Wrapper>

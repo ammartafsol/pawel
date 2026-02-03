@@ -1,23 +1,54 @@
-import React from 'react'
-import Image from 'next/image'
-import { IoEyeOutline } from 'react-icons/io5'
-import classes from './DocCard.module.css'
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import { IoEyeOutline } from "react-icons/io5";
+import classes from "./DocCard.module.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { mergeClass } from '@/resources/utils/helper';
+import { IoDownloadOutline } from "react-icons/io5";
+import { mergeClass } from "@/resources/utils/helper";
 import { BsPatchCheck } from "react-icons/bs";
 import { IoFolderOutline } from "react-icons/io5";
-import { RenderDateCell } from '@/components/organisms/ResponsiveTable/CommonCells';
+import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 
-export default function DocCard({ 
-  title = "Document 1", 
+export default function DocCard({
+  title = "Document 1",
   dateTime = "12/29/2023 10:20",
   visibilityText = "Visible to client",
   trademarkName = "",
   clientName = "Virgil Kovacek",
   trademarkNo = "R-3526",
-  caseType  = "Design invalidation",
-  isDetailedVariant = false
+  caseType = "Design invalidation",
+  isDetailedVariant = false,
+  fileUrl = "",
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
+
+  const handleDownload = () => {
+    if (fileUrl) {
+      const a = document.createElement("a");
+      a.href = fileUrl;
+      a.download = title || "document";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+    setMenuOpen(false);
+  };
   return (
     <div className={mergeClass(classes.card, isDetailedVariant && classes.isDetailedVariantCard)}>
       <div className={isDetailedVariant ? classes.isDetailedVariantContent : classes.content}>
@@ -81,9 +112,30 @@ export default function DocCard({
           )}
         </div>
       </div>
-      <div className={classes.options}>
-        <HiOutlineDotsVertical size={24} color='var(--sky-blue)'/>
+      <div className={classes.options} ref={menuRef}>
+        <button
+          type="button"
+          className={classes.dotsButton}
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+        >
+          <HiOutlineDotsVertical size={24} color="var(--sky-blue)" />
+        </button>
+        {menuOpen && (
+          <div className={classes.dropdownMenu}>
+            <button
+              type="button"
+              className={classes.dropdownItem}
+              onClick={handleDownload}
+              disabled={!fileUrl}
+            >
+              <IoDownloadOutline size={18} />
+              Download
+            </button>
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

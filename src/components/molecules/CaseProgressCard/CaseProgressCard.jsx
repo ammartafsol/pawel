@@ -62,7 +62,9 @@ export default function CaseProgressCard({
     <div
       className={classes.wrapper}
       onClick={() => {
-        router.push(routePath);
+        if (!isCaseDetailVariant && routePath) {
+          router.push(routePath);
+        }
       }}
     >
       {/* Tab Section - Outside the card */}
@@ -160,11 +162,6 @@ export default function CaseProgressCard({
             </div>
           )}
 
-          {isCaseDetailVariant && (
-            <div className={classes.editDivider}>
-              <FiEdit className={classes.editIcon} size={18} />
-            </div>
-          )}
 
           {/* Status Row */}
           {!isCaseDetailVariant && (

@@ -109,7 +109,7 @@ export default function ResponsiveTable({
                               title,
                             })
                           ) : (
-                            item[key] || "NA"
+                            (item[key] !== undefined && item[key] !== null && item[key] !== "") ? item[key] : "NA"
                           )}
                         </div>
                       </td>

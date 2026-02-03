@@ -149,6 +149,7 @@ const DashboardTemplate = () => {
             resource: {
               caseId: caseData._id,
               slug: caseData.slug,
+              trademarkNumber: caseData.trademarkNumber,
               deadlineStatus: deadline.deadlineStatus,
               deadline: deadline.deadline,
               typeName:
@@ -255,7 +256,7 @@ const DashboardTemplate = () => {
               headerComponent={
                 <TableHeader
                   viewButtonText="View All"
-                  onClickViewAll={() => router.push("/case-management")}
+                  onClickViewAll={() => router.push("/staff/case-management")}
                   title="Recent Activities"
                   hideDropdown={true}
                   hideSearch={true}
@@ -284,6 +285,7 @@ const DashboardTemplate = () => {
         show={showEventModal}
         setShow={setShowEventModal}
         event={selectedEvent}
+        routePrefix="/staff/case-management"
       />
     </div>
   );

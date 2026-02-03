@@ -264,6 +264,7 @@ const fileUrl = fileKey ? `${config.awsBaseUrl}/${fileKey}` : "";
                             trademarkNo={item.tradeMarkNo}
                             caseType={item.typeOfCase}
                             isDetailedVariant={true}
+                            fileUrl={item.fileUrl}
                           />
                         </Col>
                       ))}

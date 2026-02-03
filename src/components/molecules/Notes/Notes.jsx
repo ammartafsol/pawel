@@ -82,10 +82,11 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
 
       {/* Notes List */}
       {filteredNotes.length > 0 ? (
-        filteredNotes.map((note) => {
-          const { date, time } = formatNoteDate(note.createdAt);
-          return (
-            <div key={note._id} className={classes.notesContainer}>
+        <div className={classes.notesList}>
+          {filteredNotes.map((note) => {
+            const { date, time } = formatNoteDate(note.createdAt);
+            return (
+              <div key={note._id} className={classes.notesContainer}>
               <div className={classes.notesHeader}>
                 <h4>{note.title || "Untitled Note"}</h4>
                 {!pathname.includes('case-management') && (
@@ -101,9 +102,10 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
                   className={classes.visibilityBadgesContainer}
                 />
               </div>
-            </div>
-          );
-        })
+              </div>
+            );
+          })}
+        </div>
       ) : (
         <NoDataFound className={classes.noDataFound} text="No notes found" />
       )}
