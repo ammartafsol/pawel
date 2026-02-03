@@ -14,6 +14,7 @@ import momentTimezone from "moment-timezone";
 import { useDispatch, useSelector } from "react-redux";
 import { handleEncrypt } from "./encryption";
 
+// Shared promise to prevent multiple simultaneous refresh token requests
 let refreshPromise = null;
 
 const useAxios = () => {
@@ -22,8 +23,13 @@ const useAxios = () => {
     (state) => state.authReducer
   );
 
-
-  // Function to refresh the access token
+  /**
+   * Refreshes the access token using the stored refresh token.
+   * - Reuses an in-flight refresh request if one is already running (avoids duplicate refresh calls).
+   * - Calls auth/refresh/token with Bearer refreshToken.
+   * - On success: updates cookies and Redux with new token + refreshToken, returns new access token.
+   * - On failure: clears cookies, dispatches signOut, returns null.
+   */
   const refreshAccessToken = async () => {
     if (refreshPromise) {
       return refreshPromise;
@@ -119,6 +125,7 @@ const useAxios = () => {
         });
       }
 
+      // On 401 (unauthorized): try refresh token, then retry request with new access token
       if (
         error?.response?.status === 401 &&
         window.location.pathname !== "/login"

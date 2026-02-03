@@ -19,6 +19,7 @@ import useAxios from "@/interceptor/axios-functions";
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import { useSelector } from "react-redux";
+import { capitalizeFirstWord } from "@/resources/utils/helper";
 
 const DashboardTemplate = () => {
   // const [selectedDropdownValue, setSelectedDropdownValue] = useState(
@@ -32,7 +33,6 @@ const DashboardTemplate = () => {
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentView, setCurrentView] = useState("month");
-
   // Event Modal
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -189,7 +189,7 @@ const DashboardTemplate = () => {
             year: "numeric",
           })}
         </h4>
-        <p>{getGreeting}, John Doe.</p>
+        <p>{getGreeting}, {capitalizeFirstWord(user?.fullName)}.</p>
       </div>
       <div className="p24">
         <Row>
