@@ -2,12 +2,22 @@
 import React, { useState } from "react";
 import { BiUpload } from "react-icons/bi";
 import { BiX } from "react-icons/bi";
-import { HiOutlineEye } from "react-icons/hi";
 import classes from "./UploadFiles.module.css";
 import useAxios from "@/interceptor/axios-functions";
 import { uploadMedia, getSupportedImageTypes } from "@/resources/utils/mediaUpload";
 import RenderToast from "@/components/atoms/RenderToast";
 import Spinner from "react-bootstrap/Spinner";
+import { MAX_FILE_SIZE_BYTES } from "@/resources/utils/constant";
+
+/**
+ * Check if file size is within the allowed limit. Returns false if file is too large.
+ * @param {File} file - File to check
+ * @param {number} maxBytes - Max size in bytes (default: MAX_FILE_SIZE_BYTES)
+ * @returns {boolean} - true if file size is valid
+ */
+export function checkDocumentSize(file, maxBytes = MAX_FILE_SIZE_BYTES) {
+  return file && file.size <= maxBytes;
+}
 
 /**
  * UploadFiles component for uploading files via drag-and-drop or file picker.
@@ -25,6 +35,7 @@ export default function UploadFiles({
   readonly = false,
   maxFiles = 5,
   accept = "*",
+  maxFileSize = MAX_FILE_SIZE_BYTES, // Max file size in bytes; files larger than this are rejected before upload
   onFileKeysChange, // Callback to notify parent when file keys are updated
 }) {
   const internalFileInputRef = React.useRef();
@@ -115,10 +126,25 @@ export default function UploadFiles({
     if (!selectedFiles?.length) return;
 
     // Validate file types
-    const validFiles = selectedFiles.filter((file) => {
+    const typeValidFiles = selectedFiles.filter((file) => {
       if (!isValidFileType(file)) {
         RenderToast({
           message: `File type not supported: ${file.name}`,
+          type: "error",
+        });
+        return false;
+      }
+      return true;
+    });
+
+    if (!typeValidFiles.length) return;
+
+    // Validate file size before adding or uploading
+    const maxMB = maxFileSize / 1024 / 1024;
+    const validFiles = typeValidFiles.filter((file) => {
+      if (!checkDocumentSize(file, maxFileSize)) {
+        RenderToast({
+          message: `File too large: ${file.name}. Maximum size is ${maxMB}MB.`,
           type: "error",
         });
         return false;
@@ -153,10 +179,25 @@ export default function UploadFiles({
     if (!droppedFiles.length) return;
 
     // Validate file types
-    const validFiles = droppedFiles.filter((file) => {
+    const typeValidFiles = droppedFiles.filter((file) => {
       if (!isValidFileType(file)) {
         RenderToast({
           message: `File type not supported: ${file.name}`,
+          type: "error",
+        });
+        return false;
+      }
+      return true;
+    });
+
+    if (!typeValidFiles.length) return;
+
+    // Validate file size before adding or uploading
+    const maxMB = maxFileSize / 1024 / 1024;
+    const validFiles = typeValidFiles.filter((file) => {
+      if (!checkDocumentSize(file, maxFileSize)) {
+        RenderToast({
+          message: `File too large: ${file.name}. Maximum size is ${maxMB}MB.`,
           type: "error",
         });
         return false;
@@ -258,18 +299,6 @@ export default function UploadFiles({
     }
   };
 
-  const handleOpenFile = (file) => {
-    const url = URL.createObjectURL(file);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = file.name || "download";
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
   const reachedMaxFiles = !single && files?.length >= maxFiles;
   const isImage = (file) => file?.type?.startsWith("image/");
 
@@ -340,18 +369,6 @@ export default function UploadFiles({
                 </div>
               ) : null}
               <div className={classes.fileActions}>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleOpenFile(files[0]);
-                  }}
-                  className={classes.actionButton}
-                  disabled={disabled || readonly}
-                >
-                  <HiOutlineEye size={18} />
-                  View
-                </button>
                 {!readonly && !disabled && (
                   <button
                     type="button"
@@ -420,14 +437,6 @@ export default function UploadFiles({
                 </div>
               ) : null}
               <div className={classes.fileActions}>
-                <button
-                  type="button"
-                  onClick={() => handleOpenFile(file)}
-                  className={classes.actionButton}
-                  disabled={disabled || readonly}
-                >
-                  <HiOutlineEye size={16} />
-                </button>
                 {!readonly && !disabled && (
                   <button
                     type="button"

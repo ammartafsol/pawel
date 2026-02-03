@@ -217,7 +217,7 @@ const ProfileSettingTemplate = () => {
                     label="Update Password"
                     variant="outlined"
                     className={classes.updatePasswordButton}
-                    onClick={() => {router.push("/update-password")}}
+                    onClick={() => {router.push("/staff/update-password")}}
                   />
                   <Button
                     label={loading === "loading" ? "Please wait..." : "Save Changes"}

@@ -33,8 +33,8 @@
   color: var(--black);
   font-family: var(--font-inter);
   font-weight: 500;
-  border: none !important;
   outline: none !important;
+  height: 40px !important;
 }
 
 .inputClassName input:disabled {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import UploadFiles from "@/components/molecules/UploadFiles/UploadFiles";
 import Button from "@/components/atoms/Button";
@@ -35,13 +35,24 @@ const UploadDocumentModal = ({
   const [uploading, setUploading] = useState(false);
   const { Post } = useAxios();
 
-  const handleClose = () => {
+  const resetState = () => {
     setFiles([]);
     setError("");
     setDragActive(false);
     setFileKeys({});
+  };
+
+  const handleClose = () => {
+    resetState();
     setShow(false);
   };
+
+  // Reset state when modal is closed (e.g. via header X icon or backdrop) so it's empty when reopened
+  useEffect(() => {
+    if (!show) {
+      resetState();
+    }
+  }, [show]);
 
   const handleUploadSubmit = async () => {
     if (!files.length) {

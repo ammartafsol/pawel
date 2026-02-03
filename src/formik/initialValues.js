@@ -27,10 +27,10 @@ export const resetPasswordValues = {
 };
 
 export const createNewCaseFormValues = {
-  jurisdiction: {label:"",value:""},
-  caseType: null,
-  clientName: null,
-  primaryStaff: null,
+  jurisdiction: "",
+  caseType: "",
+  clientName: "",
+  primaryStaff: "",
   secondaryStaff: null,
   reference: "",
   trademarkName: "",

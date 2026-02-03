@@ -280,7 +280,6 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
       if (response) {
         RenderToast({type: "success", message: "Deadlines updated successfully"});
         setShow(false);
-        // Call the callback to refresh the case data
         if (onCaseCreated) {
           onCaseCreated();
         }
@@ -341,8 +340,6 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
     newDeadlines[index] = { ...newDeadlines[index], [field]: value };
     formik.setFieldValue("deadlines", newDeadlines);
   };
-
-
   return (
     <div>
       <ModalSkeleton
@@ -379,6 +376,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
         ) : (
           <>
           <IconInput icon={<FaBalanceScale size={22} />} title="Jurisdiction">
+              <div className={classes.fieldColumn}>
               <DropDown
                 options={jurisdictionOptions}
                 placeholder={loading ? "Loading..." : "Select Jurisdiction"}
@@ -394,11 +392,13 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
             {formik.touched.jurisdiction && formik.errors.jurisdiction && (
               <div className={classes.errorText}>{formik.errors.jurisdiction}</div>
             )}
+              </div>
           </IconInput>
           <IconInput
             icon={<MdOutlineAssignment size={22} />}
             title="Type of Case"
           >
+            <div className={classes.fieldColumn}>
             <DropDown
               options={caseTypeOptions}
               placeholder={formik.values.jurisdiction ? "Select Case Type" : "Select Jurisdiction first"}
@@ -417,29 +417,35 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
             {formik.values.jurisdiction && caseTypeOptions.length === 0 && !isUpdateMode && (
               <div className={classes.errorText}>No case types available for this jurisdiction</div>
             )}
+            </div>
           </IconInput>
           <IconInput icon={<FaUser size={22} />} title="Client Name">
+            <div className={classes.fieldColumn}>
             <DropDown
               options={clientOptions}
               placeholder={loadingClients ? "Loading..." : "Select Client"}
-              values={formik.values.clientName ? clientOptions.filter(opt => opt.value === formik.values.clientName) : []}
+              values={formik.values.clientName ? clientOptions.filter(opt => String(opt.value) === String(formik.values.clientName)) : []}
               className={classes.dropdown}
               closeOnSelect={true}
               disabled={loadingClients || isUpdateMode}
               searchable={true}
               onChange={(value) => {
-                const selectedValue = value && value.length > 0 ? value[0]?.value : "";
+                const selected = value && value.length > 0 ? value[0] : null;
+                const selectedValue = selected ? (selected.value ?? selected) : "";
                 formik.setFieldValue("clientName", selectedValue);
+                if (selectedValue) formik.setFieldError("clientName", undefined);
               }}
               onDropdownClose={() => {
                 formik.setFieldTouched("clientName", true);
               }}
             />
-            {formik.touched.clientName && formik.errors.clientName && (
+            {formik.touched.clientName && formik.errors.clientName && !formik.values.clientName && (
               <div className={classes.errorText}>{formik.errors.clientName}</div>
             )}
+            </div>
           </IconInput>
           <IconInput icon={<IoMdKey size={22} />} title="Reference">
+            <div className={classes.fieldColumn}>
             <Input
               inputClass={classes?.inputClassName}
               className={classes?.input}
@@ -449,11 +455,13 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
               error={formik.touched.reference && formik.errors.reference}
               disabled={isUpdateMode}
             />
+            </div>
           </IconInput>
           <IconInput
             icon={<AiOutlineCheckCircle size={22} />}
             title="Trademark Name"
           >
+            <div className={classes.fieldColumn}>
             <Input
               inputClass={classes?.inputClassName}
               className={classes?.input}
@@ -463,11 +471,13 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
               error={formik.touched.trademarkName && formik.errors.trademarkName}
               disabled={isUpdateMode}
             />
+            </div>
           </IconInput>
           <IconInput
             icon={<AiOutlineCheckCircle size={22} />}
             title="Trademark Number"
           >
+            <div className={classes.fieldColumn}>
             <Input
               inputClass={classes?.inputClassName}
               className={classes?.input}
@@ -477,6 +487,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
               error={formik.touched.trademarkNumber && formik.errors.trademarkNumber}
               disabled={isUpdateMode}
             />
+            </div>
           </IconInput>
           
           <IconInput
@@ -484,12 +495,13 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
             title="Deadlines"
             className={classes?.iconParent}
           >
+            <div className={classes.fieldColumn}>
             <div className={classes?.deadlineContainer}>
               {(formik.values.deadlines && Array.isArray(formik.values.deadlines) && formik.values.deadlines.length > 0) ? (
                 formik.values.deadlines.map((deadline, index) => {
                   const isExistingDeadline = isUpdateMode && index < initialDeadlineCount;
                   return (
-                    <div key={`deadline-${index}-${deadline.internalDeadline || deadline.officeDeadline || index}`} className={classes.deadlineItem}>
+                    <div key={`deadline-${index}`} className={classes.deadlineItem}>
                       <Input 
                         type="date" 
                         className={classes?.input}
@@ -499,6 +511,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
                         error={formik.touched.deadlines?.[index]?.internalDeadline && formik.errors.deadlines?.[index]?.internalDeadline}
                         label="Internal Deadline"
                         disabled={isExistingDeadline}
+                        min={new Date().toISOString().split('T')[0]}
                       />
                       <Input 
                         type="date" 
@@ -509,6 +522,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
                         error={formik.touched.deadlines?.[index]?.officeDeadline && formik.errors.deadlines?.[index]?.officeDeadline}
                         label="Office Deadline"
                         disabled={isExistingDeadline}
+                        min={new Date().toISOString().split('T')[0]}
                       />
                       {formik.values.deadlines.length > 1 && !isExistingDeadline && (
                         <Button
@@ -533,6 +547,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
                 onClick={handleAddDeadline}
               />
             </div>
+            </div>
           </IconInput>
           
           <hr />
@@ -542,27 +557,30 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
               title="Assign Staff"
               className={classes?.iconParent}
             >
+              <div className={classes.fieldColumn}>
               <div className={classes?.deadlineContainer}>
                 <div>
                   <div className={classes.staffLabel}>Primary</div>
                   <DropDown
                     options={staffOptions}
                     placeholder={loadingStaff ? "Loading..." : "Select Primary Staff"}
-                    values={formik.values.primaryStaff ? staffOptions.filter(opt => opt.value === formik.values.primaryStaff) : []}
+                    values={formik.values.primaryStaff ? staffOptions.filter(opt => String(opt.value) === String(formik.values.primaryStaff)) : []}
                     className={classes.dropdown}
                     closeOnSelect={true}
                     searchable={true}
                     disabled={loadingStaff || isUpdateMode}
                     onChange={(value) => {
-                      const selectedValue = value && value.length > 0 ? value[0]?.value : "";
+                      const selected = value && value.length > 0 ? value[0] : null;
+                      const selectedValue = selected ? (selected.value ?? selected) : "";
                       formik.setFieldValue("primaryStaff", selectedValue);
+                      if (selectedValue) formik.setFieldError("primaryStaff", undefined);
                       formik.setFieldTouched("primaryStaff", true);
                     }}
                     onDropdownClose={() => {
                       formik.setFieldTouched("primaryStaff", true);
                     }}
                   />
-                  {formik.touched.primaryStaff && formik.errors.primaryStaff && (
+                  {formik.touched.primaryStaff && formik.errors.primaryStaff && !formik.values.primaryStaff && (
                     <div className={classes.errorText}>{formik.errors.primaryStaff}</div>
                   )}
                 </div>
@@ -582,6 +600,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
                     }}
                   />
                 </div>
+              </div>
               </div>
             </IconInput>
           </div>

@@ -1,22 +1,32 @@
-.input {
-  width: 100% !important;
-  max-width: 300px;
+/* Fixed width for all fields – same as Primary/Secondary dropdowns */
+.fieldColumn {
+  width: 300px;
+  min-width: 300px;
+  flex-shrink: 0;
 }
 
-.inputClassName{
-    height: 40px !important;
-    border-radius: 13px !important;
-    border: 1px solid var(--border-color) !important;
+.input {
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+}
+
+.inputClassName {
+  height: 40px !important;
+  border-radius: 13px !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 .inputClassName[type="date"] {
-    text-align: left !important;
-    justify-content: flex-start !important;
-    display: block !important;
+  text-align: left !important;
+  justify-content: flex-start !important;
+  display: block !important;
 }
+
 .dropdown {
-  width: 100% !important;
-  max-width: 300px;
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
   border-radius: 13px !important;
   min-height: 40px !important;
   border: 1px solid var(--border-color) !important;
@@ -24,9 +34,16 @@
 }
 
 @media (max-width: 768px) {
+  .fieldColumn {
+    width: 100%;
+    min-width: 100%;
+  }
+
   .input,
   .dropdown {
-    max-width: 100%;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
   }
 }
 

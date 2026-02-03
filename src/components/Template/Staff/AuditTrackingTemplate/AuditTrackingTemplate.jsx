@@ -218,6 +218,7 @@ const AuditTrackingTemplate = () => {
       type: "",
       startDate,
       endDate,
+      limit: RECORDS_LIMIT.toString(),
     });
 
       const { response } = await Get({

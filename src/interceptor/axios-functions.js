@@ -1,74 +1,74 @@
 "use client";
 import RenderToast from "@/components/atoms/RenderToast";
 import {
-  clearAllCookies,
-  setRefreshTokenCookie,
-  setTokenCookie,
+  // clearAllCookies,
+  // setRefreshTokenCookie,
+  // setTokenCookie,
   TOKEN_COOKIE_NAME,
 } from "@/resources/utils/cookie";
 import { baseURL } from "@/resources/utils/helper";
-import { signOutRequest, updateJWTTokens } from "@/store/auth/authSlice";
+// import { signOutRequest, updateJWTTokens } from "@/store/auth/authSlice";
 import axios from "axios";
 import Cookies from "js-cookie";
 import momentTimezone from "moment-timezone";
 import { useDispatch, useSelector } from "react-redux";
 import { handleEncrypt } from "./encryption";
 
-// Shared promise to prevent multiple simultaneous refresh token requests
-let refreshPromise = null;
+// Refresh token disabled – no refresh token in use
+// let refreshPromise = null;
 
 const useAxios = () => {
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector(
-    (state) => state.authReducer
-  );
+  const { accessToken } = useSelector((state) => state.authReducer);
+  // const { accessToken, refreshToken } = useSelector((state) => state.authReducer);
 
-  /**
-   * Refreshes the access token using the stored refresh token.
-   * - Reuses an in-flight refresh request if one is already running (avoids duplicate refresh calls).
-   * - Calls auth/refresh/token with Bearer refreshToken.
-   * - On success: updates cookies and Redux with new token + refreshToken, returns new access token.
-   * - On failure: clears cookies, dispatches signOut, returns null.
-   */
-  const refreshAccessToken = async () => {
-    if (refreshPromise) {
-      return refreshPromise;
-    }
-    if (!refreshToken) {
-      RenderToast({
-        message: "No refresh token found.",
-        type: "error",
-      });
-      return null;
-    }
-
-    refreshPromise = (async () => {
-      try {
-        const { data: response } = await axios.get(
-          baseURL("auth/refresh/token"),
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          }
-        );
-
-        const data = response?.data;
-        setTokenCookie(data?.token);
-        setRefreshTokenCookie(data?.refreshToken);
-        dispatch(updateJWTTokens(data));
-        return data.token;
-      } catch (error) {
-        clearAllCookies();
-        dispatch(signOutRequest());
-        return null;
-      } finally {
-        refreshPromise = null;
-      }
-    })();
-
-    return refreshPromise;
-  };
+  // Refresh token logic – commented out (no refresh token)
+  // /**
+  //  * Refreshes the access token using the stored refresh token.
+  //  * - Reuses an in-flight refresh request if one is already running (avoids duplicate refresh calls).
+  //  * - Calls auth/refresh/token with Bearer refreshToken.
+  //  * - On success: updates cookies and Redux with new token + refreshToken, returns new access token.
+  //  * - On failure: clears cookies, dispatches signOut, returns null.
+  //  */
+  // const refreshAccessToken = async () => {
+  //   if (refreshPromise) {
+  //     return refreshPromise;
+  //   }
+  //   if (!refreshToken) {
+  //     RenderToast({
+  //       message: "No refresh token found.",
+  //       type: "error",
+  //     });
+  //     return null;
+  //   }
+  //
+  //   refreshPromise = (async () => {
+  //     try {
+  //       const { data: response } = await axios.get(
+  //         baseURL("auth/refresh/token"),
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${refreshToken}`,
+  //           },
+  //         }
+  //       );
+  //
+  //       const data = response?.data;
+  //       setTokenCookie(data?.token);
+  //       setRefreshTokenCookie(data?.refreshToken);
+  //       dispatch(updateJWTTokens(data));
+  //       return data.token;
+  //     } catch (error) {
+  //       clearAllCookies();
+  //       dispatch(signOutRequest());
+  //       return null;
+  //     } finally {
+  //       refreshPromise = null;
+  //     }
+  //   })();
+  //
+  //   return refreshPromise;
+  // };
 
   const getErrorMsg = (error = null) => {
     if (error?.message === "Network Error") {
@@ -125,18 +125,17 @@ const useAxios = () => {
         });
       }
 
-      // On 401 (unauthorized): try refresh token, then retry request with new access token
-      if (
-        error?.response?.status === 401 &&
-        window.location.pathname !== "/login"
-        // ! replace login route
-      ) {
-        const newAccessToken = await refreshAccessToken();
-        if (newAccessToken) {
-          headers.Authorization = `Bearer ${newAccessToken}`;
-          return await axios({ method, url, data, headers });
-        }
-      }
+      // Refresh token disabled – on 401 we just return error (no retry)
+      // if (
+      //   error?.response?.status === 401 &&
+      //   window.location.pathname !== "/login"
+      // ) {
+      //   const newAccessToken = await refreshAccessToken();
+      //   if (newAccessToken) {
+      //     headers.Authorization = `Bearer ${newAccessToken}`;
+      //     return await axios({ method, url, data, headers });
+      //   }
+      // }
       return { error, response: null };
     }
   };
