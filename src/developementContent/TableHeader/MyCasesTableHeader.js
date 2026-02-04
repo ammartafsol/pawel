@@ -80,11 +80,11 @@ export const myCasesTableHeader = [
   },
 ];
 export const myUserCaseTableHeader = [
-  {
-    title: "Type of Case",
-    key: "typeOfCase",
-    style: { width: "15%" },
-  },
+  // {
+  //   title: "Type of Case",
+  //   key: "typeOfCase",
+  //   style: { width: "15%" },
+  // },
   {
     title: "Trademark Name",
     key: "trademarkName",
@@ -135,9 +135,34 @@ export const myUserCaseTableHeader = [
   {
     title: "Office Deadline",
     key: "officeDeadline",
-    style: { width: "18%" },
+    style: { width: "15%" },
     renderItem: ({ item }) => {
       return <RenderDateCell cellValue={item} />;
+    },
+  },
+  {
+    title: "Next Phase",
+    key: "nextPhaseName",
+    style: { width: "15%" },
+    renderItem: ({ item, data }) => {
+      const bgColor = data?.nextPhaseBgColor ?? "#f5f5f5";
+      const color = data?.nextPhaseColor ?? "#000000";
+      return (
+        <span
+          style={{
+            backgroundColor: bgColor,
+            color,
+            padding: "4px 12px",
+            borderRadius: "4px",
+            display: "inline-block",
+            fontSize: "14px",
+            fontWeight: "500",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item ?? "—"}
+        </span>
+      );
     },
   },
   {

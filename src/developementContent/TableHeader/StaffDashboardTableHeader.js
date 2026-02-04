@@ -11,35 +11,7 @@ export const staffDashboardTableHeader = [
       return <RenderTextCell cellValue={item} />;
     },
   },
-  {
-    title: "Type of Case",
-    key: "type",
-    style: { width: "15%" },
-    renderItem: ({ item, data }) => {
-      // Find matching phase based on status
-      const typeObject = data?.typeObject;
-      const status = data?.status;
-      
-      if (typeObject?.phases && status) {
-        const matchingPhase = typeObject.phases.find(
-          (phase) => phase.name === status
-        );
-        
-        if (matchingPhase) {
-          return (
-            <PhasePill
-              label={item}
-              bgColor={matchingPhase.bgColor}
-              color={matchingPhase.color}
-            />
-          );
-        }
-      }
-      
-      // Fallback to default text cell if no phase match found
-      return <RenderTextCell cellValue={item} />;
-    },
-  },
+
   {
     title: "Trademark Name",
     key: "trademarkName",
@@ -60,7 +32,7 @@ export const staffDashboardTableHeader = [
       );
     },
   },
-   {
+  {
     title: "Internal Deadline",
     key: "internalDeadline",
     style: { width: "15%" },
@@ -68,12 +40,62 @@ export const staffDashboardTableHeader = [
       return <RenderDateCell cellValue={item} />;
     },
   },
-   {
-    title: "Office Deadline",
-    key: "officeDeadline",
+  // {
+  //   title: "Office Deadline",
+  //   key: "officeDeadline",
+  //   style: { width: "15%" },
+  //   renderItem: ({ item }) => {
+  //     return <RenderDateCell cellValue={item} />;
+  //   },
+  // },
+  {
+    title: "Status",
+    key: "status",
     style: { width: "15%" },
-    renderItem: ({ item }) => {
-      return <RenderDateCell cellValue={item} />;
+    renderItem: ({ item, data }) => {
+      const bgColor = data?.phaseBgColor ?? "#f5f5f5";
+      const color = data?.phaseColor ?? "#000000";
+      return (
+        <span
+          style={{
+            backgroundColor: bgColor,
+            color,
+            padding: "4px 12px",
+            borderRadius: "4px",
+            display: "inline-block",
+            fontSize: "14px",
+            fontWeight: "500",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item ?? "—"}
+        </span>
+      );
+    },
+  },
+  {
+    title: "Next Phase",
+    key: "nextPhaseName",
+    style: { width: "15%" },
+    renderItem: ({ item, data }) => {
+      const bgColor = data?.nextPhaseBgColor ?? "#f5f5f5";
+      const color = data?.nextPhaseColor ?? "#000000";
+      return (
+        <span
+          style={{
+            backgroundColor: bgColor,
+            color,
+            padding: "4px 12px",
+            borderRadius: "4px",
+            display: "inline-block",
+            fontSize: "14px",
+            fontWeight: "500",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item ?? "—"}
+        </span>
+      );
     },
   },
   {
@@ -81,7 +103,7 @@ export const staffDashboardTableHeader = [
     key:"slug",
     style: { width: "15%" },
     renderItem: ({ item }) => {
-      return <Link href={`/staff/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
+      return <Link href={`/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
         View Details
       </Link>;
     },
@@ -126,3 +148,4 @@ export const staffDashboardTableHeader = [
   //   },
   // },
 ];
+

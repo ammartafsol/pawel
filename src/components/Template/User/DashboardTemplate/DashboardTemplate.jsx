@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import useAxios from "@/interceptor/axios-functions";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import moment from "moment";
+import { findNextPhase } from "@/resources/utils/caseHelper";
 import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 
@@ -66,6 +67,8 @@ const DashboardTemplate = () => {
       (phase) => phase.name === currentStatus
     );
     
+    const nextPhase = findNextPhase(caseData);
+    
     return {
       id: caseData.slug || caseData._id,
       typeOfCase: caseData.type?.name || "Unknown Type",
@@ -76,6 +79,9 @@ const DashboardTemplate = () => {
       phaseBgColor: matchingPhase?.bgColor || null,
       phaseColor: matchingPhase?.color || null,
       officeDeadline: latestDeadline?.officeActionDeadline || null,
+      nextPhaseName: nextPhase?.name ?? "—",
+      nextPhaseBgColor: nextPhase?.bgColor ?? null,
+      nextPhaseColor: nextPhase?.color ?? null,
       slug: caseData.slug || caseData._id,
     };
   };

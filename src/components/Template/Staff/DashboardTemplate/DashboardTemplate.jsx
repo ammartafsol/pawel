@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import classes from "./DashboardTemplate.module.css";
 import { Col, Row } from "react-bootstrap";
 import Wrapper from "@/components/atoms/Wrapper/Wrapper";
@@ -17,6 +17,7 @@ import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton";
 import useAxios from "@/interceptor/axios-functions";
 import moment from "moment";
+import { findCurrentStatusPhase, findNextPhase } from "@/resources/utils/caseHelper";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import { useSelector } from "react-redux";
 import { capitalizeFirstWord } from "@/resources/utils/helper";
@@ -103,25 +104,29 @@ const DashboardTemplate = () => {
     
   };
 
-  const transformActivityData = (activityData) => ({
-    id: activityData._id,
-    client: activityData.client?.fullName || "Unknown Client",
-    slug: activityData.slug,
-    type:
-      typeof activityData?.type === "object"
-        ? activityData.type?.name
-        : "Unknown Type",
-    typeObject: activityData?.type || null, // Include full type object with phases
-    status: activityData?.status || null, // Include status to match with phase
-    trademarkName: activityData?.trademarkName || "Unknown TrademarkName",
-    trademarkNumber: activityData?.trademarkNumber || "Unknown TrademarkNumber",
-    internalDeadline:
-      activityData?.deadlines?.[activityData?.deadlines?.length - 1]
-        ?.deadline || null,
-    officeDeadline:
-      activityData?.deadlines?.[activityData?.deadlines?.length - 1]
-        ?.officeActionDeadline || null,
-  });
+  const transformActivityData = useCallback((activity) => {
+    const lastDeadline =
+      activity?.deadlines?.[activity.deadlines.length - 1] ?? {};
+
+    const currentPhase = findCurrentStatusPhase(activity);
+    const nextPhase = findNextPhase(activity);
+
+    return {
+      id: activity._id,
+      client: activity?.client?.fullName ?? "Unknown Client",
+      slug: activity.slug,
+      status: currentPhase.name,
+      phaseBgColor: currentPhase.bgColor,
+      phaseColor: currentPhase.color,
+      nextPhaseName: nextPhase?.name ?? "—",
+      nextPhaseBgColor: nextPhase?.bgColor ?? "#f5f5f5",
+      nextPhaseColor: nextPhase?.color ?? "#000000",
+      trademarkName: activity?.trademarkName ?? "Unknown Trademark",
+      trademarkNumber: activity?.trademarkNumber ?? "Unknown Number",
+      internalDeadline: lastDeadline.deadline ?? null,
+      officeDeadline: lastDeadline.officeActionDeadline ?? null,
+    };
+  }, []);
 
   const transformAuditTrackingToEvents = (auditTracking) => {
     return auditTracking

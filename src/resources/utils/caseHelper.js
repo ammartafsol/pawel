@@ -1,3 +1,55 @@
+
+/**
+ * Get phases sorted by order from case/activity type.
+ * @param {Object} activity - Case or activity with type.phases
+ * @returns {Array} Sorted phases
+ */
+const getSortedPhases = (activity) => {
+  const phases = activity?.type?.phases ?? [];
+  return [...phases].sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
+};
+
+/**
+ * Find current status phase: matches activity.status to type.phases and returns name + colors.
+ * @param {Object} activity - Case/activity with status and type.phases
+ * @returns {{ name: string, bgColor: string, color: string }}
+ */
+export const findCurrentStatusPhase = (activity) => {
+  const currentStatus = activity?.status;
+  const sortedPhases = getSortedPhases(activity);
+  const matchingPhase = sortedPhases.find((phase) => phase.name === currentStatus);
+
+  return {
+    name: currentStatus ?? "—",
+    bgColor: matchingPhase?.bgColor ?? "#ffffff",
+    color: matchingPhase?.color ?? "#000000",
+  };
+};
+
+/**
+ * Find next phase: the phase that comes after the current status in type.phases order.
+ * @param {Object} activity - Case/activity with status and type.phases
+ * @returns {{ name: string, bgColor: string, color: string } | null} Next phase info, or null if none
+ */
+export const findNextPhase = (activity) => {
+  const currentStatus = activity?.status;
+  const sortedPhases = getSortedPhases(activity);
+  const currentIndex = sortedPhases.findIndex((p) => p.name === currentStatus);
+
+  if (currentIndex < 0 || currentIndex >= sortedPhases.length - 1) {
+    return null;
+  }
+
+  const nextPhase = sortedPhases[currentIndex + 1];
+  return {
+    name: nextPhase?.name ?? "—",
+    bgColor: nextPhase?.bgColor ?? "#f5f5f5",
+    color: nextPhase?.color ?? "#000000",
+  };
+};
+
+
+
 /**
  * Calculate case progress based on case type phases and current status
  * @param {Object} caseData - Case data object containing type, status, and phases
