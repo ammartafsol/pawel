@@ -125,7 +125,7 @@ export default function CaseProgressCard({
                 </div>
                 <div className={classes.userInfo}>
                   <PiUserCircleFill className={classes.userIcon} />
-                  <div className={classes.userName}>{data.userName}</div>
+                  <div className={classes.userName}>{data.clientName}</div>
                 </div>
               </div>
               <ProgressBarCircular percentage={data.progress} size={80} />
@@ -243,14 +243,14 @@ export default function CaseProgressCard({
           )}
 
           {/* Client Name */}
-          {(isStatusVariant || isCaseDetailVariant) && (
+          {/* {(isStatusVariant || isCaseDetailVariant) && (
             <div className={classes.infoRow}>
               <FaRegUser className={classes.infoIcon} />
               <span className={classes.infoLabel}>
                 Client Name - <strong>{data.clientName}</strong>
               </span>
             </div>
-          )}
+          )} */}
 
           {/* Internal Deadline and Office Deadline */}
           {isCaseDetailVariant && (
