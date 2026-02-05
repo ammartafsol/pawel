@@ -36,7 +36,7 @@ export const ResetPasswordSchema = Yup.object({
 export const CreateNewCaseSchema = Yup.object({
   caseType: Yup.string().required("Case Type is required"),
   clientName: Yup.string().required("Client Name is required"),
-  reference: Yup.string().required("Reference is required"),
+  reference: Yup.array().of(Yup.string()).min(1, "At least one reference is required"),
   trademarkName: Yup.string().required("Trademark Name is required"),
   trademarkNumber: Yup.string().required("Trademark Number is required"),
   jurisdiction: Yup.string().required("Jurisdiction is required"),

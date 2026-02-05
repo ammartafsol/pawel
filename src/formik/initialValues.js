@@ -31,12 +31,13 @@ export const createNewCaseFormValues = {
   caseType: "",
   clientName: "",
   primaryStaff: "",
-  secondaryStaff: null,
-  reference: "",
+  secondaryStaff: "",
+  reference: [],
   trademarkName: "",
   trademarkNumber: "",
   deadlines: [{ internalDeadline: "", officeDeadline: "" }],
 };
+
 export const addNoteFormValues = {
   noteTitle: "",
   description: "",

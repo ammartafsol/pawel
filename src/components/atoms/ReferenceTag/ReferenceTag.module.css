@@ -1,0 +1,35 @@
+.referenceTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: fit-content;
+  font-family: var(--font-helvetica-neue), sans-serif;
+  font-size: 14px;
+  background: var(--white, #fff);
+  color: var(--midnight-black, #1a1a1a);
+}
+
+.referenceTagText {
+  line-height: 1.2;
+}
+
+.referenceTagClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--slate-shadow);
+  border-radius: 4px;
+}
+
+.referenceTagClose:hover {
+  color: var(--red);
+  background: rgba(0, 0, 0, 0.05);
+}
