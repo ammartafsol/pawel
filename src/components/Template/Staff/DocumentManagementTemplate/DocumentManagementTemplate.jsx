@@ -278,7 +278,7 @@ const fileUrl = fileKey ? `${config.awsBaseUrl}/${fileKey}` : "";
                           onPageChange={(newPage) => {
                             getDocumentData({ _status: status, _page: newPage });
                           }}
-                          totalTextLabel="Documents"
+                          totalTextLabel={`${data?.length > 1 ? "Documents" : "Document"}`}
                         />
                       </div>
                     )}

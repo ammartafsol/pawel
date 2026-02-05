@@ -92,6 +92,7 @@ const UserManagementTemplate = () => {
           data={transformedData}
           loading={loading === 'loading'}
           pagination={true}
+          totalTextLabel={`${totalRecords > 1 ? "Users" : "User"}`}
           page={page}
           totalRecords={totalRecords}
           onPageChange={(newPage) => {

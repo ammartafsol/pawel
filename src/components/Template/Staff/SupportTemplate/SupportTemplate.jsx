@@ -135,6 +135,7 @@ const SupportTemplate = () => {
           tableHeader={supportManagementTableHeader(handlePendingClick)}
           data={transformedData}
           loading={loading === 'loading'}
+          totalTextLabel={`${totalRecords > 1 ? "Support Tickets" : "Support Ticket"}`}
           pagination={true}
           page={page}
           totalRecords={totalRecords}

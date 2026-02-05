@@ -202,6 +202,7 @@ const CaseManagementTemplate = () => {
               <Pagination
               
               currentPage={page}
+              totalTextLabel={`${totalRecords > 1 ? "Cases" : "Case"}`}
               totalRecords={totalRecords}
               limit={RECORDS_LIMIT}
               onPageChange={(e) => {
