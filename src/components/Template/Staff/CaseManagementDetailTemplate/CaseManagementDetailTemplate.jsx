@@ -503,10 +503,10 @@ const CaseManagementDetailTemplate = ({ slug }) => {
               </div>
             </div>
             <div className={classes.docListContainer}>
-              <Row>
+              <Row className="g-3">
                 {documents.length > 0 ? (
                   documents?.map((doc) => (
-                    <Col md={6}  lg={4} key={doc.id}>
+                    <Col md={6} lg={4} key={doc.id} className={classes.docCardCol}>
                       <DocCard
                         title={doc.title}
                         dateTime={doc.dateTime}

@@ -219,12 +219,21 @@
 }
 
 .docListContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   padding: 36px 16px;
-  align-items: start;
-  gap: 16px 24px;
   width: 100%;
+}
+
+.docListContainer .row {
+  align-items: stretch;
+}
+
+.docCardCol {
+  display: flex;
+}
+
+.docCardCol > * {
+  width: 100%;
+  min-height: 160px;
 }
 
 

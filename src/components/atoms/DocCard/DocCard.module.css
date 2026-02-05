@@ -1,11 +1,14 @@
 .card {
   display: flex;
-  /* height: 64px; */
-  padding: 8px;
+  padding: 12px;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex: 1 0 0;
+  min-height: 160px;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
   border-radius: 12px;
   border: 1px solid var(--light-gray, #EAEAEA);
   background: var(--white, #FFF);
@@ -18,9 +21,13 @@
 .content {
   display: flex;
   flex: 1;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
-  height: 100%;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .isDetailedVariantContent{
@@ -108,6 +115,10 @@
   justify-content: flex-start;
   gap: 4px;
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  min-height: 52px;
 }
 
 .isDetailedVariantDetails{
@@ -122,6 +133,12 @@
   font-weight: 700;
   line-height: normal;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .dateTime {

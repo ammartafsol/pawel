@@ -135,9 +135,12 @@
   gap: var(--s4);
   flex: 1;
   min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 .fileName {
+  display: block;
   font-size: var(--fs14);
   font-weight: 500;
   font-family: var(--font-bricolage);
@@ -149,10 +152,13 @@
 }
 
 .fileSize {
+  display: block;
   font-size: var(--fs12);
   font-family: var(--font-bricolage);
   color: var(--black-2);
   opacity: 0.5;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .fileActions {
@@ -209,6 +215,7 @@
   border-radius: var(--s8);
   border: 1px solid var(--border-color);
   padding: var(--s12);
+  /* padding-top: var(--s36); */
   display: flex;
   flex-direction: column;
   gap: var(--s8);
@@ -232,6 +239,7 @@
 .fileCard .fileInfoCard {
   min-width: auto;
   padding: var(--s12);
+  overflow: hidden;
 }
 
 .fileCard .fileActions {
