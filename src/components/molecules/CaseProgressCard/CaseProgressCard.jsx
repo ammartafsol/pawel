@@ -19,6 +19,8 @@ import { FiEdit } from "react-icons/fi";
 import { MdChecklistRtl } from "react-icons/md";
 import Button from "@/components/atoms/Button";
 import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+import ReferenceTag from "@/components/atoms/ReferenceTag/ReferenceTag";
+
 
 export default function CaseProgressCard({
   routePath,
@@ -302,6 +304,7 @@ export default function CaseProgressCard({
                       classes.infoLabelDetail
                     )}
                   >
+                    
                     {typeof task === "string"
                       ? task
                       : task?.label
@@ -314,21 +317,16 @@ export default function CaseProgressCard({
           )}
 
           {/* Reference Link */}
-          {!isStatusVariant && (
-            <div className={classes.infoRow}>
+          {!isStatusVariant && data?.reference?.reference?.length > 0 && (
+            <div className={classes.infoRowDetailed}>
               <RiKeyFill className={classes.infoIcon} />
-              <a
-                href={referenceLink || data?.reference?.link || "#"}
-                className={classes.referenceLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {data.referenceName ||
-                  data?.reference?.referenceName ||
-                  "Reference"}
-                <LuExternalLink className={classes.externalIcon} />
-              </a>
-            </div>
+              <span className={classes.infoLabel}>Reference</span>
+              <div className={classes.referenceList}>
+                {data.reference.reference.map((item, index) => (
+                  <ReferenceTag key={index} label={item} />
+                ))}
+              </div>
+              </div>
           )}
 
           {data?.reference?.refrenece?.length > 0 && (

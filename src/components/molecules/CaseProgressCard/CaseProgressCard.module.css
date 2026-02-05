@@ -12,6 +12,14 @@
   position: relative;
 }
 
+.referenceList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+
 .isStatusVariantClass {
   border-radius: 12px;
 }

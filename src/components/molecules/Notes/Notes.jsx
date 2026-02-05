@@ -9,13 +9,17 @@ import { MdAddCircle } from "react-icons/md";
 import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import AddNoteModal from "@/components/organisms/Modals/AddNoteModal/AddNoteModal";
 import useAxios from "@/interceptor/axios-functions";
+import { FiEdit } from "react-icons/fi";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import VisibilityBadge from "@/components/atoms/VisibilityBadge/VisibilityBadge";
 
-const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteModal, caseNotes = [], slug, onNoteCreated}) => {
+const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteModal, caseNotes = [], slug, onNoteCreated, onNoteUpdated }) => {
   const pathname = usePathname();
-  const { Post } = useAxios();
-  const [loading, setLoading] = useState('');
+
+  const { Post, Patch } = useAxios();
+  const [loading, setLoading] = useState("");
+  const [editingNote, setEditingNote] = useState(null);
+
   
   // Filter notes based on search value
   const filteredNotes = useMemo(() => {
@@ -62,6 +66,27 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
     setLoading("");
   }
 
+  const handleEditSubmit = async (values) => {
+    if (!editingNote?._id) return;
+    setLoading("loading");
+    const obj = {
+      title: values.noteTitle,
+      description: values.description,
+      permissions: values.permissible || [],
+    };
+    const { response } = await Patch({
+      route: `case-note/update/${editingNote._id}`,
+      data: obj,
+      showAlert: true,
+    });
+    if (response?.data && onNoteUpdated) {
+      onNoteUpdated(response.data);
+      setShowAddNoteModal(false);
+      setEditingNote(null);
+    }
+    setLoading("");
+  };
+
   return (
     <div className={`${classes.notesWrapper}`}>
       {/* Header with Add Note button and Search - shown once */}
@@ -89,7 +114,19 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
               <div key={note._id} className={classes.notesContainer}>
               <div className={classes.notesHeader}>
                 <h4>{note.title || "Untitled Note"}</h4>
-                {!pathname.includes('case-management') && (
+                {pathname.includes("case-management") ? (
+                  <button
+                    type="button"
+                    className={classes.editIconButton}
+                    onClick={() => {
+                      setEditingNote(note);
+                      setShowAddNoteModal(true);
+                    }}
+                    aria-label="Edit note"
+                  >
+                    <FiEdit size={20} color="#0D93FF" />
+                  </button>
+                ) : (
                   <RxDotsVertical cursor={"pointer"} size={24} color="#0D93FF" />
                 )}
               </div>
@@ -110,16 +147,18 @@ const Notes = ({searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMod
         <NoDataFound className={classes.noDataFound} text="No notes found" />
       )}
       <AddNoteModal 
-        show={showAddNoteModal} 
-        loading={loading} 
+        show={showAddNoteModal}
+        loading={loading}
         setShow={(show) => {
           setShowAddNoteModal(show);
           if (!show) {
-            // Reset search when modal closes
             setSearchValue("");
+            setEditingNote(null);
           }
-        }} 
-        handleSubmit={handleSubmit} 
+        }}
+        handleSubmit={editingNote ? handleEditSubmit : handleSubmit}
+        isEditMode={!!editingNote}
+        initialData={editingNote ?? undefined}
       />
     </div>
   );
@@ -141,12 +180,14 @@ Notes.propTypes = {
   ),
   slug: PropTypes.string.isRequired,
   onNoteCreated: PropTypes.func.isRequired,
+  onNoteUpdated: PropTypes.func,
 };
 
 Notes.defaultProps = {
   searchValue: "",
   showAddNoteModal: false,
   caseNotes: [],
+  onNoteUpdated: undefined,
 };
 
 export default Notes;

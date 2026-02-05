@@ -17,9 +17,15 @@ import { AddNoteSchema } from "@/formik/schema";
 import { addNoteFormValues } from "@/formik/initialValues";
 import { auditTrackingOptions } from "@/developementContent/Enums/enum";
 
-const AddNoteModal = ({ show, loading, setShow,handleSubmit }) => {
+const AddNoteModal = ({ show, loading, setShow, handleSubmit, isEditMode = false, initialData = null }) => {
   const formik = useFormik({
-    initialValues: addNoteFormValues,
+    initialValues: isEditMode && initialData
+      ? {
+          noteTitle: initialData.title || "",
+          description: initialData.description || "",
+          permissible: initialData.permissions || initialData.permissible || [],
+        }
+      : addNoteFormValues,
     validationSchema: AddNoteSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -27,19 +33,26 @@ const AddNoteModal = ({ show, loading, setShow,handleSubmit }) => {
     },
   });
 
-  // Reset form when modal closes or after successful submission
+  // Reset form when modal closes or after successful submission; reinit when initialData changes (edit)
   useEffect(() => {
     if (!show && loading !== "loading") {
       formik.resetForm();
     }
+    if (show && isEditMode && initialData) {
+      formik.setValues({
+        noteTitle: initialData.title || "",
+        description: initialData.description || "",
+        permissible: initialData.permissions || initialData.permissible || [],
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, loading]);
+  }, [show, loading, isEditMode, initialData]);
 
 
 
   return (
     <ModalSkeleton 
-      heading={"Add a note"} 
+      heading={isEditMode ? "Edit note" : "Add a note"} 
       show={show} 
       setShow={setShow}
       drawer={true}
@@ -58,7 +71,7 @@ const AddNoteModal = ({ show, loading, setShow,handleSubmit }) => {
             }}
           />
           <Button 
-            label={loading === "loading" ? "Adding..." : "Add Note"}
+            label={loading === "loading" ? (isEditMode ? "Updating..." : "Adding...") : (isEditMode ? "Update Note" : "Add Note")}
             variant="outlined" 
             disabled={loading === "loading"}
             loading={loading === "loading"}
@@ -122,11 +135,20 @@ AddNoteModal.propTypes = {
   loading: PropTypes.string,
   setShow: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool,
+  initialData: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    permissions: PropTypes.arrayOf(PropTypes.string),
+    permissible: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 AddNoteModal.defaultProps = {
   show: false,
   loading: "",
+  isEditMode: false,
+  initialData: null,
 };
 
 export default AddNoteModal;

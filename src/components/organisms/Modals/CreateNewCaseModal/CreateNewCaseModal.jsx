@@ -615,6 +615,8 @@
 // export default CreateNewCaseModal;
 
 
+
+
 "use client";
 import React, { useState, useEffect } from "react";
 import classes from "./CreateNewCaseModal.module.css";
@@ -665,6 +667,8 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
       handleSubmit(values);
     },
   });
+
+  console.log("clientOptions",clientOptions);
 
   // Fetch case details when modal opens in update mode
   useEffect(() => {
@@ -767,7 +771,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
         showAlert: false,
       });
       
-      if (response?.status === "success" && response.data) {
+      if (response) {
         setCaseDetails(response.data);
       }
     } catch (error) {
@@ -838,7 +842,7 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
         showAlert: false,
       });
 
-      if (response?.status === "success" && response.data) {
+      if (response) {
         setJurisdictions(response.data);
         // Transform jurisdictions to dropdown options format
         const options = response.data
@@ -854,11 +858,11 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
   const fetchClients = async () => {
     setLoadingClients(true);
     const { response } = await Get({
-      route: "users/all?role=client",
+      route: "users?role=client",
       showAlert: false,
     });
 
-    if (response?.status === "success" && response.data) {
+    if (response) {
       // Transform clients to dropdown options format
       const options = response.data
         .map((client) => ({
@@ -873,11 +877,11 @@ const CreateNewCaseModal = ({ show, setShow, onCaseCreated, caseSlug, isUpdateMo
   const fetchStaff = async () => {
     setLoadingStaff(true);
     const { response } = await Get({
-      route: "admin/users/all?role=staff",
+      route: "users?role=staff",
       showAlert: false,
     });
 
-    if (response?.status === "success" && response.data) {
+    if (response) {
       // Transform staff to dropdown options format
       const options = response.data
         .map((staff) => ({

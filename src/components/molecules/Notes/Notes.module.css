@@ -49,6 +49,22 @@
     flex-wrap: wrap;
 }
 
+.editIconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .editIconButton:hover {
+    background: rgba(13, 147, 255, 0.08);
+  }
+
 .notesList {
     display: flex;
     flex-direction: column;
@@ -63,6 +79,9 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     padding: 15px;
     border-radius: 12px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 16px;
 }
 
 .notesContainer p{

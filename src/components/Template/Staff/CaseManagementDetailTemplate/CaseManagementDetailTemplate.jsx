@@ -20,6 +20,7 @@ import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import { useRouter } from "next/navigation";
 import { MdAddCircle } from "react-icons/md";
+import { RxDotsVertical } from "react-icons/rx";
 import useAxios from "@/interceptor/axios-functions";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import NotFound from "@/components/atoms/NotFound/NotFound";
@@ -28,6 +29,7 @@ import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton"
 import moment from "moment";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import AssignDocumentModal from "@/components/organisms/Modals/AssignDocumentModal/AssignDocumentModal";
+import UploadDocumentToCaseModal from "@/components/organisms/Modals/UploadDocumentToCaseModal/UploadDocumentToCaseModal";
 import CreateNewCaseModal from "@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal";
 import { calculateProgress } from "@/resources/utils/caseHelper";
 import config from "@/config";
@@ -49,9 +51,13 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showAssignDocumentModal, setShowAssignDocumentModal] = useState(false);
+  const [showUploadDocumentToCaseModal, setShowUploadDocumentToCaseModal] = useState(false);
   const [showUpdateCaseModal, setShowUpdateCaseModal] = useState(false);
+  const [docsMenuOpen, setDocsMenuOpen] = useState(false);
+  const [documentsList, setDocumentsList] = useState([]);
   const filterRef = useRef(null);
   const isInitialMount = useRef(true);
+  const docsMenuRef = useRef(null);
 
   const router = useRouter();
   const { Get } = useAxios();
@@ -210,9 +216,33 @@ const CaseManagementDetailTemplate = ({ slug }) => {
 
 
 
-  const handleUploadDocument = () => {
+  const handleAssignDocument = () => {
     setShowAssignDocumentModal(true);
+    setDocsMenuOpen(false);
   };
+
+  const handleUploadDocument = () => {
+    setShowUploadDocumentToCaseModal(true);
+    setDocsMenuOpen(false);
+  };
+
+  const handleDocsMenuOptionClick = (action) => {
+    if (action === "assign") handleAssignDocument();
+    if (action === "upload") handleUploadDocument();
+  };
+
+  // Close docs menu on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (docsMenuRef.current && !docsMenuRef.current.contains(e.target)) {
+        setDocsMenuOpen(false);
+      }
+    };
+    if (docsMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [docsMenuOpen]);
 
   const handleEditClick = () => {
     setShowUpdateCaseModal(true);
@@ -274,7 +304,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
       status: caseDetails.status || "Pending",
       trademarkName: caseDetails.trademarkName || "",
       trademarkNo: caseDetails.trademarkNumber || "",
-      referenceLink: "#",
+      refrenece: [],
       primaryStaff: caseDetails.primaryStaff?.fullName || "",
       secondaryStaff: caseDetails.secondaryStaff?.fullName || "",
       jurisdiction:
@@ -306,8 +336,14 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     };
   };
 
-  const allDocuments =
-    caseDetails?.caseDocuments?.map((doc) => ({
+  // Sync documents list from case details when case documents change (e.g. after fetch or refetch)
+  useEffect(() => {
+    const raw = caseDetails?.caseDocuments;
+    if (!raw || !Array.isArray(raw)) {
+      setDocumentsList([]);
+      return;
+    }
+    const transformed = raw.map((doc) => ({
       id: doc._id,
       title: doc.fileName || "Document",
       dateTime: formatDate(doc.createdAt),
@@ -315,7 +351,11 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         ? "Visible to client"
         : null,
       fileUrl: doc.key ? `${config.awsBaseUrl}/${doc.key}` : "",
-    })) || [];
+    }));
+    setDocumentsList(transformed);
+  }, [caseDetails?.caseDocuments]);
+
+  const allDocuments = documentsList;
 
   // Filter documents based on search value
   const documents = documentSearchValue
@@ -344,6 +384,18 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     }
   };
 
+   // Handle note update - replace note in list
+   const handleNoteUpdated = (updatedNote) => {
+    if (caseDetails?.caseNotes && updatedNote?._id) {
+      setCaseDetails({
+        ...caseDetails,
+        caseNotes: caseDetails.caseNotes.map((n) =>
+          n._id === updatedNote._id ? { ...n, ...updatedNote } : n
+        ),
+      });
+    }
+  };
+
   // Handle calendar event click
   const handleEventClick = (event) => {
     setSelectedEvent(event);
@@ -363,6 +415,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
               caseNotes={caseNotes}
               slug={slug}
               onNoteCreated={handleNoteCreated}
+              onNoteUpdated={handleNoteUpdated}
             />
           </div>
         );
@@ -383,12 +436,35 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
-                <Button
-                  label="Upload Document"
-                  className={classes.uploadDocumentButton}
-                  leftIcon={<MdAddCircle color="var(--white)" size={20} />}
-                  onClick={handleUploadDocument}
-                />
+              <div className={classes.docsMenuWrapper} ref={docsMenuRef}>
+                  <button
+                    type="button"
+                    className={classes.docsMenuTrigger}
+                    onClick={() => setDocsMenuOpen(!docsMenuOpen)}
+                    aria-label="Document options"
+                    aria-expanded={docsMenuOpen}
+                  >
+                    <RxDotsVertical size={24} color="#0D93FF" />
+                  </button>
+                  {docsMenuOpen && (
+                    <div className={classes.docsMenuDropdown}>
+                      <button
+                        type="button"
+                        className={classes.docsMenuOption}
+                        onClick={() => handleDocsMenuOptionClick("assign")}
+                      >
+                        Assign document
+                      </button>
+                      <button
+                        type="button"
+                        className={classes.docsMenuOption}
+                        onClick={() => handleDocsMenuOptionClick("upload")}
+                      >
+                        Upload document
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <SearchInput
                   value={documentSearchValue}
                   setValue={setDocumentSearchValue}
@@ -549,27 +625,28 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         show={showEventModal}
         setShow={setShowEventModal}
         event={selectedEvent}
-        routePrefix="/staff/case-management"
-        hideViewCaseButton
+        routePrefix="/case-management"
       />
       <AssignDocumentModal
         show={showAssignDocumentModal}
         setShow={setShowAssignDocumentModal}
         caseSlug={slug}
+        setDocuments={setDocumentsList}
         documents={documents}
-        setDocuments={async (newDocs) => {
-          // Refetch case details to get the latest document list
-          await refetchCaseDetails();
-        }}
+      />
+      <UploadDocumentToCaseModal
+        show={showUploadDocumentToCaseModal}
+        setShow={setShowUploadDocumentToCaseModal}
+        caseSlug={slug}
+        setDocuments={setDocumentsList}
+        documents={documents}
       />
       <CreateNewCaseModal
         show={showUpdateCaseModal}
         setShow={setShowUpdateCaseModal}
         caseSlug={slug}
         isUpdateMode={true}
-        onCaseCreated={() => {
-          refetchCaseDetails();
-        }}
+        onCaseCreated={fetchCaseDetails}
       />
     </div>
   );

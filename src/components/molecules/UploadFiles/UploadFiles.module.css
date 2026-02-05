@@ -109,6 +109,7 @@
 
 .fileInfoCard {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--s12);
   background: var(--white);
@@ -118,6 +119,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   min-width: 200px;
   position: relative;
+  width: 100%;
+  align-items: center;
+  text-align: center;
 }
 
 .fileIcon {
@@ -141,6 +145,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .fileSize {
