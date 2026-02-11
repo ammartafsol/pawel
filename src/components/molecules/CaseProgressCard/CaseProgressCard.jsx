@@ -16,6 +16,7 @@ import Status from "@/components/atoms/Status/Status";
 import { BiCalendar } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { MdChecklistRtl } from "react-icons/md";
 import Button from "@/components/atoms/Button";
 import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
@@ -30,6 +31,8 @@ export default function CaseProgressCard({
   referenceLink = "",
   onEditClick,
   showEditButton = false,
+  onDeleteClick,
+  showDeleteButton = false,
   data = {
     tabLabel: "",
     userName: "",
@@ -83,19 +86,34 @@ export default function CaseProgressCard({
             : ""
         )}
       >
-        {/* Edit Button */}
-        {showEditButton && onEditClick && (
-          <div className={classes.editButtonContainer}>
-            <Button
-              label=""
-              variant="outlined"
-              leftIcon={<FiEdit size={16} />}
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditClick();
-              }}
-              className={classes.editButton}
-            />
+        {/* Edit & Delete - along with each other, top right */}
+        {(showEditButton || showDeleteButton) && (
+          <div className={classes.cardActionsContainer}>
+            {showEditButton && onEditClick && (
+              <Button
+                label=""
+                variant="outlined"
+                leftIcon={<FiEdit size={16} />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditClick();
+                }}
+                className={classes.editButton}
+              />
+            )}
+            {showDeleteButton && onDeleteClick && (
+              <Button
+                label=""
+                variant="outlined"
+                leftIcon={<RiDeleteBinLine size={16} />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteClick();
+                }}
+                className={classes.deleteButton}
+                aria-label="Delete case"
+              />
+            )}
           </div>
         )}
         {/* Card Content */}

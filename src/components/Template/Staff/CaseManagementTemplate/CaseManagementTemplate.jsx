@@ -8,6 +8,7 @@ import { FaRegFolderClosed } from "react-icons/fa6";
 import CaseProgressCard from '@/components/molecules/CaseProgressCard/CaseProgressCard';
 import { Col, Row } from "react-bootstrap";
 import CreateNewCaseModal from '@/components/organisms/Modals/CreateNewCaseModal/CreateNewCaseModal';
+import AreYouSureModal from '@/components/organisms/Modals/AreYouSureModal/AreYouSureModal';
 import useDebounce from '@/resources/hooks/useDebounce';
 import useAxios from '@/interceptor/axios-functions';
 import { RECORDS_LIMIT } from '@/resources/utils/constant';
@@ -21,6 +22,9 @@ const CaseManagementTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
   const [showUpdateDeadlineModal, setShowUpdateDeadlineModal] = useState(false);
   const [selectedCaseSlug, setSelectedCaseSlug] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [caseToDeleteSlug, setCaseToDeleteSlug] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   // Case type filters fetched from API (case-type/all)
   const [caseTypeFilters, setCaseTypeFilters] = useState([
     { label: 'All', value: 'all' },
@@ -36,7 +40,7 @@ const CaseManagementTemplate = () => {
   const [data, setData] = useState([]);
   const [search,setSearch] = useState("");
   const debouceSearch = useDebounce(search, 500);
-  const { Get } = useAxios();
+  const { Get, Delete } = useAxios();
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -132,6 +136,7 @@ const CaseManagementTemplate = () => {
   // Check user permissions
   const hasCreateCasePermission = user?.permissions?.includes('create-case') || false;
   const hasUpdateCasePermission = user?.permissions?.includes('update-case') || false;
+  const hasDeleteCasePermission = user?.permissions?.includes('delete-case') || hasUpdateCasePermission;
 
   useEffect(() => {
     fetchCaseTypes();
@@ -144,6 +149,26 @@ const CaseManagementTemplate = () => {
   const handleEditClick = (caseSlug) => {
     setSelectedCaseSlug(caseSlug);
     setShowUpdateDeadlineModal(true);
+  };
+
+  const handleDeleteClick = (slug) => {
+    setCaseToDeleteSlug(slug);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!caseToDeleteSlug) return;
+    setIsDeleting(true);
+      const { response } = await Delete({
+        route: `case/delete-by-staff/${caseToDeleteSlug}`,
+        showAlert: true,
+      });
+      if (response) {
+        setShowDeleteModal(false);
+        setCaseToDeleteSlug(null);
+        getData(page);
+      }
+      setIsDeleting(false);
   };
 
   if(loading === 'loading'){
@@ -179,6 +204,8 @@ const CaseManagementTemplate = () => {
                  routePath={`/staff/case-management/${item.slug}`}
                  showEditButton={hasUpdateCasePermission}
                  onEditClick={() => handleEditClick(item.slug)}
+                 showDeleteButton={hasDeleteCasePermission}
+                 onDeleteClick={() => handleDeleteClick(item.slug)}
                  data={{
                    tabLabel: item.tabLabel,
                    userName: item.userName,
@@ -230,6 +257,16 @@ const CaseManagementTemplate = () => {
           getData(page);
           setSelectedCaseSlug(null);
         }}
+      />
+      <AreYouSureModal
+        show={showDeleteModal}
+        setShow={setShowDeleteModal}
+        title="Delete case"
+        subTitle="Are you sure you want to delete this case? This action cannot be undone."
+        buttonLabel="DELETE"
+        type="danger"
+        isLoading={isDeleting}
+        onClick={handleConfirmDelete}
       />
     </div>
   )

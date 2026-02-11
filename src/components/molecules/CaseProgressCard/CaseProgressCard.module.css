@@ -66,6 +66,7 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
+  padding-right: 30px;
 }
 
 .assignedHeading {
@@ -244,18 +245,34 @@ margin-bottom: 0px;
   margin: 8px 0;
 }
 
-.editButtonContainer {
+.cardActionsContainer {
   position: absolute;
-  top: 10px;
+  top: 23px;
   right: 10px;
-  z-index: 10;
-  opacity: 1;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .editButton {
   height: 32px !important;
   min-width: 32px !important;
   padding: 0 !important;
+}
+
+.deleteButton {
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  color: var(--error, #dc3545) !important;
+  border-color: var(--error, #dc3545) !important;
+}
+
+.deleteButton:hover {
+  background: var(--error, #dc3545) !important;
+  color: var(--white) !important;
 }
 
 
