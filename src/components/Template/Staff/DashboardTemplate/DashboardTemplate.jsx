@@ -8,7 +8,7 @@ import CalenderHeaderDrop from "@/components/atoms/TableHeaderDrop/CalenderHeade
 import ActionCard from "@/components/molecules/ActionCard/ActionCard";
 import { newCasesData } from "@/developementContent/Data/data";
 import ResponsiveTable from "@/components/organisms/ResponsiveTable/ResponsiveTable";
-import { staffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
+import { getStaffDashboardTableHeader } from "@/developementContent/TableHeader/StaffDashboardTableHeader";
 import TableHeader from "@/components/molecules/TableHeader/TableHeader";
 // import { caseStatusFilters } from "@/developementContent/Enums/enum";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,8 @@ const DashboardTemplate = () => {
   //   caseStatusFilters[0]
   // );
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
+  const [showUpdateDeadlineModal, setShowUpdateDeadlineModal] = useState(false);
+  const [editCaseSlug, setEditCaseSlug] = useState(null);
   const [loading, setLoading] = useState(false);
   const [calendarLoading, setCalendarLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
@@ -275,7 +277,13 @@ const DashboardTemplate = () => {
               contentClassName={classes.contentClassName}
             >
               <ResponsiveTable
-                tableHeader={staffDashboardTableHeader}
+                tableHeader={getStaffDashboardTableHeader({
+                  onEditDeadline: (slug) => {
+                    setEditCaseSlug(slug);
+                    setShowUpdateDeadlineModal(true);
+                  },
+                  hasUpdateCasePermission,
+                })}
                 data={recentActivities}
               />
             </Wrapper>
@@ -285,6 +293,13 @@ const DashboardTemplate = () => {
       <CreateNewCaseModal
         show={showCreateNewCaseModal}
         setShow={setShowCreateNewCaseModal}
+      />
+      <CreateNewCaseModal
+        show={showUpdateDeadlineModal}
+        setShow={setShowUpdateDeadlineModal}
+        caseSlug={editCaseSlug}
+        isUpdateMode={true}
+        onCaseCreated={getDashboardData}
       />
       <CalendarEventDetailModal
         show={showEventModal}

@@ -1,8 +1,16 @@
-import { RenderDateCell, RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+import { RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
-import PhasePill from "@/components/atoms/PhasePill/PhasePill";
+import moment from "moment";
+import { FiEdit } from "react-icons/fi";
 
-export const staffDashboardTableHeader = [
+/**
+ * @param {{ onEditDeadline?: (slug: string) => void, hasUpdateCasePermission?: boolean }} options
+ * @returns table header column config
+ */
+export const getStaffDashboardTableHeader = (options = {}) => {
+  const { onEditDeadline, hasUpdateCasePermission = false } = options;
+
+  return [
   {
     title: "Client",
     key: "client",
@@ -36,8 +44,45 @@ export const staffDashboardTableHeader = [
     title: "Internal Deadline",
     key: "internalDeadline",
     style: { width: "15%" },
-    renderItem: ({ item }) => {
-      return <RenderDateCell cellValue={item} />;
+    renderItem: ({ item, data }) => {
+      const dateDisplay =
+        !item || item === "Unknown Internal Deadline" || item === "Unknown Office Deadline"
+          ? "—"
+          : moment.utc(item).format("MMMM DD, YYYY");
+      const slug = data?.slug;
+      const canEdit = hasUpdateCasePermission && onEditDeadline && slug;
+
+      return (
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "nowrap" }}>
+          <span style={{ flex: "1", minWidth: 0 }}>{dateDisplay}</span>
+          {canEdit && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditDeadline(slug);
+              }}
+              aria-label="Edit deadlines"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 28,
+                height: 28,
+                padding: 0,
+                border: "none",
+                borderRadius: "4px",
+                background: "var(--sky-blue, #0D93FF)",
+                color: "#fff",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+            >
+              <FiEdit size={14} />
+            </button>
+          )}
+        </div>
+      );
     },
   },
   // {
@@ -107,45 +152,10 @@ export const staffDashboardTableHeader = [
         View Details
       </Link>;
     },
-  }
-  // {
-  //   title: "Status",
-  //   key: "status",
-  //   style: { width: "20%" },
-  //   renderItem: ({ item, data }) => {
-  //     return <Status label={item} variant={data.statusVariant} />;
-  //   },
-  // },
-  // {
-  //   title: "Next Task",
-  //   key: "nextTask",
-  //   style: { width: "20%" },
-  //   renderItem: ({ item, data }) => {
-  //     return <Status label={item} variant={data.nextTaskVariant} />;
-  //   },
-  // },
-  // {
-  //   title: "Attorney",
-  //   key: "attorney",
-  //   style: { width: "10%" },
-  //   renderItem: ({ item }) => {
-  //     return <RenderTextCell cellValue={item} />;
-  //   },
-  // },
-  // {
-  //   title: "Notes",
-  //   key: "notes",
-  //   style: { width: "20%" },
-  //   renderItem: ({ item }) => {
-  //     return (
-  //       <div 
-  //       style={{ 
-  //         paddingRight: "8px"
-  //       }}>
-  //         {item}
-  //       </div>
-  //     );
-  //   },
-  // },
-];
+  },
+  ];
+};
+
+/** @deprecated Use getStaffDashboardTableHeader() for recent activities table to support edit icon */
+export const staffDashboardTableHeader = getStaffDashboardTableHeader();
 
