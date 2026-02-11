@@ -133,8 +133,9 @@ const DashboardTemplate = () => {
   const transformAuditTrackingToEvents = (auditTracking) => {
     return auditTracking
       .flatMap((caseData) => {
-        const clientName = caseData.client?.fullName || "Unknown Client";
         const typeObject = caseData.type || null;
+
+        const clientName = caseData.client?.fullName || "Unknown Client";
 
         return (caseData.deadlines || []).map((deadline) => {
           if (!deadline.deadline) return null;
@@ -149,14 +150,17 @@ const DashboardTemplate = () => {
               (phase) => phase.name === deadline.deadlineStatus
             ) || null;
 
+          const phaseName = deadline.deadlineStatus || "Unknown Phase";
+
           return {
             start: new Date(start),
             end: new Date(end),
-            title: clientName,
+            title: phaseName,
             resource: {
               caseId: caseData._id,
               slug: caseData.slug,
               trademarkNumber: caseData.trademarkNumber,
+              clientName,
               deadlineStatus: deadline.deadlineStatus,
               deadline: deadline.deadline,
               typeName:

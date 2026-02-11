@@ -2,11 +2,7 @@ import DashboardTemplate from '@/components/Template/Staff/DashboardTemplate/Das
 import React from 'react'
 
 const page = () => {
-  return (
-    <>
-    <DashboardTemplate />
-    </>
-  )
+  return <DashboardTemplate />
 }
 
 export default page
