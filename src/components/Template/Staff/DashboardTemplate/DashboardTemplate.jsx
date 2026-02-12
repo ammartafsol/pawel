@@ -34,7 +34,6 @@ const DashboardTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [calendarLoading, setCalendarLoading] = useState(false);
-  const [recentActivities, setRecentActivities] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentView, setCurrentView] = useState("month");
@@ -51,6 +50,13 @@ const DashboardTemplate = () => {
   const router = useRouter();
   const { user } = useSelector((state) => state.authReducer);
   const refreshDashboardRef = useRef(() => {});
+  const isFirstDashboardFetch = useRef(true);
+
+  /* Recent Activities filter - same pattern as CaseManagementTemplate */
+  const [caseTypeFilters, setCaseTypeFilters] = useState([{ label: "All", value: "" }]);
+  const [selectedCaseType, setSelectedCaseType] = useState({ label: "All", value: "" });
+  const [dashboardData, setDashboardData] = useState(null);
+  const [recentActivitiesLoading, setRecentActivitiesLoading] = useState(false);
 
   const hasCreateCasePermission = user?.permissions?.includes("create-case") ?? false;
   const hasUpdateCasePermission = user?.permissions?.includes("update-case") ?? false;
@@ -105,19 +111,54 @@ const DashboardTemplate = () => {
     };
   }, []);
 
-  const getDashboardData = useCallback(async () => {
-    setLoading(true);
+  /* Same pattern as CaseManagementTemplate: API called with jurisdiction param when filter selected */
+  const fetchDashboardData = useCallback(async (jurisdictionSlug) => {
+    const isInitial = isFirstDashboardFetch.current;
+    if (isInitial) {
+      setLoading(true);
+    } else {
+      setRecentActivitiesLoading(true);
+    }
+    const queryParams = new URLSearchParams();
+    if (jurisdictionSlug) {
+      queryParams.append("jurisdiction", jurisdictionSlug);
+    }
+    const queryString = queryParams.toString();
+    const route = queryString ? `users/dashboard?${queryString}` : "users/dashboard";
     const { response } = await Get({
-      route: "users/dashboard",
+      route,
+      showAlert: false,
+    });
+    if (!response?.data) {
+      if (isInitial) setLoading(false);
+      else setRecentActivitiesLoading(false);
+      return;
+    }
+    setDashboardData(response.data);
+    if (isInitial) {
+      setCalendarEvents(transformAuditTrackingToEvents(response.data.auditTracking || []));
+      setLoading(false);
+      isFirstDashboardFetch.current = false;
+    } else {
+      setRecentActivitiesLoading(false);
+    }
+  }, []);
+
+  /* Fetch filter options - same as CaseManagementTemplate (jurisdiction/all) */
+  const fetchCaseTypes = useCallback(async () => {
+    const queryParams = new URLSearchParams({ status: "active" }).toString();
+    const { response } = await Get({
+      route: `jurisdiction/all?${queryParams}`,
       showAlert: false,
     });
     if (response?.data) {
-      setRecentActivities(
-        (response.data.recentActivities || []).map(transformActivityData)
-      );
+      const options = (response.data || []).map((type) => ({
+        label: type.name || "Unknown",
+        value: type.slug || type._id,
+      }));
+      setCaseTypeFilters([{ label: "All", value: "" }, ...options]);
     }
-    setLoading(false);
-  }, [transformActivityData]);
+  }, []);
 
   const transformAuditTrackingToEvents = useCallback((auditTracking) => {
     return auditTracking
@@ -449,11 +490,22 @@ const DashboardTemplate = () => {
     hasUpdateCasePermission,
   ]);
 
-  refreshDashboardRef.current = getDashboardData;
+  /* Recent activities from API (backend returns filtered list when jurisdiction param sent) */
+  const recentActivities = useMemo(() => {
+    return (dashboardData?.recentActivities ?? []).map(transformActivityData);
+  }, [dashboardData, transformActivityData]);
 
+  refreshDashboardRef.current = () => fetchDashboardData(selectedCaseType?.value ?? "");
+
+  /* When selectedCaseType changes, API is called with filter - same as CaseManagementTemplate */
   useEffect(() => {
-    getDashboardData();
-  }, [getDashboardData]);
+    fetchDashboardData(selectedCaseType?.value ?? "");
+  }, [selectedCaseType, fetchDashboardData]);
+
+  /* Fetch jurisdiction filter options on mount */
+  useEffect(() => {
+    fetchCaseTypes();
+  }, [fetchCaseTypes]);
 
   useEffect(() => {
     fetchCalendarData();
@@ -540,17 +592,27 @@ const DashboardTemplate = () => {
                   viewButtonText="View All"
                   onClickViewAll={() => router.push(STAFF_CASE_MANAGEMENT_PATH)}
                   title="Recent Activities"
-                  hideDropdown
                   hideSearch
+                  hideFilter
+                  hideDropdown={false}
+                  dropdownOptions={caseTypeFilters}
+                  selectedDropdownValue={selectedCaseType}
+                  setSelectedDropdownValue={(value) => {
+                    setSelectedCaseType(value ?? { label: "All", value: "" });
+                  }}
                 />
               }
               className={classes.wrapper}
               contentClassName={`${classes.contentClassName} ${classes.recentActivitiesTable}`}
             >
-              <ResponsiveTable
-                tableHeader={dashboardTableHeader}
-                data={recentActivities}
-              />
+              {recentActivitiesLoading ? (
+                <LoadingSkeleton height="200px" />
+              ) : (
+                <ResponsiveTable
+                  tableHeader={dashboardTableHeader}
+                  data={recentActivities}
+                />
+              )}
             </Wrapper>
           </Col>
         </Row>
