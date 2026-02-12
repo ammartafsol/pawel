@@ -93,7 +93,7 @@ const CaseManagementTemplate = () => {
       });
       // Append selected case type as ?type= when not "all"
       if (selectedDropdownValue?.value && selectedDropdownValue.value !== "all") {
-        queryParams.append("type", selectedDropdownValue.value);
+        queryParams.append("jurisdiction", selectedDropdownValue.value);
       }
       const { response } = await Get({ 
         route: `case/all?${queryParams.toString()}`,
@@ -111,8 +111,11 @@ const CaseManagementTemplate = () => {
 
   // Fetch case types for dropdown filter
   const fetchCaseTypes = async () => {
+    const queryParams = new URLSearchParams({
+      status: "active",
+    }).toString();
       const { response } = await Get({
-        route: 'case-type/all',
+        route: `jurisdiction/all?${queryParams}`,
         showAlert: false,
       });
 
