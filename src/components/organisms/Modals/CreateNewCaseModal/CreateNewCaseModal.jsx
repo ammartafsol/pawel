@@ -12,7 +12,6 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { FaBalanceScale, FaRegUserCircle } from "react-icons/fa";
 import { IoAddCircle, IoCalendarClearOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
-import Checkbox from "@/components/atoms/Checkbox";
 import DeadlinePhaseLabel from "@/components/atoms/DeadlinePhaseLabel/DeadlinePhaseLabel";
 import Button from "@/components/atoms/Button";
 import { useFormik } from "formik";
@@ -800,13 +799,7 @@ const CreateNewCaseModal = ({
                           />
                         </div>
                         <div className={classes.deadlineRowActions}>
-                          <Checkbox
-                            label="Optional"
-                            checked={deadline.optional === true}
-                            onChange={(checked) => handleDeadlineChange(index, "optional", checked)}
-                            className={classes.optionalCheckbox}
-                          />
-                           {canRemoveThisRow && (
+                          {canRemoveThisRow && (
                             <Button
                               label=""
                               variant="outlined"

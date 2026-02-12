@@ -1,0 +1,74 @@
+
+.footerDiv{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.iconInputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    width: 300px !important;
+  }
+  
+.inputClassName{
+    height: 40px !important;
+    border-radius: 13px !important;
+    width: 300px !important;
+  }
+
+  /* Country select: same design as Client Reference / WeChat ID – single border, no extra borders */
+  .countrySelectWrap {
+    width: 300px;
+  }
+  .countrySelectContainer {
+    width: 100%;
+  }
+  .countrySelectWrap :global(.stdropdown-container) {
+    width: 100%;
+    border: none !important;
+    border-radius: 13px;
+  }
+  .countrySelectWrap :global(.stdropdown-input.stsearch-box) {
+    height: 40px !important;
+    min-height: 40px !important;
+    border-radius: 13px !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 0 16px !important;
+    font-family: var(--font-inter) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: var(--midnight-blue) !important;
+    background-color: var(--white) !important;
+  }
+  .countrySelectWrap :global(.stsearch-box input) {
+    border: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+
+  }
+
+  .countrySelectInput {
+    font-family: var(--font-inter) !important;
+    font-size: 14px !important;
+    color: var(--midnight-blue) !important;
+  }
+  .countryError {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--error);
+    margin-top: 4px;
+  }
+  .errorText {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+

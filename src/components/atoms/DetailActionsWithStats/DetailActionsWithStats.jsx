@@ -32,13 +32,15 @@ const DetailActionsWithStats = ({
           className={`${classes.deactivateButton} ${deactivateButtonClassName || ""}`}
           onClick={onDeactivate}
         /> */}
-        {/* <Button
-          label={editLabel}
-          leftIcon={<MdOutlineEdit />}
-          variant="outlined"
-          className={`${classes.editButton} ${editButtonClassName || ""}`}
-          onClick={onEdit}
-        /> */}
+        {onEdit && (
+          <Button
+            label={editLabel}
+            leftIcon={<MdOutlineEdit />}
+            variant="outlined"
+            className={`${classes.editButton} ${editButtonClassName || ""}`}
+            onClick={onEdit}
+          />
+        )}
       </div>
       <CaseStats statsData={statsData} />
     </div>

@@ -33,6 +33,21 @@ export const ResetPasswordSchema = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 
+export const AddNewClientSchema = Yup.object({
+  clientName: Yup.string().required("Client Name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required")
+    .test(
+      "no-special-chars",
+      "Email contains invalid characters",
+      (value) => !value || emailRegex.test(value)
+    ),
+  clientReference: Yup.string().required("Client Reference is required"),
+  country: Yup.string().required("Country is required"),
+  weChatId: Yup.string().required("WeChat ID is required"),
+});
+
 export const CreateNewCaseSchema = Yup.object({
   caseType: Yup.string().required("Case Type is required"),
   clientName: Yup.string().required("Client Name is required"),

@@ -38,6 +38,14 @@ export const createNewCaseFormValues = {
   deadlines: [{ internalDeadline: "", officeDeadline: "", optional: false }],
 };
 
+export const addNewClientFormValues = {
+  clientName: "",
+  email: "",
+  clientReference: "",
+  country: "",
+  weChatId: "",
+};
+
 export const addNoteFormValues = {
   noteTitle: "",
   description: "",

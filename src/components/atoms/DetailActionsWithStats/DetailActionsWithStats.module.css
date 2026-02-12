@@ -25,7 +25,9 @@
   height: 40px !important;
 }
 
-.editButton[color-variant="outlined"] {
-  height: 40px !important;
+.editButton {
+  width: fit-content !important;
+  padding: 8px 16px !important;
+  height: 38px !important;
 }
 

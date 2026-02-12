@@ -12,6 +12,13 @@
 
 }
 
+.userDetailItem{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
 .content{
     padding:  20px;
     background-color: var(--ghost-white);

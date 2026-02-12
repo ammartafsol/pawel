@@ -7,7 +7,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { Col, Row } from "react-bootstrap";
 import { FiUser } from "react-icons/fi";
-import { MdOutlineEmail } from "react-icons/md";
+import { MdOutlineEmail, MdPublic } from "react-icons/md";
 import DetailActionsWithStats from "@/components/atoms/DetailActionsWithStats/DetailActionsWithStats";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import useAxios from "@/interceptor/axios-functions";
@@ -19,6 +19,7 @@ import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import Pagination from "@/components/molecules/Pagination/Pagination";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
 import { calculateProgress } from "@/resources/utils/caseHelper";
+import AddEditClientModal from "@/components/organisms/Modals/AddEditClientModal/AddEditClientModal";
 
 const UserManagementDetailTemplate = ({ slug }) => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const UserManagementDetailTemplate = ({ slug }) => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const { Get, Patch } = useAxios();
 
   // Format date for display
@@ -80,6 +82,10 @@ const UserManagementDetailTemplate = ({ slug }) => {
 
   const handleActivateDeactivateClick = () => {
     setShowConfirmModal(true);
+  };
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
   };
 
   // Determine button label and status variant based on user status
@@ -156,12 +162,22 @@ const UserManagementDetailTemplate = ({ slug }) => {
                   </div>
                   {role === "client" && (
                     <div className={classes.userDetailItem}>
+                    <div className={classes.userDetailItem}>
                       <div className={classes.userDetailItemTitle}>
                         <MdOutlineEmail size={16} color="#8484AE" />
                         <h5>Email</h5>
                       </div>
                       <h4>{data?.user?.email || "No email"}</h4>
                     </div>
+                    <div className={classes.userDetailItem}>
+                        <div className={classes.userDetailItemTitle}>
+                          <MdPublic size={16} color="#8484AE" />
+                          <h5>Country</h5>
+                        </div>
+                        <h4>{data?.user?.country}</h4>
+                      </div>
+                    </div>
+
                   )}
                   
                 </div>
@@ -176,6 +192,7 @@ const UserManagementDetailTemplate = ({ slug }) => {
                     deactivateButtonClassName={classes.deactivateButton}
                     editButtonClassName={classes.editButton}
                     onDeactivate={handleActivateDeactivateClick}
+                    onEdit={role === "client" ? handleEditClick : undefined}
                   />
                 </div>
               </Col>
@@ -226,7 +243,17 @@ const UserManagementDetailTemplate = ({ slug }) => {
           </div>
         </div>
       </Wrapper>
-      
+
+      {role === "client" && (
+        <AddEditClientModal
+          show={showEditModal}
+          setShow={setShowEditModal}
+          selectedData={data?.user}
+          slug={slug}
+          updateRoute="users/update"
+          getUserData={getUserDetails}
+        />
+      )}
     </div>
   );
 };
