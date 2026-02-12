@@ -1,0 +1,105 @@
+/* Overrides for Internal Deadline inline calendar – load after react-datepicker.css */
+[data-inline-deadline-calendar] .react-datepicker {
+  font-family: var(--font-helvetica-neue), sans-serif;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 8px 8px;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__current-month {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--shadow-moss);
+  margin-bottom: 10px;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__navigation {
+  top: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+}
+
+[data-inline-deadline-calendar] .react-datepicker__navigation:hover {
+  background: var(--status-light-blue-1);
+  border-color: var(--status-light-blue-4);
+}
+
+[data-inline-deadline-calendar] .react-datepicker__navigation-icon::before {
+  border-color: var(--status-light-blue-4);
+  border-width: 2px 2px 0 0;
+  height: 6px;
+  width: 6px;
+  top: 10px;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day-names {
+  margin-bottom: 2px;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--status-light-blue-4);
+  width: 2.25rem;
+  line-height: 2.25rem;
+  margin: 0.166rem;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__month {
+  margin: 0 8px 10px;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day {
+  font-size: 13px;
+  color: var(--shadow-moss);
+  width: 2.25rem;
+  line-height: 2.25rem;
+  margin: 0.166rem;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day:hover {
+  color: var(--status-light-blue-4);
+  background-color: transparent;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day--outside-month {
+  color: var(--status-light-blue-4);
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day--selected,
+[data-inline-deadline-calendar] .react-datepicker__day--keyboard-selected {
+  background-color: transparent !important;
+  color: var(--status-light-blue-4) !important;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day--selected:hover,
+[data-inline-deadline-calendar] .react-datepicker__day--keyboard-selected:hover {
+  background-color: transparent !important;
+  color: var(--status-light-blue-4) !important;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day--today {
+  font-weight: 600;
+  color: var(--status-light-blue-4);
+  background-color: transparent;
+}
+
+[data-inline-deadline-calendar] .react-datepicker__day--today.react-datepicker__day--selected {
+  color: var(--status-light-blue-4);
+  text-decoration: underline;
+}

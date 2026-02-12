@@ -101,7 +101,7 @@ const DashboardTemplate = () => {
             events.push({
               start: start,
               end: end,
-              title: caseData.trademarkName || "Case",
+              title: deadline.deadlineStatus || "—",
               resource: {
                 caseId: caseData._id,
                 slug: caseData.slug,

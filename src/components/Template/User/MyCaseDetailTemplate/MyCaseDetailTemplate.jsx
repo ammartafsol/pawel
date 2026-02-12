@@ -75,7 +75,7 @@ const MyCaseDetailTemplate = ({ slug }) => {
         events.push({
           start: start,
           end: end,
-          title: clientName,
+          title: deadline.deadlineStatus || "—",
           resource: {
             caseId: caseData._id,
             slug: caseData.slug,

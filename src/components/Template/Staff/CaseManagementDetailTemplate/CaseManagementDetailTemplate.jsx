@@ -20,7 +20,7 @@ import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import CaseProgressCard from "@/components/molecules/CaseProgressCard/CaseProgressCard";
 import { useRouter } from "next/navigation";
 import { MdAddCircle } from "react-icons/md";
-import { RxDotsVertical } from "react-icons/rx";
+import { MdLink, MdUpload } from "react-icons/md";
 import useAxios from "@/interceptor/axios-functions";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import NotFound from "@/components/atoms/NotFound/NotFound";
@@ -36,7 +36,6 @@ import config from "@/config";
 import { useSelector } from "react-redux";
 
 const CaseManagementDetailTemplate = ({ slug }) => {
-  const [searchValue, setSearchValue] = useState("");
   const [documentSearchValue, setDocumentSearchValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(auditTrackingOptions[0]);
   const [activeTab, setActiveTab] = useState(caseDetailTabs[0].value);
@@ -53,11 +52,9 @@ const CaseManagementDetailTemplate = ({ slug }) => {
   const [showAssignDocumentModal, setShowAssignDocumentModal] = useState(false);
   const [showUploadDocumentToCaseModal, setShowUploadDocumentToCaseModal] = useState(false);
   const [showUpdateCaseModal, setShowUpdateCaseModal] = useState(false);
-  const [docsMenuOpen, setDocsMenuOpen] = useState(false);
   const [documentsList, setDocumentsList] = useState([]);
   const filterRef = useRef(null);
   const isInitialMount = useRef(true);
-  const docsMenuRef = useRef(null);
 
   const router = useRouter();
   const { Get } = useAxios();
@@ -108,7 +105,7 @@ const CaseManagementDetailTemplate = ({ slug }) => {
         events.push({
           start: start,
           end: end,
-          title: clientName,
+          title: deadline.deadlineStatus || "—",
           resource: {
             slug: caseData.slug,
             caseId: caseData._id,
@@ -218,12 +215,10 @@ const CaseManagementDetailTemplate = ({ slug }) => {
 
   const handleAssignDocument = () => {
     setShowAssignDocumentModal(true);
-    setDocsMenuOpen(false);
   };
 
   const handleUploadDocument = () => {
     setShowUploadDocumentToCaseModal(true);
-    setDocsMenuOpen(false);
   };
 
   const handleDocsMenuOptionClick = (action) => {
@@ -231,18 +226,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
     if (action === "upload") handleUploadDocument();
   };
 
-  // Close docs menu on click outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (docsMenuRef.current && !docsMenuRef.current.contains(e.target)) {
-        setDocsMenuOpen(false);
-      }
-    };
-    if (docsMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [docsMenuOpen]);
 
   const handleEditClick = () => {
     setShowUpdateCaseModal(true);
@@ -410,8 +393,6 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <Notes
               showAddNoteModal={showAddNoteModal}
               setShowAddNoteModal={setShowAddNoteModal}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
               caseNotes={caseNotes}
               slug={slug}
               onNoteCreated={handleNoteCreated}
@@ -436,70 +417,20 @@ const CaseManagementDetailTemplate = ({ slug }) => {
             <div className={classes.headingDivDoc}>
               <h5>Case documents</h5>
               <div className={classes.docsHeaderRight}>
-              <div className={classes.docsMenuWrapper} ref={docsMenuRef}>
-                  <button
-                    type="button"
-                    className={classes.docsMenuTrigger}
-                    onClick={() => setDocsMenuOpen(!docsMenuOpen)}
-                    aria-label="Document options"
-                    aria-expanded={docsMenuOpen}
-                  >
-                    <RxDotsVertical size={24} color="#0D93FF" />
-                  </button>
-                  {docsMenuOpen && (
-                    <div className={classes.docsMenuDropdown}>
-                      <button
-                        type="button"
-                        className={classes.docsMenuOption}
-                        onClick={() => handleDocsMenuOptionClick("assign")}
-                      >
-                        Assign document
-                      </button>
-                      <button
-                        type="button"
-                        className={classes.docsMenuOption}
-                        onClick={() => handleDocsMenuOptionClick("upload")}
-                      >
-                        Upload document
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <SearchInput
-                  value={documentSearchValue}
-                  setValue={setDocumentSearchValue}
-                  placeholder="Search documents..."
+              <Button
+                  label="Assign document"
+                  variant="primary"
+                  leftIcon={<MdLink size={20} color="var(--white)" />}
+                  onClick={() => handleDocsMenuOptionClick("assign")}
+                  className={classes.uploadDocumentButton}
                 />
-                {/* Filter icon commented out */}
-                {/* <div className={classes.filterWrapper} ref={filterRef}>
-                  <div 
-                    role="button"
-                    tabIndex={0}
-                    className={`${classes.filterIcon} ${isFilterOverlayOpen ? classes.filterIconActive : ""}`} 
-                    onClick={handleFilterIconClick}
-                    onKeyDown={handleFilterIconKeyDown}
-                    aria-label="Filter options"
-                  >
-                    <BiFilterAlt size={20} color="var(--black)" />
-                  </div>
-                  {isFilterOverlayOpen && filterOptions.length > 0 && (
-                    <div className={classes.filterOverlay}>
-                      {filterOptions.map((option) => (
-                        <div
-                          key={option.label || `filter-${option.label}`}
-                          role="button"
-                          tabIndex={0}
-                          className={classes.filterOption}
-                          onClick={() => handleFilterOptionClick(option.onClick)}
-                          onKeyDown={(e) => handleFilterOptionKeyDown(e, option.onClick)}
-                          aria-label={`Filter by ${option.label}`}
-                        >
-                          {option.label}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div> */}
+                <Button
+                  label="Upload document"
+                  variant="secondary"
+                  leftIcon={<MdUpload size={20} color="var(--black)" />}
+                  onClick={() => handleDocsMenuOptionClick("upload")}
+                  className={classes.uploadDocumentButton}
+                />
               </div>
             </div>
             <div className={classes.docListContainer}>
