@@ -147,8 +147,7 @@ export const getStaffDashboardTableHeader = (options = {}) => {
     title: "Notes",
     key: "notes",
     style: { width: "15%" },
-    // renderItem: ({ item, data }) => <RenderNotes cellValue={data?.caseNotes} />,
-    renderItem: ({ item, data }) => <RenderNotes cellValue={"l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs "} />,
+    renderItem: ({ item, data }) => <RenderNotes cellValue={data?.caseNotes} />,
   },
   {
     title: "",

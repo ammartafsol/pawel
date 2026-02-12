@@ -15,17 +15,14 @@ import useAxios from "@/interceptor/axios-functions";
 import SpinnerLoading from "@/components/atoms/SpinnerLoading/SpinnerLoading";
 import LoadingSkeleton from "@/components/atoms/LoadingSkeleton/LoadingSkeleton";
 import moment from "moment";
-import useDebounce from "@/resources/hooks/useDebounce";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import { RECORDS_LIMIT } from "@/resources/utils/constant";
-import { calculateProgress } from "@/resources/utils/caseHelper";
+import { calculateProgress, findCurrentStatusPhase, findNextPhase } from "@/resources/utils/caseHelper";
 
 const AuditTrackingTemplate = () => {
   const router = useRouter();
   const { Get } = useAxios();
-  const [searchValue, setSearchValue] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState(reactActivities[0]);
-  const debouncedSearchValue = useDebounce(searchValue, 500);
   const [loading, setLoading] = useState("");
   const [kpiData, setKpiData] = useState(null);
   const [caseProgressData, setCaseProgressData] = useState([]);
@@ -113,17 +110,30 @@ const AuditTrackingTemplate = () => {
     };
   };
 
-  // Transform activity data for table
-  const transformActivityData = (activityData) => ({
-    id: activityData._id,
-    client: activityData.client?.fullName || "Unknown Client",
-    slug: activityData.slug,
-    type: typeof activityData?.type === "object" ? activityData.type?.name : "Unknown Type",
-    trademarkName: activityData?.trademarkName || "Unknown TrademarkName",
-    trademarkNumber: activityData?.trademarkNumber || "Unknown TrademarkNumber",
-    internalDeadline: activityData?.deadlines?.[activityData?.deadlines?.length - 1]?.deadline || null,
-    officeDeadline: activityData?.deadlines?.[activityData?.deadlines?.length - 1]?.officeActionDeadline || null,
-  });
+  // Transform activity data for table (same shape as dashboard for status, next phase, notes)
+  const transformActivityData = (activityData) => {
+    const lastDeadline = activityData?.deadlines?.[activityData?.deadlines?.length - 1] ?? {};
+    const currentPhase = findCurrentStatusPhase(activityData);
+    const nextPhase = findNextPhase(activityData);
+
+    return {
+      id: activityData._id,
+      client: activityData.client?.fullName || "Unknown Client",
+      slug: activityData.slug,
+      type: typeof activityData?.type === "object" ? activityData.type?.name : "Unknown Type",
+      trademarkName: activityData?.trademarkName || "Unknown TrademarkName",
+      trademarkNumber: activityData?.trademarkNumber || "Unknown TrademarkNumber",
+      internalDeadline: lastDeadline.deadline ?? null,
+      officeDeadline: lastDeadline.officeActionDeadline ?? null,
+      status: currentPhase.name,
+      phaseBgColor: currentPhase.bgColor,
+      phaseColor: currentPhase.color,
+      nextPhaseName: nextPhase?.name ?? "—",
+      nextPhaseBgColor: nextPhase?.bgColor ?? "#f5f5f5",
+      nextPhaseColor: nextPhase?.color ?? "#000000",
+      caseNotes: activityData?.caseNotes?.description ?? "",
+    };
+  };
 
 
   // Transform audit tracking to calendar events
@@ -172,7 +182,7 @@ const AuditTrackingTemplate = () => {
     setLoading("recentActivities");
     const { startDate, endDate } = getDateRange(currentView, currentDate);
     const queryParams = new URLSearchParams({
-      search: debouncedSearchValue || "",
+      search: "",
       type: selectedDropdownValue?.value || "",
       startDate,
       endDate,
@@ -208,6 +218,8 @@ const AuditTrackingTemplate = () => {
 
     
   };
+
+
 
   // Fetch KPI tracking data (without recent activities)
   const fetchKpiTrackingData = async () => {
@@ -321,7 +333,7 @@ const AuditTrackingTemplate = () => {
     }
     fetchRecentActivities(recentActivitiesPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchValue, selectedDropdownValue, recentActivitiesPage]);
+  }, [selectedDropdownValue, recentActivitiesPage]);
 
   // Reset page to 1 when search or dropdown changes
   useEffect(() => {
@@ -330,7 +342,7 @@ const AuditTrackingTemplate = () => {
     }
     setRecentActivitiesPage(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchValue, selectedDropdownValue]);
+  }, [selectedDropdownValue]);
 
   // Handle calendar event click
   const handleEventClick = (event) => {
@@ -424,8 +436,7 @@ const AuditTrackingTemplate = () => {
                 viewButtonText="View All"
                 onClickViewAll={() => router.push("/staff/case-management")}
                 title="Recent Activities"
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
+                hideSearch
               />
             }
             contentClassName={classes.contentClassName}
