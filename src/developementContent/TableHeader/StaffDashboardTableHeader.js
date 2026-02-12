@@ -1,4 +1,4 @@
-import { RenderTextCell, RenderNotes } from "@/components/organisms/ResponsiveTable/CommonCells";
+import { RenderTextCell, RenderNotes, RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
 import moment from "moment";
 import { FiEdit } from "react-icons/fi";
