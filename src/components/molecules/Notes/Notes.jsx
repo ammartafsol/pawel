@@ -6,30 +6,20 @@ import { RxDotsVertical } from "react-icons/rx";
 import { usePathname } from "next/navigation";
 import Button from "@/components/atoms/Button";
 import { MdAddCircle } from "react-icons/md";
-import SearchInput from "@/components/atoms/SearchInput/SearchInput";
 import AddNoteModal from "@/components/organisms/Modals/AddNoteModal/AddNoteModal";
 import useAxios from "@/interceptor/axios-functions";
 import { FiEdit } from "react-icons/fi";
 import NoDataFound from "@/components/atoms/NoDataFound/NoDataFound";
 import VisibilityBadge from "@/components/atoms/VisibilityBadge/VisibilityBadge";
 
-const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteModal, caseNotes = [], slug, onNoteCreated, onNoteUpdated }) => {
+const Notes = ({ showAddNoteModal, setShowAddNoteModal, caseNotes = [], slug, onNoteCreated, onNoteUpdated }) => {
   const pathname = usePathname();
 
   const { Post, Patch } = useAxios();
   const [loading, setLoading] = useState("");
   const [editingNote, setEditingNote] = useState(null);
 
-  
-  // Filter notes based on search value
-  const filteredNotes = useMemo(() => {
-    if (!searchValue) return caseNotes;
-    const searchLower = searchValue.toLowerCase();
-    return caseNotes.filter(note => 
-      note.title?.toLowerCase().includes(searchLower) ||
-      note.description?.toLowerCase().includes(searchLower)
-    );
-  }, [caseNotes, searchValue]);
+
 
   const formatNoteDate = (dateString) => {
     if (!dateString) return { date: "", time: "" };
@@ -89,29 +79,30 @@ const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMo
 
   return (
     <div className={`${classes.notesWrapper}`}>
-      {/* Header with Add Note button and Search - shown once */}
+            {/* Header with Add Note button - only when there are no notes yet */}
+
       {pathname.includes('case-management') && (
         <div className={`${classes.notesHeader} ${classes.gapTop}`}>
           <h5>Notes</h5>
-          <div className={classes.notesHeaderRight}>
-            <Button 
-              label="Add a note" 
-              className={classes.addNoteButton} 
-              leftIcon={<MdAddCircle color="var(--white)" size={20} />}
-              onClick={() => setShowAddNoteModal?.(true)}
-            />
-            <SearchInput value={searchValue} setValue={setSearchValue} inputClass={classes.inputClass} />
-          </div>
+          {caseNotes.length === 0 && (
+            <div className={classes.notesHeaderRight}>
+              <Button 
+                label="Add a note" 
+                className={classes.addNoteButton} 
+                leftIcon={<MdAddCircle color="var(--white)" size={20} />}
+                onClick={() => setShowAddNoteModal?.(true)}
+              />
+            </div>
+          )}
         </div>
       )}
 
       {/* Notes List */}
-      {filteredNotes.length > 0 ? (
-        <div className={classes.notesList}>
-          {filteredNotes.map((note) => {
-            const { date, time } = formatNoteDate(note.createdAt);
-            return (
-              <div key={note._id} className={classes.notesContainer}>
+      {caseNotes.length > 0 ? (
+        caseNotes.map((note) => {
+          const { date, time } = formatNoteDate(note.createdAt);
+          return (
+            <div key={note._id} className={classes.notesContainer}>
               <div className={classes.notesHeader}>
                 <h4>{note.title || "Untitled Note"}</h4>
                 {pathname.includes("case-management") ? (
@@ -120,7 +111,7 @@ const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMo
                     className={classes.editIconButton}
                     onClick={() => {
                       setEditingNote(note);
-                      setShowAddNoteModal(true);
+                      setShowAddNoteModal?.(true);
                     }}
                     aria-label="Edit note"
                   >
@@ -139,10 +130,9 @@ const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMo
                   className={classes.visibilityBadgesContainer}
                 />
               </div>
-              </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })
       ) : (
         <NoDataFound className={classes.noDataFound} text="No notes found" />
       )}
@@ -151,10 +141,7 @@ const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMo
         loading={loading}
         setShow={(show) => {
           setShowAddNoteModal(show);
-          if (!show) {
-            setSearchValue("");
-            setEditingNote(null);
-          }
+          if (!show) setEditingNote(null);
         }}
         handleSubmit={editingNote ? handleEditSubmit : handleSubmit}
         isEditMode={!!editingNote}
@@ -165,8 +152,6 @@ const Notes = ({ searchValue, setSearchValue, showAddNoteModal, setShowAddNoteMo
 };
 
 Notes.propTypes = {
-  searchValue: PropTypes.string,
-  setSearchValue: PropTypes.func.isRequired,
   showAddNoteModal: PropTypes.bool,
   setShowAddNoteModal: PropTypes.func.isRequired,
   caseNotes: PropTypes.arrayOf(
@@ -184,7 +169,6 @@ Notes.propTypes = {
 };
 
 Notes.defaultProps = {
-  searchValue: "",
   showAddNoteModal: false,
   caseNotes: [],
   onNoteUpdated: undefined,

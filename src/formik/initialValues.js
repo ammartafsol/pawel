@@ -35,7 +35,7 @@ export const createNewCaseFormValues = {
   reference: [],
   trademarkName: "",
   trademarkNumber: "",
-  deadlines: [{ internalDeadline: "", officeDeadline: "" }],
+  deadlines: [{ internalDeadline: "", officeDeadline: "", optional: false }],
 };
 
 export const addNoteFormValues = {

@@ -40,12 +40,6 @@ export const CreateNewCaseSchema = Yup.object({
   trademarkName: Yup.string().required("Trademark Name is required"),
   trademarkNumber: Yup.string().required("Trademark Number is required"),
   jurisdiction: Yup.string().required("Jurisdiction is required"),
-  deadlines: Yup.array().of(
-    Yup.object({
-      internalDeadline: Yup.string().required("Internal deadline date is required"),
-      officeDeadline: Yup.string().required("Office deadline date is required"),
-    })
-  ).min(1, "At least one deadline is required"),
   primaryStaff: Yup.string().required("Primary Staff is required"),
 });
 

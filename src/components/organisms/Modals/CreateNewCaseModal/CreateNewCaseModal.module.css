@@ -209,11 +209,67 @@
 }
 
 .deadlineItem {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
 }
+
+
+.deadlineStatusCell {
+  flex-shrink: 0;
+  min-width: 72px;
+  padding-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-helvetica-neue), sans-serif;
+  color: var(--charcoal-grey, #5c5c5c);
+}
+
+.deadlineStatusCell[data-status="Current"] {
+  color: var(--midnight-steel, #183053);
+  font-weight: 600;
+}
+
+.deadlineStatusCell[data-status="Completed"] {
+  color: var(--storm-grey, #87878e);
+}
+
+.deadlineStatusCell[data-status="Upcoming"] {
+  color: var(--charcoal-grey, #5c5c5c);
+}
+
+.deadlineRowFields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.deadlineInputsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1;
+  min-width: 0;
+}
+
+.deadlineRowActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.optionalCheckbox {
+  margin: 0;
+}
+
+
+
 
 .removeDeadlineButton {
     height: 40px !important;
