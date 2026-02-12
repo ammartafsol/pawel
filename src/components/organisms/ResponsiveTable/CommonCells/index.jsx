@@ -3,6 +3,20 @@ import clsx from "clsx";
 import moment from "moment";
 import classes from "./CommonCells.module.css";
 
+const NOTES_PREVIEW_LENGTH = 35;
+
+export const RenderNotes = ({ cellValue: item }) => {
+  const full = item ? getFormattedParams(item.toString()) : "";
+  const display = full || "—";
+  const preview = typeof full === "string" && full.length > NOTES_PREVIEW_LENGTH
+    ? `${full.slice(0, NOTES_PREVIEW_LENGTH)}....`
+    : display;
+  return (
+    <span title={display} className={clsx(classes.notesCell)}>
+      {preview}
+    </span>
+  );
+};
 
 export const RenderTextCell = ({ cellValue: item, bold = false }) => {
   return (

@@ -43,6 +43,16 @@
   font-size: var(--fs14);
 }
 
+/* Notes cell: fixed width, single-line truncation (maxLine1) */
+.notesCell {
+  display: block;
+  width: 300px;
+  min-width: 0;
+  font-family: var(--font-inter);
+  color: var(--industrial-gray);
+  font-size: var(--fs14);
+}
+
 .bold {
   font-weight: 600;
   color: var(--deep-teal);

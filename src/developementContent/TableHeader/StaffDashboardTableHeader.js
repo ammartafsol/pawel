@@ -1,14 +1,14 @@
-import { RenderTextCell } from "@/components/organisms/ResponsiveTable/CommonCells";
+import { RenderTextCell, RenderNotes } from "@/components/organisms/ResponsiveTable/CommonCells";
 import Link from "next/link";
 import moment from "moment";
 import { FiEdit } from "react-icons/fi";
 
 /**
- * @param {{ onEditDeadline?: (slug: string) => void, hasUpdateCasePermission?: boolean }} options
+ * @param {{ onEditDeadline?: (slug: string) => void, hasUpdateCasePermission?: boolean, viewDetailsBasePath?: string }} options
  * @returns table header column config
  */
 export const getStaffDashboardTableHeader = (options = {}) => {
-  const { onEditDeadline, hasUpdateCasePermission = false } = options;
+  const { onEditDeadline, hasUpdateCasePermission = false, viewDetailsBasePath = "/case-management" } = options;
 
   return [
   {
@@ -40,59 +40,59 @@ export const getStaffDashboardTableHeader = (options = {}) => {
       );
     },
   },
-  {
-    title: "Internal Deadline",
-    key: "internalDeadline",
-    style: { width: "15%" },
-    renderItem: ({ item, data }) => {
-      const dateDisplay =
-        !item || item === "Unknown Internal Deadline" || item === "Unknown Office Deadline"
-          ? "—"
-          : moment.utc(item).format("MMMM DD, YYYY");
-      const slug = data?.slug;
-      const canEdit = hasUpdateCasePermission && onEditDeadline && slug;
-
-      return (
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "nowrap" }}>
-          <span style={{ flex: "1", minWidth: 0 }}>{dateDisplay}</span>
-          {canEdit && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditDeadline(slug);
-              }}
-              aria-label="Edit deadlines"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 28,
-                height: 28,
-                padding: 0,
-                border: "none",
-                borderRadius: "4px",
-                background: "var(--sky-blue, #0D93FF)",
-                color: "#fff",
-                cursor: "pointer",
-                flexShrink: 0,
-              }}
-            >
-              <FiEdit size={14} />
-            </button>
-          )}
-        </div>
-      );
-    },
-  },
   // {
-  //   title: "Office Deadline",
-  //   key: "officeDeadline",
+  //   title: "Internal Deadline",
+  //   key: "internalDeadline",
   //   style: { width: "15%" },
-  //   renderItem: ({ item }) => {
-  //     return <RenderDateCell cellValue={item} />;
+  //   renderItem: ({ item, data }) => {
+  //     const dateDisplay =
+  //       !item || item === "Unknown Internal Deadline" || item === "Unknown Office Deadline"
+  //         ? "—"
+  //         : moment.utc(item).format("MMMM DD, YYYY");
+  //     const slug = data?.slug;
+  //     const canEdit = hasUpdateCasePermission && onEditDeadline && slug;
+
+  //     return (
+  //       <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "nowrap" }}>
+  //         <span style={{ flex: "1", minWidth: 0 }}>{dateDisplay}</span>
+  //         {canEdit && (
+  //           <button
+  //             type="button"
+  //             onClick={(e) => {
+  //               e.stopPropagation();
+  //               onEditDeadline(slug);
+  //             }}
+  //             aria-label="Edit deadlines"
+  //             style={{
+  //               display: "inline-flex",
+  //               alignItems: "center",
+  //               justifyContent: "center",
+  //               width: 28,
+  //               height: 28,
+  //               padding: 0,
+  //               border: "none",
+  //               borderRadius: "4px",
+  //               background: "var(--sky-blue, #0D93FF)",
+  //               color: "#fff",
+  //               cursor: "pointer",
+  //               flexShrink: 0,
+  //             }}
+  //           >
+  //             <FiEdit size={14} />
+  //           </button>
+  //         )}
+  //       </div>
+  //     );
   //   },
   // },
+  {
+    title: "Office Deadline",
+    key: "officeDeadline",
+    style: { width: "15%" },
+    renderItem: ({ item }) => {
+      return <RenderDateCell cellValue={item} />;
+    },
+  },
   {
     title: "Status",
     key: "status",
@@ -144,13 +144,22 @@ export const getStaffDashboardTableHeader = (options = {}) => {
     },
   },
   {
-    title:"",
-    key:"slug",
+    title: "Notes",
+    key: "notes",
+    style: { width: "15%" },
+    // renderItem: ({ item, data }) => <RenderNotes cellValue={data?.caseNotes} />,
+    renderItem: ({ item, data }) => <RenderNotes cellValue={"l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs l dsa dsa fdrwe fds r3e gfduil usdn fsd dsf sduf us suf uafs "} />,
+  },
+  {
+    title: "",
+    key: "slug",
     style: { width: "15%" },
     renderItem: ({ item }) => {
-      return <Link href={`/case-management/${item}`} style={{ color: "#1F5CAE",borderBottom: "1px solid #1F5CAE" }}>
-        View Details
-      </Link>;
+      return (
+        <Link href={`${viewDetailsBasePath}/${item}`}>
+          View Details
+        </Link>
+      );
     },
   },
   ];
