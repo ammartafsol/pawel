@@ -41,11 +41,10 @@ const GenerateTicketModal = ({ show, setShow }) => {
 
 
   useEffect(() => {
- 
     if (show) {
       fetchCategories();
     }
-  }, []);
+  }, [show]);
 
   // Reset form when modal closes
   useEffect(() => {
