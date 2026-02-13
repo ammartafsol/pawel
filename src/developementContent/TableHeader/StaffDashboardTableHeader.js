@@ -40,51 +40,51 @@ export const getStaffDashboardTableHeader = (options = {}) => {
       );
     },
   },
-  // {
-  //   title: "Internal Deadline",
-  //   key: "internalDeadline",
-  //   style: { width: "15%" },
-  //   renderItem: ({ item, data }) => {
-  //     const dateDisplay =
-  //       !item || item === "Unknown Internal Deadline" || item === "Unknown Office Deadline"
-  //         ? "—"
-  //         : moment.utc(item).format("MMMM DD, YYYY");
-  //     const slug = data?.slug;
-  //     const canEdit = hasUpdateCasePermission && onEditDeadline && slug;
+  {
+    title: "Internal Deadline",
+    key: "internalDeadline",
+    style: { width: "15%" },
+    renderItem: ({ item, data }) => {
+      const dateDisplay =
+        !item || item === "Unknown Internal Deadline" || item === "Unknown Office Deadline"
+          ? "—"
+          : moment.utc(item).format("MMMM DD, YYYY");
+      const slug = data?.slug;
+      const canEdit = hasUpdateCasePermission && onEditDeadline && slug;
 
-  //     return (
-  //       <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "nowrap" }}>
-  //         <span style={{ flex: "1", minWidth: 0 }}>{dateDisplay}</span>
-  //         {canEdit && (
-  //           <button
-  //             type="button"
-  //             onClick={(e) => {
-  //               e.stopPropagation();
-  //               onEditDeadline(slug);
-  //             }}
-  //             aria-label="Edit deadlines"
-  //             style={{
-  //               display: "inline-flex",
-  //               alignItems: "center",
-  //               justifyContent: "center",
-  //               width: 28,
-  //               height: 28,
-  //               padding: 0,
-  //               border: "none",
-  //               borderRadius: "4px",
-  //               background: "var(--sky-blue, #0D93FF)",
-  //               color: "#fff",
-  //               cursor: "pointer",
-  //               flexShrink: 0,
-  //             }}
-  //           >
-  //             <FiEdit size={14} />
-  //           </button>
-  //         )}
-  //       </div>
-  //     );
-  //   },
-  // },
+      return (
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "nowrap" }}>
+          <span style={{ flex: "1", minWidth: 0 }}>{dateDisplay}</span>
+          {canEdit && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditDeadline(slug);
+              }}
+              aria-label="Edit deadlines"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 28,
+                height: 28,
+                padding: 0,
+                border: "none",
+                borderRadius: "4px",
+                background: "var(--sky-blue, #0D93FF)",
+                color: "#fff",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+            >
+              <FiEdit size={14} />
+            </button>
+          )}
+        </div>
+      );
+    },
+  },
   {
     title: "Office Deadline",
     key: "officeDeadline",

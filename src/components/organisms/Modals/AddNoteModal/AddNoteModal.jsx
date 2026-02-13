@@ -38,7 +38,7 @@ const AddNoteModal = ({ show, loading, setShow, handleSubmit, isEditMode = false
     if (!show && loading !== "loading") {
       formik.resetForm();
     }
-    if (show && isEditMode && initialData) {
+    if (show && isEditMode && initialData && loading !== "loading") {
       formik.setValues({
         noteTitle: initialData.title || "",
         description: initialData.description || "",

@@ -19,7 +19,6 @@ import moment from "moment";
 import { findCurrentStatusPhase, findNextPhase } from "@/resources/utils/caseHelper";
 import CalendarEventDetailModal from "@/components/organisms/Modals/CalendarEventDetailModal/CalendarEventDetailModal";
 import { useSelector } from "react-redux";
-import { capitalizeFirstWord } from "@/resources/utils/helper";
 import { RenderDateCell } from "@/components/organisms/ResponsiveTable/CommonCells";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,11 +26,18 @@ import "@/app/styles/react-datepicker-inline-deadline.css";
 import RenderToast from "@/components/atoms/RenderToast";
 import { Loader } from "@/components/atoms/Loader";
 import Link from "next/link";
+import AddNoteModal from "@/components/organisms/Modals/AddNoteModal/AddNoteModal";
+import { capitalizeFirstWord, getFormattedParams } from "@/resources/utils/helper";
 
 const STAFF_CASE_MANAGEMENT_PATH = "/staff/case-management";
 
+const NOTES_PREVIEW_LENGTH = 35;
+
 const DashboardTemplate = () => {
   const [showCreateNewCaseModal, setShowCreateNewCaseModal] = useState(false);
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const [notesModalNote, setNotesModalNote] = useState(null);
+  const [notesModalLoading, setNotesModalLoading] = useState("");
   const [loading, setLoading] = useState(false);
   const [calendarLoading, setCalendarLoading] = useState(false);
   const [calendarEvents, setCalendarEvents] = useState([]);
@@ -101,6 +107,7 @@ const DashboardTemplate = () => {
       phaseBgColor: currentPhase.bgColor,
       phaseColor: currentPhase.color,
       caseNotes: activity?.caseNotes?.description ?? "",
+      caseNote: activity?.caseNotes ?? null,
       nextPhaseName: nextPhase?.name ?? "—",
       nextPhaseBgColor: nextPhase?.bgColor ?? "#f5f5f5",
       nextPhaseColor: nextPhase?.color ?? "#000000",
@@ -292,6 +299,26 @@ const DashboardTemplate = () => {
   const saveOfficeDeadlineDate = useCallback((slug, newDate) => saveDeadline(slug, newDate, "office"), [saveDeadline]);
   const saveNextPhaseDate = useCallback((slug, newDate) => saveDeadline(slug, newDate, "nextPhase"), [saveDeadline]);
 
+  const handleNotesSubmit = useCallback(async (values) => {
+    if (!notesModalNote?._id) return;
+    setNotesModalLoading("loading");
+    const { response } = await Patch({
+      route: `case-note/update/${notesModalNote._id}`,
+      data: {
+        title: values.noteTitle,
+        description: values.description,
+        permissions: values.permissible || [],
+      },
+      showAlert: true,
+    });
+    if (response) {
+      setShowNotesModal(false);
+      setNotesModalNote(null);
+      refreshDashboardRef.current();
+    }
+    setNotesModalLoading("");
+  }, [notesModalNote, Patch]);
+
   const renderDeadlineCellWithCalendar = useCallback(
     (item, slug, isEditing, onToggleEdit, onSave, calendarType) => {
       const currentDate = item ? new Date(item) : new Date();
@@ -322,17 +349,17 @@ const DashboardTemplate = () => {
               data-inline-deadline-calendar
               onClick={(e) => e.stopPropagation()}
             >
-              {showLoader && (
-                <div className={classes.deadlineSavingOverlay} aria-hidden="true">
-                  <Loader />
-                </div>
-              )}
               <ReactDatePicker
                 selected={isValidDate ? currentDate : new Date()}
                 onChange={(date) => date && onSave(slug, date)}
                 inline
                 disabled={savingDeadline}
               />
+              {showLoader && (
+                <div className={classes.deadlineSavingOverlay} aria-hidden="true">
+                  <Loader />
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -352,23 +379,23 @@ const DashboardTemplate = () => {
 
   const dashboardTableHeader = useMemo(() => {
     return baseTableHeader.map((col) => {
-      // if (col.key === "internalDeadline") {
-      //   return {
-      //     ...col,
-      //     renderItem: ({ item, data }) => {
-      //       const slug = data?.slug;
-      //       const isEditing = slug && editingDeadlineSlug === slug;
-      //       return renderDeadlineCellWithCalendar(
-      //         item,
-      //         slug,
-      //         isEditing,
-      //         handleEditDeadlineClick,
-      //         saveDeadlineDate,
-      //         "internal"
-      //       );
-      //     },
-      //   };
-      // }
+      if (col.key === "internalDeadline") {
+        return {
+          ...col,
+          renderItem: ({ item, data }) => {
+            const slug = data?.slug;
+            const isEditing = slug && editingDeadlineSlug === slug;
+            return renderDeadlineCellWithCalendar(
+              item,
+              slug,
+              isEditing,
+              handleEditDeadlineClick,
+              saveDeadlineDate,
+              "internal"
+            );
+          },
+        };
+      }
       if (col.key === "officeDeadline") {
         return {
           ...col,
@@ -382,6 +409,36 @@ const DashboardTemplate = () => {
               handleEditOfficeDeadlineClick,
               saveOfficeDeadlineDate,
               "office"
+            );
+          },
+        };
+      }
+      if (col.key === "notes") {
+        return {
+          ...col,
+          renderItem: ({ data }) => {
+            const full = data?.caseNotes ? getFormattedParams(data.caseNotes.toString()) : "";
+            const display = full || "—";
+            const preview = typeof full === "string" && full.length > NOTES_PREVIEW_LENGTH
+              ? `${full.slice(0, NOTES_PREVIEW_LENGTH)}....`
+              : display;
+            const canEdit = data?.caseNote?._id;
+            if (!canEdit) {
+              return <span className={classes.notesCellText} title={display}>{preview}</span>;
+            }
+            return (
+              <button
+                type="button"
+                className={classes.notesCellButton}
+                title={display}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setNotesModalNote(data.caseNote);
+                  setShowNotesModal(true);
+                }}
+              >
+                {preview}
+              </button>
             );
           },
         };
@@ -449,17 +506,17 @@ const DashboardTemplate = () => {
                     data-inline-deadline-calendar
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {savingDeadline && savingDeadlineType === "nextPhase" && (
-                      <div className={classes.deadlineSavingOverlay} aria-hidden="true">
-                        <Loader />
-                      </div>
-                    )}
                     <ReactDatePicker
                       selected={new Date()}
                       onChange={(date) => date && saveNextPhaseDate(slug, date)}
                       inline
                       disabled={savingDeadline}
                     />
+                    {savingDeadline && savingDeadlineType === "nextPhase" && (
+                      <div className={classes.deadlineSavingOverlay} aria-hidden="true">
+                        <Loader />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -626,6 +683,17 @@ const DashboardTemplate = () => {
         setShow={setShowEventModal}
         event={selectedEvent}
         routePrefix="/staff/case-management"
+      />
+      <AddNoteModal
+        show={showNotesModal}
+        loading={notesModalLoading}
+        setShow={(show) => {
+          setShowNotesModal(show);
+          if (!show) setNotesModalNote(null);
+        }}
+        handleSubmit={handleNotesSubmit}
+        isEditMode={!!notesModalNote}
+        initialData={notesModalNote ? { title: notesModalNote.title, description: notesModalNote.description, permissible: notesModalNote.permissions || notesModalNote.permissible } : null}
       />
     </div>
   );
