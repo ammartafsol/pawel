@@ -1,4 +1,4 @@
-import ProfileSettingTemplate from '@/components/Template/Staff/ProfileSettingTemplate'
+import ProfileSettingTemplate from '@/components/Template/User/ProfileSettingTemplate'
 import React from 'react'
 
 const page = () => {

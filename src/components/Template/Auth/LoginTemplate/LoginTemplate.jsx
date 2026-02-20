@@ -41,7 +41,7 @@ const LoginTemplate = () => {
         type: "success",
         message: "Login successful",
       });
-      response?.data?.user?.role === "staff" ? router.push("/staff") : router.push("/user");
+      router.push("/user");
       return;
     }
     setLoading("");

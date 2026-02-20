@@ -1,4 +1,4 @@
-import NotificationTemplate from '@/components/Template/Staff/NotificationTemplate'
+import NotificationTemplate from '@/components/Template/User/NotificationTemplate'
 import React from 'react'
 
 const page = () => {
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default page;
